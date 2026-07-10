@@ -1,0 +1,15 @@
+﻿<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="48" fill="#F7F2EA"/>
+  <rect x="190" y="70" width="820" height="610" rx="34" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <rect x="230" y="112" width="740" height="86" rx="24" fill="#2A211C"/>
+  <text x="270" y="166" fill="#D8B892" font-family="Montserrat, Arial" font-size="34" font-weight="900">Production Notes</text>
+  <g font-family="Montserrat, Arial" font-size="22" font-weight="800">
+    <rect x="250" y="250" width="300" height="58" rx="18" fill="#F7F2EA"/><text x="278" y="287" fill="#6F4E37">Prompt</text>
+    <rect x="650" y="250" width="300" height="58" rx="18" fill="#F7F2EA"/><text x="678" y="287" fill="#6F4E37">Model</text>
+    <rect x="250" y="338" width="300" height="58" rx="18" fill="#F7F2EA"/><text x="278" y="375" fill="#6F4E37">Seed</text>
+    <rect x="650" y="338" width="300" height="58" rx="18" fill="#F7F2EA"/><text x="678" y="375" fill="#6F4E37">Camera</text>
+    <rect x="250" y="426" width="300" height="58" rx="18" fill="#F7F2EA"/><text x="278" y="463" fill="#6F4E37">Voice</text>
+    <rect x="650" y="426" width="300" height="58" rx="18" fill="#F7F2EA"/><text x="678" y="463" fill="#6F4E37">Music</text>
+    <rect x="250" y="536" width="700" height="74" rx="22" fill="#D8B892" opacity="0.35"/><text x="278" y="582" fill="#2A211C">Result</text>
+  </g>
+</svg>

@@ -1,0 +1,31 @@
+﻿<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="48" fill="#F7F2EA"/>
+  <rect x="82" y="105" width="1036" height="540" rx="42" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <circle cx="190" cy="170" r="130" fill="#D8B892" opacity="0.18"/>
+  <g font-family="Montserrat, Arial" font-weight="900">
+    <text x="118" y="178" fill="#A67C52" font-size="18" letter-spacing="5">WORKFLOW DIAGRAM</text>
+    <text x="118" y="226" fill="#2A211C" font-size="44">Image to Video Prompt Framework</text>
+  </g>
+  <g transform="translate(120 332)">
+    <rect width="190" height="150" rx="28" fill="#2A211C"/>
+    <rect x="26" y="26" width="138" height="76" rx="16" fill="#F7F2EA"/>
+    <text x="54" y="128" fill="#D8B892" font-family="Montserrat, Arial" font-size="19" font-weight="900">IMAGE</text>
+  </g>
+  <path d="M334 407H448" stroke="#6F4E37" stroke-width="6" stroke-linecap="round"/>
+  <path d="M430 386L454 407L430 428" stroke="#6F4E37" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(470 332)">
+    <rect width="190" height="150" rx="28" fill="#F3E4D5" stroke="#E0CCB6"/>
+    <path d="M42 48H148M42 76H132M42 104H116" stroke="#6F4E37" stroke-width="8" stroke-linecap="round"/>
+    <text x="48" y="128" fill="#6F4E37" font-family="Montserrat, Arial" font-size="19" font-weight="900">PROMPT</text>
+  </g>
+  <path d="M684 407H798" stroke="#6F4E37" stroke-width="6" stroke-linecap="round"/>
+  <path d="M780 386L804 407L780 428" stroke="#6F4E37" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(820 332)">
+    <rect width="190" height="150" rx="28" fill="#6F4E37"/>
+    <circle cx="95" cy="73" r="34" fill="#F7F2EA" opacity="0.9"/>
+    <path d="M88 54L116 73L88 92V54Z" fill="#6F4E37"/>
+    <text x="43" y="128" fill="#F7F2EA" font-family="Montserrat, Arial" font-size="19" font-weight="900">AI VIDEO</text>
+  </g>
+  <rect x="440" y="545" width="320" height="48" rx="24" fill="#D8B892" opacity="0.35"/>
+  <text x="498" y="576" fill="#6F4E37" font-family="Montserrat, Arial" font-size="17" font-weight="900">OUTPUT READY</text>
+</svg>

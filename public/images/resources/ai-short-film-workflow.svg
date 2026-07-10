@@ -1,0 +1,16 @@
+﻿<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="48" fill="#F7F2EA"/>
+  <rect x="72" y="82" width="1056" height="586" rx="42" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <text x="118" y="156" fill="#A67C52" font-family="Montserrat, Arial" font-size="18" font-weight="900" letter-spacing="5">AI SHORT FILM</text>
+  <text x="118" y="212" fill="#2A211C" font-family="Montserrat, Arial" font-size="54" font-weight="900">Production Pipeline</text>
+  <path d="M160 408H1038" stroke="#E0CCB6" stroke-width="8" stroke-linecap="round"/>
+  <g font-family="Montserrat, Arial" font-weight="900" text-anchor="middle">
+    <circle cx="170" cy="408" r="45" fill="#6F4E37"/><text x="170" y="416" fill="#FFFDF8" font-size="18">01</text><text x="170" y="498" fill="#2A211C" font-size="20">Story</text>
+    <circle cx="315" cy="408" r="45" fill="#D8B892"/><text x="315" y="416" fill="#2A211C" font-size="18">02</text><text x="315" y="498" fill="#2A211C" font-size="20">Reference</text>
+    <circle cx="460" cy="408" r="45" fill="#6F4E37"/><text x="460" y="416" fill="#FFFDF8" font-size="18">03</text><text x="460" y="498" fill="#2A211C" font-size="20">Animation</text>
+    <circle cx="605" cy="408" r="45" fill="#D8B892"/><text x="605" y="416" fill="#2A211C" font-size="18">04</text><text x="605" y="498" fill="#2A211C" font-size="20">Voice</text>
+    <circle cx="750" cy="408" r="45" fill="#6F4E37"/><text x="750" y="416" fill="#FFFDF8" font-size="18">05</text><text x="750" y="498" fill="#2A211C" font-size="20">Music</text>
+    <circle cx="895" cy="408" r="45" fill="#D8B892"/><text x="895" y="416" fill="#2A211C" font-size="18">06</text><text x="895" y="498" fill="#2A211C" font-size="20">Edit</text>
+    <circle cx="1040" cy="408" r="45" fill="#6F4E37"/><text x="1040" y="416" fill="#FFFDF8" font-size="18">07</text><text x="1040" y="498" fill="#2A211C" font-size="20">Publish</text>
+  </g>
+</svg>

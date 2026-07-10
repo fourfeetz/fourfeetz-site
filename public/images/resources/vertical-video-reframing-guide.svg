@@ -1,0 +1,16 @@
+﻿<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="48" fill="#F7F2EA"/>
+  <rect x="78" y="78" width="1044" height="594" rx="42" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <text x="122" y="150" fill="#A67C52" font-family="Montserrat, Arial" font-size="18" font-weight="900" letter-spacing="5">REFRAMING GUIDE</text>
+  <text x="122" y="206" fill="#2A211C" font-family="Montserrat, Arial" font-size="52" font-weight="900">16:9 to 9:16</text>
+  <g font-family="Montserrat, Arial" font-weight="900" text-anchor="middle">
+    <rect x="136" y="318" width="410" height="230" rx="28" fill="#2A211C"/>
+    <rect x="190" y="364" width="302" height="138" rx="18" fill="#D8B892" opacity="0.8"/>
+    <text x="341" y="596" fill="#6F4E37" font-size="24">BEFORE / LANDSCAPE</text>
+    <path d="M588 433H708" stroke="#6F4E37" stroke-width="7" stroke-linecap="round"/>
+    <path d="M690 410L716 433L690 456" stroke="#6F4E37" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="778" y="282" width="172" height="306" rx="30" fill="#2A211C"/>
+    <rect x="812" y="326" width="104" height="218" rx="18" fill="#D8B892" opacity="0.8"/>
+    <text x="864" y="636" fill="#6F4E37" font-size="24">AFTER / VERTICAL</text>
+  </g>
+</svg>

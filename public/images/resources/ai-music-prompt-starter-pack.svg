@@ -1,0 +1,12 @@
+﻿<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="48" fill="#F7F2EA"/>
+  <rect x="76" y="86" width="1048" height="578" rx="42" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <text x="128" y="160" fill="#A67C52" font-family="Montserrat, Arial" font-size="18" font-weight="900" letter-spacing="5">AI MUSIC PROMPTS</text>
+  <text x="128" y="216" fill="#2A211C" font-family="Montserrat, Arial" font-size="54" font-weight="900">Starter Pack</text>
+  <g transform="translate(128 300)" font-family="Montserrat, Arial" font-weight="900">
+    <rect width="210" height="220" rx="28" fill="#2A211C"/><text x="40" y="72" fill="#D8B892" font-size="30">Suno</text><path d="M42 132C74 92 112 172 148 132S178 110 190 124" stroke="#D8B892" stroke-width="8" stroke-linecap="round"/>
+    <rect x="246" width="210" height="220" rx="28" fill="#F1E0CD"/><text x="286" y="72" fill="#6F4E37" font-size="30">Udio</text><path d="M288 132C320 92 358 172 394 132S424 110 436 124" stroke="#6F4E37" stroke-width="8" stroke-linecap="round"/>
+    <rect x="492" width="210" height="220" rx="28" fill="#2A211C"/><text x="532" y="72" fill="#D8B892" font-size="30">AIVA</text><path d="M534 132C566 92 604 172 640 132S670 110 682 124" stroke="#D8B892" stroke-width="8" stroke-linecap="round"/>
+    <rect x="738" width="210" height="220" rx="28" fill="#F1E0CD"/><text x="778" y="72" fill="#6F4E37" font-size="30">Cards</text><path d="M780 132C812 92 850 172 886 132S916 110 928 124" stroke="#6F4E37" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>

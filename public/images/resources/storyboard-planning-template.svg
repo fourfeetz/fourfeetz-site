@@ -1,0 +1,16 @@
+﻿<svg width="1200" height="750" viewBox="0 0 1200 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="750" rx="48" fill="#F7F2EA"/>
+  <rect x="78" y="70" width="1044" height="610" rx="38" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <text x="118" y="135" fill="#A67C52" font-family="Montserrat, Arial" font-size="18" font-weight="900" letter-spacing="5">STORYBOARD TEMPLATE</text>
+  <g transform="translate(118 178)">
+    <rect width="440" height="172" rx="24" fill="#2A211C"/>
+    <path d="M36 130L150 62L236 118L306 76L404 130" stroke="#D8B892" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="500" width="440" height="172" rx="24" fill="#F1E0CD"/>
+    <path d="M536 128L650 58L742 116L816 72L904 128" stroke="#6F4E37" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect y="226" width="440" height="172" rx="24" fill="#F1E0CD"/>
+    <path d="M36 354L150 286L236 342L306 300L404 354" stroke="#6F4E37" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="500" y="226" width="440" height="172" rx="24" fill="#2A211C"/>
+    <path d="M536 354L650 286L742 342L816 300L904 354" stroke="#D8B892" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="118" y="628" fill="#2A211C" font-family="Montserrat, Arial" font-size="36" font-weight="900">Four-frame cinematic layout</text>
+</svg>
