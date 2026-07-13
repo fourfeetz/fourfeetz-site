@@ -19,13 +19,6 @@ export const metadata: Metadata = {
   description:
     "FourFeetz Studios creates AI films, original characters, music, and creative production content for multi-platform storytelling.",
   metadataBase: new URL("https://www.fourfeetz.com"),
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.png", type: "image/png", sizes: "512x512" },
-    ],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-  },
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
