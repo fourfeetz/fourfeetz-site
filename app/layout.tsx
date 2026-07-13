@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   description:
     "FourFeetz Studios creates AI films, original characters, music, and creative production content for multi-platform storytelling.",
   metadataBase: new URL("https://www.fourfeetz.com"),
+  other: {
+    "google-adsense-account": "ca-pub-8793962309929245",
+  },
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
