@@ -17,7 +17,22 @@ export const metadata: Metadata = {
   },
   description:
     "FourFeetz Studios creates AI films, original characters, music, and creative production content for multi-platform storytelling.",
-  metadataBase: new URL("https://fourfeetz.com"),
+  metadataBase: new URL("https://www.fourfeetz.com"),
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: "FourFeetz Studios",
+    title: "FourFeetz Studios | AI Creative Studio",
+    description: "FourFeetz Studios creates AI films, original characters, music, and creative production content for multi-platform storytelling.",
+    url: "/",
+    images: [{ url: "/images/studio-hero.png", alt: "FourFeetz Studios AI Creative Studio" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FourFeetz Studios | AI Creative Studio",
+    description: "FourFeetz Studios creates AI films, original characters, music, and creative production content for multi-platform storytelling.",
+    images: ["/images/studio-hero.png"],
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
