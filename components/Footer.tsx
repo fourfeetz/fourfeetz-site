@@ -18,7 +18,7 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="border-t border-[#e6d8c8] bg-[#fffdf8] px-6 py-12">
-      <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[minmax(260px,0.55fr)_minmax(0,1.45fr)]">
         <div>
           <Image
             src="/images/ui/logos/fourfeetz-logo.png"
@@ -31,9 +31,9 @@ export default function Footer() {
             FourFeetz Studios creates original AI films, characters, music and creative knowledge.
           </p>
         </div>
-        <div className="flex flex-wrap gap-5 text-sm font-bold text-[#6f4e37] md:justify-end">
+        <div className="flex flex-wrap gap-x-4 gap-y-3 text-sm font-bold text-[#6f4e37] md:justify-end lg:flex-nowrap lg:gap-x-5">
           {footerLinks.map((item) => (
-            <Link key={item.href} href={item.href} className="hover:text-[#2b2119]">
+            <Link key={item.href} href={item.href} className="whitespace-nowrap hover:text-[#2b2119]">
               {item.label}
             </Link>
           ))}
