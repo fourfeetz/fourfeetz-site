@@ -1,0 +1,15 @@
+﻿<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="44" fill="#F7F2EA"/>
+  <rect x="80" y="74" width="1040" height="526" rx="38" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <text x="126" y="148" fill="#2A211C" font-family="Montserrat, Arial" font-size="44" font-weight="900">Music Production</text>
+  <rect x="126" y="206" width="948" height="210" rx="26" fill="#2A211C"/>
+  <path d="M168 312C194 252 220 372 246 312C272 252 298 372 324 312C350 252 376 372 402 312C428 252 454 372 480 312C506 252 532 372 558 312C584 252 610 372 636 312C662 252 688 372 714 312C740 252 766 372 792 312C818 252 844 372 870 312C896 252 922 372 948 312C974 252 1000 372 1026 312" stroke="#D8B892" stroke-width="10" stroke-linecap="round"/>
+  <rect x="126" y="462" width="210" height="66" rx="20" fill="#F6EBDD"/>
+  <rect x="370" y="462" width="210" height="66" rx="20" fill="#F6EBDD"/>
+  <rect x="614" y="462" width="210" height="66" rx="20" fill="#F6EBDD"/>
+  <rect x="858" y="462" width="216" height="66" rx="20" fill="#F6EBDD"/>
+  <circle cx="176" cy="495" r="18" fill="#6F4E37"/><rect x="212" y="486" width="86" height="18" rx="9" fill="#6F4E37" opacity="0.35"/>
+  <circle cx="420" cy="495" r="18" fill="#6F4E37"/><rect x="456" y="486" width="86" height="18" rx="9" fill="#6F4E37" opacity="0.35"/>
+  <circle cx="664" cy="495" r="18" fill="#6F4E37"/><rect x="700" y="486" width="86" height="18" rx="9" fill="#6F4E37" opacity="0.35"/>
+  <circle cx="908" cy="495" r="18" fill="#6F4E37"/><rect x="944" y="486" width="86" height="18" rx="9" fill="#6F4E37" opacity="0.35"/>
+</svg>

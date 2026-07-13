@@ -25,7 +25,7 @@ function PlaceholderThumb({ label }: { label: string }) {
 }
 
 export default function Home() {
-  const { lang, t } = useLanguage();
+  const { t } = useLanguage();
 
   return (
     <main>
@@ -108,8 +108,8 @@ export default function Home() {
           {insights.map((article) => (
             <article key={article.titleEn} className="rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
               <p className="text-sm font-black text-[#a67c52]">{article.category}</p>
-              <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{lang === "ko" ? article.titleKo : article.titleEn}</h3>
-              <p className="mt-3 text-[#76685d]">{lang === "ko" ? article.descKo : article.descEn}</p>
+              <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{article.titleEn}</h3>
+              <p className="mt-3 text-[#76685d]">{article.descEn}</p>
               <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-[#9a8775]">{article.readTime}</p>
             </article>
           ))}

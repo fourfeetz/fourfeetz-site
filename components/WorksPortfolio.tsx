@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import HeroIllustrationCard from "./HeroIllustrationCard";
 
-const videoSrc = "/images/works/haru-first-journey/haru.mp4";
 const posterSrc = "/images/works/haru-first-journey/hero.png";
 
 const synopsis =
@@ -89,43 +89,68 @@ function GalleryFrame({ title, image, className = "" }: { title: string; image: 
   );
 }
 
-export default function WorksPortfolio() {
+export default function WorksPortfolio({ heroImage = "/images/works-hero-v2.png" }: { heroImage?: string }) {
   const [activeImage, setActiveImage] = useState<(typeof gallery)[number] | null>(null);
 
   return (
     <main>
-      <section className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-        <div className="overflow-hidden rounded-[40px] border border-[#e6d8c8] bg-[#fffdf8] shadow-2xl shadow-[#6f4e37]/15">
-          <div className="relative aspect-[16/8.2] bg-black md:aspect-[16/7]">
-            <video
-              className="h-full w-full object-cover"
-              src={videoSrc}
-              poster={posterSrc}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-label="HARU First Journey featured AI short film"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#120d09]/85 via-[#120d09]/25 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 text-white md:bottom-10 md:left-10">
-              <p className="text-xs font-black uppercase tracking-[0.35em] text-[#ead8c0]">FEATURED FILM</p>
-              <h1 className="mt-3 text-4xl font-black tracking-tight md:text-7xl">HARU – First Journey</h1>
-              <p className="mt-3 text-lg font-semibold text-white/85">Original AI Short Film</p>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <Link href="#watch" className="rounded-full bg-white px-6 py-3 font-black text-[#2b2119] transition hover:bg-[#fff7ea]">▶ Watch Film</Link>
-                <Link href="#making" className="rounded-full border border-white/40 bg-white/10 px-6 py-3 font-black text-white backdrop-blur-md transition hover:bg-white/20">Behind the Scenes</Link>
-              </div>
-            </div>
+      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.35em] text-[#a67c52]">FEATURED FILM</p>
+          <h1 className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-7xl">HARU – First Journey</h1>
+          <p className="mt-3 text-lg font-semibold text-[#76685d]">Original AI Short Film</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <Link href="#watch" className="rounded-full bg-[#6f4e37] px-6 py-3 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29]">Watch Film</Link>
+            <Link href="#making" className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119]">Behind the Scenes</Link>
           </div>
         </div>
+        <HeroIllustrationCard src={heroImage} alt="FourFeetz film production and story illustration" priority />
       </section>
 
       <section id="watch" className="border-y border-[#eadfce] bg-white px-6 py-20">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-2xl shadow-[#6f4e37]/15">
+          <video src="/images/works/haru-first-journey/haru.mp4" poster={posterSrc} controls playsInline preload="metadata" className="aspect-video h-auto w-full object-contain" aria-label="Watch HARU - First Journey" />
+        </div>
+      </section>
+
+      <section className="px-6 py-20">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.8fr_1.2fr] md:items-start">
           <SectionHeader eyebrow="Story" title="Synopsis" />
           <p className="text-xl leading-9 text-[#76685d]">{synopsis}</p>
+        </div>
+      </section>
+
+      <section className="px-6 py-20">
+        <SectionHeader eyebrow="Creative Direction" title="Goals & Character Design" desc="A quiet film built around recognizable character identity, patient observation, and emotionally useful technology." />
+        <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2">
+          <article className="rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm">
+            <h3 className="text-2xl font-black text-[#2b2119]">Creative Goals</h3>
+            <p className="mt-4 leading-8 text-[#76685d]">Tell a complete emotional story in ninety seconds, preserve natural animal behavior, and let landscapes carry meaning without relying on heavy dialogue or spectacle.</p>
+          </article>
+          <article className="rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm">
+            <h3 className="text-2xl font-black text-[#2b2119]">Character Design</h3>
+            <p className="mt-4 leading-8 text-[#76685d]">HARU&apos;s cream-white coat, warm eyes, puppy proportions, and brown scarf form a compact visual system designed to remain readable across models, lenses, and lighting conditions.</p>
+          </article>
+        </div>
+      </section>
+
+      <section className="border-y border-[#eadfce] bg-white px-6 py-20">
+        <SectionHeader eyebrow="AI Production Pipeline" title="From Reference to Final Film" desc="Each stage produces an approved asset for the next, keeping creative decisions traceable and continuity manageable." />
+        <div className="mx-auto mt-8 grid max-w-7xl gap-4 md:grid-cols-3">
+          {[
+            { title: "Image Generation", desc: "Character sheets, environment references, and shot-specific stills establish identity, composition, and light before motion begins." },
+            { title: "Animation Workflow", desc: "Runway and Kling tests focus on one action and one camera move per shot, with approved final frames reused for continuity." },
+            { title: "Music Production", desc: "A restrained piano-and-guitar theme follows the emotional edit and leaves space for ambience and visual performance." },
+            { title: "Editing", desc: "CapCut assembles timing, sound, titles, reframing, and final delivery versions while preserving a clean 4K master." },
+            { title: "Quality Review", desc: "Every shot is checked for face, fur, scarf, lighting, screen direction, motion, and transition continuity." },
+            { title: "Publishing", desc: "The locked master becomes platform-specific cinema, vertical, captioned, and social editions without changing the story." },
+          ].map((item, index) => (
+            <article key={item.title} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm">
+              <p className="text-sm font-black text-[#a67c52]">{String(index + 1).padStart(2, "0")}</p>
+              <h3 className="mt-4 text-2xl font-black text-[#2b2119]">{item.title}</h3>
+              <p className="mt-3 leading-7 text-[#76685d]">{item.desc}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -225,4 +250,5 @@ export default function WorksPortfolio() {
     </main>
   );
 }
+
 

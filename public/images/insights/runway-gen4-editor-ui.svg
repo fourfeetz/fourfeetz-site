@@ -1,0 +1,19 @@
+﻿<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="44" fill="#F7F2EA"/>
+  <rect x="76" y="70" width="1048" height="535" rx="34" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <rect x="112" y="112" width="660" height="344" rx="26" fill="#2A211C"/>
+  <rect x="146" y="144" width="592" height="246" rx="20" fill="#F1E0CD"/>
+  <path d="M180 342L322 230L430 304L518 210L704 342" stroke="#6F4E37" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="112" y="486" width="660" height="52" rx="18" fill="#F3E4D5"/>
+  <rect x="140" y="505" width="156" height="14" rx="7" fill="#6F4E37"/>
+  <rect x="322" y="505" width="310" height="14" rx="7" fill="#D8B892"/>
+  <rect x="812" y="112" width="276" height="426" rx="26" fill="#F6EBDD" stroke="#E0CCB6"/>
+  <text x="844" y="164" fill="#2A211C" font-family="Montserrat, Arial" font-size="28" font-weight="900">AI Video Editor</text>
+  <rect x="844" y="204" width="196" height="18" rx="9" fill="#6F4E37" opacity="0.28"/>
+  <rect x="844" y="248" width="164" height="18" rx="9" fill="#6F4E37" opacity="0.18"/>
+  <rect x="844" y="318" width="210" height="74" rx="18" fill="#FFFDF8"/>
+  <circle cx="882" cy="355" r="20" fill="#6F4E37"/>
+  <path d="M878 344L894 355L878 366V344Z" fill="#FFFDF8"/>
+  <rect x="924" y="346" width="100" height="14" rx="7" fill="#D8B892"/>
+  <text x="112" y="636" fill="#A67C52" font-family="Montserrat, Arial" font-size="20" font-weight="900" letter-spacing="5">RUNWAY GEN-4 REVIEW</text>
+</svg>

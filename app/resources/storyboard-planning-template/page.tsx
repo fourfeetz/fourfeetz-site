@@ -1,9 +1,7 @@
-﻿import PageHero from "@/components/PageHero";
+import type { Metadata } from "next";
+import ResourceDetailPage from "@/components/ResourceDetailPage";
+import { getResource } from "@/lib/resourceDetails";
 
-export default function Page() {
-  return (
-    <main>
-      <PageHero eyebrow="Resource" title="Storyboard Planning Template" desc="Future resource page for scene planning, shot direction, sound, and transitions." />
-    </main>
-  );
-}
+const resource = getResource("storyboard-planning-template")!;
+export const metadata: Metadata = { title: "Storyboard Planning Template | FourFeetz Studios", description: resource.description, alternates: { canonical: "/resources/storyboard-planning-template" }, openGraph: { title: "Storyboard Planning Template | FourFeetz Studios", description: resource.description, images: [resource.image] }, twitter: { card: "summary_large_image", title: "Storyboard Planning Template | FourFeetz Studios", description: resource.description, images: [resource.image] } };
+export default function Page() { return <ResourceDetailPage resource={resource} />; }

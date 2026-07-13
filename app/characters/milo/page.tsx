@@ -1,19 +1,17 @@
-﻿import PageHero from "@/components/PageHero";
+import type { Metadata } from "next";
+import CharacterDetailPage from "@/components/CharacterDetailPage";
+import { getCharacter } from "@/lib/characterDetails";
 
-const characterDescriptions: Record<string, string> = {
-  HARU: "Jindo Puppy. Gentle, curious, and brave.",
-  PORI: "Poodle. Happy, playful, and full of energy.",
-  LUNA: "Norwegian Forest Cat. Calm, elegant, and a little mysterious.",
-  HUGO: "Highland Cattle. Gentle, warm-hearted, and always relaxed.",
-  OLI: "Otter. Curious, clever, and loves adventure.",
-  MILO: "Piglet. Playful, optimistic, and always hungry.",
+const character = getCharacter("milo")!;
+
+export const metadata: Metadata = {
+  title: "MILO | FourFeetz Characters",
+  description: character.story,
+  alternates: { canonical: "/characters/milo" },
+  openGraph: { title: "MILO | FourFeetz Characters", description: character.tagline, images: [`/images/characters/milo/portrait.png`] },
+  twitter: { card: "summary_large_image", title: "MILO | FourFeetz Characters", description: character.tagline, images: [`/images/characters/milo/portrait.png`] },
 };
 
 export default function Page() {
-  return (
-    <main>
-      <PageHero eyebrow="Original Character" title="MILO" desc={characterDescriptions.MILO} />
-    </main>
-  );
+  return <CharacterDetailPage character={character} />;
 }
-

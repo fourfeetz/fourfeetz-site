@@ -1,6 +1,8 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import MusicPlayer from "./MusicPlayer";
+import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 
 export const metadata: Metadata = {
   title: "Music | FourFeetz Studios",
@@ -8,12 +10,12 @@ export const metadata: Metadata = {
 };
 
 const tracks = [
-  { number: "1", title: "HARU Theme", duration: "2:14" },
-  { number: "2", title: "Morning Walk", duration: "1:46" },
-  { number: "3", title: "Country Road", duration: "2:08" },
-  { number: "4", title: "Golden Sunset", duration: "1:58" },
-  { number: "5", title: "Coming Home", duration: "2:26" },
-  { number: "6", title: "End Credits", duration: "1:41" },
+  { number: "1", slug: "haru-theme", title: "HARU Theme", duration: "2:14", audio: "/audio/haru/haru-theme.mp3" },
+  { number: "2", slug: "golden-summer-breeze", title: "Golden Summer Breeze", duration: "2:32", audio: "/audio/music/golden-summer-breeze.mp3" },
+  { number: "3", slug: "country-road", title: "Country Road", duration: "In Production" },
+  { number: "4", slug: "golden-sunset", title: "Golden Sunset", duration: "In Production" },
+  { number: "5", slug: "coming-home", title: "Coming Home", duration: "In Production" },
+  { number: "6", slug: "end-credits", title: "End Credits", duration: "In Production" },
 ];
 
 const tools = [
@@ -39,33 +41,34 @@ function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: strin
 export default function Page() {
   return (
     <main>
-      <section className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-        <SectionLabel>Original Soundtracks</SectionLabel>
-        <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">Music</h1>
-        <p className="mt-5 max-w-3xl text-2xl font-black leading-tight text-[#2b2119] md:text-4xl">
-          Original soundtracks created for the FourFeetz universe.
-        </p>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">
-          Every FourFeetz story begins with emotion. Music is written to support the journey, the atmosphere, and each unforgettable moment.
-        </p>
+      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
+        <div className="max-w-[900px]">
+          <SectionLabel>ORIGINAL SOUNDTRACKS</SectionLabel>
+          <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">Music</h1>
+          <p className="mt-5 max-w-3xl text-2xl font-black leading-tight text-[#2b2119] md:text-4xl">
+            Original soundtracks created for the FourFeetz universe.
+          </p>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">
+            Every FourFeetz story begins with emotion. Music is written to support the journey, the atmosphere, and each unforgettable moment.
+          </p>
+        </div>
+        <HeroIllustrationCard src="/images/music-hero-v2.png" alt="FourFeetz music studio with microphone headphones MIDI keyboard and speaker" priority />
       </section>
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20">
         <div className="mx-auto grid max-w-7xl gap-10 rounded-[40px] border border-[#eadfce] bg-[#fffdf8] p-6 shadow-xl shadow-[#6f4e37]/10 md:grid-cols-[0.82fr_1.18fr] md:items-center md:p-10">
           <div className="relative aspect-square overflow-hidden rounded-[32px] bg-[#f6ebdd] shadow-2xl shadow-[#6f4e37]/15">
-            <Image src="/images/works/haru-first-journey/hero.png" alt="HARU Theme album cover" fill priority sizes="(min-width: 768px) 38vw, 100vw" className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#2b2119]/35 via-transparent to-transparent" />
+            <Image src="/images/music/tracks/haru-theme.png" alt="HARU Theme album cover" fill priority sizes="(min-width: 768px) 38vw, 100vw" className="object-contain p-4" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#2b2119]/20 via-transparent to-transparent" />
           </div>
           <div className="p-2 md:p-6">
             <SectionLabel>Featured Soundtrack</SectionLabel>
             <h2 className="mt-4 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">HARU Theme</h2>
             <p className="mt-4 text-xl font-bold text-[#6f4e37]">Original Motion Picture Soundtrack</p>
             <p className="mt-3 text-lg font-bold text-[#9a8775]">2:14</p>
+            <MusicPlayer title="HARU Theme" src="/audio/haru/haru-theme.mp3" />
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="#tracks" className="rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
-                ▶ Play Preview
-              </Link>
-              <Link href="/works" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+              <Link href="/works/haru-first-journey" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
                 View Film
               </Link>
             </div>
@@ -80,10 +83,15 @@ export default function Page() {
             <article key={track.title} className="grid grid-cols-[40px_1fr_auto] items-center gap-4 rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[#6f4e37]/10">
               <p className="text-sm font-black text-[#a67c52]">{track.number}</p>
               <div className="flex items-center gap-3">
-                <span className="grid size-9 place-items-center rounded-full bg-[#f7f2ea] text-sm font-black text-[#6f4e37]" aria-hidden="true">▶</span>
-                <h3 className="text-xl font-black text-[#2b2119]">{track.title}</h3>
+                <span className="grid size-9 place-items-center rounded-full bg-[#f7f2ea] text-[10px] font-black uppercase text-[#6f4e37]" aria-hidden="true">Play</span>
+                <h3 className="text-xl font-black text-[#2b2119]"><Link href={`/music/${track.slug}`} className="transition hover:text-[#6f4e37]">{track.title}</Link></h3>
               </div>
-              <p className="text-sm font-bold text-[#9a8775]">{track.duration}</p>
+              <p className="text-sm font-bold text-[#9a8775]">{track.duration || ""}</p>
+              {track.audio ? (
+                <div className="col-span-full">
+                  <MusicPlayer title={track.title} src={track.audio} compact />
+                </div>
+              ) : null}
             </article>
           ))}
         </div>
@@ -120,11 +128,12 @@ export default function Page() {
         <article className="mx-auto max-w-7xl rounded-[40px] border border-[#eadfce] bg-white p-8 shadow-xl shadow-[#6f4e37]/10 md:p-12">
           <SectionLabel>Next Soundtrack</SectionLabel>
           <h2 className="mt-4 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">PORI Original Soundtrack</h2>
-          <p className="mt-4 text-xl font-black text-[#6f4e37]">Coming Soon</p>
+          <p className="mt-4 text-xl font-black text-[#6f4e37]">In Production</p>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-[#76685d]">The next musical journey is already in production.</p>
         </article>
       </section>
     </main>
   );
 }
+
 

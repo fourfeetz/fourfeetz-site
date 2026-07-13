@@ -1,0 +1,19 @@
+﻿<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="44" fill="#F7F2EA"/>
+  <rect x="72" y="74" width="500" height="500" rx="36" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <rect x="628" y="74" width="500" height="500" rx="36" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <text x="118" y="142" fill="#2A211C" font-family="Montserrat, Arial" font-size="34" font-weight="900">Interface A</text>
+  <text x="674" y="142" fill="#2A211C" font-family="Montserrat, Arial" font-size="34" font-weight="900">Interface B</text>
+  <rect x="118" y="184" width="408" height="220" rx="24" fill="#2A211C"/>
+  <rect x="674" y="184" width="408" height="220" rx="24" fill="#F1E0CD"/>
+  <circle cx="322" cy="294" r="54" fill="#D8B892" opacity="0.8"/>
+  <path d="M288 294H356" stroke="#FFFDF8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M844 246L978 348M978 246L844 348" stroke="#6F4E37" stroke-width="10" stroke-linecap="round"/>
+  <rect x="118" y="438" width="164" height="18" rx="9" fill="#6F4E37" opacity="0.3"/>
+  <rect x="118" y="476" width="294" height="18" rx="9" fill="#D8B892" opacity="0.8"/>
+  <rect x="674" y="438" width="164" height="18" rx="9" fill="#6F4E37" opacity="0.3"/>
+  <rect x="674" y="476" width="294" height="18" rx="9" fill="#D8B892" opacity="0.8"/>
+  <rect x="570" y="248" width="60" height="180" rx="30" fill="#6F4E37"/>
+  <text x="584" y="348" fill="#FFFDF8" font-family="Montserrat, Arial" font-size="28" font-weight="900">VS</text>
+  <text x="72" y="636" fill="#A67C52" font-family="Montserrat, Arial" font-size="20" font-weight="900" letter-spacing="5">AI VIDEO COMPARISON</text>
+</svg>

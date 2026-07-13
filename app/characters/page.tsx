@@ -12,7 +12,15 @@ export default function Page() {
 
   return (
     <main>
-      <PageHero eyebrow={page.eyebrow} title={page.title} desc={page.desc} />
+      <PageHero
+        eyebrow={page.eyebrow}
+        title={page.title}
+        desc={page.desc}
+        illustration={{
+          src: "/images/characters-hero-v2.png",
+          alt: "FourFeetz original character studio illustration",
+        }}
+      />
 
       <section className="px-6 pb-20">
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-3">

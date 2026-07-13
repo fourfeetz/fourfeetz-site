@@ -1,0 +1,14 @@
+﻿<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="44" fill="#F7F2EA"/>
+  <rect x="78" y="74" width="1044" height="526" rx="38" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <text x="122" y="146" fill="#2A211C" font-family="Montserrat, Arial" font-size="42" font-weight="900">Reframing Workflow</text>
+  <rect x="132" y="258" width="420" height="236" rx="28" fill="#2A211C"/>
+  <rect x="182" y="312" width="320" height="128" rx="18" fill="#D8B892" opacity="0.75"/>
+  <text x="258" y="544" fill="#6F4E37" font-family="Montserrat, Arial" font-size="24" font-weight="900">16:9 CINEMA</text>
+  <path d="M604 376H704" stroke="#6F4E37" stroke-width="8" stroke-linecap="round"/>
+  <path d="M684 350L712 376L684 402" stroke="#6F4E37" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="782" y="216" width="186" height="330" rx="32" fill="#2A211C"/>
+  <rect x="820" y="270" width="110" height="222" rx="20" fill="#D8B892" opacity="0.75"/>
+  <circle cx="875" cy="518" r="10" fill="#F7F2EA" opacity="0.9"/>
+  <text x="786" y="590" fill="#6F4E37" font-family="Montserrat, Arial" font-size="24" font-weight="900">9:16 MOBILE</text>
+</svg>

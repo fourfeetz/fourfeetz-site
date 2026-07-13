@@ -1,9 +1,2 @@
-﻿import PageHero from "@/components/PageHero";
-
-export default function Page() {
-  return (
-    <main>
-      <PageHero eyebrow="Resource" title="AI Video Workflow" desc="Future resource page for repeatable AI video production workflows." />
-    </main>
-  );
-}
+import { permanentRedirect } from "next/navigation";
+export default function Page() { permanentRedirect("/resources/ai-short-film-workflow"); }

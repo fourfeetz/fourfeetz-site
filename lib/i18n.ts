@@ -402,12 +402,12 @@ export const resources = [
 ];
 
 export const socialPlatforms = [
-  { name: "YouTube", href: "#", desc: "Films, studio logs, and long-form character episodes." },
-  { name: "TikTok", href: "#", desc: "Short experiments, character moments, and fast idea tests." },
-  { name: "Instagram", href: "#", desc: "Reels, stills, production frames, and brand storytelling." },
-  { name: "Naver", href: "#", desc: "Korean articles, workflows, and discoverable production notes." },
-  { name: "Threads", href: "#", desc: "Short updates, process notes, and creator conversations." },
-  { name: "X", href: "#", desc: "Studio updates, quick links, and AI production observations." },
+  { name: "YouTube", href: "/social#youtube", desc: "Films, studio logs, and long-form character episodes." },
+  { name: "TikTok", href: "/social#tiktok", desc: "Short experiments, character moments, and fast idea tests." },
+  { name: "Instagram", href: "/social#instagram", desc: "Reels, stills, production frames, and brand storytelling." },
+  { name: "Naver", href: "/social#naver", desc: "Korean articles, workflows, and discoverable production notes." },
+  { name: "Threads", href: "/social#threads", desc: "Short updates, process notes, and creator conversations." },
+  { name: "X", href: "/social#x", desc: "Studio updates, quick links, and AI production observations." },
 ];
 
 export const musicTracks = [

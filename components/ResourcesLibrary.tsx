@@ -1,5 +1,6 @@
-﻿import Image from "next/image";
+import Image from "next/image";
 import Link from "next/link";
+import HeroIllustrationCard from "./HeroIllustrationCard";
 
 const filters = ["All", "Prompts", "Workflows", "Templates", "Checklists", "Downloads", "AI Video", "AI Music", "Social Media"];
 
@@ -8,7 +9,6 @@ const featuredResource = {
   title: "The FourFeetz AI Video Production Workflow",
   desc: "A repeatable production system covering story planning, reference images, AI video generation, sound, editing, and multi-platform publishing.",
   meta: ["Free Guide", "Updated July 2026"],
-  image: "/images/works/haru-first-journey/hero.png",
   primaryHref: "/resources/ai-video-workflow",
   secondaryHref: "/resources/ai-short-film-workflow",
 };
@@ -98,10 +98,10 @@ const workflowSteps = [
 ];
 
 const downloads = [
-  "Prompt Cheat Sheet",
-  "Storyboard Template",
-  "Production Checklist",
-  "Social Publishing Checklist",
+  { title: "Prompt Cheat Sheet", href: "/downloads/character-consistency-prompt-pack.md" },
+  { title: "Storyboard Template", href: "/downloads/storyboard-planning-template.md" },
+  { title: "Production Checklist", href: "/downloads/character-production-checklist.md" },
+  { title: "Social Publishing Checklist", href: "/downloads/vertical-video-reframing-guide.md" },
 ];
 
 function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: string; desc?: string }) {
@@ -126,38 +126,36 @@ function ResourceThumbnail({ src, title }: { src: string; title: string }) {
 export default function ResourcesLibrary() {
   return (
     <main>
-      <section className="mx-auto max-w-7xl px-6 py-16 md:py-20">
-        <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">CREATOR TOOLKIT</p>
-        <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">Resources</h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">
-          Practical prompts, workflows, templates, and production materials for AI films, characters, music, and social content.
-        </p>
+      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">CREATOR TOOLKIT</p>
+          <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">Resources</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">
+            Practical prompts, workflows, templates, and production materials for AI films, characters, music, and social content.
+          </p>
+        </div>
+        <HeroIllustrationCard src="/images/resources-hero-v2.png" alt="FourFeetz creator toolkit with laptop workflow cards templates and checklist" priority />
       </section>
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20">
-        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[40px] border border-[#eadfce] bg-[#fffdf8] shadow-xl shadow-[#6f4e37]/10 md:grid-cols-[0.95fr_1.05fr]">
-          <div className="relative min-h-[300px] bg-[#fffaf4] md:min-h-[460px]">
-            <Image src={featuredResource.image} alt={featuredResource.title} fill priority sizes="(min-width: 768px) 48vw, 100vw" className="object-cover" />
+        <div className="mx-auto max-w-7xl rounded-[40px] border border-[#eadfce] bg-[#fffdf8] p-8 shadow-xl shadow-[#6f4e37]/10 md:p-12">
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#a67c52]">{featuredResource.category}</p>
+          <h2 className="mt-4 max-w-4xl text-4xl font-black leading-tight tracking-tight text-[#2b2119] md:text-5xl">{featuredResource.title}</h2>
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">{featuredResource.desc}</p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {featuredResource.meta.map((item) => (
+              <span key={item} className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#6f4e37]">
+                {item}
+              </span>
+            ))}
           </div>
-          <div className="flex flex-col justify-center p-8 md:p-12">
-            <p className="text-sm font-black uppercase tracking-[0.22em] text-[#a67c52]">{featuredResource.category}</p>
-            <h2 className="mt-4 text-4xl font-black leading-tight tracking-tight text-[#2b2119] md:text-5xl">{featuredResource.title}</h2>
-            <p className="mt-5 text-lg leading-8 text-[#76685d]">{featuredResource.desc}</p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {featuredResource.meta.map((item) => (
-                <span key={item} className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#6f4e37]">
-                  {item}
-                </span>
-              ))}
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href={featuredResource.primaryHref} className="rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
-                Open Guide
-              </Link>
-              <Link href={featuredResource.secondaryHref} className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
-                View Workflow
-              </Link>
-            </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link href={featuredResource.primaryHref} className="rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+              Open Guide
+            </Link>
+            <Link href={featuredResource.secondaryHref} className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+              View Workflow
+            </Link>
           </div>
         </div>
       </section>
@@ -212,12 +210,12 @@ export default function ResourcesLibrary() {
         <SectionHeader eyebrow="Downloads" title="Free Downloads" desc="Compact production files for planning, prompting, reviewing, and publishing AI creative work." />
         <div className="mx-auto mt-8 grid max-w-7xl gap-4 md:grid-cols-4">
           {downloads.map((download) => (
-            <article key={download} className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10">
+            <article key={download.title} className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10">
               <p className="text-sm font-black uppercase tracking-[0.18em] text-[#a67c52]">Download</p>
-              <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{download}</h3>
-              <Link href="#" aria-label={`Download ${download}`} className="mt-6 inline-flex rounded-full border border-[#6f4e37]/40 bg-white px-5 py-3 text-sm font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+              <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{download.title}</h3>
+              <a href={download.href} download aria-label={`Download ${download.title}`} className="mt-6 inline-flex rounded-full border border-[#6f4e37]/40 bg-white px-5 py-3 text-sm font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
                 Download
-              </Link>
+              </a>
             </article>
           ))}
         </div>
@@ -236,7 +234,7 @@ export default function ResourcesLibrary() {
             <Link href="/insights" className="rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
               Explore Insights
             </Link>
-            <Link href="/works" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+            <Link href="/works/haru-first-journey" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
               View Works
             </Link>
           </div>
@@ -245,6 +243,7 @@ export default function ResourcesLibrary() {
     </main>
   );
 }
+
 
 
 

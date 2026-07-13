@@ -2,24 +2,32 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 
 const haruVideoSrc = "/images/works/haru-first-journey/haru.mp4";
 const haruPosterSrc = "/images/works/haru-first-journey/hero.png";
 const mutePreferenceKey = "fourfeetz-hero-muted";
 
-function getInitialMutedPreference() {
-  if (typeof window === "undefined") return true;
-  const saved = window.localStorage.getItem(mutePreferenceKey);
-  return saved === "false" ? false : true;
-}
-
 function HeroVideoCard() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [mounted, setMounted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
-  const [isMuted, setIsMuted] = useState(getInitialMutedPreference);
+  const [isMuted, setIsMuted] = useState(true);
   const [videoFailed, setVideoFailed] = useState(false);
+  const displayMuted = mounted ? isMuted : true;
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      const saved = window.localStorage.getItem(mutePreferenceKey);
+      const nextMuted = saved === "false" ? false : true;
+      setIsMuted(nextMuted);
+      setMounted(true);
+      if (videoRef.current) videoRef.current.muted = nextMuted;
+    }, 0);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   function togglePlayback() {
     const video = videoRef.current;
@@ -38,7 +46,7 @@ function HeroVideoCard() {
   function toggleMute() {
     const nextMuted = !isMuted;
     setIsMuted(nextMuted);
-    window.localStorage.setItem(mutePreferenceKey, String(nextMuted));
+    if (mounted) window.localStorage.setItem(mutePreferenceKey, String(nextMuted));
     if (videoRef.current) videoRef.current.muted = nextMuted;
   }
 
@@ -60,7 +68,7 @@ function HeroVideoCard() {
           src={haruVideoSrc}
           poster={haruPosterSrc}
           autoPlay
-          muted={isMuted}
+          muted={displayMuted}
           loop
           playsInline
           preload="auto"
@@ -83,11 +91,11 @@ function HeroVideoCard() {
           </button>
           <button
             type="button"
-            aria-label={isMuted ? "Unmute HARU film" : "Mute HARU film"}
+            aria-label={displayMuted ? "Unmute HARU film" : "Mute HARU film"}
             onClick={toggleMute}
             className="grid h-10 min-w-10 place-items-center rounded-full bg-[#fff7ea] px-3 text-sm font-black text-[#6f4e37] shadow-sm transition hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c3ad]"
           >
-            {isMuted ? "Muted" : "Sound"}
+            {displayMuted ? "Muted" : "Sound"}
           </button>
         </div>
       ) : null}
@@ -111,7 +119,7 @@ export default function CinematicHero() {
           {t.home.desc}
         </p>
         <div className="mt-7 flex flex-wrap gap-4">
-          <Link href="/works" className="rounded-full bg-[#6f4e37] px-7 py-4 font-bold text-white shadow-lg transition hover:bg-[#573b29]">
+          <Link href="/works/haru-first-journey" className="rounded-full bg-[#6f4e37] px-7 py-4 font-bold text-white shadow-lg transition hover:bg-[#573b29]">
             {t.home.primary}
           </Link>
           <Link href="/blog" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-bold text-[#6f4e37] transition hover:border-[#6f4e37]">
@@ -131,4 +139,6 @@ export default function CinematicHero() {
     </section>
   );
 }
+
+
 

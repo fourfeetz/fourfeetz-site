@@ -1,9 +1,2 @@
-﻿import PageHero from "@/components/PageHero";
-
-export default function Page() {
-  return (
-    <main>
-      <PageHero eyebrow="Resource" title="Prompt Library" desc="Future resource page for reusable prompt systems." />
-    </main>
-  );
-}
+import { permanentRedirect } from "next/navigation";
+export default function Page() { permanentRedirect("/resources/image-to-video-prompt-framework"); }

@@ -1,0 +1,16 @@
+﻿<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="44" fill="#F7F2EA"/>
+  <rect x="78" y="92" width="1044" height="430" rx="38" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <text x="118" y="158" fill="#2A211C" font-family="Montserrat, Arial" font-size="44" font-weight="900">AI Video Workflow</text>
+  <path d="M155 346H1045" stroke="#E0CCB6" stroke-width="8" stroke-linecap="round"/>
+  <g font-family="Montserrat, Arial" font-weight="900" text-anchor="middle">
+    <circle cx="166" cy="346" r="46" fill="#6F4E37"/><text x="166" y="354" fill="#FFFDF8" font-size="17">01</text><text x="166" y="438" fill="#2A211C" font-size="20">Story</text>
+    <circle cx="344" cy="346" r="46" fill="#D8B892"/><text x="344" y="354" fill="#2A211C" font-size="17">02</text><text x="344" y="438" fill="#2A211C" font-size="20">Reference</text>
+    <circle cx="522" cy="346" r="46" fill="#6F4E37"/><text x="522" y="354" fill="#FFFDF8" font-size="17">03</text><text x="522" y="438" fill="#2A211C" font-size="20">Generate</text>
+    <circle cx="700" cy="346" r="46" fill="#D8B892"/><text x="700" y="354" fill="#2A211C" font-size="17">04</text><text x="700" y="438" fill="#2A211C" font-size="20">Sound</text>
+    <circle cx="878" cy="346" r="46" fill="#6F4E37"/><text x="878" y="354" fill="#FFFDF8" font-size="17">05</text><text x="878" y="438" fill="#2A211C" font-size="20">Edit</text>
+    <circle cx="1056" cy="346" r="46" fill="#D8B892"/><text x="1056" y="354" fill="#2A211C" font-size="17">06</text><text x="1056" y="438" fill="#2A211C" font-size="20">Publish</text>
+  </g>
+  <rect x="118" y="564" width="362" height="28" rx="14" fill="#6F4E37" opacity="0.16"/>
+  <rect x="118" y="610" width="560" height="18" rx="9" fill="#D8B892" opacity="0.55"/>
+</svg>

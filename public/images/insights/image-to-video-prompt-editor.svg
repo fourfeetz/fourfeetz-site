@@ -1,0 +1,14 @@
+﻿<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" rx="44" fill="#F7F2EA"/>
+  <rect x="88" y="70" width="1024" height="535" rx="38" fill="#FFFDF8" stroke="#EADFCC" stroke-width="2"/>
+  <text x="132" y="142" fill="#2A211C" font-family="Montserrat, Arial" font-size="42" font-weight="900">Prompt Editor</text>
+  <rect x="132" y="188" width="936" height="340" rx="26" fill="#2A211C"/>
+  <rect x="172" y="232" width="260" height="38" rx="14" fill="#D8B892"/>
+  <rect x="172" y="300" width="780" height="22" rx="11" fill="#FFFDF8" opacity="0.78"/>
+  <rect x="172" y="348" width="640" height="22" rx="11" fill="#FFFDF8" opacity="0.48"/>
+  <rect x="172" y="396" width="720" height="22" rx="11" fill="#FFFDF8" opacity="0.48"/>
+  <rect x="172" y="454" width="388" height="38" rx="14" fill="#6F4E37"/>
+  <rect x="590" y="454" width="266" height="38" rx="14" fill="#D8B892" opacity="0.72"/>
+  <rect x="900" y="232" width="118" height="38" rx="14" fill="#6F4E37" opacity="0.9"/>
+  <text x="132" y="574" fill="#A67C52" font-family="Montserrat, Arial" font-size="20" font-weight="900" letter-spacing="5">IMAGE TO VIDEO PROMPTS</text>
+</svg>
