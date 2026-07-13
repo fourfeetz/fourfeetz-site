@@ -122,7 +122,7 @@ export default function CinematicHero() {
           <Link href="/works/haru-first-journey" className="rounded-full bg-[#6f4e37] px-7 py-4 font-bold text-white shadow-lg transition hover:bg-[#573b29]">
             {t.home.primary}
           </Link>
-          <Link href="/blog" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-bold text-[#6f4e37] transition hover:border-[#6f4e37]">
+          <Link href="/insights" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-bold text-[#6f4e37] transition hover:border-[#6f4e37]">
             {t.home.secondary}
           </Link>
         </div>
