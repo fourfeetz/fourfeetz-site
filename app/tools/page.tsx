@@ -101,6 +101,9 @@ const tools: Tool[] = [
   },
 ];
 
+const featuredTool = tools[0]!;
+const standardTools = tools.slice(1);
+
 export default function ToolsPage() {
   return (
     <main>
@@ -122,8 +125,33 @@ export default function ToolsPage() {
             <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Production Toolkit</p>
             <h2 className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">Six tools in the real workflow.</h2>
           </div>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {tools.map((tool) => (
+          <article className="mt-10 rounded-[36px] border border-[#d8c3ad] bg-[#fffaf4] p-8 shadow-xl shadow-[#6f4e37]/10 md:p-10">
+            <div className="grid gap-8 md:grid-cols-[1.15fr_0.85fr] md:items-end">
+              <div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#6f4e37] text-base font-black text-white" aria-hidden="true">{featuredTool.mark}</div>
+                  <p className="rounded-full border border-[#cdb397] bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#6f4e37]">Most Used</p>
+                  <p className="rounded-full border border-[#dfcfbd] bg-white px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-[#a67c52]">{featuredTool.category}</p>
+                </div>
+                <h3 className="mt-7 text-3xl font-black tracking-tight text-[#2b2119] md:text-4xl">{featuredTool.name}</h3>
+                <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">{featuredTool.summary}</p>
+                <p className="mt-5 font-black leading-7 text-[#6f4e37]">Used every day to create HARU videos and FourFeetz productions.</p>
+              </div>
+              <div className="rounded-3xl border border-[#eadfce] bg-white p-6">
+                <p className="text-sm font-black text-[#2b2119]">How I use it</p>
+                <ul className="mt-3 space-y-3 text-sm text-[#76685d]">
+                  {featuredTool.uses.map((use) => <li key={use} className="flex gap-2"><span className="font-black text-[#a67c52]" aria-hidden="true">-</span><span>{use}</span></li>)}
+                </ul>
+                <p className="mt-6 text-xs font-bold text-[#8c7765]">Personally recommended based on daily production use.</p>
+                <p className="mt-2 text-xs leading-5 text-[#8c7765]">Referral link. FourFeetz may receive a reward or credit.</p>
+                <a href={featuredTool.href} target="_blank" rel="noopener noreferrer sponsored" className="mt-5 inline-flex rounded-full bg-[#6f4e37] px-8 py-4 text-lg font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+                  {featuredTool.button}
+                </a>
+              </div>
+            </div>
+          </article>
+          <div className="mt-8 grid gap-7 md:grid-cols-2 xl:grid-cols-3">
+            {standardTools.map((tool) => (
               <article key={tool.name} className="flex h-full flex-col rounded-[32px] border border-[#eadfce] bg-[#fffdf8] p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#6f4e37] text-sm font-black text-white" aria-hidden="true">{tool.mark}</div>
