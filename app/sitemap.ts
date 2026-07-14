@@ -59,6 +59,7 @@ const routes = [
   "/social",
   "/studio",
   "/terms",
+  "/tools",
   "/travel",
   "/works",
   "/works/haru-first-journey",

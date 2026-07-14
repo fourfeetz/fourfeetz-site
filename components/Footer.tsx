@@ -9,6 +9,7 @@ const footerLinks = [
   { href: "/insights", label: "Insights" },
   { href: "/resources", label: "Resources" },
   { href: "/studio", label: "Studio" },
+  { href: "/tools", label: "Tools I Use" },
   { href: "/about", label: "About" },
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
@@ -31,7 +32,7 @@ export default function Footer() {
             FourFeetz Studios creates original AI films, characters, music and creative knowledge.
           </p>
         </div>
-        <div className="flex flex-wrap gap-x-4 gap-y-3 text-sm font-bold text-[#6f4e37] md:justify-end lg:flex-nowrap lg:gap-x-5">
+        <div className="flex flex-wrap gap-x-4 gap-y-3 text-sm font-bold text-[#6f4e37] md:justify-end lg:flex-nowrap lg:gap-x-3">
           {footerLinks.map((item) => (
             <Link key={item.href} href={item.href} className="whitespace-nowrap hover:text-[#2b2119]">
               {item.label}
