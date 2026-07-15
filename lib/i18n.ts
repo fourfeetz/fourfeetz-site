@@ -4,7 +4,8 @@ export const dict = {
   en: {
     nav: {
       home: "Home",
-      works: "Works",
+      works: "Films",
+      shorts: "Shorts",
       characters: "Characters",
       music: "Music",
       insights: "Insights",
@@ -134,7 +135,8 @@ export const dict = {
   ko: {
     nav: {
       home: "Home",
-      works: "Works",
+      works: "Films",
+      shorts: "Shorts",
       characters: "Characters",
       music: "Music",
       insights: "Insights",
@@ -266,6 +268,7 @@ export const dict = {
 export const navItems = [
   { href: "/", key: "home" },
   { href: "/works", key: "works" },
+  { href: "/shorts", key: "shorts" },
   { href: "/characters", key: "characters" },
   { href: "/music", key: "music" },
   { href: "/insights", key: "insights" },

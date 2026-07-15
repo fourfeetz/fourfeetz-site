@@ -7,7 +7,7 @@ import HeroIllustrationCard from "./HeroIllustrationCard";
 
 const mainFilm = {
   title: "HARU — First Journey",
-  src: "/videos/haru/haru-first-journey.mp4",
+  src: "/videos/films/haru/haru-first-journey.mp4",
   poster: "/images/works/haru-first-journey/video-thumbnails/haru-first-journey.jpg",
 };
 
@@ -15,13 +15,13 @@ const moreVideos = [
   {
     title: "Window Scene",
     description: "HARU quietly enjoys the countryside while looking through the open window.",
-    src: "/videos/haru/haru-window-scene.mp4",
+    src: "/videos/films/haru/haru-window-scene.mp4",
     poster: "/images/works/haru-first-journey/video-thumbnails/haru-window-scene.jpg",
   },
   {
     title: "First Step Toward Home",
     description: "HARU takes the first step into a new home, marking the beginning of the journey.",
-    src: "/videos/haru/haru_steps_toward_house.mp4",
+    src: "/videos/films/haru/haru_steps_toward_house.mp4",
     poster: "/images/works/haru-first-journey/video-thumbnails/haru-steps-toward-house.jpg",
   },
 ];

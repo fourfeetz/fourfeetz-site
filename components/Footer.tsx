@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 const footerLinks = [
-  { href: "/works", label: "Works" },
+  { href: "/works", label: "Films" },
+  { href: "/shorts", label: "Shorts" },
   { href: "/characters", label: "Characters" },
   { href: "/insights", label: "Insights" },
   { href: "/resources", label: "Resources" },
