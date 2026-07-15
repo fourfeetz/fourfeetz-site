@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Pause, Volume2, VolumeX } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 
@@ -80,23 +81,43 @@ function HeroVideoCard() {
       )}
 
       {!videoFailed ? (
-        <div className="absolute bottom-3 right-3 flex items-center gap-2 rounded-full border border-white/35 bg-[#2b2119]/70 p-1.5 shadow-xl backdrop-blur-md">
-          <button
-            type="button"
-            aria-label={isPaused ? "Play HARU film" : "Pause HARU film"}
-            onClick={togglePlayback}
-            className="grid h-10 min-w-10 place-items-center rounded-full bg-[#fff7ea] px-3 text-sm font-black text-[#6f4e37] shadow-sm transition hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c3ad]"
-          >
-            {isPaused ? "Play" : "Pause"}
-          </button>
-          <button
-            type="button"
-            aria-label={displayMuted ? "Unmute HARU film" : "Mute HARU film"}
-            onClick={toggleMute}
-            className="grid h-10 min-w-10 place-items-center rounded-full bg-[#fff7ea] px-3 text-sm font-black text-[#6f4e37] shadow-sm transition hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c3ad]"
-          >
-            {displayMuted ? "Muted" : "Sound"}
-          </button>
+        <div className="absolute bottom-5 right-5 flex items-center gap-2">
+          <div className="group relative">
+            <button
+              type="button"
+              aria-label={displayMuted ? "Unmute HARU film" : "Mute HARU film"}
+              onClick={toggleMute}
+              className="grid size-[34px] place-items-center rounded-full border border-[#6f4e37]/30 bg-white/75 text-[#6f4e37] shadow-[0_2px_8px_rgba(43,33,25,0.10)] backdrop-blur-md transition-transform duration-200 hover:scale-[1.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c3ad] md:size-10"
+            >
+              {displayMuted ? (
+                <VolumeX aria-hidden="true" className="size-[17px] md:size-5" strokeWidth={2} />
+              ) : (
+                <Volume2 aria-hidden="true" className="size-[17px] md:size-5" strokeWidth={2} />
+              )}
+            </button>
+            <span
+              role="tooltip"
+              className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md bg-[#2b2119]/90 px-2 py-1 text-xs font-semibold text-white opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
+            >
+              Sound
+            </span>
+          </div>
+          <div className="group relative">
+            <button
+              type="button"
+              aria-label={isPaused ? "Play HARU film" : "Pause HARU film"}
+              onClick={togglePlayback}
+              className="grid size-[34px] place-items-center rounded-full border border-[#6f4e37]/30 bg-white/75 text-[#6f4e37] shadow-[0_2px_8px_rgba(43,33,25,0.10)] backdrop-blur-md transition-transform duration-200 hover:scale-[1.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c3ad] md:size-10"
+            >
+              <Pause aria-hidden="true" className="size-[17px] md:size-5" strokeWidth={2} />
+            </button>
+            <span
+              role="tooltip"
+              className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md bg-[#2b2119]/90 px-2 py-1 text-xs font-semibold text-white opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
+            >
+              Pause
+            </span>
+          </div>
         </div>
       ) : null}
     </div>
