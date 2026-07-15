@@ -29,12 +29,12 @@ const tools = [
 ];
 
 const gallery = [
-  { title: "Arrival", image: posterSrc },
-  { title: "Car Ride", image: posterSrc },
-  { title: "Window Scene", image: posterSrc },
-  { title: "Village Road", image: posterSrc },
-  { title: "First Step", image: posterSrc },
-  { title: "Sunset", image: posterSrc },
+  { title: "Arrival", image: "/images/works/haru-first-journey/gallery/arrival.png" },
+  { title: "Car Ride", image: "/images/works/haru-first-journey/gallery/car-ride.png" },
+  { title: "Window Scene", image: "/images/works/haru-first-journey/gallery/window-scene.png" },
+  { title: "Village Road", image: "/images/works/haru-first-journey/gallery/village-road.png" },
+  { title: "First Step", image: "/images/works/haru-first-journey/gallery/first-step.png" },
+  { title: "Sunset", image: "/images/works/haru-first-journey/gallery/sunset.png" },
 ];
 
 const timeline = [
