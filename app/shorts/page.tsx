@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { shorts } from "@/data/shorts";
 
 const title = "HARU Shorts | FourFeetz";
 const description = "Short cinematic AI videos created by FourFeetz featuring HARU.";
@@ -25,28 +26,6 @@ export const metadata: Metadata = {
   },
 };
 
-type Short = {
-  id: string;
-  title: string;
-  description: string;
-  duration: string;
-  tools: string[];
-  video: string;
-  poster: string;
-};
-
-const shorts: Short[] = [
-  {
-    id: "short-001",
-    title: "A Quiet Morning with HARU",
-    description: "HARU rests peacefully in the warm morning light, sharing a gentle moment at home.",
-    duration: "00:23",
-    tools: ["Google Flow", "Kling AI", "CapCut"],
-    video: "/videos/shorts/haru/short-001.mp4",
-    poster: socialImage,
-  },
-];
-
 export default function ShortsPage() {
   return (
     <main>
@@ -54,7 +33,7 @@ export default function ShortsPage() {
         <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Short-form Films</p>
         <h1 className="mt-4 text-5xl font-black tracking-tight text-[#2b2119] md:text-7xl">HARU Shorts</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">
-          A collection of short-form AI films created for YouTube Shorts, Instagram Reels, and TikTok.
+          Short cinematic AI videos created for YouTube Shorts, Instagram Reels and TikTok.
         </p>
       </section>
 
@@ -70,6 +49,9 @@ export default function ShortsPage() {
                   <video
                     src={short.video}
                     poster={short.poster}
+                    autoPlay
+                    muted
+                    loop
                     controls
                     playsInline
                     preload="metadata"
