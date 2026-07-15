@@ -5,7 +5,33 @@ import Link from "next/link";
 import { useState } from "react";
 import HeroIllustrationCard from "./HeroIllustrationCard";
 
-const posterSrc = "/images/works/haru-first-journey/hero.png";
+const mainFilm = {
+  title: "HARU — First Journey",
+  src: "/videos/haru/haru-first-journey.mp4",
+  poster: "/images/works/haru-first-journey/video-thumbnails/haru-first-journey.jpg",
+};
+
+const moreVideos = [
+  {
+    title: "Window Scene",
+    description: "HARU quietly enjoys the countryside while looking through the open window.",
+    src: "/videos/haru/haru-window-scene.mp4",
+    poster: "/images/works/haru-first-journey/video-thumbnails/haru-window-scene.jpg",
+  },
+  {
+    title: "First Step Toward Home",
+    description: "HARU takes the first step into a new home, marking the beginning of the journey.",
+    src: "/videos/haru/haru_steps_toward_house.mp4",
+    poster: "/images/works/haru-first-journey/video-thumbnails/haru-steps-toward-house.jpg",
+  },
+];
+
+const productionNotes = [
+  { label: "Character", value: "HARU (Original FourFeetz Character)" },
+  { label: "AI Workflow", value: "Google Flow · Runway · Kling AI · ChatGPT · Suno" },
+  { label: "Enhancement", value: "Aleph 2.0 Relighting" },
+  { label: "Goal", value: "Create a warm, realistic cinematic atmosphere with enhanced natural light and more film-like depth." },
+];
 
 const synopsis =
   "A young rescue puppy leaves the familiar world behind and begins a quiet journey toward a new home. Every road, every sunset, and every new place becomes part of HARU's very first memories. A gentle cinematic story about curiosity, courage, and the beginning of a lifelong adventure.";
@@ -89,6 +115,28 @@ function GalleryFrame({ title, image, className = "" }: { title: string; image: 
   );
 }
 
+function VideoCard({ title, description, src, poster }: (typeof moreVideos)[number]) {
+  return (
+    <article className="overflow-hidden rounded-[28px] border border-[#eadfce] bg-[#fffdf8] shadow-sm">
+      <div className="bg-black">
+        <video
+          src={src}
+          poster={poster}
+          controls
+          playsInline
+          preload="metadata"
+          className="aspect-video h-auto w-full object-cover"
+          aria-label={`Play ${title}`}
+        />
+      </div>
+      <div className="p-6 md:p-7">
+        <h3 className="text-2xl font-black text-[#2b2119]">{title}</h3>
+        <p className="mt-3 leading-7 text-[#76685d]">{description}</p>
+      </div>
+    </article>
+  );
+}
+
 export default function WorksPortfolio({ heroImage = "/images/works-hero-v2.png" }: { heroImage?: string }) {
   const [activeImage, setActiveImage] = useState<(typeof gallery)[number] | null>(null);
 
@@ -108,8 +156,48 @@ export default function WorksPortfolio({ heroImage = "/images/works-hero-v2.png"
       </section>
 
       <section id="watch" className="border-y border-[#eadfce] bg-white px-6 py-20">
-        <div className="mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-2xl shadow-[#6f4e37]/15">
-          <video src="/images/works/haru-first-journey/haru.mp4" poster={posterSrc} controls playsInline preload="metadata" className="aspect-video h-auto w-full object-contain" aria-label="Watch HARU - First Journey" />
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-[#6f4e37] px-3 py-1.5 text-xs font-black tracking-[0.18em] text-white">NEW</span>
+            <span className="rounded-full border border-[#6f4e37]/30 bg-[#fff7ea] px-3 py-1.5 text-xs font-black tracking-[0.14em] text-[#6f4e37]">ALEPH 2.0 ENHANCED</span>
+          </div>
+          <h2 className="mt-5 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">{mainFilm.title}</h2>
+          <p className="mt-5 max-w-4xl text-lg leading-8 text-[#76685d]">
+            The latest cinematic version of HARU&apos;s first journey.<br />
+            This edition was enhanced using Aleph 2.0 relighting to maximize natural lighting, depth, and cinematic atmosphere while preserving the original composition.
+          </p>
+
+          <div className="mt-8 overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-2xl shadow-[#6f4e37]/15">
+            <video
+              src={mainFilm.src}
+              poster={mainFilm.poster}
+              controls
+              playsInline
+              preload="metadata"
+              className="aspect-video h-auto w-full object-cover"
+              aria-label={`Play ${mainFilm.title}`}
+            />
+          </div>
+
+          <article className="mt-10 rounded-[32px] border border-[#eadfce] bg-[#fffaf4] p-7 shadow-sm md:p-9">
+            <p className="text-sm font-black uppercase tracking-[0.32em] text-[#a67c52]">Film Details</p>
+            <h3 className="mt-3 text-3xl font-black text-[#2b2119] md:text-4xl">Production Notes</h3>
+            <div className="mt-7 grid gap-4 md:grid-cols-2">
+              {productionNotes.map((note) => (
+                <div key={note.label} className="rounded-2xl border border-[#eadfce] bg-white p-5">
+                  <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{note.label}</p>
+                  <p className="mt-3 leading-7 text-[#5f5248]">{note.value}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <div className="mt-16">
+            <SectionHeader eyebrow="Watch More" title="More Videos" />
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              {moreVideos.map((video) => <VideoCard key={video.title} {...video} />)}
+            </div>
+          </div>
         </div>
       </section>
 
