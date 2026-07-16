@@ -1,5 +1,6 @@
 import { shorts } from "@/data/shorts";
 import { characterDetails } from "@/lib/characterDetails";
+import { relaxingHomeFilm } from "@/lib/films";
 import { resourceDetails } from "@/lib/resourceDetails";
 import { soundtracks } from "@/lib/soundtrackDetails";
 
@@ -28,6 +29,18 @@ const films: SiteContentItem[] = [
     characters: ["HARU"],
     tools: ["Google Flow", "Runway", "Kling AI", "ChatGPT", "Suno"],
     keywords: ["first character film test", "aleph 2.0", "journey"],
+    searchable: true,
+    detail: true,
+  },
+  {
+    title: relaxingHomeFilm.title,
+    description: relaxingHomeFilm.description,
+    href: `/works/${relaxingHomeFilm.slug}`,
+    type: "Films",
+    category: relaxingHomeFilm.category,
+    characters: [relaxingHomeFilm.character],
+    tools: relaxingHomeFilm.productionNotes,
+    keywords: ["relaxing film", "cozy living room", "natural breathing", "long-form"],
     searchable: true,
     detail: true,
   },

@@ -294,6 +294,14 @@ export const works = [
     href: "/works/haru-first-journey",
   },
   {
+    title: "HARU Relaxing at Home",
+    category: "Long-form AI Film",
+    duration: "4 min",
+    thumbnail: "/images/works/haru-relaxing-home/thumbnail.png",
+    desc: "A calm long-form AI film featuring HARU resting peacefully in a cozy living room. Designed with subtle breathing, natural motion, and cinematic lighting for a relaxing viewing experience.",
+    href: "/works/haru-relaxing-home",
+  },
+  {
     title: "New Worlds Vertical Series",
     category: "Series",
     duration: "6-part outline",

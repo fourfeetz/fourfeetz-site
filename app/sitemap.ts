@@ -63,6 +63,7 @@ const routes = [
   "/travel",
   "/works",
   "/works/haru-first-journey",
+  "/works/haru-relaxing-home",
   "/youtube",
 ];
 

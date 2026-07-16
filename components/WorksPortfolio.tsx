@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import HeroIllustrationCard from "./HeroIllustrationCard";
+import { relaxingHomeFilm } from "@/lib/films";
 
 const mainFilm = {
   title: "HARU — First Journey",
@@ -313,6 +314,27 @@ export default function WorksPortfolio({ heroImage = "/images/works-hero-v2.png"
               <p className="mt-3 text-[#76685d]">{item.desc}</p>
             </Link>
           ))}
+        </div>
+      </section>
+
+      <section className="px-6 py-20 md:py-24">
+        <SectionHeader eyebrow="Now Showing" title="More HARU Films" desc="Continue the journey with a slower long-form film designed for calm, comfortable viewing." />
+        <div className="mx-auto mt-8 max-w-7xl">
+          <Link href={`/works/${relaxingHomeFilm.slug}`} aria-label={`View ${relaxingHomeFilm.title}`} className="group grid overflow-hidden rounded-[32px] border border-[#eadfce] bg-white shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2 md:grid-cols-[0.9fr_1.1fr] md:items-stretch">
+            <div className="relative aspect-video overflow-hidden bg-[#f6ebdd] md:aspect-auto md:min-h-80">
+              <Image src={relaxingHomeFilm.thumbnail} alt="HARU resting in a cozy living room" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-200 group-hover:scale-[1.02]" />
+            </div>
+            <div className="flex flex-col justify-center p-7 md:p-10">
+              <div className="flex flex-wrap items-center gap-3 text-sm font-black text-[#a67c52]">
+                <span>{relaxingHomeFilm.category}</span>
+                <span aria-hidden="true">·</span>
+                <span>{relaxingHomeFilm.duration}</span>
+              </div>
+              <h3 className="mt-4 text-3xl font-black tracking-tight text-[#2b2119] md:text-5xl">{relaxingHomeFilm.title}</h3>
+              <p className="mt-5 max-w-2xl leading-8 text-[#76685d]">{relaxingHomeFilm.description}</p>
+              <span className="mt-7 text-sm font-black uppercase tracking-[0.18em] text-[#6f4e37]">View Film →</span>
+            </div>
+          </Link>
         </div>
       </section>
 
