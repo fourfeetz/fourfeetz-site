@@ -1,6 +1,6 @@
 import { shorts } from "@/data/shorts";
 import { characterDetails } from "@/lib/characterDetails";
-import { relaxingHomeFilm } from "@/lib/films";
+import { films as filmCatalog } from "@/lib/films";
 import { resourceDetails } from "@/lib/resourceDetails";
 import { soundtracks } from "@/lib/soundtrackDetails";
 
@@ -19,32 +19,22 @@ export type SiteContentItem = {
   detail?: boolean;
 };
 
-const films: SiteContentItem[] = [
-  {
-    title: "HARU — First Journey",
-    description: "HARU begins a quiet cinematic journey toward a new home.",
-    href: "/works/haru-first-journey",
-    type: "Films",
-    category: "Character Film",
-    characters: ["HARU"],
-    tools: ["Google Flow", "Runway", "Kling AI", "ChatGPT", "Suno"],
-    keywords: ["first character film test", "aleph 2.0", "journey"],
-    searchable: true,
-    detail: true,
-  },
-  {
-    title: relaxingHomeFilm.title,
-    description: relaxingHomeFilm.description,
-    href: `/works/${relaxingHomeFilm.slug}`,
-    type: "Films",
-    category: relaxingHomeFilm.category,
-    characters: [relaxingHomeFilm.character],
-    tools: relaxingHomeFilm.productionNotes,
-    keywords: ["relaxing film", "cozy living room", "natural breathing", "long-form"],
-    searchable: true,
-    detail: true,
-  },
-];
+const films: SiteContentItem[] = filmCatalog.map((film) => ({
+  title: film.title,
+  description: film.description,
+  href: `/works/${film.slug}`,
+  type: "Films",
+  category: film.category,
+  characters: [film.character],
+  tools: film.tools,
+  keywords: [
+    "film",
+    film.duration,
+    ...film.productionNotes.map((note) => `${note.label} ${note.value}`),
+  ],
+  searchable: true,
+  detail: true,
+}));
 
 const shortFilms: SiteContentItem[] = shorts.map((short) => ({
   title: short.title,

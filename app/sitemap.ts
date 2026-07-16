@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { films } from "@/lib/films";
 import { soundtracks } from "@/lib/soundtrackDetails";
 
 const baseUrl = "https://www.fourfeetz.com";
@@ -62,8 +63,6 @@ const routes = [
   "/tools",
   "/travel",
   "/works",
-  "/works/haru-first-journey",
-  "/works/haru-relaxing-home",
   "/youtube",
 ];
 
@@ -80,5 +79,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...musicPages];
+  const filmPages = films.map((film) => ({
+    url: `${baseUrl}/works/${film.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...filmPages, ...musicPages];
 }

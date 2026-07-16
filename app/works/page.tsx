@@ -1,5 +1,5 @@
 ﻿import type { Metadata } from "next";
-import WorksPortfolio from "@/components/WorksPortfolio";
+import FilmsIndex from "@/components/FilmsIndex";
 
 export const metadata: Metadata = {
   title: "Works | FourFeetz Studios",
@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <WorksPortfolio />;
+  return <FilmsIndex />;
 }
