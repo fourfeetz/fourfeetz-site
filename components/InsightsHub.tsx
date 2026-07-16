@@ -159,7 +159,7 @@ function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: strin
 function Thumbnail({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#f6ebdd]">
-      <Image src={src} alt={alt} fill sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 100vw" className="object-cover" />
+      <Image src={src} alt={alt} fill sizes="(min-width: 1280px) 30vw, (min-width: 768px) 45vw, 100vw" className="object-cover transition-transform duration-200 group-hover:scale-[1.02]" />
     </div>
   );
 }
@@ -179,15 +179,15 @@ export default function InsightsHub() {
       </section>
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20">
-        <div className="mx-auto max-w-7xl rounded-[40px] border border-[#eadfce] bg-[#fffdf8] p-8 shadow-xl shadow-[#6f4e37]/10 md:p-12">
+        <Link href={featuredInsight.href} aria-label={`Read featured article: ${featuredInsight.title}`} className="mx-auto block max-w-7xl rounded-[40px] border border-[#eadfce] bg-[#fffdf8] p-8 shadow-xl shadow-[#6f4e37]/10 transition duration-200 hover:-translate-y-[3px] hover:shadow-2xl hover:shadow-[#6f4e37]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2 md:p-12">
           <p className="text-sm font-black uppercase tracking-[0.22em] text-[#a67c52]">{featuredInsight.category}</p>
           <h2 className="mt-4 max-w-4xl text-4xl font-black leading-tight tracking-tight text-[#2b2119] md:text-5xl">{featuredInsight.title}</h2>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">{featuredInsight.desc}</p>
           <p className="mt-6 text-sm font-bold text-[#9a8775]">{featuredInsight.meta} 쨌 {featuredInsight.date}</p>
-          <Link href={featuredInsight.href} className="mt-8 inline-flex w-fit rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29]">
+          <span className="mt-8 inline-flex w-fit rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition duration-200">
             Read Article
-          </Link>
-        </div>
+          </span>
+        </Link>
       </section>
 
       <section className="px-6 py-12">
@@ -208,7 +208,7 @@ export default function InsightsHub() {
         <SectionHeader eyebrow="Latest" title="Latest Articles" desc="Editorial notes for AI video, music, prompts, tools, publishing, and studio workflow." />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-3">
           {articles.map((article) => (
-            <article key={article.title} className="flex h-full flex-col rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+            <Link key={article.title} href={article.href} aria-label={`Read article: ${article.title}`} className="group flex h-full flex-col rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               <Thumbnail src={article.image} alt={`${article.title} thumbnail`} />
               <div className="flex flex-1 flex-col pt-5">
                 <p className="text-sm font-black text-[#a67c52]">{article.category}</p>
@@ -216,10 +216,10 @@ export default function InsightsHub() {
                 <p className="mt-3 flex-1 leading-7 text-[#76685d]">{article.desc}</p>
                 <div className="mt-6 flex items-center justify-between gap-4 text-sm font-bold">
                   <span className="text-[#9a8775]">{article.readTime}</span>
-                  <Link href={article.href} className="text-[#6f4e37] hover:text-[#2b2119]">Read Article -&gt;</Link>
+                  <span className="text-[#6f4e37]">Read Article -&gt;</span>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
@@ -228,7 +228,7 @@ export default function InsightsHub() {
         <SectionHeader eyebrow="Evergreen" title="Popular Guides" />
         <div className="mx-auto mt-8 grid max-w-7xl gap-4 md:grid-cols-3 xl:grid-cols-6">
           {guides.map((guide) => (
-            <Link key={guide.title} href={guide.href} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+            <Link key={guide.title} href={guide.href} aria-label={`Open popular guide: ${guide.title}`} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               <h3 className="text-2xl font-black text-[#2b2119]">{guide.title}</h3>
               <p className="mt-4 text-sm font-black uppercase tracking-[0.18em] text-[#a67c52]">Open Guide</p>
             </Link>
