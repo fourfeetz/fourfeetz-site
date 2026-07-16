@@ -5,6 +5,8 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import NewsletterSignup from "@/components/NewsletterSignup";
+import RelatedPosts from "@/components/RelatedPosts";
 import { LanguageProvider } from "@/components/LanguageProvider";
 
 const montserrat = Montserrat({
@@ -56,6 +58,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <LanguageProvider>
           <Header />
           {children}
+          <RelatedPosts />
+          <NewsletterSignup />
           <Footer />
         </LanguageProvider>
         <GoogleAnalytics gaId="G-T4L4K2EHN2" />

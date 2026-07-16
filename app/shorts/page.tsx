@@ -44,7 +44,7 @@ export default function ShortsPage() {
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {shorts.map((short) => (
-              <article key={short.id} className="overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10">
+              <article id={short.id} key={short.id} className="scroll-mt-28 overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10">
                 <div className="bg-black">
                   <video
                     src={short.video}

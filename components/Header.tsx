@@ -2,17 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Search as SearchIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { navItems } from "@/lib/i18n";
 import { useLanguage } from "@/components/LanguageProvider";
+import SearchModal from "@/components/SearchModal";
 
 export default function Header() {
   const { t } = useLanguage();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
-  useEffect(() => setMobileOpen(false), [pathname]);
+  useEffect(() => {
+    setMobileOpen(false);
+    setSearchOpen(false);
+  }, [pathname]);
+
+  const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   function isActive(href: string) {
     return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
@@ -32,7 +40,8 @@ export default function Header() {
           />
         </Link>
 
-        <nav aria-label="Primary navigation" className="hidden items-center justify-end gap-4 lg:flex xl:gap-6">
+        <div className="flex items-center gap-2 lg:gap-3">
+          <nav aria-label="Primary navigation" className="hidden items-center justify-end gap-4 lg:flex xl:gap-6">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -43,12 +52,16 @@ export default function Header() {
                 {t.nav[item.key]}
               </Link>
             ))}
-        </nav>
-        <button type="button" onClick={() => setMobileOpen((open) => !open)} aria-expanded={mobileOpen} aria-controls="mobile-navigation" aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"} className="flex h-11 w-11 shrink-0 flex-col items-center justify-center gap-1.5 rounded-full border border-[#d9c7b4] bg-white text-[#6f4e37] transition hover:border-[#6f4e37] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] lg:hidden">
-          <span className={`h-0.5 w-5 bg-current transition ${mobileOpen ? "translate-y-2 rotate-45" : ""}`} />
-          <span className={`h-0.5 w-5 bg-current transition ${mobileOpen ? "opacity-0" : ""}`} />
-          <span className={`h-0.5 w-5 bg-current transition ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`} />
-        </button>
+          </nav>
+          <button type="button" onClick={() => setSearchOpen(true)} aria-label="Search FourFeetz" aria-haspopup="dialog" aria-expanded={searchOpen} className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[#d9c7b4] bg-white text-[#6f4e37] transition duration-200 hover:border-[#6f4e37] hover:bg-[#f6eee4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+            <SearchIcon size={20} strokeWidth={2.2} aria-hidden="true" />
+          </button>
+          <button type="button" onClick={() => setMobileOpen((open) => !open)} aria-expanded={mobileOpen} aria-controls="mobile-navigation" aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"} className="flex h-11 w-11 shrink-0 flex-col items-center justify-center gap-1.5 rounded-full border border-[#d9c7b4] bg-white text-[#6f4e37] transition hover:border-[#6f4e37] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] lg:hidden">
+            <span className={`h-0.5 w-5 bg-current transition ${mobileOpen ? "translate-y-2 rotate-45" : ""}`} />
+            <span className={`h-0.5 w-5 bg-current transition ${mobileOpen ? "opacity-0" : ""}`} />
+            <span className={`h-0.5 w-5 bg-current transition ${mobileOpen ? "-translate-y-2 -rotate-45" : ""}`} />
+          </button>
+        </div>
       </div>
       <div id="mobile-navigation" className={`overflow-hidden border-t border-[#e6d8c8] bg-[#fbf7f0] transition-[max-height,opacity] duration-300 lg:hidden ${mobileOpen ? "max-h-[520px] opacity-100" : "max-h-0 border-t-transparent opacity-0"}`}>
         <nav aria-label="Mobile navigation" className="mx-auto grid max-w-7xl gap-1 px-6 py-4">
@@ -59,6 +72,7 @@ export default function Header() {
           ))}
         </nav>
       </div>
+      {searchOpen ? <SearchModal onClose={closeSearch} /> : null}
     </header>
   );
 }
