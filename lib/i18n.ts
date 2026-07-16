@@ -278,10 +278,10 @@ export const navItems = [
 ] as const;
 
 export const todaysUpdates = [
-  { icon: "🎬", label: "New Work", title: "AI short concept in progress", desc: "A compact scene test for lighting, pacing, and character mood." },
-  { icon: "📝", label: "New Insight", title: "Prompt-to-shot workflow notes", desc: "A practical article outline for consistent AI video production." },
-  { icon: "🎵", label: "New Music", title: "Theme sketch for character worlds", desc: "A warm loop concept prepared for future HARU story scenes." },
-  { icon: "🧪", label: "New Lab", title: "Tool comparison board", desc: "Early notes for testing generation models across the same scene." },
+  { icon: "🎬", label: "New Work", title: "AI short concept in progress", desc: "A compact scene test for lighting, pacing, and character mood.", href: "/shorts" },
+  { icon: "📝", label: "New Insight", title: "Prompt-to-shot workflow notes", desc: "A practical article outline for consistent AI video production.", href: "/insights" },
+  { icon: "🎵", label: "New Music", title: "Theme sketch for character worlds", desc: "A warm loop concept prepared for future HARU story scenes.", href: "/music" },
+  { icon: "🧪", label: "New Lab", title: "Tool comparison board", desc: "Early notes for testing generation models across the same scene.", href: "/tools" },
 ];
 
 export const works = [
@@ -291,6 +291,7 @@ export const works = [
     duration: "00:45 concept",
     thumbnail: "/images/works/haru-first-journey/hero.png",
     desc: "A cinematic study for the first original character, built around tone, camera language, and character consistency.",
+    href: "/works/haru-first-journey",
   },
   {
     title: "New Worlds Vertical Series",
@@ -298,6 +299,7 @@ export const works = [
     duration: "6-part outline",
     thumbnail: "",
     desc: "A short-form series framework designed for social release across multiple platforms.",
+    href: "/shorts",
   },
   {
     title: "AI Studio Motion Reel",
@@ -305,6 +307,7 @@ export const works = [
     duration: "01:20 draft",
     thumbnail: "",
     desc: "A premium brand reel concept showing how AI films, music, and knowledge products fit together.",
+    href: "/works",
   },
   {
     title: "Character Theme Visualizer",
@@ -312,6 +315,7 @@ export const works = [
     duration: "00:30 loop",
     thumbnail: "",
     desc: "An AI music visual concept for theme loops, character identity, and atmospheric story fragments.",
+    href: "/music",
   },
 ];
 
@@ -373,6 +377,7 @@ export const insights = [
     readTime: "6 min read",
     descEn: "A practical look at image consistency, motion quality, and where the model fits in a creator workflow.",
     descKo: "A practical look at image consistency, motion quality, and where the model fits in a creator workflow.",
+    href: "/insights/runway-gen-4-review",
   },
   {
     titleEn: "Kling vs Veo",
@@ -381,6 +386,7 @@ export const insights = [
     readTime: "8 min read",
     descEn: "A side-by-side planning guide for choosing the right video model by scene type and output goal.",
     descKo: "A side-by-side planning guide for choosing the right video model by scene type and output goal.",
+    href: "/insights/kling-vs-veo",
   },
   {
     titleEn: "How We Created HARU",
@@ -389,6 +395,7 @@ export const insights = [
     readTime: "5 min read",
     descEn: "How an original character can move from visual reference to repeatable AI story asset.",
     descKo: "How an original character can move from visual reference to repeatable AI story asset.",
+    href: "/insights/how-haru-was-created",
   },
   {
     titleEn: "Best AI Music Tools",
@@ -397,14 +404,15 @@ export const insights = [
     readTime: "7 min read",
     descEn: "A creator-focused overview of music tools for loops, themes, social edits, and film sketches.",
     descKo: "A creator-focused overview of music tools for loops, themes, social edits, and film sketches.",
+    href: "/insights/best-ai-music-tools",
   },
 ];
 
 export const resources = [
-  { title: "Prompt Library", desc: "Reusable prompt patterns for scenes, characters, lighting, and motion." },
-  { title: "Workflow Guides", desc: "Step-by-step production systems for films, shorts, music, and publishing." },
-  { title: "Templates", desc: "Planning boards, shot lists, release calendars, and review checklists." },
-  { title: "Free Assets", desc: "Starter materials for future downloads, references, and production packs." },
+  { title: "Prompt Library", desc: "Reusable prompt patterns for scenes, characters, lighting, and motion.", href: "/resources/prompt-library" },
+  { title: "Workflow Guides", desc: "Step-by-step production systems for films, shorts, music, and publishing.", href: "/resources/ai-video-workflow" },
+  { title: "Templates", desc: "Planning boards, shot lists, release calendars, and review checklists.", href: "/resources/production-notes-template" },
+  { title: "Free Assets", desc: "Starter materials for future downloads, references, and production packs.", href: "/resources" },
 ];
 
 export const socialPlatforms = [

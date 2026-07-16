@@ -39,12 +39,12 @@ export default function Home() {
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-4 md:grid-cols-4">
           {todaysUpdates.map((item) => (
-            <article key={item.label} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+            <Link key={item.label} href={item.href} aria-label={`View ${item.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               <div className="text-3xl" aria-hidden="true">{item.icon}</div>
               <p className="mt-5 text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">{item.label}</p>
               <h3 className="mt-2 text-xl font-black text-[#2b2119]">{item.title}</h3>
               <p className="mt-3 text-sm leading-6 text-[#76685d]">{item.desc}</p>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
@@ -57,7 +57,7 @@ export default function Home() {
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">
           {works.map((work) => (
-            <article key={work.title} className="rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+            <Link key={work.title} href={work.href} aria-label={`View ${work.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               {work.thumbnail ? (
                 <Image src={work.thumbnail} alt={work.title} width={640} height={400} className="aspect-[16/10] rounded-2xl bg-[#fffaf4] object-cover" />
               ) : (
@@ -71,7 +71,7 @@ export default function Home() {
                 <h3 className="mt-3 text-2xl font-black text-[#2b2119]">{work.title}</h3>
                 <p className="mt-3 text-[#76685d]">{work.desc}</p>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
@@ -106,12 +106,12 @@ export default function Home() {
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">
           {insights.map((article) => (
-            <article key={article.titleEn} className="rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+            <Link key={article.titleEn} href={article.href} aria-label={`Read ${article.titleEn}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               <p className="text-sm font-black text-[#a67c52]">{article.category}</p>
               <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{article.titleEn}</h3>
               <p className="mt-3 text-[#76685d]">{article.descEn}</p>
               <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-[#9a8775]">{article.readTime}</p>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
@@ -124,10 +124,10 @@ export default function Home() {
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-4">
           {resources.map((resource) => (
-            <article key={resource.title} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+            <Link key={resource.title} href={resource.href} aria-label={`View ${resource.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-7 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               <h3 className="text-2xl font-black text-[#2b2119]">{resource.title}</h3>
               <p className="mt-3 text-[#76685d]">{resource.desc}</p>
-            </article>
+            </Link>
           ))}
         </div>
       </section>
