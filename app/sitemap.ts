@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { shorts } from "@/data/shorts";
 import { films } from "@/lib/films";
 import { soundtracks } from "@/lib/soundtrackDetails";
 
@@ -85,5 +86,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...filmPages, ...musicPages];
+  const shortPages = shorts.map((short) => ({
+    url: `${baseUrl}/shorts/${short.slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...filmPages, ...shortPages, ...musicPages];
 }

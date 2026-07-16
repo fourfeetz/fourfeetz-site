@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { shorts } from "@/data/shorts";
 
 const title = "HARU Shorts | FourFeetz";
@@ -44,38 +45,45 @@ export default function ShortsPage() {
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {shorts.map((short) => (
-              <article id={short.id} key={short.id} className="scroll-mt-28 overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10">
-                <div className="bg-black">
-                  <video
-                    src={short.video}
-                    poster={short.poster}
-                    autoPlay
-                    muted
-                    loop
-                    controls
-                    playsInline
-                    preload="metadata"
-                    className="aspect-[9/16] h-auto w-full object-cover"
-                    aria-label={`Play ${short.title}`}
-                  />
-                </div>
-                <div className="p-6 md:p-7">
-                  <div className="flex items-center justify-between gap-4">
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">HARU Short</p>
-                    <p className="rounded-full border border-[#dfcfbd] bg-white px-3 py-1.5 text-xs font-black text-[#6f4e37]">{short.duration}</p>
+              <Link
+                id={short.id}
+                key={short.id}
+                href={`/shorts/${short.slug}`}
+                aria-label={`View ${short.title}`}
+                className="group scroll-mt-28 overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"
+              >
+                <article>
+                  <div className="overflow-hidden bg-black">
+                    <video
+                      src={short.video}
+                      poster={short.poster}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="pointer-events-none aspect-[9/16] h-auto w-full object-cover transition-transform duration-200 group-hover:scale-[1.015]"
+                      aria-hidden="true"
+                    />
                   </div>
-                  <h3 className="mt-5 text-2xl font-black tracking-tight text-[#2b2119]">{short.title}</h3>
-                  <p className="mt-3 leading-7 text-[#76685d]">{short.description}</p>
-                  <div className="mt-6 border-t border-[#eadfce] pt-5">
-                    <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">Made With</p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {short.tools.map((tool) => (
-                        <span key={tool} className="rounded-full bg-[#f2e8dc] px-3 py-1.5 text-xs font-bold text-[#6f4e37]">{tool}</span>
-                      ))}
+                  <div className="p-6 md:p-7">
+                    <div className="flex items-center justify-between gap-4">
+                      <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">{short.category} · {short.episode}</p>
+                      <p className="rounded-full border border-[#dfcfbd] bg-white px-3 py-1.5 text-xs font-black text-[#6f4e37]">{short.duration}</p>
+                    </div>
+                    <h3 className="mt-5 text-2xl font-black tracking-tight text-[#2b2119]">{short.title}</h3>
+                    <p className="mt-3 leading-7 text-[#76685d]">{short.description}</p>
+                    <div className="mt-6 border-t border-[#eadfce] pt-5">
+                      <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">Made With</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {short.tools.map((tool) => (
+                          <span key={tool} className="rounded-full bg-[#f2e8dc] px-3 py-1.5 text-xs font-bold text-[#6f4e37]">{tool}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             ))}
           </div>
         </div>

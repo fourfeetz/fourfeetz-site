@@ -39,9 +39,9 @@ const films: SiteContentItem[] = filmCatalog.map((film) => ({
 const shortFilms: SiteContentItem[] = shorts.map((short) => ({
   title: short.title,
   description: short.description,
-  href: `/shorts#${short.id}`,
+  href: `/shorts/${short.slug}`,
   type: "Shorts",
-  category: "HARU Shorts",
+  category: short.category,
   characters: ["HARU"],
   tools: short.tools,
   keywords: [short.duration, "short film", "vertical video"],
