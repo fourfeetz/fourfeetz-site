@@ -97,13 +97,6 @@ const workflowSteps = [
   { label: "Publishing", desc: "Export for web, shorts, reels, and social channels with platform-ready framing." },
 ];
 
-const downloads = [
-  { title: "Prompt Cheat Sheet", href: "/downloads/character-consistency-prompt-pack.md" },
-  { title: "Storyboard Template", href: "/downloads/storyboard-planning-template.md" },
-  { title: "Production Checklist", href: "/downloads/character-production-checklist.md" },
-  { title: "Social Publishing Checklist", href: "/downloads/vertical-video-reframing-guide.md" },
-];
-
 function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: string; desc?: string }) {
   return (
     <div className="mx-auto max-w-7xl">
@@ -206,22 +199,7 @@ export default function ResourcesLibrary() {
         </div>
       </section>
 
-      <section className="px-6 py-20">
-        <SectionHeader eyebrow="Downloads" title="Free Downloads" desc="Compact production files for planning, prompting, reviewing, and publishing AI creative work." />
-        <div className="mx-auto mt-8 grid max-w-7xl gap-4 md:grid-cols-4">
-          {downloads.map((download) => (
-            <article key={download.title} className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10">
-              <p className="text-sm font-black uppercase tracking-[0.18em] text-[#a67c52]">Download</p>
-              <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{download.title}</h3>
-              <a href={download.href} download aria-label={`Download ${download.title}`} className="mt-6 inline-flex rounded-full border border-[#6f4e37]/40 bg-white px-5 py-3 text-sm font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
-                Download
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="px-6 pb-24">
+      <section className="px-6 py-20 md:py-24">
         <div className="mx-auto rounded-[40px] border border-[#eadfce] bg-white p-8 shadow-xl shadow-[#6f4e37]/10 md:flex md:max-w-7xl md:items-center md:justify-between md:gap-10 md:p-12">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Toolkit</p>
