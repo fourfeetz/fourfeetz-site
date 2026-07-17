@@ -3,15 +3,29 @@ import type { Short } from "@/data/shorts";
 import { shorts } from "@/data/shorts";
 
 export default function ShortDetailPage({ short }: { short: Short }) {
+  const relatedShorts = shorts.filter((item) => item.type === "episode");
+
   return (
     <main>
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.8fr_1.2fr] md:items-center md:py-24">
         <div>
-          <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">{short.category} · {short.episode}</p>
+          {short.badge ? (
+            <span className="inline-flex rounded-full bg-[#6f4e37] px-4 py-2 text-xs font-black tracking-[0.18em] text-white shadow-lg shadow-[#6f4e37]/15">
+              {short.badge}
+            </span>
+          ) : null}
+          <p className={`${short.badge ? "mt-6" : ""} text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]`}>
+            {short.category}{short.episode ? ` · ${short.episode}` : ""}
+          </p>
           <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">{short.title}</h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">{short.description}</p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <a href="#watch" className="rounded-full bg-[#6f4e37] px-6 py-3 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29]">Watch Short</a>
+            {short.originalFilmHref ? (
+              <Link href={short.originalFilmHref} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119]">
+                Watch the Full Film
+              </Link>
+            ) : null}
             <span className="rounded-full border border-[#dfcfbd] bg-white px-5 py-3 font-black text-[#6f4e37]">{short.duration}</span>
           </div>
         </div>
@@ -35,8 +49,18 @@ export default function ShortDetailPage({ short }: { short: Short }) {
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#a67c52]">About the Short</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-[#2b2119] md:text-4xl">Description</h2>
             <p className="mt-5 text-lg leading-8 text-[#76685d]">{short.description}</p>
+            <div className="mt-8 grid grid-cols-2 gap-4 border-t border-[#eadfce] pt-7">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Duration</p>
+                <p className="mt-3 text-xl font-black text-[#2b2119]">{short.duration}</p>
+              </div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Category</p>
+                <p className="mt-3 text-xl font-black text-[#2b2119]">{short.category}</p>
+              </div>
+            </div>
             <div className="mt-8 border-t border-[#eadfce] pt-7">
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Made With</p>
+              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Tools Used</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {short.tools.map((tool) => (
                   <span key={tool} className="rounded-full bg-[#f2e8dc] px-4 py-2 text-sm font-bold text-[#6f4e37]">{tool}</span>
@@ -65,7 +89,7 @@ export default function ShortDetailPage({ short }: { short: Short }) {
           <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Continue Watching</p>
           <h2 className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">Related Shorts</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {shorts.map((related) => (
+            {relatedShorts.map((related) => (
               <Link
                 key={related.slug}
                 href={`/shorts/${related.slug}`}
