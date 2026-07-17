@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import type { Short } from "@/data/shorts";
 import { shorts } from "@/data/shorts";
 
 const title = "HARU Shorts | FourFeetz";
 const description = "Short cinematic AI videos created by FourFeetz featuring HARU.";
 const canonical = "https://www.fourfeetz.com/shorts";
-const socialImage = "/images/shorts/haru/short-001.jpg";
+const socialImage = "/images/shorts-hero-v2.png";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     title,
     description,
     url: canonical,
-    images: [{ url: socialImage, alt: "HARU resting peacefully in a warm morning scene" }],
+    images: [{ url: socialImage, alt: "HARU short-form filmmaking studio" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -84,12 +85,15 @@ export default function ShortsPage() {
 
   return (
     <main>
-      <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-        <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Short-form Films</p>
-        <h1 className="mt-4 text-5xl font-black tracking-tight text-[#2b2119] md:text-7xl">HARU Shorts</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">
-          Short cinematic AI videos created for YouTube Shorts, Instagram Reels and TikTok.
-        </p>
+      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
+        <div className="max-w-[900px]">
+          <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Short-form Films</p>
+          <h1 className="mt-4 text-5xl font-black tracking-tight text-[#2b2119] md:text-7xl">HARU Shorts</h1>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">
+            Short cinematic AI videos created for YouTube Shorts, Instagram Reels and TikTok.
+          </p>
+        </div>
+        <HeroIllustrationCard src="/images/shorts-hero-v2.png" alt="HARU short-form filmmaking setup with a vertical phone camera clapperboard and editing controls" priority />
       </section>
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20 md:py-24">

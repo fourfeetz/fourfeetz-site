@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import ReferralCode from "@/components/ReferralCode";
 
 const title = "Tools I Use | FourFeetz";
@@ -14,13 +15,13 @@ export const metadata: Metadata = {
     title,
     description,
     url: "https://www.fourfeetz.com/tools",
-    images: [{ url: "/images/studio-hero.png", alt: "FourFeetz Studios production tools" }],
+    images: [{ url: "/images/tools-hero-v2.png", alt: "FourFeetz Studios AI production toolkit" }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: ["/images/studio-hero.png"],
+    images: ["/images/tools-hero-v2.png"],
   },
 };
 
@@ -107,16 +108,19 @@ const standardTools = tools.slice(1);
 export default function ToolsPage() {
   return (
     <main>
-      <section className="mx-auto max-w-7xl px-6 py-20 md:py-28">
-        <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">FourFeetz Production</p>
-        <h1 className="mt-4 max-w-4xl text-5xl font-black tracking-tight text-[#2b2119] md:text-7xl">Tools I Use</h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">
-          These are the tools I actually use to create HARU videos, FourFeetz content, music, prompts, and final edits.
-        </p>
-        <div className="mt-10 max-w-4xl rounded-3xl border border-[#dfcfbd] bg-white p-6 shadow-sm">
-          <p className="text-sm font-black text-[#2b2119]">Affiliate disclosure</p>
-          <p className="mt-2 leading-7 text-[#76685d]">Some links or referral codes on this page may provide FourFeetz with a reward or credit at no additional cost to you. I only list tools that I have personally used in the FourFeetz production workflow.</p>
+      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
+        <div className="max-w-[900px]">
+          <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">FourFeetz Production</p>
+          <h1 className="mt-4 max-w-4xl text-5xl font-black tracking-tight text-[#2b2119] md:text-7xl">Tools I Use</h1>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">
+            These are the tools I actually use to create HARU videos, FourFeetz content, music, prompts, and final edits.
+          </p>
+          <div className="mt-8 max-w-4xl rounded-3xl border border-[#dfcfbd] bg-white p-6 shadow-sm">
+            <p className="text-sm font-black text-[#2b2119]">Affiliate disclosure</p>
+            <p className="mt-2 leading-7 text-[#76685d]">Some links or referral codes on this page may provide FourFeetz with a reward or credit at no additional cost to you. I only list tools that I have personally used in the FourFeetz production workflow.</p>
+          </div>
         </div>
+        <HeroIllustrationCard src="/images/tools-hero-v2.png" alt="FourFeetz AI production toolkit with laptop camera microphone editing controls and drawing tablet" priority />
       </section>
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20 md:py-24">
