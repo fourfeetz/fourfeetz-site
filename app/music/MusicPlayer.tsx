@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const players = new Set<HTMLAudioElement>();
-
 function formatTime(value: number) {
   if (!Number.isFinite(value)) return "0:00";
   const minutes = Math.floor(value / 60);
@@ -28,11 +26,10 @@ export default function MusicPlayer({ title, src, compact = false }: MusicPlayer
     const audio = audioRef.current;
     if (!audio) return;
 
-    players.add(audio);
     audio.volume = volume;
 
     const handlePlay = () => {
-      players.forEach((player) => {
+      document.querySelectorAll("audio").forEach((player) => {
         if (player !== audio) player.pause();
       });
       setIsPlaying(true);
@@ -47,7 +44,6 @@ export default function MusicPlayer({ title, src, compact = false }: MusicPlayer
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
 
     return () => {
-      players.delete(audio);
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePause);
       audio.removeEventListener("timeupdate", handleTimeUpdate);
