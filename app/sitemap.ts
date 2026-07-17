@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { shorts } from "@/data/shorts";
 import { films } from "@/lib/films";
-import { soundtracks } from "@/lib/soundtrackDetails";
+import { musicTracks } from "@/lib/music";
 
 const baseUrl = "https://www.fourfeetz.com";
 
@@ -74,7 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "" ? 1 : route.split("/").filter(Boolean).length === 1 ? 0.8 : 0.7,
   }));
 
-  const musicPages = soundtracks.map((track) => ({
+  const musicPages = musicTracks.map((track) => ({
     url: `${baseUrl}/music/${track.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.7,

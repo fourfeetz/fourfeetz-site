@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { Film, FilmImage, FilmVideo } from "@/lib/films";
 import { films } from "@/lib/films";
+import { musicTracks } from "@/lib/music";
 
 function SectionHeader({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
@@ -41,6 +42,7 @@ function VideoCard({ video }: { video: FilmVideo }) {
 export default function FilmDetailPage({ film }: { film: Film }) {
   const [activeImage, setActiveImage] = useState<FilmImage | null>(null);
   const relatedFilms = films.filter((item) => item.slug !== film.slug).slice(0, 3);
+  const relatedMusic = musicTracks.filter((track) => film.musicSlugs?.includes(track.slug));
   const details = [
     { label: "Category", value: film.category },
     { label: "Runtime", value: film.duration },
@@ -120,6 +122,8 @@ export default function FilmDetailPage({ film }: { film: Film }) {
       {film.relatedInsights?.length ? <section className="px-6 py-20"><SectionHeader eyebrow="Editorial" title="Related Insights" /><div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-3">{film.relatedInsights.map((item) => <Link key={item.href} href={item.href} className="rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><p className="text-sm font-black text-[#a67c52]">Insight</p><h3 className="mt-3 text-2xl font-black text-[#2b2119]">{item.title}</h3><p className="mt-3 text-[#76685d]">{item.description}</p></Link>)}</div></section> : null}
 
       {film.relatedResources?.length ? <section className="border-y border-[#eadfce] bg-white px-6 py-20"><SectionHeader eyebrow="Toolkit" title="Related Resources" /><div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-3">{film.relatedResources.map((item) => <Link key={item.href} href={item.href} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><h3 className="text-2xl font-black text-[#2b2119]">{item.title}</h3><p className="mt-3 text-[#76685d]">{item.description}</p></Link>)}</div></section> : null}
+
+      {relatedMusic.length ? <section className="border-y border-[#eadfce] bg-white px-6 py-20"><SectionHeader eyebrow="Original Music" title="Listen to the Theme" /><div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2">{relatedMusic.map((track) => <Link key={track.slug} href={`/music/${track.slug}`} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-7 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"><div className="flex flex-wrap items-center gap-3">{track.badge ? <span className="rounded-full bg-[#6f4e37] px-3 py-1.5 text-[11px] font-black tracking-[0.16em] text-white">{track.badge}</span> : null}<span className="text-sm font-black text-[#a67c52]">{track.duration}</span></div><h3 className="mt-5 text-3xl font-black text-[#2b2119]">Listen to {track.title}</h3><p className="mt-3 leading-7 text-[#76685d]">{track.description}</p></Link>)}</div></section> : null}
 
       <section className="px-6 py-20 md:py-24">
         <SectionHeader eyebrow="Continue Watching" title="Related Films" />

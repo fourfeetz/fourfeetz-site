@@ -1,8 +1,8 @@
 import { shorts } from "@/data/shorts";
 import { characterDetails } from "@/lib/characterDetails";
 import { films as filmCatalog } from "@/lib/films";
+import { musicTracks } from "@/lib/music";
 import { resourceDetails } from "@/lib/resourceDetails";
-import { soundtracks } from "@/lib/soundtrackDetails";
 
 export type ContentType = "Films" | "Shorts" | "Characters" | "Insights" | "Resources" | "Music";
 
@@ -110,13 +110,13 @@ const resources: SiteContentItem[] = [
   { title: "Tool Comparisons", description: "Practical comparisons for selecting tools across the AI production workflow.", href: "/resources/tool-comparisons", type: "Resources", category: "Tools", tools: ["Runway", "Kling AI", "Veo"], searchable: true, detail: true },
 ];
 
-const music: SiteContentItem[] = soundtracks.map((track) => ({
+const music: SiteContentItem[] = musicTracks.map((track) => ({
   title: track.title,
-  description: track.overview,
+  description: track.description,
   href: `/music/${track.slug}`,
   type: "Music",
-  category: "Soundtrack",
-  characters: track.slug === "haru-theme" ? ["HARU"] : undefined,
+  category: track.category,
+  characters: track.character ? [track.character] : undefined,
   tools: ["Suno"],
   searchable: false,
   detail: true,

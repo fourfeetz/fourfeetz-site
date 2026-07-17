@@ -28,6 +28,7 @@ export type Film = {
   timeline?: { step: string; description: string }[];
   relatedInsights?: FilmLink[];
   relatedResources?: FilmLink[];
+  musicSlugs?: string[];
   nextProject?: { eyebrow: string; title: string; description: string };
 };
 
@@ -99,7 +100,8 @@ export const films: Film[] = [
       { title: "Workflow", description: "A repeatable AI short film pipeline from story to publishing.", href: "/resources/ai-short-film-workflow" },
       { title: "Production Notes", description: "A clean template for prompts, tools, settings, and results.", href: "/resources/production-notes-template" },
     ],
-    nextProject: { eyebrow: "In Production", title: "PORI – Coming Soon", description: "The next original FourFeetz story is already in production." },
+    musicSlugs: ["haru-main-theme"],
+    nextProject: { eyebrow: "In Production", title: "PORI — Coming Soon", description: "The next original FourFeetz story is already in production." },
   },
   {
     slug: "haru-relaxing-home",
