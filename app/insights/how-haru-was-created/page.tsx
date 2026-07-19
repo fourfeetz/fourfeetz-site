@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const heroImage = "/images/insights/how-haru-was-created-hero.png";
+const heroImage = "/images/insights/premium/how-haru-hero.png";
 
 export const metadata: Metadata = {
   title: "How HARU Was Created | FourFeetz Studios",

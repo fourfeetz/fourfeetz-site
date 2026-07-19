@@ -75,6 +75,7 @@ const insights: SiteContentItem[] = [
   ["Google Flow Complete Guide", "Scene planning, prompt control, camera movement, exports, and cinematic workflows.", "google-flow-complete-guide", "Workflow", [], ["Google Flow", "Veo"]],
   ["Veo 3 Complete Review", "A production-focused review of image quality, motion, prompts, and camera control.", "veo3-complete-review", "AI Video", [], ["Veo"]],
   ["Runway Gen-4.5 Review", "A practical look at motion, character consistency, camera control, and workflow speed.", "runway-gen45-review", "AI Video", [], ["Runway"]],
+  ["Kling AI Complete Review", "A production-tested review of Continue, End Frame, Extend, character consistency, and targeted video repair using HARU.", "kling-ai-complete-review", "AI Video", ["HARU"], ["Kling AI"]],
   ["Flux Image Guide", "Create stronger reference images, lighting studies, character visuals, and thumbnails.", "flux-image-guide", "Images", [], ["Flux"]],
   ["AI Lighting Guide", "Prompt golden hour, soft light, studio light, sunset, cloudy scenes, and night lighting.", "ai-lighting-guide", "Filmmaking", [], ["ChatGPT", "Flux"]],
   ["AI Storyboarding Guide", "Plan shots, character position, camera direction, continuity, and production workflows.", "ai-storyboarding-guide", "Workflow", [], ["ChatGPT", "Google Flow"]],

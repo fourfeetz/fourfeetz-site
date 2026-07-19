@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const heroImage = "/images/insights/google-flow-complete-guide.png";
+const heroImage = "/images/insights/premium/google-flow-hero.png";
 
 export const metadata: Metadata = {
   title: "Google Flow Complete Guide | FourFeetz Studios",

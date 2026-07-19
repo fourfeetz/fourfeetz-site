@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-const heroImage = "/images/insights/runway-gen45-review.png";
+const heroImage = "/images/insights/premium/runway-gen45-hero.png";
 
 export const metadata: Metadata = {
   title: "Runway Gen-4.5 Review | FourFeetz Studios",
