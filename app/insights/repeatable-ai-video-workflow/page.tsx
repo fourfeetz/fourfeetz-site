@@ -1,9 +1,6 @@
-﻿import PageHero from "@/components/PageHero";
+import ProductionInsightArticle from "@/components/ProductionInsightArticle";
+import { createProductionInsightMetadata, getProductionInsight } from "@/lib/productionInsights";
 
-export default function Page() {
-  return (
-    <main>
-      <PageHero eyebrow="Insight" title="A Repeatable AI Video Workflow" desc="Placeholder article page for the repeatable AI video workflow guide." />
-    </main>
-  );
-}
+const slug = "repeatable-ai-video-workflow" as const;
+export const metadata = createProductionInsightMetadata(slug);
+export default function Page() { return <ProductionInsightArticle article={getProductionInsight(slug)} />; }

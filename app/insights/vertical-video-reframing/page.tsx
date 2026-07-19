@@ -1,9 +1,6 @@
-﻿import PageHero from "@/components/PageHero";
+import ProductionInsightArticle from "@/components/ProductionInsightArticle";
+import { createProductionInsightMetadata, getProductionInsight } from "@/lib/productionInsights";
 
-export default function Page() {
-  return (
-    <main>
-      <PageHero eyebrow="Insight" title="Reframing 16:9 AI Films for Vertical Video" desc="Placeholder article page for adapting AI films to vertical platforms." />
-    </main>
-  );
-}
+const slug = "reframing-16-9-guide" as const;
+export const metadata = createProductionInsightMetadata(slug);
+export default function Page() { return <ProductionInsightArticle article={getProductionInsight(slug)} />; }
