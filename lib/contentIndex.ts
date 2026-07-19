@@ -62,7 +62,7 @@ const characters: SiteContentItem[] = characterDetails.map((character) => ({
 }));
 
 const insights: SiteContentItem[] = [
-  ["How HARU Was Created", "A practical look at the production process behind FourFeetz Studios' first original character film.", "how-haru-was-created", "Behind the Scenes", ["HARU"], ["Runway", "Kling AI", "ChatGPT", "Suno"]],
+  ["How HARU Was Created", "The official FourFeetz production story behind HARU, from visual identity and character drift to first-shot images, motion, and continuity review.", "how-haru-was-created", "Behind the Scenes", ["HARU"], ["Google Flow", "Runway", "Kling AI", "ChatGPT", "Suno"]],
   ["Runway Gen-4 Review", "A practical review of image consistency, motion quality, camera control, and production workflow.", "runway-gen-4-review", "AI Video", [], ["Runway"]],
   ["Kling vs Veo", "A side-by-side comparison of scene quality, motion realism, prompt control, and production speed.", "kling-vs-veo", "Tools", [], ["Kling AI", "Veo"]],
   ["A Repeatable AI Video Workflow", "From story planning and reference images to animation, sound, editing, and publishing.", "ai-video-workflow", "Workflow", [], ["ChatGPT", "Runway", "Kling AI"]],

@@ -24,10 +24,17 @@ export type ProductionInsightSection = {
   prompt?: string;
   table?: ProductionInsightTable;
   visual?: "pipeline" | "camera" | "consistency" | "timeline";
-  images?: { src: string; alt: string; caption: string; position?: string }[];
+  images?: {
+    src: string;
+    alt: string;
+    caption: string;
+    position?: string;
+    fit?: "cover" | "contain";
+    aspect?: "standard" | "landscape" | "video";
+  }[];
 };
 export type ProductionInsight = {
-  slug: ProductionInsightSlug;
+  slug: string;
   title: string;
   shortTitle: string;
   description: string;
@@ -45,6 +52,7 @@ export type ProductionInsight = {
   popularity: number;
   sections: ProductionInsightSection[];
   faqs: { question: string; answer: string }[];
+  related?: { label: string; title: string; href: string }[];
 };
 
 type GuideSeed = {
@@ -380,8 +388,8 @@ export function getProductionInsight(slug: ProductionInsightSlug) {
   return productionInsights[slug];
 }
 
-export function createProductionInsightMetadata(slug: ProductionInsightSlug): Metadata {
-  const article = getProductionInsight(slug);
+export function createProductionInsightMetadata(source: ProductionInsightSlug | ProductionInsight): Metadata {
+  const article = typeof source === "string" ? getProductionInsight(source) : source;
   const canonical = `/insights/${article.slug}`;
   return {
     title: `${article.shortTitle} | FourFeetz Studios`,

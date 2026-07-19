@@ -60,8 +60,11 @@ function ArticleSection({ section }: { section: ProductionInsightSection }) {
         <div className={`my-9 grid gap-5 ${section.images.length > 1 ? "md:grid-cols-2" : ""}`}>
           {section.images.map((image, index) => (
             <figure key={`${image.src}-${index}`} className={section.images!.length === 3 && index === 0 ? "md:col-span-2" : ""}>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[26px] border border-[#eadfce] bg-[#eadfce]">
-                <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, 760px" className="object-cover" style={{ objectPosition: image.position ?? "50% 50%" }} />
+              <div className={`relative overflow-hidden rounded-[26px] border border-[#eadfce] ${image.fit === "contain" ? "bg-white" : "bg-[#eadfce]"} ${image.aspect === "video" ? "aspect-video" : image.aspect === "landscape" ? "aspect-[3/2]" : "aspect-[4/3]"}`}>
+                <a href={image.src} target="_blank" rel="noreferrer" aria-label={`View full-size image: ${image.alt}`} className="group relative block h-full w-full">
+                  <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, 760px" className={`${image.fit === "contain" ? "object-contain" : "object-cover"} transition duration-300 group-hover:scale-[1.01]`} style={{ objectPosition: image.position ?? "50% 50%" }} />
+                  <span className="absolute bottom-3 right-3 rounded-full border border-white/70 bg-[#2b2119]/85 px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-lg backdrop-blur-sm">View full size</span>
+                </a>
               </div>
               <figcaption className="mt-3 text-sm leading-6 text-[#76685d]">{image.caption}</figcaption>
             </figure>
@@ -113,7 +116,7 @@ export default function ProductionInsightArticle({ article }: { article: Product
     "@type": "FAQPage",
     mainEntity: article.faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
   };
-  const related = [
+  const related = article.related ?? [
     { label: "Related Film", title: "HARU: First Journey", href: "/works/haru-first-journey" },
     { label: "Related Shorts", title: "HARU Shorts", href: "/shorts" },
     { label: "Related Music", title: "The Sound of HARU", href: "/music" },
@@ -150,7 +153,7 @@ export default function ProductionInsightArticle({ article }: { article: Product
           </div>
         </div>
 
-        <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16"><div className="mx-auto max-w-6xl"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Continue in the HARU world</p><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <Link key={item.label} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span><strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong></Link>)}</div></div></section>
+        <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16"><div className="mx-auto max-w-6xl"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Continue in the HARU world</p><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <Link key={item.href} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span><strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong></Link>)}</div></div></section>
       </article>
     </main>
   );
