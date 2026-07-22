@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.fourfeetz.com"),
   other: {
     "google-adsense-account": "ca-pub-8793962309929245",
+    "naver-site-verification": "114f76443087cc8fa294d3c654d19d4b271a7666",
   },
   alternates: { canonical: "/" },
   openGraph: {
