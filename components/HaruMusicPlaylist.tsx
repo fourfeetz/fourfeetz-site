@@ -100,17 +100,17 @@ export default function HaruMusicPlaylist() {
   }
 
   return (
-    <section aria-labelledby="haru-playlist-title" className="px-6 py-20">
+    <section aria-labelledby="music-playlist-title" className="px-6 py-20">
       <div className="mx-auto max-w-7xl rounded-[36px] border border-[#eadfce] bg-white p-7 shadow-xl shadow-[#6f4e37]/10 md:p-10">
         <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">HARU Music Queue</p>
-            <h2 id="haru-playlist-title" className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-5xl">Play All HARU Music</h2>
-            <p className="mt-5 max-w-xl leading-8 text-[#76685d]">Listen to the official theme and all seven original soundtracks in sequence.</p>
+            <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">FourFeetz Music Queue</p>
+            <h2 id="music-playlist-title" className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-5xl">Play All Music</h2>
+            <p className="mt-5 max-w-xl leading-8 text-[#76685d]">Listen to the official theme and {musicTracks.length - 1} original soundtracks in sequence.</p>
             {currentIndex === null ? (
               <button type="button" onClick={() => playTrack(0)} className="mt-7 inline-flex items-center gap-3 rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
                 <Play size={19} fill="currentColor" aria-hidden="true" />
-                Play All HARU Music
+                Play All Music
               </button>
             ) : null}
           </div>
@@ -124,7 +124,7 @@ export default function HaruMusicPlaylist() {
               onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
               onLoadedMetadata={(event) => setDuration(event.currentTarget.duration || 0)}
               onEnded={playNext}
-              aria-label={currentTrack ? `${currentTrack.title} playlist audio` : "HARU music playlist"}
+              aria-label={currentTrack ? `${currentTrack.title} playlist audio` : "FourFeetz music playlist"}
             />
             <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Now Playing</p>
             <div className="mt-3 min-h-16" aria-live="polite">

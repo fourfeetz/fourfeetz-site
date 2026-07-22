@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Short } from "@/data/shorts";
 import { shorts } from "@/data/shorts";
@@ -24,6 +25,16 @@ export default function ShortDetailPage({ short }: { short: Short }) {
             {short.originalFilmHref ? (
               <Link href={short.originalFilmHref} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119]">
                 Watch the Full Film
+              </Link>
+            ) : null}
+            {short.characterHref ? (
+              <Link href={short.characterHref} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119]">
+                Meet {short.characters?.[0] ?? "the Character"}
+              </Link>
+            ) : null}
+            {short.music ? (
+              <Link href={short.music.href} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119]">
+                Listen to {short.music.title}
               </Link>
             ) : null}
             <span className="rounded-full border border-[#dfcfbd] bg-white px-5 py-3 font-black text-[#6f4e37]">{short.duration}</span>
@@ -59,14 +70,16 @@ export default function ShortDetailPage({ short }: { short: Short }) {
                 <p className="mt-3 text-xl font-black text-[#2b2119]">{short.category}</p>
               </div>
             </div>
-            <div className="mt-8 border-t border-[#eadfce] pt-7">
-              <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Tools Used</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {short.tools.map((tool) => (
-                  <span key={tool} className="rounded-full bg-[#f2e8dc] px-4 py-2 text-sm font-bold text-[#6f4e37]">{tool}</span>
-                ))}
+            {short.tools.length ? (
+              <div className="mt-8 border-t border-[#eadfce] pt-7">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Tools Used</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {short.tools.map((tool) => (
+                    <span key={tool} className="rounded-full bg-[#f2e8dc] px-4 py-2 text-sm font-bold text-[#6f4e37]">{tool}</span>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : null}
           </article>
 
           <article className="rounded-[32px] border border-[#eadfce] bg-[#fffdf8] p-7 shadow-sm md:p-9">
@@ -80,6 +93,14 @@ export default function ShortDetailPage({ short }: { short: Short }) {
                 </div>
               ))}
             </div>
+            {short.endFrame ? (
+              <figure className="mx-auto mt-7 max-w-xs overflow-hidden rounded-[28px] border border-[#eadfce] bg-white p-3 shadow-sm">
+                <div className="relative aspect-[9/16] overflow-hidden rounded-[20px] bg-[#f6ebdd]">
+                  <Image src={short.endFrame} alt={`${short.title} final frame`} fill sizes="320px" className="object-cover" />
+                </div>
+                <figcaption className="px-2 pb-1 pt-4 text-sm font-bold text-[#6f4e37]">Final frame</figcaption>
+              </figure>
+            ) : null}
           </article>
         </div>
       </section>

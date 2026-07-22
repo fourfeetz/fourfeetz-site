@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import MusicPlayer from "@/app/music/MusicPlayer";
+import { shorts } from "@/data/shorts";
 import type { CharacterDetail } from "@/lib/characterDetails";
 import { characterDetails } from "@/lib/characterDetails";
 import { musicTracks } from "@/lib/music";
@@ -12,6 +13,7 @@ function Heading({ eyebrow, title }: { eyebrow: string; title: string }) {
 export default function CharacterDetailPage({ character }: { character: CharacterDetail }) {
   const related = characterDetails.filter((item) => item.slug !== character.slug).slice(0, 3);
   const featuredMusic = musicTracks.filter((track) => track.character === character.name && track.featured);
+  const featuredShorts = shorts.filter((short) => short.characters?.includes(character.name)).slice(0, 3);
   const image = `/images/characters/${character.slug}/portrait.png`;
   const schema = { "@context": "https://schema.org", "@type": "Person", name: character.name, description: character.tagline, image, url: `https://fourfeetz.com/characters/${character.slug}` };
   return <main>
@@ -27,6 +29,27 @@ export default function CharacterDetailPage({ character }: { character: Characte
     <section className="px-6 py-20"><div className="mx-auto max-w-7xl"><Heading eyebrow="Production" title="Production & Prompt Notes" /><div className="mt-8 grid gap-5 md:grid-cols-2"><article className="rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm"><h3 className="text-2xl font-black text-[#2b2119]">Production Notes</h3><p className="mt-4 leading-8 text-[#76685d]">{character.productionNotes}</p></article><article className="rounded-3xl border border-[#eadfce] bg-[#2b2119] p-7 shadow-xl"><h3 className="text-2xl font-black text-white">Prompt Notes</h3><p className="mt-4 leading-8 text-[#eadfce]">{character.promptNotes}</p></article></div></div></section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto max-w-7xl"><Heading eyebrow="Gallery" title="Studio Portrait Studies" /><div className="mt-8 grid gap-5 md:grid-cols-3">{character.gallery.map((study) => <figure key={study.label} className="overflow-hidden rounded-3xl border border-[#eadfce] bg-[#fffaf4] p-4"><div className="relative aspect-square overflow-hidden rounded-2xl bg-white"><Image src={study.image} alt={`${character.name} ${study.label}`} fill sizes="(min-width: 768px) 30vw, 100vw" className={study.fit === "cover" ? "object-cover" : "object-contain p-3"} /></div><figcaption className="pt-4 text-sm font-bold text-[#6f4e37]">{study.label}</figcaption></figure>)}</div></div></section>
     <section className="px-6 py-20"><div className="mx-auto max-w-7xl"><Heading eyebrow="Future Stories" title="What Comes Next" /><p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d]">{character.futureStories}</p><div className="mt-10 grid gap-5 md:grid-cols-3">{related.map(item => <Link key={item.slug} href={`/characters/${item.slug}`} className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><p className="text-sm font-black uppercase tracking-[0.2em] text-[#a67c52]">{item.species}</p><h3 className="mt-3 text-3xl font-black text-[#2b2119]">{item.name}</h3><p className="mt-3 text-[#76685d]">{item.tagline}</p></Link>)}</div></div></section>
-    <section className="px-6 pb-24"><div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[40px] bg-[#6f4e37] p-8 text-white shadow-xl md:flex-row md:items-center md:justify-between md:p-12"><div><p className="text-sm font-black uppercase tracking-[0.3em] text-[#e5c9a8]">FourFeetz Universe</p><h2 className="mt-3 text-4xl font-black">See the characters in motion.</h2></div><Link href="/works/haru-first-journey" className="w-fit rounded-full bg-white px-7 py-4 font-black text-[#6f4e37]">Explore the featured film</Link></div></section>
+    <section className="px-6 pb-24"><div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[40px] bg-[#6f4e37] p-8 text-white shadow-xl md:flex-row md:items-center md:justify-between md:p-12"><div><p className="text-sm font-black uppercase tracking-[0.3em] text-[#e5c9a8]">FourFeetz Universe</p><h2 className="mt-3 text-4xl font-black">See the characters in motion.</h2></div><Link href={featuredShorts[0] ? `/shorts/${featuredShorts[0].slug}` : "/works/haru-first-journey"} className="w-fit rounded-full bg-white px-7 py-4 font-black text-[#6f4e37]">{featuredShorts[0] ? `Watch ${featuredShorts[0].title}` : "Explore the featured film"}</Link></div></section>
+    {featuredShorts.length ? (
+      <section className="border-t border-[#eadfce] bg-white px-6 py-20">
+        <div className="mx-auto max-w-7xl">
+          <Heading eyebrow="Character Shorts" title={`${character.name} in Motion`} />
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredShorts.map((short) => (
+              <Link key={short.slug} href={`/shorts/${short.slug}`} className="group overflow-hidden rounded-3xl border border-[#eadfce] bg-[#fffdf8] shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                <div className="relative aspect-[9/16] overflow-hidden bg-black">
+                  {short.poster ? <Image src={short.poster} alt={`${short.title} cover`} fill sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw" className="object-cover transition-transform duration-200 group-hover:scale-[1.015]" /> : <video src={short.video} muted playsInline preload="metadata" className="h-full w-full object-cover" aria-hidden="true" />}
+                </div>
+                <div className="p-6">
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">{short.episode ?? short.category} · {short.duration}</p>
+                  <h3 className="mt-3 text-2xl font-black text-[#2b2119]">{short.title}</h3>
+                  <p className="mt-3 line-clamp-3 leading-7 text-[#76685d]">{short.description}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    ) : null}
   </main>;
 }

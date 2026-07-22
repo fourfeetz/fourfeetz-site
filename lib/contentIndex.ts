@@ -42,7 +42,7 @@ const shortFilms: SiteContentItem[] = shorts.map((short) => ({
   href: `/shorts/${short.slug}`,
   type: "Shorts",
   category: short.category,
-  characters: ["HARU"],
+  characters: short.characters ?? ["HARU"],
   tools: short.tools,
   keywords: [short.duration, "short film", "vertical video"],
   searchable: true,

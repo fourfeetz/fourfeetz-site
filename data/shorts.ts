@@ -16,13 +16,43 @@ export type Short = {
   badge?: string;
   duration: string;
   tools: string[];
+  characters?: string[];
   productionNotes: ShortProductionNote[];
   video: string;
   poster?: string;
+  endFrame?: string;
   originalFilmHref?: string;
+  characterHref?: string;
+  music?: {
+    title: string;
+    href: string;
+  };
 };
 
 export const shorts: Short[] = [
+  {
+    id: "short-005",
+    slug: "luna-shorts-ep01",
+    type: "episode",
+    episode: "EP.01",
+    title: "LUNA Shorts EP.01",
+    description: "LUNA quietly watches the world outside while HARU sleeps nearby. Then curiosity calls, and she slips out of frame.",
+    category: "LUNA Shorts",
+    duration: "30 sec",
+    tools: [],
+    characters: ["LUNA", "HARU"],
+    productionNotes: [
+      { label: "Moment", value: "LUNA watches the world beyond the window while HARU sleeps peacefully nearby." },
+      { label: "Story Beat", value: "A quiet observation becomes a small act of curiosity as LUNA slips out of frame." },
+      { label: "Format", value: "A 30-second vertical short film composed in a 9:16 format." },
+      { label: "Music", value: "Window Cat Paws, an original FourFeetz soundtrack created for this LUNA short." },
+    ],
+    video: "/videos/shorts/luna/luna-shorts-ep01.mp4",
+    poster: "/images/shorts/luna/luna-shorts-ep01-cover.png",
+    endFrame: "/images/shorts/luna/luna-shorts-ep01-end-frame.png",
+    characterHref: "/characters/luna",
+    music: { title: "Window Cat Paws", href: "/music/window-cat-paws" },
+  },
   {
     id: "short-001",
     slug: "morning-with-haru",
@@ -33,6 +63,7 @@ export const shorts: Short[] = [
     category: "HARU Shorts",
     duration: "15 sec",
     tools: ["Google Flow", "Runway", "Kling AI", "ChatGPT", "Suno"],
+    characters: ["HARU"],
     productionNotes: [
       { label: "Moment", value: "A quiet morning scene centered on HARU's calm expression and gentle movement." },
       { label: "Visual Direction", value: "Warm natural light, soft pacing, and a cinematic vertical composition." },
@@ -51,6 +82,7 @@ export const shorts: Short[] = [
     category: "HARU Shorts",
     duration: "15 sec",
     tools: ["Google Flow", "Runway", "Kling AI", "ChatGPT", "Suno"],
+    characters: ["HARU"],
     productionNotes: [
       { label: "Moment", value: "HARU pauses to watch the countryside as the daylight fades." },
       { label: "Visual Direction", value: "Golden-hour color, restrained motion, and a peaceful cinematic atmosphere." },
@@ -69,6 +101,7 @@ export const shorts: Short[] = [
     category: "HARU Shorts",
     duration: "15 sec",
     tools: ["Google Flow", "Kling AI", "ChatGPT"],
+    characters: ["HARU", "PORI"],
     productionNotes: [
       { label: "Characters", value: "HARU and PORI share a quiet moment that introduces their gentle friendship." },
       { label: "Visual Direction", value: "Natural character interaction, calm pacing, and warm cinematic light." },
@@ -86,6 +119,7 @@ export const shorts: Short[] = [
     badge: "OFFICIAL VERTICAL CUT",
     duration: "58 sec",
     tools: ["Google Flow", "Runway", "Kling AI", "CapCut", "ChatGPT"],
+    characters: ["HARU"],
     productionNotes: [
       { label: "Source Film", value: "The official vertical edit of HARU — First Journey, preserving the story and cinematic tone of the original film." },
       { label: "Vertical Reframing", value: "Key shots were reframed for a 9:16 canvas while keeping HARU and the important story details inside the mobile safe area." },

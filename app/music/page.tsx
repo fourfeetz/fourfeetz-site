@@ -6,14 +6,14 @@ import HaruMusicPlaylist from "@/components/HaruMusicPlaylist";
 import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import { musicTracks } from "@/lib/music";
 
-const pageTitle = "HARU Music & Original Soundtracks | FourFeetz";
-const pageDescription = "Listen to HARU's official main theme and original soundtracks used in FourFeetz films and shorts.";
+const pageTitle = "FourFeetz Music & Original Soundtracks";
+const pageDescription = "Listen to official character themes and original soundtracks used in FourFeetz films and shorts featuring HARU, LUNA, and the growing character universe.";
 
 export const metadata: Metadata = {
   title: { absolute: pageTitle },
   description: pageDescription,
   alternates: { canonical: "https://www.fourfeetz.com/music" },
-  openGraph: { type: "website", title: pageTitle, description: pageDescription, url: "https://www.fourfeetz.com/music", images: [{ url: "/images/music-hero-v2.png", alt: "HARU music and original soundtracks" }] },
+  openGraph: { type: "website", title: pageTitle, description: pageDescription, url: "https://www.fourfeetz.com/music", images: [{ url: "/images/music-hero-v2.png", alt: "FourFeetz character music and original soundtracks" }] },
   twitter: { card: "summary_large_image", title: pageTitle, description: pageDescription, images: ["/images/music-hero-v2.png"] },
 };
 
@@ -39,10 +39,10 @@ export default function Page() {
     <main>
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
         <div className="max-w-[900px]">
-          <SectionLabel>HARU MUSIC LIBRARY</SectionLabel>
+          <SectionLabel>FOURFEETZ MUSIC LIBRARY</SectionLabel>
           <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">Music</h1>
-          <p className="mt-5 max-w-3xl text-2xl font-black leading-tight text-[#2b2119] md:text-4xl">HARU's official theme and original soundtracks.</p>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">Music created for the warmth, curiosity, quiet afternoons, and small adventures at the heart of HARU's world.</p>
+          <p className="mt-5 max-w-3xl text-2xl font-black leading-tight text-[#2b2119] md:text-4xl">Official character themes and original soundtracks.</p>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">Music created for the warmth, curiosity, quiet observations, and small adventures at the heart of the FourFeetz world.</p>
         </div>
         <HeroIllustrationCard src="/images/music-hero-v2.png" alt="FourFeetz music studio with microphone headphones MIDI keyboard and speaker" priority />
       </section>
@@ -68,7 +68,7 @@ export default function Page() {
       <HaruMusicPlaylist />
 
       <section id="tracks" className="border-y border-[#eadfce] bg-white px-6 py-20">
-        <SectionHeader eyebrow="Music Library" title="Original Soundtracks" desc="Original music created for HARU films, shorts, and quiet character moments." />
+        <SectionHeader eyebrow="Music Library" title="Original Soundtracks" desc="Original music created for FourFeetz films, shorts, and quiet character moments." />
         <div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2">
           {originalTracks.map((track) => (
             <article key={track.slug} className="group relative overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10 md:p-7">

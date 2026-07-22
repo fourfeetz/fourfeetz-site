@@ -278,7 +278,7 @@ export const navItems = [
 ] as const;
 
 export const todaysUpdates = [
-  { icon: "🎬", label: "New Work", title: "AI short concept in progress", desc: "A compact scene test for lighting, pacing, and character mood.", href: "/shorts" },
+  { icon: "🎬", label: "New Short", title: "LUNA Shorts EP.01", desc: "LUNA watches the world outside while HARU sleeps nearby, until curiosity calls.", href: "/shorts/luna-shorts-ep01" },
   { icon: "📝", label: "New Insight", title: "Prompt-to-shot workflow notes", desc: "A practical article outline for consistent AI video production.", href: "/insights" },
   { icon: "🎵", label: "New Music", title: "Theme sketch for character worlds", desc: "A warm loop concept prepared for future HARU story scenes.", href: "/music" },
   { icon: "🧪", label: "New Lab", title: "Tool comparison board", desc: "Early notes for testing generation models across the same scene.", href: "/tools" },

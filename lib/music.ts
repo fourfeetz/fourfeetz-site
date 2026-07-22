@@ -13,8 +13,8 @@ export type MusicTrack = {
   cover: string;
   mood: string;
   production: string;
-  prompt: string;
-  instruments: string[];
+  prompt?: string;
+  instruments?: string[];
   usage: string[];
 };
 
@@ -39,6 +39,23 @@ export const musicTracks: MusicTrack[] = [
     prompt: "Warm cinematic character theme, gentle piano and acoustic textures, soft orchestral lift, curious and hopeful journey, quiet sense of adventure, instrumental.",
     instruments: ["Piano", "Acoustic textures", "Soft strings", "Cinematic ambience"],
     usage: ["HARU character theme", "HARU — First Journey", "Character introductions", "Official FourFeetz releases"],
+  },
+  {
+    slug: "window-cat-paws",
+    title: "Window Cat Paws",
+    artist: "FourFeetz Studios",
+    category: "Original Soundtrack",
+    duration: "0:59",
+    description: "The original soundtrack for LUNA Shorts EP.01, following LUNA's quiet watchfulness and the moment curiosity draws her beyond the window.",
+    audio: "/audio/music/window-cat-paws.mp3",
+    character: "LUNA",
+    featured: false,
+    badge: "ORIGINAL SOUNDTRACK",
+    status: "Released",
+    cover: "/images/shorts/luna/luna-shorts-ep01-cover.png",
+    mood: "Quiet, observant, and gently curious",
+    production: "Window Cat Paws supports the restrained pacing of LUNA Shorts EP.01, moving with her watchful pause and the story's final turn toward curiosity.",
+    usage: ["LUNA Shorts EP.01", "LUNA character moments", "Quiet window scenes", "Vertical short films"],
   },
   {
     slug: "puppys-morning-adventure-1",

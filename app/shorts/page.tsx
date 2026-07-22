@@ -4,8 +4,8 @@ import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import type { Short } from "@/data/shorts";
 import { shorts } from "@/data/shorts";
 
-const title = "HARU Shorts | FourFeetz";
-const description = "Short cinematic AI videos created by FourFeetz featuring HARU.";
+const title = "AI Character Shorts | FourFeetz";
+const description = "Short cinematic AI videos created by FourFeetz featuring original characters including HARU and LUNA.";
 const canonical = "https://www.fourfeetz.com/shorts";
 const socialImage = "/images/shorts-hero-v2.png";
 
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title,
     description,
     url: canonical,
-    images: [{ url: socialImage, alt: "HARU short-form filmmaking studio" }],
+    images: [{ url: socialImage, alt: "FourFeetz short-form filmmaking studio" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -65,14 +65,16 @@ function ShortCard({ short }: { short: Short }) {
           </div>
           <h3 className="mt-5 text-2xl font-black tracking-tight text-[#2b2119]">{short.title}</h3>
           <p className="mt-3 leading-7 text-[#76685d]">{short.description}</p>
-          <div className="mt-6 border-t border-[#eadfce] pt-5">
-            <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">Made With</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {short.tools.map((tool) => (
-                <span key={tool} className="rounded-full bg-[#f2e8dc] px-3 py-1.5 text-xs font-bold text-[#6f4e37]">{tool}</span>
-              ))}
+          {short.tools.length ? (
+            <div className="mt-6 border-t border-[#eadfce] pt-5">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">Made With</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {short.tools.map((tool) => (
+                  <span key={tool} className="rounded-full bg-[#f2e8dc] px-3 py-1.5 text-xs font-bold text-[#6f4e37]">{tool}</span>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : null}
         </div>
       </article>
     </Link>
@@ -88,12 +90,12 @@ export default function ShortsPage() {
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
         <div className="max-w-[900px]">
           <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Short-form Films</p>
-          <h1 className="mt-4 text-5xl font-black tracking-tight text-[#2b2119] md:text-7xl">HARU Shorts</h1>
+          <h1 className="mt-4 text-5xl font-black tracking-tight text-[#2b2119] md:text-7xl">FourFeetz Shorts</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">
             Short cinematic AI videos created for YouTube Shorts, Instagram Reels and TikTok.
           </p>
         </div>
-        <HeroIllustrationCard src="/images/shorts-hero-v2.png" alt="HARU short-form filmmaking setup with a vertical phone camera clapperboard and editing controls" priority />
+        <HeroIllustrationCard src="/images/shorts-hero-v2.png" alt="FourFeetz short-form filmmaking setup with a vertical phone camera clapperboard and editing controls" priority />
       </section>
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20 md:py-24">
