@@ -20,10 +20,18 @@ export type ProductionInsightSection = {
   id: string;
   title: string;
   paragraphs: string[];
+  bullets?: string[];
+  steps?: string[];
   note?: string;
   prompt?: string;
   table?: ProductionInsightTable;
   visual?: "pipeline" | "camera" | "consistency" | "timeline";
+  videos?: {
+    src: string;
+    poster: string;
+    title: string;
+    caption: string;
+  }[];
   images?: {
     src: string;
     alt: string;

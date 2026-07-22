@@ -62,6 +62,7 @@ const characters: SiteContentItem[] = characterDetails.map((character) => ({
 }));
 
 const insights: SiteContentItem[] = [
+  ["MagicLight & Seedance 2.0: A Real Production Test with HARU", "An independent FourFeetz production test of MagicLight, Magic Claw, and Seedance 2.0 Fast for HARU Relax TV EP.03.", "magiclight-seedance-2-real-production-test", "AI Video Workflow", ["HARU"], ["MagicLight", "Magic Claw", "Seedance 2.0", "Google Flow", "CapCut"]],
   ["How HARU Was Created", "The official FourFeetz production story behind HARU, from visual identity and character drift to first-shot images, motion, and continuity review.", "how-haru-was-created", "Behind the Scenes", ["HARU"], ["Google Flow", "Runway", "Kling AI", "ChatGPT", "Suno"]],
   ["Runway Gen-4 Review", "A practical review of image consistency, motion quality, camera control, and production workflow.", "runway-gen-4-review", "AI Video", [], ["Runway"]],
   ["Kling vs Veo", "A side-by-side comparison of scene quality, motion realism, prompt control, and production speed.", "kling-vs-veo", "Tools", [], ["Kling AI", "Veo"]],

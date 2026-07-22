@@ -36,6 +36,7 @@ const routes = [
   "/insights/image-to-video-prompts",
   "/insights/kling-vs-veo",
   "/insights/kling-ai-complete-review",
+  "/insights/magiclight-seedance-2-real-production-test",
   "/insights/reframing-16-9-guide",
   "/insights/repeatable-ai-video-workflow",
   "/insights/runway-gen-4-review",

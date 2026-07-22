@@ -379,6 +379,15 @@ export const characters = [
 ];
 export const insights = [
   {
+    titleEn: "MagicLight & Seedance 2.0: A Real Production Test with HARU",
+    titleKo: "MagicLight와 Seedance 2.0 실제 제작 테스트",
+    category: "AI Video Workflow",
+    readTime: "7 min read",
+    descEn: "What worked, what failed, and why FourFeetz returned to Google Flow for HARU Relax TV EP.03.",
+    descKo: "HARU Relax TV EP.03 제작에서 확인한 결과와 Google Flow로 돌아간 이유를 정리합니다.",
+    href: "/insights/magiclight-seedance-2-real-production-test",
+  },
+  {
     titleEn: "Runway Gen-4 Review",
     titleKo: "Runway Gen-4 Review",
     category: "AI Video",

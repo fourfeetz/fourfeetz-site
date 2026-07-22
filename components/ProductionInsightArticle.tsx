@@ -43,6 +43,21 @@ function ArticleSection({ section }: { section: ProductionInsightSection }) {
       <div className="mt-7 space-y-6 text-lg leading-8 text-[#665a50]">
         {section.paragraphs.map((paragraph) => <p key={paragraph.slice(0, 72)}>{paragraph}</p>)}
       </div>
+      {section.steps ? (
+        <ol className="my-9 grid gap-3">
+          {section.steps.map((step, index) => (
+            <li key={step} className="grid grid-cols-[40px_1fr] gap-4 rounded-2xl border border-[#eadfce] bg-white p-5 text-base leading-7 text-[#665a50] shadow-sm">
+              <span className="grid size-10 place-items-center rounded-full bg-[#6f4e37] text-sm font-black text-white">{index + 1}</span>
+              <span className="self-center">{step}</span>
+            </li>
+          ))}
+        </ol>
+      ) : null}
+      {section.bullets ? (
+        <ul className="my-9 space-y-3 rounded-[28px] border border-[#eadfce] bg-white p-6 shadow-sm md:p-8">
+          {section.bullets.map((bullet) => <li key={bullet} className="flex gap-3 text-base leading-7 text-[#665a50]"><span aria-hidden="true" className="mt-2 size-2 shrink-0 rounded-full bg-[#a67c52]" />{bullet}</li>)}
+        </ul>
+      ) : null}
       {section.note ? (
         <aside className="my-9 rounded-[28px] border border-[#d8c3ad] bg-white p-6 shadow-sm md:p-8">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">From the studio</p>
@@ -56,6 +71,18 @@ function ArticleSection({ section }: { section: ProductionInsightSection }) {
         </div>
       ) : null}
       {section.visual ? <ProductionDiagram type={section.visual} /> : null}
+      {section.videos ? (
+        <div className={`my-9 grid gap-5 ${section.videos.length > 1 ? "md:grid-cols-2" : ""}`}>
+          {section.videos.map((video) => (
+            <figure key={video.src}>
+              <div className="overflow-hidden rounded-[26px] border border-[#d8c3ad] bg-black shadow-xl shadow-[#6f4e37]/10">
+                <video src={video.src} poster={video.poster} controls playsInline preload="metadata" aria-label={video.title} className="aspect-video h-auto w-full object-cover" />
+              </div>
+              <figcaption className="mt-3 text-sm leading-6 text-[#76685d]">{video.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      ) : null}
       {section.images ? (
         <div className={`my-9 grid gap-5 ${section.images.length > 1 ? "md:grid-cols-2" : ""}`}>
           {section.images.map((image, index) => (
