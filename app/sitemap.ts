@@ -22,6 +22,7 @@ const routes = [
   "/characters/pori",
   "/contact",
   "/en",
+  "/films",
   "/insights",
   "/insights/ai-lighting-guide",
   "/insights/ai-storyboarding-guide",
@@ -65,7 +66,6 @@ const routes = [
   "/terms",
   "/tools",
   "/travel",
-  "/works",
   "/youtube",
 ];
 
