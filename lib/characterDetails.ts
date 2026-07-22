@@ -14,6 +14,10 @@ export type CharacterDetail = {
   promptNotes: string;
   futureStories: string;
   gallery: CharacterStudy[];
+  publishedAt?: string;
+  updatedAt?: string;
+  featured?: boolean;
+  publishStatus?: "published" | "draft";
 };
 
 export type CharacterStudy = {
@@ -33,6 +37,9 @@ const characterBase: Omit<CharacterDetail, "gallery">[] = [
 
 export const characterDetails: CharacterDetail[] = characterBase.map((character) => ({
   ...character,
+  publishedAt: character.publishedAt ?? "2026-07-13",
+  featured: character.featured ?? character.slug === "haru",
+  publishStatus: character.publishStatus ?? "published",
   gallery: [
     {
       label: "Hero portrait",

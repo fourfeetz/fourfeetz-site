@@ -36,6 +36,10 @@ export type Short = {
     title: string;
     href: string;
   };
+  publishedAt?: string;
+  updatedAt?: string;
+  featured?: boolean;
+  publishStatus?: "published" | "draft";
 };
 
 export const shorts: Short[] = [
@@ -61,6 +65,9 @@ export const shorts: Short[] = [
     endFrame: "/images/shorts/luna/luna-shorts-ep01-end-frame.png",
     characterHref: "/characters/luna",
     music: { title: "Window Cat Paws", href: "/music/window-cat-paws" },
+    publishedAt: "2026-07-22",
+    featured: true,
+    publishStatus: "published",
   },
   {
     id: "short-001",
@@ -80,6 +87,8 @@ export const shorts: Short[] = [
     ],
     video: "/videos/shorts/haru/short-001.mp4",
     poster: "/images/shorts/haru/short-001.jpg",
+    publishedAt: "2026-07-15",
+    publishStatus: "published",
   },
   {
     id: "short-002",
@@ -99,6 +108,8 @@ export const shorts: Short[] = [
     ],
     video: "/videos/shorts/haru/short-002.mp4",
     poster: "/images/shorts/haru/short-002.jpg",
+    publishedAt: "2026-07-15",
+    publishStatus: "published",
   },
   {
     id: "short-003",
@@ -135,6 +146,10 @@ export const shorts: Short[] = [
       { name: "HARU", href: "/characters/haru" },
       { name: "PORI", href: "/characters/pori" },
     ],
+    publishedAt: "2026-07-16",
+    updatedAt: "2026-07-22",
+    featured: true,
+    publishStatus: "published",
   },
   {
     id: "short-004",
@@ -155,6 +170,8 @@ export const shorts: Short[] = [
     ],
     video: "/videos/shorts/haru/short-004.mp4",
     originalFilmHref: "/works/haru-first-journey",
+    publishedAt: "2026-07-17",
+    publishStatus: "published",
   },
 ];
 

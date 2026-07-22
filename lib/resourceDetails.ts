@@ -2,6 +2,10 @@ export type ResourceDetail = {
   slug: string; title: string; category: string; description: string; image: string;
   overview: string; preview: string[]; howTo: string[]; bestPractices: string[];
   faq: { question: string; answer: string }[];
+  publishedAt?: string;
+  updatedAt?: string;
+  featured?: boolean;
+  publishStatus?: "published" | "draft";
 };
 
 export const resourceDetails: ResourceDetail[] = [

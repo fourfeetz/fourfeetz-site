@@ -30,6 +30,10 @@ export type Film = {
   relatedResources?: FilmLink[];
   musicSlugs?: string[];
   nextProject?: { eyebrow: string; title: string; description: string };
+  publishedAt?: string;
+  updatedAt?: string;
+  featured?: boolean;
+  publishStatus?: "published" | "draft";
 };
 
 export const films: Film[] = [
@@ -101,6 +105,10 @@ export const films: Film[] = [
       { title: "Production Notes", description: "A clean template for prompts, tools, settings, and results.", href: "/resources/production-notes-template" },
     ],
     musicSlugs: ["haru-main-theme"],
+    publishedAt: "2026-07-16",
+    updatedAt: "2026-07-17",
+    featured: true,
+    publishStatus: "published",
     nextProject: { eyebrow: "In Production", title: "PORI — Coming Soon", description: "The next original FourFeetz story is already in production." },
   },
   {
@@ -129,6 +137,9 @@ export const films: Film[] = [
     language: "No Dialogue",
     resolution: "Full HD",
     watchDescription: "A quiet long-form viewing experience built around natural breathing, a static camera, and warm cinematic light.",
+    publishedAt: "2026-07-16",
+    featured: true,
+    publishStatus: "published",
   },
 ];
 

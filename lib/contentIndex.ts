@@ -1,6 +1,7 @@
 import { shorts } from "@/data/shorts";
 import { characterDetails } from "@/lib/characterDetails";
-import { films as filmCatalog } from "@/lib/films";
+import { films } from "@/lib/films";
+import { insightArticles } from "@/lib/insights";
 import { musicTracks } from "@/lib/music";
 import { resourceDetails } from "@/lib/resourceDetails";
 
@@ -19,7 +20,7 @@ export type SiteContentItem = {
   detail?: boolean;
 };
 
-const films: SiteContentItem[] = filmCatalog.map((film) => ({
+const filmContent: SiteContentItem[] = films.map((film) => ({
   title: film.title,
   description: film.description,
   href: `/works/${film.slug}`,
@@ -27,16 +28,12 @@ const films: SiteContentItem[] = filmCatalog.map((film) => ({
   category: film.category,
   characters: [film.character],
   tools: film.tools,
-  keywords: [
-    "film",
-    film.duration,
-    ...film.productionNotes.map((note) => `${note.label} ${note.value}`),
-  ],
+  keywords: ["film", film.duration, ...film.productionNotes.map((note) => `${note.label} ${note.value}`)],
   searchable: true,
   detail: true,
 }));
 
-const shortFilms: SiteContentItem[] = shorts.map((short) => ({
+const shortContent: SiteContentItem[] = shorts.map((short) => ({
   title: short.title,
   description: short.description,
   href: `/shorts/${short.slug}`,
@@ -49,7 +46,7 @@ const shortFilms: SiteContentItem[] = shorts.map((short) => ({
   detail: false,
 }));
 
-const characters: SiteContentItem[] = characterDetails.map((character) => ({
+const characterContent: SiteContentItem[] = characterDetails.map((character) => ({
   title: character.name,
   description: `${character.species} — ${character.tagline}`,
   href: `/characters/${character.slug}`,
@@ -61,40 +58,20 @@ const characters: SiteContentItem[] = characterDetails.map((character) => ({
   detail: true,
 }));
 
-const insights: SiteContentItem[] = [
-  ["MagicLight & Seedance 2.0: A Real Production Test with HARU", "An independent FourFeetz production test of MagicLight, Magic Claw, and Seedance 2.0 Fast for HARU Relax TV EP.03.", "magiclight-seedance-2-real-production-test", "AI Video Workflow", ["HARU"], ["MagicLight", "Magic Claw", "Seedance 2.0", "Google Flow", "CapCut"]],
-  ["How HARU Was Created", "The official FourFeetz production story behind HARU, from visual identity and character drift to first-shot images, motion, and continuity review.", "how-haru-was-created", "Behind the Scenes", ["HARU"], ["Google Flow", "Runway", "Kling AI", "ChatGPT", "Suno"]],
-  ["Runway Gen-4 Review", "A practical review of image consistency, motion quality, camera control, and production workflow.", "runway-gen-4-review", "AI Video", [], ["Runway"]],
-  ["Kling vs Veo", "A side-by-side comparison of scene quality, motion realism, prompt control, and production speed.", "kling-vs-veo", "Tools", [], ["Kling AI", "Veo"]],
-  ["A Repeatable AI Video Workflow", "From story planning and reference images to animation, sound, editing, and publishing.", "ai-video-workflow", "Workflow", [], ["ChatGPT", "Runway", "Kling AI"]],
-  ["Best AI Music Tools for Video", "A creator-focused comparison of AI music tools for films, shorts, reels, and character themes.", "best-ai-music-tools", "AI Music", [], ["Suno"]],
-  ["Writing Better Image-to-Video Prompts", "A practical framework for camera movement, subject motion, lighting, environment, and continuity.", "image-to-video-prompts", "Prompts", [], ["Runway", "Kling AI", "Veo"]],
-  ["Reframing 16:9 AI Films for Vertical Video", "Adapt cinematic AI videos for Shorts, Reels, TikTok, and Naver Clip.", "reframing-16-9-guide", "Social Media", [], ["CapCut"]],
-  ["Camera Movement Guide for AI Filmmakers", "Eight essential camera movements for cinematic AI-generated videos.", "camera-movement-guide", "Filmmaking", [], ["Runway", "Kling AI", "Veo"]],
-  ["AI Thumbnail Design Guide", "Design high-click thumbnails with composition, color, branding, and visual storytelling.", "ai-thumbnail-design-guide", "Design", [], ["ChatGPT", "Flux"]],
-  ["Character Consistency Guide", "Maintain the same AI character across images, videos, prompts, and tools.", "character-consistency-guide", "Characters", ["HARU"], ["ChatGPT", "Runway", "Kling AI"]],
-  ["Google Flow Complete Guide", "Scene planning, prompt control, camera movement, exports, and cinematic workflows.", "google-flow-complete-guide", "Workflow", [], ["Google Flow", "Veo"]],
-  ["Veo 3 Complete Review", "A production-focused review of image quality, motion, prompts, and camera control.", "veo3-complete-review", "AI Video", [], ["Veo"]],
-  ["Runway Gen-4.5 Review", "A practical look at motion, character consistency, camera control, and workflow speed.", "runway-gen45-review", "AI Video", [], ["Runway"]],
-  ["Kling AI Complete Review", "A production-tested review of Continue, End Frame, Extend, character consistency, and targeted video repair using HARU.", "kling-ai-complete-review", "AI Video", ["HARU"], ["Kling AI"]],
-  ["Flux Image Guide", "Create stronger reference images, lighting studies, character visuals, and thumbnails.", "flux-image-guide", "Images", [], ["Flux"]],
-  ["AI Lighting Guide", "Prompt golden hour, soft light, studio light, sunset, cloudy scenes, and night lighting.", "ai-lighting-guide", "Filmmaking", [], ["ChatGPT", "Flux"]],
-  ["AI Storyboarding Guide", "Plan shots, character position, camera direction, continuity, and production workflows.", "ai-storyboarding-guide", "Workflow", [], ["ChatGPT", "Google Flow"]],
-  ["Repeatable AI Video Workflow", "A repeatable system for planning, generating, reviewing, editing, and publishing AI video.", "repeatable-ai-video-workflow", "Workflow", [], ["ChatGPT", "Runway", "Kling AI"]],
-  ["Vertical Video Reframing", "A practical workflow for turning cinematic masters into platform-ready vertical video.", "vertical-video-reframing", "Social Media", [], ["CapCut"]],
-].map(([title, description, slug, category, itemCharacters, tools]) => ({
-  title: title as string,
-  description: description as string,
-  href: `/insights/${slug as string}`,
-  type: "Insights" as const,
-  category: category as string,
-  characters: itemCharacters as string[],
-  tools: tools as string[],
+const insightContent: SiteContentItem[] = insightArticles.map((article) => ({
+  title: article.title,
+  description: article.description,
+  href: article.href,
+  type: "Insights",
+  category: article.category,
+  characters: article.characters,
+  tools: article.tools,
+  keywords: article.keywords,
   searchable: true,
   detail: true,
 }));
 
-const resources: SiteContentItem[] = [
+const resourceContent: SiteContentItem[] = [
   ...resourceDetails.map((resource) => ({
     title: resource.title,
     description: resource.description,
@@ -112,7 +89,7 @@ const resources: SiteContentItem[] = [
   { title: "Tool Comparisons", description: "Practical comparisons for selecting tools across the AI production workflow.", href: "/resources/tool-comparisons", type: "Resources", category: "Tools", tools: ["Runway", "Kling AI", "Veo"], searchable: true, detail: true },
 ];
 
-const music: SiteContentItem[] = musicTracks.map((track) => ({
+const musicContent: SiteContentItem[] = musicTracks.map((track) => ({
   title: track.title,
   description: track.description,
   href: `/music/${track.slug}`,
@@ -124,7 +101,14 @@ const music: SiteContentItem[] = musicTracks.map((track) => ({
   detail: true,
 }));
 
-export const siteContent: SiteContentItem[] = [...films, ...shortFilms, ...characters, ...insights, ...resources, ...music];
+export const siteContent: SiteContentItem[] = [
+  ...filmContent,
+  ...shortContent,
+  ...characterContent,
+  ...insightContent,
+  ...resourceContent,
+  ...musicContent,
+];
 export const searchableContent = siteContent.filter((item) => item.searchable);
 
 function overlap(left: string[] = [], right: string[] = []) {

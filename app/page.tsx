@@ -3,8 +3,31 @@
 import Image from "next/image";
 import Link from "next/link";
 import CinematicHero from "@/components/CinematicHero";
-import { characters, insights, resources, socialPlatforms, todaysUpdates, works } from "@/lib/i18n";
+import { socialPlatforms } from "@/lib/i18n";
+import {
+  getFeaturedWorks,
+  getHomepageCharacters,
+  getHomepageResources,
+  getLatestInsights,
+  getLatestUpdates,
+  type HomepageContentType,
+} from "@/lib/homepageContent";
 import { useLanguage } from "@/components/LanguageProvider";
+
+const todaysUpdates = getLatestUpdates(4);
+const works = getFeaturedWorks(4);
+const characters = getHomepageCharacters(4);
+const insights = getLatestInsights(4);
+const resources = getHomepageResources(4);
+
+const updateIcons: Record<HomepageContentType, string> = {
+  Film: "🎬",
+  Short: "🎬",
+  Music: "🎵",
+  Insight: "📝",
+  Resource: "🧰",
+  Character: "🐾",
+};
 
 function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: string; desc: string }) {
   return (
@@ -39,11 +62,11 @@ export default function Home() {
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-4 md:grid-cols-4">
           {todaysUpdates.map((item) => (
-            <Link key={item.label} href={item.href} aria-label={`View ${item.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
-              <div className="text-3xl" aria-hidden="true">{item.icon}</div>
-              <p className="mt-5 text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">{item.label}</p>
+            <Link key={`${item.type}-${item.id}`} href={item.href} aria-label={`View ${item.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
+              <div className="text-3xl" aria-hidden="true">{updateIcons[item.type]}</div>
+              <p className="mt-5 text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">New {item.type}</p>
               <h3 className="mt-2 text-xl font-black text-[#2b2119]">{item.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-[#76685d]">{item.desc}</p>
+              <p className="mt-3 text-sm leading-6 text-[#76685d]">{item.description}</p>
             </Link>
           ))}
         </div>
@@ -57,9 +80,9 @@ export default function Home() {
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">
           {works.map((work) => (
-            <Link key={work.title} href={work.href} aria-label={`View ${work.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
-              {work.thumbnail ? (
-                <Image src={work.thumbnail} alt={work.title} width={640} height={400} className="aspect-[16/10] rounded-2xl bg-[#fffaf4] object-cover" />
+            <Link key={`${work.type}-${work.id}`} href={work.href} aria-label={`View ${work.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
+              {work.image ? (
+                <Image src={work.image} alt={work.title} width={640} height={400} className="aspect-[16/10] rounded-2xl bg-[#fffaf4] object-cover" />
               ) : (
                 <PlaceholderThumb label={work.category} />
               )}
@@ -69,7 +92,7 @@ export default function Home() {
                   <p className="text-xs font-bold text-[#9a8775]">{work.duration}</p>
                 </div>
                 <h3 className="mt-3 text-2xl font-black text-[#2b2119]">{work.title}</h3>
-                <p className="mt-3 text-[#76685d]">{work.desc}</p>
+                <p className="mt-3 text-[#76685d]">{work.description}</p>
               </div>
             </Link>
           ))}
@@ -83,16 +106,16 @@ export default function Home() {
           desc="HARU is the first featured original character. The universe is designed to expand with future characters, stories, music, and short-form series."
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {characters.map((character, index) => (
-            <Link key={`${character.name}-${index}`} href={character.href} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+          {characters.map((character) => (
+            <Link key={character.id} href={character.href} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
               {character.image ? (
-                <Image src={character.image} alt={character.name} width={500} height={500} className="rounded-2xl bg-[#fffaf4]" />
+                <Image src={character.image} alt={character.title} width={500} height={500} className="rounded-2xl bg-[#fffaf4]" />
               ) : (
                 <div className="grid aspect-square place-items-center rounded-2xl bg-[#f1e4d5] text-center text-xl font-black uppercase tracking-[0.18em] text-[#a67c52]">Coming<br />Soon</div>
               )}
-              <p className="mt-5 text-sm font-black uppercase tracking-[0.2em] text-[#a67c52]">{character.role}</p>
-              <h3 className="mt-2 text-2xl font-black text-[#2b2119]">{character.name}</h3>
-              <p className="mt-3 text-[#76685d]">{character.desc}</p>
+              <p className="mt-5 text-sm font-black uppercase tracking-[0.2em] text-[#a67c52]">{character.featured ? "Featured Character" : "Original Character"}</p>
+              <h3 className="mt-2 text-2xl font-black text-[#2b2119]">{character.title}</h3>
+              <p className="mt-3 text-[#76685d]">{character.description}</p>
             </Link>
           ))}
         </div>
@@ -106,10 +129,10 @@ export default function Home() {
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">
           {insights.map((article) => (
-            <Link key={article.titleEn} href={article.href} aria-label={`Read ${article.titleEn}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
+            <Link key={article.id} href={article.href} aria-label={`Read ${article.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               <p className="text-sm font-black text-[#a67c52]">{article.category}</p>
-              <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{article.titleEn}</h3>
-              <p className="mt-3 text-[#76685d]">{article.descEn}</p>
+              <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{article.title}</h3>
+              <p className="mt-3 text-[#76685d]">{article.description}</p>
               <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-[#9a8775]">{article.readTime}</p>
             </Link>
           ))}
@@ -124,9 +147,9 @@ export default function Home() {
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-4">
           {resources.map((resource) => (
-            <Link key={resource.title} href={resource.href} aria-label={`View ${resource.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-7 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
+            <Link key={resource.id} href={resource.href} aria-label={`View ${resource.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-7 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               <h3 className="text-2xl font-black text-[#2b2119]">{resource.title}</h3>
-              <p className="mt-3 text-[#76685d]">{resource.desc}</p>
+              <p className="mt-3 text-[#76685d]">{resource.description}</p>
             </Link>
           ))}
         </div>

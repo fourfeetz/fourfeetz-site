@@ -16,6 +16,9 @@ export type MusicTrack = {
   prompt?: string;
   instruments?: string[];
   usage: string[];
+  publishedAt?: string;
+  updatedAt?: string;
+  publishStatus?: "published" | "draft";
 };
 
 const haruCover = "/images/music/tracks/haru-theme.png";
@@ -36,6 +39,8 @@ export const musicTracks: MusicTrack[] = [
     cover: "/images/music/tracks/haru-main-theme.png",
     mood: "Warm, curious, and quietly adventurous",
     production: "The official theme was shaped around HARU's emotional identity, balancing a gentle sense of discovery with the warmth of finding a place to belong.",
+    publishedAt: "2026-07-17",
+    publishStatus: "published",
     prompt: "Warm cinematic character theme, gentle piano and acoustic textures, soft orchestral lift, curious and hopeful journey, quiet sense of adventure, instrumental.",
     instruments: ["Piano", "Acoustic textures", "Soft strings", "Cinematic ambience"],
     usage: ["HARU character theme", "HARU — First Journey", "Character introductions", "Official FourFeetz releases"],
@@ -55,6 +60,8 @@ export const musicTracks: MusicTrack[] = [
     cover: "/images/shorts/luna/luna-shorts-ep01-cover.png",
     mood: "Quiet, observant, and gently curious",
     production: "Window Cat Paws supports the restrained pacing of LUNA Shorts EP.01, moving with her watchful pause and the story's final turn toward curiosity.",
+    publishedAt: "2026-07-22",
+    publishStatus: "published",
     usage: ["LUNA Shorts EP.01", "LUNA character moments", "Quiet window scenes", "Vertical short films"],
   },
   {
