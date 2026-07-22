@@ -21,8 +21,17 @@ export type Short = {
   video: string;
   poster?: string;
   endFrame?: string;
+  gallery?: {
+    src: string;
+    alt: string;
+    caption: string;
+  }[];
   originalFilmHref?: string;
   characterHref?: string;
+  characterLinks?: {
+    name: string;
+    href: string;
+  }[];
   music?: {
     title: string;
     href: string;
@@ -96,18 +105,36 @@ export const shorts: Short[] = [
     slug: "haru-ep03-best-friends",
     type: "episode",
     episode: "EP.03",
-    title: "HARU EP.03 — Best Friends",
-    description: "HARU and PORI spend a peaceful moment together in a cinematic AI short.",
+    title: "HARU & PORI — A Golden Evening Together",
+    description: "HARU and PORI meet in a flower-filled garden, run and play together in the golden evening light, then rest side by side.",
     category: "HARU Shorts",
-    duration: "15 sec",
+    duration: "18 sec",
     tools: ["Google Flow", "Kling AI", "ChatGPT"],
     characters: ["HARU", "PORI"],
     productionNotes: [
-      { label: "Characters", value: "HARU and PORI share a quiet moment that introduces their gentle friendship." },
-      { label: "Visual Direction", value: "Natural character interaction, calm pacing, and warm cinematic light." },
-      { label: "Format", value: "A 15-second AI short composed for YouTube Shorts, Instagram Reels, and TikTok." },
+      { label: "Story", value: "HARU and PORI meet among the flowers, share a playful run through the garden, and settle down together as the evening grows calm." },
+      { label: "Characters", value: "HARU and PORI carry the story through warm, gentle interaction and a quiet final moment side by side." },
+      { label: "Format", value: "AI Animated Short" },
+      { label: "Aspect Ratio", value: "9:16 vertical" },
     ],
     video: "/videos/shorts/haru/short-003.mp4",
+    poster: "/images/shorts/haru/short-003-cover.png",
+    gallery: [
+      {
+        src: "/images/shorts/haru/short-003-together.png",
+        alt: "HARU and PORI lying side by side in a flower-filled garden at golden hour",
+        caption: "A quiet pause together after playing in the garden.",
+      },
+      {
+        src: "/images/shorts/haru/short-003-wide.png",
+        alt: "Wide vertical view of HARU and PORI together in a warm flower garden",
+        caption: "The wider garden composition establishes the warm evening setting.",
+      },
+    ],
+    characterLinks: [
+      { name: "HARU", href: "/characters/haru" },
+      { name: "PORI", href: "/characters/pori" },
+    ],
   },
   {
     id: "short-004",

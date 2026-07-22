@@ -32,6 +32,11 @@ export default function ShortDetailPage({ short }: { short: Short }) {
                 Meet {short.characters?.[0] ?? "the Character"}
               </Link>
             ) : null}
+            {short.characterLinks?.map((character) => (
+              <Link key={character.href} href={character.href} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119]">
+                Meet {character.name}
+              </Link>
+            ))}
             {short.music ? (
               <Link href={short.music.href} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119]">
                 Listen to {short.music.title}
@@ -102,6 +107,22 @@ export default function ShortDetailPage({ short }: { short: Short }) {
               </figure>
             ) : null}
           </article>
+          {short.gallery?.length ? (
+            <article id="story-frames" className="scroll-mt-24 rounded-[32px] border border-[#eadfce] bg-[#fffaf4] p-7 shadow-sm md:p-9 lg:col-span-2">
+              <p className="text-sm font-black uppercase tracking-[0.32em] text-[#a67c52]">Behind the Scenes</p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-[#2b2119] md:text-4xl">Story Frames</h2>
+              <div className="mt-7 grid gap-6 sm:grid-cols-2">
+                {short.gallery.map((image) => (
+                  <figure key={image.src} className="overflow-hidden rounded-[28px] border border-[#eadfce] bg-white p-3 shadow-sm">
+                    <div className="relative aspect-[9/16] overflow-hidden rounded-[20px] bg-[#f6ebdd]">
+                      <Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+                    </div>
+                    <figcaption className="px-2 pb-1 pt-4 leading-7 text-[#6f4e37]">{image.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </article>
+          ) : null}
         </div>
       </section>
 

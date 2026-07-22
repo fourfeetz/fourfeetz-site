@@ -13,7 +13,7 @@ function Heading({ eyebrow, title }: { eyebrow: string; title: string }) {
 export default function CharacterDetailPage({ character }: { character: CharacterDetail }) {
   const related = characterDetails.filter((item) => item.slug !== character.slug).slice(0, 3);
   const featuredMusic = musicTracks.filter((track) => track.character === character.name && track.featured);
-  const featuredShorts = shorts.filter((short) => short.characters?.includes(character.name)).slice(0, 3);
+  const featuredShorts = shorts.filter((short) => short.characters?.includes(character.name)).slice(0, 4);
   const image = `/images/characters/${character.slug}/portrait.png`;
   const schema = { "@context": "https://schema.org", "@type": "Person", name: character.name, description: character.tagline, image, url: `https://fourfeetz.com/characters/${character.slug}` };
   return <main>
