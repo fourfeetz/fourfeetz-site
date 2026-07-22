@@ -18,9 +18,8 @@ export const metadata: Metadata = {
     default: "FourFeetz Studios | AI Creative Studio",
     template: "%s | FourFeetz Studios",
   },
-  description:
-    "FourFeetz Studios creates AI films, original characters, music, and creative production content for multi-platform storytelling.",
-  metadataBase: new URL("https://www.fourfeetz.com"),
+  description: "AI films, original characters, music, and creative production by FourFeetz.",
+  metadataBase: new URL("https://fourfeetz.com"),
   other: {
     "google-adsense-account": "ca-pub-8793962309929245",
     "naver-site-verification": "114f76443087cc8fa294d3c654d19d4b271a7666",
@@ -30,14 +29,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "FourFeetz Studios",
     title: "FourFeetz Studios | AI Creative Studio",
-    description: "FourFeetz Studios creates AI films, original characters, music, and creative production content for multi-platform storytelling.",
+    description: "AI films, original characters, music, and creative production by FourFeetz.",
     url: "/",
     images: [{ url: "/images/studio-hero.png", alt: "FourFeetz Studios AI Creative Studio" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "FourFeetz Studios | AI Creative Studio",
-    description: "FourFeetz Studios creates AI films, original characters, music, and creative production content for multi-platform storytelling.",
+    description: "AI films, original characters, music, and creative production by FourFeetz.",
     images: ["/images/studio-hero.png"],
   },
 };

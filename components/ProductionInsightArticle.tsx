@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ProductionInsight, ProductionInsightSection } from "@/lib/productionInsights";
 
-const siteUrl = "https://www.fourfeetz.com";
+const siteUrl = "https://fourfeetz.com";
 
 function JsonLd({ value }: { value: object }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(value).replace(/</g, "\\u003c") }} />;

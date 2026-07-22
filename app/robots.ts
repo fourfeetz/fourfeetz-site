@@ -6,7 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://www.fourfeetz.com/sitemap.xml",
-    host: "https://www.fourfeetz.com",
+    sitemap: "https://fourfeetz.com/sitemap.xml",
   };
 }

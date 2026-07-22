@@ -12,8 +12,8 @@ const pageDescription = "Listen to official character themes and original soundt
 export const metadata: Metadata = {
   title: { absolute: pageTitle },
   description: pageDescription,
-  alternates: { canonical: "https://www.fourfeetz.com/music" },
-  openGraph: { type: "website", title: pageTitle, description: pageDescription, url: "https://www.fourfeetz.com/music", images: [{ url: "/images/music-hero-v2.png", alt: "FourFeetz character music and original soundtracks" }] },
+  alternates: { canonical: "https://fourfeetz.com/music" },
+  openGraph: { type: "website", title: pageTitle, description: pageDescription, url: "https://fourfeetz.com/music", images: [{ url: "/images/music-hero-v2.png", alt: "FourFeetz character music and original soundtracks" }] },
   twitter: { card: "summary_large_image", title: pageTitle, description: pageDescription, images: ["/images/music-hero-v2.png"] },
 };
 

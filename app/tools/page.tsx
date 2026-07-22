@@ -8,13 +8,13 @@ const description = "Discover the AI video, music, writing, and editing tools us
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: { canonical: "https://www.fourfeetz.com/tools" },
+  alternates: { canonical: "https://fourfeetz.com/tools" },
   openGraph: {
     type: "website",
     siteName: "FourFeetz Studios",
     title,
     description,
-    url: "https://www.fourfeetz.com/tools",
+    url: "https://fourfeetz.com/tools",
     images: [{ url: "/images/tools-hero-v2.png", alt: "FourFeetz Studios AI production toolkit" }],
   },
   twitter: {

@@ -3,7 +3,7 @@ import { shorts } from "@/data/shorts";
 import { films } from "@/lib/films";
 import { musicTracks } from "@/lib/music";
 
-const baseUrl = "https://www.fourfeetz.com";
+const baseUrl = "https://fourfeetz.com";
 
 const routes = [
   "",

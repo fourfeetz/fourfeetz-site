@@ -44,7 +44,7 @@ export default async function Page({ params }: Props) {
     duration: track.duration,
     image: track.cover,
     byArtist: { "@type": "Organization", name: track.artist },
-    url: `https://www.fourfeetz.com/music/${track.slug}`,
+    url: `https://fourfeetz.com/music/${track.slug}`,
   };
 
   return (

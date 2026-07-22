@@ -6,7 +6,7 @@ import { shorts } from "@/data/shorts";
 
 const title = "AI Character Shorts | FourFeetz";
 const description = "Short cinematic AI videos created by FourFeetz featuring original characters including HARU and LUNA.";
-const canonical = "https://www.fourfeetz.com/shorts";
+const canonical = "https://fourfeetz.com/shorts";
 const socialImage = "/images/shorts-hero-v2.png";
 
 export const metadata: Metadata = {

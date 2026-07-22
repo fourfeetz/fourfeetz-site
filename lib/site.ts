@@ -1,7 +1,6 @@
 ﻿export const site = {
   name: "FourFeetz Studios",
-  description:
-    "FourFeetz Studios creates AI films, original characters, music, and creative production content for multi-platform storytelling.",
+  description: "AI films, original characters, music, and creative production by FourFeetz.",
   nav: [
     { href: "/", label: "Home" },
     { href: "/works", label: "Works" },

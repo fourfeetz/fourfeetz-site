@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: ShortPageProps): Promise<Meta
   if (!short) return {};
 
   const title = `${short.title} | FourFeetz`;
-  const canonical = `https://www.fourfeetz.com/shorts/${short.slug}`;
+  const canonical = `https://fourfeetz.com/shorts/${short.slug}`;
 
   return {
     title: { absolute: title },

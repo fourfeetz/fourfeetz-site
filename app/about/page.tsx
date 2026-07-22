@@ -35,7 +35,7 @@ import { films } from "@/lib/films";
 
 const title = "About FourFeetz Studios | AI Creative Studio";
 const description = "Learn about FourFeetz Studios, creator of HARU, original AI films, cinematic music, tutorials, and creative resources.";
-const canonical = "https://www.fourfeetz.com/about";
+const canonical = "https://fourfeetz.com/about";
 const heroImage = "/images/about-hero-v2.png";
 
 export const metadata: Metadata = {
@@ -150,7 +150,7 @@ const organizationSchema = {
   "@type": "Organization",
   name: "FourFeetz Studios",
   url: canonical,
-  logo: "https://www.fourfeetz.com/images/ui/logos/fourfeetz-logo.png",
+  logo: "https://fourfeetz.com/images/ui/logos/fourfeetz-logo.png",
   description,
   knowsAbout: ["AI filmmaking", "Original characters", "Cinematic music", "Creative workflows", "AI education"],
 };
