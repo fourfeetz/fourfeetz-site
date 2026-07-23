@@ -25,6 +25,27 @@ const haruCover = "/images/music/tracks/haru-theme.png";
 
 export const musicTracks: MusicTrack[] = [
   {
+    slug: "snowy-hearth-nap",
+    title: "Snowy Hearth Nap",
+    artist: "FourFeetz Studios",
+    category: "Original Soundtrack",
+    duration: "4:05",
+    description: "A gentle winter relaxation theme created for HARU's quiet nap beside the fireplace, with soft space for crackling logs, snowfall, and natural room ambience.",
+    audio: "/audio/haru/snowy-hearth-nap.mp3",
+    character: "HARU",
+    featured: false,
+    badge: "ORIGINAL SOUNDTRACK",
+    status: "Released",
+    cover: "/images/works/haru-relax-moments-ep03/first-shot.webp",
+    mood: "Warm, sleepy, intimate, and peaceful",
+    production: "The arrangement was kept slow and unobtrusive so the fireplace, HARU's yawn, and the stillness of the winter room remain part of the listening experience.",
+    instruments: ["Felt piano", "Warm ambient pads", "Delicate celesta", "Subtle strings"],
+    usage: ["HARU — Snowy Hearth Nap", "FourFeetz Relax Moments", "Winter relaxation", "Quiet study and rest"],
+    publishedAt: "2026-07-23",
+    updatedAt: "2026-07-23",
+    publishStatus: "published",
+  },
+  {
     slug: "haru-main-theme",
     title: "HARU Main Theme",
     artist: "FourFeetz Studios",

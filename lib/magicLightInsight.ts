@@ -2,15 +2,15 @@ import type { ProductionInsight } from "@/lib/productionInsights";
 
 export const magicLightInsight: ProductionInsight = {
   slug: "magiclight-seedance-2-real-production-test",
-  title: "MagicLight & Seedance 2.0: A Real Production Test with HARU",
-  shortTitle: "MagicLight & Seedance 2.0 Test",
-  description: "We tested MagicLight, Magic Claw, and Seedance 2.0 Fast while developing HARU Relax TV EP.03. Here is what worked, what failed, and why we returned to Google Flow.",
+  title: "MagicLight, Seedance & Google Flow: A Real Production Test with HARU",
+  shortTitle: "MagicLight vs Google Flow Test",
+  description: "We tested MagicLight, Magic Claw, Seedance 2.0 Fast, and Veo 3.1 Lite while producing HARU Relax Moments EP.03. Here is what changed when the same scene moved between tools.",
   eyebrow: "Independent FourFeetz Production Test",
   hero: "/images/insights/haru-relax-tv-ep03-first-shot.png",
   published: "2026-07-22",
-  updated: "2026-07-22",
-  readTime: "7 min read",
-  verdict: "MagicLight is an interesting all-in-one production environment, but Seedance 2.0 Fast gave our quiet HARU scene a polished 3D-animation quality rather than the restrained realism required by HARU Relax TV EP.03. Google Flow remains our main tool for this film; Seedance may fit more expressive or stylized Shorts.",
+  updated: "2026-07-23",
+  readTime: "9 min read",
+  verdict: "MagicLight is an interesting all-in-one environment, but Seedance 2.0 Fast looked too animated for this quiet scene. When Veo 3.1 Lite was tested in both MagicLight and Google Flow, the visual results were close; Flow won the production decision because its extension workflow fit our continuity process and final sleeping loop more reliably.",
   category: "AI Video Workflow",
   tags: ["MAGICLIGHT", "SEEDANCE 2.0", "AI VIDEO", "WORKFLOW", "HARU", "CHARACTER CONSISTENCY"],
   keywords: ["MagicLight review", "Seedance 2.0 test", "Seedance 2.0 Fast", "AI animal animation", "HARU", "character consistency", "Magic Claw", "Google Flow"],
@@ -22,7 +22,7 @@ export const magicLightInsight: ProductionInsight = {
       id: "production-goal",
       title: "The Production Goal",
       paragraphs: [
-        "This was not a generic benchmark. We used a real FourFeetz production target from HARU Relax TV EP.03: a very young HARU resting on a cream rug in front of a fireplace on a snowy winter evening.",
+        "This was not a generic benchmark. We used a real FourFeetz production target from FourFeetz Relax Moments EP.03: a very young HARU resting on a cream rug in front of a fireplace on a snowy winter evening.",
         "The scene needed a fixed camera, no dialogue, no narration, no music, and no large body movement. That simplicity made it a useful test of motion realism and character consistency because the model could not hide weak resting behavior behind action or editing.",
       ],
       steps: [
@@ -48,8 +48,8 @@ export const magicLightInsight: ProductionInsight = {
         "Seedance 2.0 Video was the most relevant option for our image-to-video test. Magic Claw appeared more useful as a wider planning, automation, and channel-management environment than as the motion model itself.",
       ],
       table: {
-        title: "MagicLight feature fit for HARU Relax TV",
-        headers: ["Feature", "What we found", "Fit for HARU Relax TV"],
+        title: "MagicLight feature fit for FourFeetz Relax Moments",
+        headers: ["Feature", "What we found", "Fit for Relax Moments"],
         rows: [
           ["Story Video", "Built around narration-led automatic storytelling", "Low"],
           ["Short Drama Video", "Designed for dialogue, characters, lip sync, and scene changes", "Low"],
@@ -121,6 +121,36 @@ export const magicLightInsight: ProductionInsight = {
       note: "This is a fit decision, not a claim that Seedance 2.0 is a bad model. Its visual language simply did not match the documentary restraint required by this particular film.",
     },
     {
+      id: "same-model-two-platforms",
+      title: "The Same Veo 3.1 Lite Model in Two Platforms",
+      paragraphs: [
+        "We also generated the same eight-second HARU action with Veo 3.1 Lite through both Google Flow and MagicLight. The files matched in the fundamentals: 1280×720 resolution, 24 frames per second, an eight-second duration, and native stereo audio.",
+        "The frame sequences were much closer than the earlier Seedance test. Both versions preserved the fireplace composition, produced a clear yawn, and moved HARU toward the teddy bear. That suggests the underlying model mattered more than the surrounding interface for the first generation.",
+        "We did not treat small bitrate or loudness differences as proof that one platform has a better model. A single generation can vary with seed and encoding. The useful distinction appeared later in the workflow: FourFeetz already had a reliable First Shot and Extend process in Flow, so it was easier to protect the final sleeping position and build a repeatable loop.",
+      ],
+      table: {
+        title: "Veo 3.1 Lite export check",
+        headers: ["Check", "Google Flow", "MagicLight"],
+        rows: [
+          ["Duration and frame rate", "8 seconds · 24 fps", "8 seconds · 24 fps"],
+          ["Resolution", "1280 × 720", "1280 × 720"],
+          ["Motion result", "Natural yawn and sleep transition", "Very similar yawn and sleep transition"],
+          ["Measured audio", "Quieter export in this test", "About 3 LU louder in this test"],
+          ["Production fit", "Established First Shot and Extend workflow", "Useful generation access, but less familiar continuity workflow"],
+        ],
+      },
+      images: [
+        {
+          src: "/images/insights/flow-vs-magiclight-veo31-comparison.jpg",
+          alt: "Frame sequence comparison of Veo 3.1 Lite generated in Google Flow and MagicLight",
+          caption: "Contact sheets from the same HARU action generated with Veo 3.1 Lite in Google Flow and MagicLight. The visual sequences were close; workflow fit became the deciding factor.",
+          fit: "contain",
+          aspect: "landscape",
+        },
+      ],
+      note: "This comparison records one real production test, not a universal benchmark. Model access, encoding, pricing, credits, and platform features can change.",
+    },
+    {
       id: "behavioral-consistency",
       title: "Character Consistency Is Not Only About Appearance",
       paragraphs: [
@@ -186,7 +216,8 @@ export const magicLightInsight: ProductionInsight = {
       id: "production-decision",
       title: "Final Production Decision",
       paragraphs: [
-        "For HARU Relax TV EP.03, we returned to the workflow that has been more reliable for restrained, realistic motion. Seedance 2.0 may still be worth testing for a playful HARU adventure, a stylized character Short, or a scene where expressive motion matters more than documentary realism.",
+        "For HARU Relax Moments EP.03, we returned to the workflow that has been more reliable for restrained, realistic motion. Seedance 2.0 may still be worth testing for a playful HARU adventure, a stylized character Short, or a scene where expressive motion matters more than documentary realism.",
+        "The finished four-minute film used Google Flow for the opening action and sleeping extension, then CapCut for the repeated resting section, window-only snowfall, original music, fireplace ambience, and final delivery.",
       ],
       steps: [
         "Build and approve a cinematic First Shot.",
@@ -196,6 +227,14 @@ export const magicLightInsight: ProductionInsight = {
         "Assemble the final duration and natural fireplace ambience in CapCut.",
       ],
       visual: "pipeline",
+      videos: [
+        {
+          src: "/videos/films/haru-relax-moments-ep03/snowy-fireplace-nap.mp4",
+          poster: "/images/works/haru-relax-moments-ep03/first-shot.webp",
+          title: "Play HARU Snowy Hearth Nap",
+          caption: "The completed FourFeetz Relax Moments EP.03 film created after the production comparison.",
+        },
+      ],
     },
     {
       id: "practical-lessons",
@@ -228,12 +267,12 @@ export const magicLightInsight: ProductionInsight = {
       answer: "Yes, for the right project. It may be more useful for expressive Shorts or stylized adventures than for long, still relaxation scenes.",
     },
     {
-      question: "Which tool will be used for HARU Relax TV EP.03?",
-      answer: "Google Flow remains the primary generation tool, followed by CapCut for assembly, duration, and natural ambience.",
+      question: "Which tool was used for HARU Relax Moments EP.03?",
+      answer: "Google Flow was the primary generation tool. CapCut handled loop assembly, window-only snowfall, music, fireplace ambience, and final delivery.",
     },
   ],
   related: [
-    { label: "Related Film", title: "HARU Relaxing at Home", href: "/works/haru-relaxing-home" },
+    { label: "Related Film", title: "HARU — Snowy Hearth Nap", href: "/works/haru-snowy-hearth-nap" },
     { label: "Related Short", title: "Morning with HARU", href: "/shorts/morning-with-haru" },
     { label: "Related Short", title: "Watching the Sunset", href: "/shorts/watching-the-sunset" },
     { label: "Tools", title: "FourFeetz Production Tools", href: "/tools" },
