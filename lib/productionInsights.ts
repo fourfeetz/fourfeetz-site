@@ -89,6 +89,9 @@ type GuideSeed = {
   failure: string;
   promptExample: string;
   comparison: string[][];
+  updated?: string;
+  readTime?: string;
+  featureSections?: ProductionInsightSection[];
 };
 
 function makeGuide(seed: GuideSeed): ProductionInsight {
@@ -103,8 +106,8 @@ function makeGuide(seed: GuideSeed): ProductionInsight {
     eyebrow: "FourFeetz Creator Knowledge Hub",
     hero: seed.hero,
     published: "2026-07-19",
-    updated: "2026-07-19",
-    readTime: "19 min read",
+    updated: seed.updated ?? "2026-07-19",
+    readTime: seed.readTime ?? "19 min read",
     verdict: `${seed.shortTitle} is useful when it solves a defined production problem. For HARU, the winning method was ${seed.method}. The tool or technique never replaced direction; it made a specific decision easier to test, compare and approve.`,
     category: seed.category,
     tags: seed.tags,
@@ -190,6 +193,7 @@ function makeGuide(seed: GuideSeed): ProductionInsight {
         ],
         visual: "timeline",
       },
+      ...(seed.featureSections ?? []),
       {
         id: "camera-language",
         title: "Camera and Composition Language",
@@ -323,6 +327,54 @@ const seeds: GuideSeed[] = [
     failure: "a beautiful clip changed camera height, reversed screen direction and raised the scene energy before the story was ready",
     promptExample: "HARU pauses on the village road, facing screen right. Begin in a stable medium-wide frame at puppy eye level. One slow head turn toward a distant sound; camera remains locked. Late-afternoon key from camera left, quiet breathing, no new objects. Preserve the supplied identity reference.",
     comparison: [["Google Flow", "Scene development and shot families", "Continuity still requires editorial review"], ["Runway", "Fast camera and motion alternatives", "May require more handoff planning"], ["Kling", "Continuation and end-frame repair", "Best when the destination is already defined"]],
+    updated: "2026-07-25",
+    readTime: "23 min read",
+    featureSections: [
+      {
+        id: "extend-video",
+        title: "Extending a Video in Google Flow",
+        paragraphs: [
+          "Flow's Extend workflow is most useful when an approved clip reaches the right moment but needs more screen time or a new story beat. Instead of regenerating the opening, continue from a stable end frame so the next clip inherits the current subject, environment, light and camera relationship. Treat the extension as a new shot decision, not as free extra seconds.",
+          "For the HUGO and HARU meadow sequence, the safest extension point was a frame with readable silhouettes, planted feet and no fast camera move. We described only the next action, kept the camera behavior modest and generated short alternatives. Each result was placed immediately after the source clip to check motion cadence, screen direction and whether the cut seam became visible.",
+          "Extend can preserve useful context, but it does not lock every detail. Character age, anatomy, collar placement, background geography and light can drift as the generated duration grows. A clean first second can also hide a failure near the end, so review the full continuation frame by frame before approving another extension.",
+        ],
+        steps: [
+          "Choose an approved source clip and inspect its final second for a stable pose, clear anatomy and usable composition.",
+          "Set the next beat in one sentence: one subject action, one camera behavior and one intended end state.",
+          "Extend in a short controlled pass; avoid introducing a new location, dramatic camera move and complex performance at the same time.",
+          "Compare the seam at normal speed and frame by frame, checking identity, direction, velocity, lighting and background continuity.",
+          "Place the candidate in the real vertical edit before extending again, then keep only the version that creates a usable next choice.",
+        ],
+        note: "Production rule — never build a long sequence by repeatedly extending an unchecked result. Every accepted continuation becomes the source evidence for the next pass, so a small error compounds quickly.",
+      },
+      {
+        id: "extend-production-cautions",
+        title: "Real Production Cautions Before You Extend",
+        paragraphs: [
+          "The main production risk is compounding drift. A slightly different face or body proportion may look harmless in one continuation, then become the new starting point and grow more obvious in the next. Return to the last approved source whenever identity or anatomy changes; do not ask a later extension to repair an unstable earlier one.",
+          "Motion continuity needs the same attention as appearance. If the source ends during a step, head turn or camera push, the extension must respect direction and speed. Generating from a calm hold is usually more predictable than continuing from motion blur, crossed legs, occlusion or a whip pan. Preserve extra handles around the seam so the editor can trim through the cleanest transition.",
+          "Budget by accepted seconds, not generated seconds. Extensions that pass identity review can still fail because they offer no cut point, repeat an action, change the landscape or move the light source. Save the source clip, extension prompt, model setting, date and rejection reason together so another attempt changes one known variable instead of restarting the search.",
+        ],
+        bullets: [
+          "Lock the delivery ratio before generation; extending a 16:9 composition does not automatically make its action safe for a 9:16 crop.",
+          "Avoid end frames with hidden faces, tangled legs, partial exits, motion blur or objects crossing the subject.",
+          "Check collars, tags, coat texture, eye spacing and body age at the first, middle and final extension frames.",
+          "Listen at the seam after picture approval; music and ambience can reveal a timing discontinuity that the eye misses.",
+          "Keep the original and every approved extension as separate files. Assemble them non-destructively in the editor.",
+          "Confirm current Flow controls, model availability, credits and output limits in the live interface before budgeting a production.",
+        ],
+        table: {
+          title: "Extend failure diagnosis",
+          headers: ["What you see", "Likely cause", "Production response"],
+          rows: [
+            ["Character changes after the seam", "Unstable end frame or compounded identity drift", "Return to the last approved clip and choose a clearer extension point"],
+            ["Movement jumps or repeats", "The next beat conflicts with the source velocity", "Simplify the action and preserve direction and pace"],
+            ["Background or light shifts", "Too much new scene information requested", "Lock location and light; introduce one change only"],
+            ["Clip looks smooth but cannot cut", "No planned end state or editorial handle", "Define the destination frame before generating again"],
+          ],
+        },
+      },
+    ],
   },
   {
     slug: "runway-gen45-review",

@@ -44,6 +44,53 @@ export type Short = {
 
 export const shorts: Short[] = [
   {
+    id: "short-006",
+    slug: "hugo-and-haru-meadow",
+    type: "episode",
+    episode: "EP.01",
+    title: "HUGO Shorts EP.01",
+    description: "HUGO grazes in a sunlit meadow while HARU runs nearby, turning a quiet summer afternoon into a gentle story of friendship.",
+    category: "HUGO Shorts",
+    duration: "36 sec",
+    tools: ["Google Flow", "ChatGPT", "Suno", "CapCut"],
+    characters: ["HUGO", "HARU"],
+    productionNotes: [
+      { label: "Story", value: "HUGO explores the meadow at his own calm pace while HARU's playful movement gives the scene warmth and contrast." },
+      { label: "Visual Direction", value: "Golden natural light, soft countryside depth, and low character-level framing keep the short intimate and cinematic." },
+      { label: "Continuity", value: "The sequence protects HUGO's cream coat, compact calf proportions, collar tag, and HARU's position across extended shots." },
+      { label: "Format", value: "A 36-second vertical character film composed for a 9:16 canvas." },
+      { label: "Music", value: "Hugo and Haru Meadow, an original FourFeetz soundtrack created for this short." },
+    ],
+    video: "/videos/shorts/hugo/hugo-and-haru-meadow.mp4",
+    poster: "/images/shorts/hugo/hugo-and-haru-meadow-cover.png",
+    gallery: [
+      {
+        src: "/images/shorts/hugo/hugo-and-haru-meadow-frame-01.png",
+        alt: "HUGO grazing in a sunlit meadow while HARU runs in the background",
+        caption: "HUGO's quiet grazing and HARU's playful movement establish the friendship at the center of the short.",
+      },
+      {
+        src: "/images/shorts/hugo/hugo-and-haru-meadow-frame-02.png",
+        alt: "A wide profile of HUGO grazing with HARU crossing the distant meadow",
+        caption: "The wider profile keeps both characters readable while opening the landscape around them.",
+      },
+      {
+        src: "/images/shorts/hugo/hugo-and-haru-meadow-frame-03.png",
+        alt: "HUGO in a green meadow with HARU approaching from behind",
+        caption: "A low camera height preserves HUGO's gentle scale and brings HARU into the same visual world.",
+      },
+    ],
+    characterLinks: [
+      { name: "HUGO", href: "/characters/hugo" },
+      { name: "HARU", href: "/characters/haru" },
+    ],
+    music: { title: "Hugo and Haru Meadow", href: "/music/hugo-and-haru-meadow" },
+    publishedAt: "2026-07-25",
+    updatedAt: "2026-07-25",
+    featured: true,
+    publishStatus: "published",
+  },
+  {
     id: "short-005",
     slug: "luna-shorts-ep01",
     type: "episode",

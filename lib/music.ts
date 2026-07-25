@@ -25,6 +25,27 @@ const haruCover = "/images/music/tracks/haru-theme.png";
 
 export const musicTracks: MusicTrack[] = [
   {
+    slug: "hugo-and-haru-meadow",
+    title: "Hugo and Haru Meadow",
+    artist: "FourFeetz Studios",
+    category: "Original Soundtrack",
+    duration: "1:39",
+    description: "The original soundtrack for HUGO Shorts EP.01, carrying HUGO's calm meadow rhythm and HARU's playful energy through a warm summer afternoon.",
+    audio: "/audio/music/hugo-and-haru-meadow.mp3",
+    character: "HUGO & HARU",
+    featured: false,
+    badge: "ORIGINAL SOUNDTRACK",
+    status: "Released",
+    cover: "/images/shorts/hugo/hugo-and-haru-meadow-cover.png",
+    mood: "Sunlit, gentle, pastoral, and quietly playful",
+    production: "The arrangement balances an unhurried pastoral pulse for HUGO with light movement for HARU, leaving enough space for the meadow atmosphere and the short's soft visual pacing.",
+    instruments: ["Acoustic guitar", "Gentle piano", "Soft strings", "Light pastoral percussion"],
+    usage: ["HUGO Shorts EP.01", "HUGO and HARU friendship scenes", "Sunny meadow sequences", "Gentle vertical films"],
+    publishedAt: "2026-07-25",
+    updatedAt: "2026-07-25",
+    publishStatus: "published",
+  },
+  {
     slug: "snowy-hearth-nap",
     title: "Snowy Hearth Nap",
     artist: "FourFeetz Studios",
