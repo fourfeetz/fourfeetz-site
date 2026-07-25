@@ -42,8 +42,12 @@ export default function MusicPlayer({ title, src, compact = false }: MusicPlayer
     audio.addEventListener("pause", handlePause);
     audio.addEventListener("timeupdate", handleTimeUpdate);
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    const metadataFrame = audio.readyState >= HTMLMediaElement.HAVE_METADATA
+      ? window.requestAnimationFrame(handleLoadedMetadata)
+      : null;
 
     return () => {
+      if (metadataFrame !== null) window.cancelAnimationFrame(metadataFrame);
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePause);
       audio.removeEventListener("timeupdate", handleTimeUpdate);
