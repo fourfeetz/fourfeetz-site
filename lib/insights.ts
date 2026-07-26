@@ -2,6 +2,7 @@ import { howHaruInsight } from "@/lib/howHaruInsight";
 import { magicLightInsight } from "@/lib/magicLightInsight";
 import { productionInsights, type ProductionInsight } from "@/lib/productionInsights";
 import { isPublishedContent, type PublishStatus } from "@/lib/publishing";
+import { toolNewsInsights } from "@/lib/toolNewsInsights";
 
 export type InsightArticle = {
   slug: string;
@@ -43,6 +44,21 @@ function fromProductionInsight(article: ProductionInsight): InsightArticle {
 }
 
 export const insightArticles: InsightArticle[] = [
+  ...Object.values(toolNewsInsights).map((article) => ({
+    slug: article.slug,
+    category: article.category,
+    title: article.shortTitle,
+    description: article.description,
+    readTime: article.readTime,
+    href: `/insights/${article.slug}`,
+    image: article.hero,
+    tags: article.tags,
+    keywords: article.keywords,
+    tools: article.tools,
+    publishedAt: article.publishedAt,
+    updatedAt: article.updatedAt,
+    publishStatus: "published" as const,
+  })),
   fromProductionInsight(magicLightInsight),
   fromProductionInsight(howHaruInsight),
   ...Object.values(productionInsights).map(fromProductionInsight),
