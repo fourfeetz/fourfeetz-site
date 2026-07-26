@@ -62,7 +62,7 @@ export const shorts: Short[] = [
       { label: "Music", value: "Hugo and Haru Meadow, an original FourFeetz soundtrack created for this short." },
     ],
     video: "/videos/shorts/hugo/hugo-and-haru-meadow.mp4",
-    poster: "/images/shorts/hugo/hugo-and-haru-meadow-cover.png",
+    poster: "/images/shorts/hugo/hugo-and-haru-meadow-cover-v2.png",
     gallery: [
       {
         src: "/images/shorts/hugo/hugo-and-haru-meadow-frame-01.png",
@@ -154,7 +154,7 @@ export const shorts: Short[] = [
       { label: "Format", value: "A 24-second short-form character film designed for vertical platforms." },
     ],
     video: "/videos/shorts/haru/short-002.mp4",
-    poster: "/images/shorts/haru/short-002.jpg",
+    poster: "/images/shorts/haru/short-002-v2.jpg",
     publishedAt: "2026-07-15",
     publishStatus: "published",
   },
