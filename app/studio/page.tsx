@@ -55,7 +55,7 @@ const characters = [
   { name: "PORI", href: "/characters/pori", image: "/images/characters/pori/portrait.png" },
   { name: "LUNA", href: "/characters/luna", image: "/images/characters/luna/portrait.png" },
   { name: "HUGO", href: "/characters/hugo", image: "/images/characters/hugo/portrait.png" },
-  { name: "OLI", href: "/characters/oli", image: "/images/characters/oli/portrait.png" },
+  { name: "RURU", href: "/characters/ruru", image: "/images/characters/ruru/portrait.png" },
   { name: "MILO", href: "/characters/milo", image: "/images/characters/milo/portrait.png" },
 ];
 

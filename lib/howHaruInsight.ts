@@ -183,7 +183,7 @@ export const howHaruInsight: ProductionInsight = {
       title: "Future Character Development",
       paragraphs: [
         "Future HARU development will expand the evidence library carefully rather than redesign the character. New actions, seasonal environments, interactions, and camera distances will be approved as extensions of the existing identity. Each success can become reference evidence only after it agrees with what came before.",
-        "The same principles will guide PORI, LUNA, HUGO, OLI, and MILO, but each character will need different protected traits and performance rules. A shared studio workflow should create coherence without making every member of the FourFeetz world behave or look the same.",
+        "The same principles will guide PORI, LUNA, HUGO, RURU, and MILO, but each character will need different protected traits and performance rules. A shared studio workflow should create coherence without making every member of the FourFeetz world behave or look the same.",
         "The long-term goal is a system that supports richer films while keeping audience recognition effortless. More complex scenes are valuable only when HARU still feels like HARU.",
       ],
     },

@@ -44,6 +44,32 @@ export type Short = {
 
 export const shorts: Short[] = [
   {
+    id: "short-007",
+    slug: "ruru-tries-to-be-scary",
+    type: "episode",
+    episode: "EP.01",
+    title: "RURU Tries to Be Scary… But He’s Too Cute!",
+    description: "RURU peeks around a forest tree and tries his very best to look scary, but this shy baby red panda is simply too cute.",
+    category: "RURU Shorts",
+    duration: "25 sec",
+    tools: [],
+    characters: ["RURU"],
+    productionNotes: [
+      { label: "Story", value: "RURU gathers his courage behind a tree and practices a scary entrance, only for his curious and gentle personality to shine through." },
+      { label: "Character", value: "The short preserves RURU's baby red panda proportions, russet fur, brown collar, and gold RURU name tag." },
+      { label: "Format", value: "A 25-second vertical character film composed for a 9:16 canvas." },
+      { label: "Music", value: "RURU Theme, the official FourFeetz character theme inspired by RURU's curious and shy personality." },
+    ],
+    video: "/videos/shorts/ruru/ruru-tries-to-be-scary.mp4",
+    poster: "/images/shorts/ruru/ruru-tries-to-be-scary-cover.png",
+    characterHref: "/characters/ruru",
+    music: { title: "RURU Theme", href: "/music/ruru-theme" },
+    publishedAt: "2026-07-27",
+    updatedAt: "2026-07-27",
+    featured: true,
+    publishStatus: "published",
+  },
+  {
     id: "short-006",
     slug: "hugo-and-haru-meadow",
     type: "episode",

@@ -361,12 +361,12 @@ export const characters = [
     desc: "Gentle, warm-hearted, and always relaxed.",
   },
   {
-    name: "OLI",
-    href: "/characters/oli",
-    image: "/images/characters/oli/portrait.png",
+    name: "RURU",
+    href: "/characters/ruru",
+    image: "/images/characters/ruru/portrait.png",
     role: "Original Character",
-    breed: "Otter",
-    desc: "Curious, clever, and loves adventure.",
+    breed: "Baby Red Panda",
+    desc: "Curious, shy, and irresistibly playful.",
   },
   {
     name: "MILO",

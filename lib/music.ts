@@ -25,6 +25,27 @@ const haruCover = "/images/music/tracks/haru-theme.png";
 
 export const musicTracks: MusicTrack[] = [
   {
+    slug: "ruru-theme",
+    title: "RURU Theme",
+    artist: "FourFeetz Studios",
+    category: "Official Soundtrack",
+    duration: "2:59",
+    description: "A playful and whimsical theme inspired by RURU’s curious and shy personality.",
+    audio: "/audio/music/ruru-theme.mp3",
+    character: "RURU",
+    featured: false,
+    badge: "OFFICIAL THEME",
+    status: "Released",
+    cover: "/images/music/tracks/ruru-theme.png",
+    mood: "Playful, whimsical, curious, and gently shy",
+    production: "Light, playful movement and a softly whimsical atmosphere follow RURU as his curiosity slowly overcomes his shyness.",
+    instruments: ["Playful woodwinds", "Light pizzicato strings", "Gentle percussion", "Warm whimsical textures"],
+    usage: ["RURU character theme", "RURU Shorts EP.01", "Curious woodland scenes", "Playful FourFeetz moments"],
+    publishedAt: "2026-07-27",
+    updatedAt: "2026-07-27",
+    publishStatus: "published",
+  },
+  {
     slug: "hugo-and-haru-meadow",
     title: "Hugo and Haru Meadow",
     artist: "FourFeetz Studios",

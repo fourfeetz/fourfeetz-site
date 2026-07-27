@@ -7,7 +7,7 @@ import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import { musicTracks } from "@/lib/music";
 
 const pageTitle = "FourFeetz Music & Original Soundtracks";
-const pageDescription = "Listen to official character themes and original soundtracks used in FourFeetz films and shorts featuring HARU, LUNA, and the growing character universe.";
+const pageDescription = "Listen to official character themes and original soundtracks used in FourFeetz films and shorts featuring HARU, LUNA, RURU, and the growing character universe.";
 
 export const metadata: Metadata = {
   title: { absolute: pageTitle },
