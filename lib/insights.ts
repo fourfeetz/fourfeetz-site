@@ -1,7 +1,7 @@
 import { howHaruInsight } from "@/lib/howHaruInsight";
 import { magicLightInsight } from "@/lib/magicLightInsight";
 import { productionInsights, type ProductionInsight } from "@/lib/productionInsights";
-import { isPublishedContent, type PublishStatus } from "@/lib/publishing";
+import { isPublishedContent, sortByFreshness, type PublishStatus } from "@/lib/publishing";
 import { toolNewsInsights } from "@/lib/toolNewsInsights";
 
 export type InsightArticle = {
@@ -134,5 +134,7 @@ export const insightArticles: InsightArticle[] = [
 ];
 
 export function getPublishedInsightArticles(now = new Date()) {
-  return insightArticles.filter((article) => article.listed !== false && isPublishedContent(article, now));
+  return sortByFreshness(
+    insightArticles.filter((article) => article.listed !== false && isPublishedContent(article, now)),
+  );
 }

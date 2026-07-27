@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1664" height="936" viewBox="0 0 1664 936" role="img" aria-labelledby="title desc">
+  <title id="title">Luma Ray3.2 production control</title>
+  <desc id="desc">Editorial illustration of multiple keyframes connected to a professional video finishing pipeline</desc>
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#16272a"/>
+      <stop offset=".55" stop-color="#31575a"/>
+      <stop offset="1" stop-color="#8b704f"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#dce9df"/>
+      <stop offset="1" stop-color="#9db9a9"/>
+    </linearGradient>
+    <filter id="shadow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#0b1617" flood-opacity=".34"/>
+    </filter>
+  </defs>
+  <rect width="1664" height="936" fill="url(#bg2)"/>
+  <circle cx="1480" cy="80" r="300" fill="#d5b98f" opacity=".16"/>
+  <circle cx="120" cy="900" r="400" fill="#0b1617" opacity=".28"/>
+  <g transform="translate(120 105)">
+    <text x="0" y="0" fill="#d5b98f" font-family="Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="8">AI VIDEO · PRODUCTION CONTROL</text>
+    <text x="0" y="104" fill="#fffaf4" font-family="Arial, sans-serif" font-size="78" font-weight="800">Ray3.2</text>
+    <text x="0" y="166" fill="#dce9df" font-family="Arial, sans-serif" font-size="31">Keyframes → motion → HDR / EXR finishing</text>
+  </g>
+  <g filter="url(#shadow2)">
+    <rect x="120" y="350" width="1080" height="430" rx="36" fill="#102123"/>
+    <rect x="160" y="392" width="1000" height="276" rx="24" fill="url(#screen)"/>
+    <path d="M160 588 350 452 520 552 690 432 860 565 1035 436 1160 522v146H160Z" fill="#365f59" opacity=".85"/>
+    <circle cx="330" cy="505" r="62" fill="#b86a37"/>
+    <circle cx="635" cy="482" r="62" fill="#b86a37"/>
+    <circle cx="950" cy="515" r="62" fill="#b86a37"/>
+    <path d="M330 568v46M635 545v69M950 578v36" stroke="#f0d4ab" stroke-width="16" stroke-linecap="round"/>
+    <line x1="190" y1="722" x2="1130" y2="722" stroke="#496c6d" stroke-width="8" stroke-linecap="round"/>
+    <g fill="#d5b98f">
+      <circle cx="250" cy="722" r="17"/><circle cx="380" cy="722" r="17"/><circle cx="510" cy="722" r="17"/>
+      <circle cx="640" cy="722" r="17"/><circle cx="770" cy="722" r="17"/><circle cx="900" cy="722" r="17"/>
+      <circle cx="1030" cy="722" r="17"/>
+    </g>
+  </g>
+  <g filter="url(#shadow2)">
+    <rect x="1260" y="350" width="284" height="430" rx="34" fill="#fffaf4"/>
+    <text x="1300" y="408" fill="#8b704f" font-family="Arial, sans-serif" font-size="20" font-weight="800" letter-spacing="3">DELIVERY</text>
+    <text x="1300" y="490" fill="#16272a" font-family="Arial, sans-serif" font-size="34" font-weight="800">16 Keyframes</text>
+    <text x="1300" y="548" fill="#31575a" font-family="Arial, sans-serif" font-size="28" font-weight="700">20 sec · 1080p</text>
+    <rect x="1300" y="594" width="204" height="58" rx="29" fill="#31575a"/>
+    <text x="1402" y="632" text-anchor="middle" fill="#fffaf4" font-family="Arial, sans-serif" font-size="24" font-weight="800">HDR</text>
+    <rect x="1300" y="674" width="204" height="58" rx="29" fill="#8b704f"/>
+    <text x="1402" y="712" text-anchor="middle" fill="#fffaf4" font-family="Arial, sans-serif" font-size="24" font-weight="800">16-bit EXR</text>
+  </g>
+</svg>
