@@ -10,6 +10,7 @@ export const dict = {
       music: "Music",
       insights: "Insights",
       resources: "Resources",
+      services: "Services",
       tools: "Tools",
       studio: "Studio",
       social: "Social",
@@ -141,6 +142,7 @@ export const dict = {
       music: "Music",
       insights: "Insights",
       resources: "Resources",
+      services: "Services",
       tools: "Tools",
       studio: "Studio",
       social: "Social",
@@ -273,6 +275,7 @@ export const navItems = [
   { href: "/music", key: "music" },
   { href: "/insights", key: "insights" },
   { href: "/resources", key: "resources" },
+  { href: "/services", key: "services" },
   { href: "/tools", key: "tools" },
   { href: "/studio", key: "studio" },
 ] as const;
