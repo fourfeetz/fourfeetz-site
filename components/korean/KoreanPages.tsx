@@ -26,6 +26,7 @@ import {
   koreanResourceDescriptions,
   koreanShortDescriptions,
 } from "@/lib/koreanContent";
+import { koreanInsightSummaries } from "@/lib/koreanInsightSummaries";
 import { getMusicTrack, musicTracks } from "@/lib/music";
 import { getResource, resourceDetails } from "@/lib/resourceDetails";
 
@@ -153,8 +154,43 @@ export function KoreanMusicDetail({ slug }: { slug: string }) {
 }
 
 export function KoreanInsightDetail({ slug }: { slug: string }) {
-  const item = getPublishedInsightArticles().find((entry) => entry.slug === slug); if (!item) notFound();
-  return <main><section className="mx-auto max-w-5xl px-6 py-16"><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black leading-tight text-[#2b2119] md:text-7xl">{item.title}</h1><p className="mt-6 text-xl leading-9 text-[#76685d]">{koreanOrFallback(koreanInsightDescriptions, item.slug, "이 글은 한국어 전체 번역을 준비하고 있습니다. 아래 링크에서 영문 원문을 확인할 수 있습니다.")}</p><div className="relative mt-10 aspect-video overflow-hidden rounded-[32px] border border-[#eadfce]"><Image src={item.image} alt={`${item.title} 대표 이미지`} fill priority className="object-cover" /></div><div className="mt-10 rounded-[28px] border border-[#eadfce] bg-white p-8"><h2 className="text-2xl font-black text-[#2b2119]">한국어 번역 안내</h2><p className="mt-4 leading-8 text-[#76685d]">현재 이 글의 전체 한국어 번역을 준비하고 있습니다. 불완전한 번역을 제공하는 대신, 검토된 소개와 영문 원문 링크를 제공합니다.</p><Link href={item.href} hrefLang="en" className={`${primaryButton} mt-6`}>영문 원문 읽기</Link></div></section></main>;
+  const item = getPublishedInsightArticles().find((entry) => entry.slug === slug);
+  const content = koreanInsightSummaries[slug];
+  if (!item || !content) notFound();
+
+  return (
+    <main>
+      <section className="mx-auto max-w-5xl px-6 py-16">
+        <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p>
+        <h1 className="mt-4 text-5xl font-black leading-tight text-[#2b2119] md:text-7xl">{item.title}</h1>
+        <p className="mt-5 text-2xl font-black leading-9 text-[#6f4e37]">{content.subtitle}</p>
+        <div className="mt-8 space-y-4 text-lg leading-8 text-[#76685d]">
+          {content.summary.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+        </div>
+        <div className="relative mt-10 aspect-video overflow-hidden rounded-[32px] border border-[#eadfce]">
+          <Image src={item.image} alt={`${item.title} 대표 이미지`} fill priority className="object-cover" />
+        </div>
+        <div className="mt-10 rounded-[28px] border border-[#eadfce] bg-white p-8">
+          <h2 className="text-2xl font-black text-[#2b2119]">이 글에서 다루는 내용</h2>
+          <ul className="mt-5 space-y-3 text-[#76685d]">
+            {content.topics.map((topic) => (
+              <li key={topic} className="flex gap-3 leading-7">
+                <span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#a67c52]" />
+                <span>{topic}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="mt-6 rounded-[28px] border border-[#eadfce] bg-white p-8">
+          <h2 className="text-2xl font-black text-[#2b2119]">한국어 요약 안내</h2>
+          <p className="mt-4 leading-8 text-[#76685d]">
+            이 글은 현재 한국어 요약과 영문 전체 글로 제공됩니다. 자세한 제작 과정과 전체 내용은 아래 버튼을 통해 영문 원문에서 확인할 수 있습니다.
+          </p>
+          <Link href={item.href} hrefLang="en" className={`${primaryButton} mt-6`}>영문 원문 읽기</Link>
+        </div>
+      </section>
+    </main>
+  );
 }
 
 export function KoreanResourceDetail({ slug }: { slug: string }) {
