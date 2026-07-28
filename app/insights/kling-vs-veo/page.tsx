@@ -100,6 +100,16 @@ const articleJsonLd = {
     name: "FourFeetz Studios",
   },
 };
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://fourfeetz.com" },
+    { "@type": "ListItem", position: 2, name: "Insights", item: "https://fourfeetz.com/insights" },
+    { "@type": "ListItem", position: 3, name: "Production Guides", item: "https://fourfeetz.com/insights/guides" },
+    { "@type": "ListItem", position: 4, name: "Kling vs Veo", item: "https://fourfeetz.com/insights/kling-vs-veo" },
+  ],
+};
 
 function Section({ title, children, id }: { title: string; children: React.ReactNode; id?: string }) {
   return (
@@ -139,10 +149,16 @@ export default function Page() {
   return (
     <main>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
       <article>
         <header className="mx-auto max-w-4xl px-6 py-16 md:py-20">
-          <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Tools</p>
+          <nav aria-label="Breadcrumb" className="text-sm font-bold text-[#8a7768]">
+            <Link href="/">Home</Link><span className="px-2">/</span>
+            <Link href="/insights">Insights</Link><span className="px-2">/</span>
+            <Link href="/insights/guides">Production Guides</Link>
+          </nav>
+          <p className="mt-10 text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Production Guide · Tools</p>
           <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">Kling vs Veo</h1>
           <p className="mt-6 max-w-3xl text-xl leading-8 text-[#76685d] md:text-2xl md:leading-9">
             A practical side-by-side comparison of motion quality, character consistency, camera control, prompt following, workflow speed, and overall usefulness for AI filmmaking.
@@ -293,7 +309,7 @@ export default function Page() {
 
         <section className="border-t border-[#eadfce] bg-white px-6 py-20">
           <div className="mx-auto max-w-7xl">
-            <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Related Articles</p>
+            <div className="flex flex-wrap items-end justify-between gap-4"><p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Related Articles</p><Link href="/insights/guides" className="font-black text-[#6f4e37]">All Production Guides →</Link></div>
             <h2 className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">Continue Exploring</h2>
             <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {related.map((item) => (

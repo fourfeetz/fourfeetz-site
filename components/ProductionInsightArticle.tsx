@@ -135,7 +135,8 @@ export default function ProductionInsightArticle({ article }: { article: Product
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
       { "@type": "ListItem", position: 2, name: "Insights", item: `${siteUrl}/insights` },
-      { "@type": "ListItem", position: 3, name: article.shortTitle, item: canonical },
+      { "@type": "ListItem", position: 3, name: "Production Guides", item: `${siteUrl}/insights/guides` },
+      { "@type": "ListItem", position: 4, name: article.shortTitle, item: canonical },
     ],
   };
   const faqSchema = {
@@ -157,7 +158,7 @@ export default function ProductionInsightArticle({ article }: { article: Product
       <JsonLd value={faqSchema} />
       <article>
         <header className="mx-auto max-w-5xl px-6 pb-12 pt-16 md:pb-16 md:pt-24">
-          <nav aria-label="Breadcrumb" className="text-sm font-bold text-[#8a7768]"><Link href="/" className="hover:text-[#6f4e37]">Home</Link><span className="px-2">/</span><Link href="/insights" className="hover:text-[#6f4e37]">Insights</Link><span className="px-2">/</span><span>{article.shortTitle}</span></nav>
+          <nav aria-label="Breadcrumb" className="text-sm font-bold text-[#8a7768]"><Link href="/" className="hover:text-[#6f4e37]">Home</Link><span className="px-2">/</span><Link href="/insights" className="hover:text-[#6f4e37]">Insights</Link><span className="px-2">/</span><Link href="/insights/guides" className="hover:text-[#6f4e37]">Production Guides</Link><span className="px-2">/</span><span>{article.shortTitle}</span></nav>
           <p className="mt-10 text-xs font-black uppercase tracking-[0.28em] text-[#a67c52]">{article.eyebrow} · {article.category}</p>
           <h1 className="mt-5 text-5xl font-black leading-[1.02] tracking-[-0.045em] text-[#2b2119] md:text-7xl">{article.title}</h1>
           <p className="mt-7 max-w-4xl text-xl leading-9 text-[#665a50]">{article.description}</p>
@@ -180,7 +181,7 @@ export default function ProductionInsightArticle({ article }: { article: Product
           </div>
         </div>
 
-        <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16"><div className="mx-auto max-w-6xl"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Continue in the HARU world</p><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <Link key={item.href} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span><strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong></Link>)}</div></div></section>
+        <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16"><div className="mx-auto max-w-6xl"><div className="flex flex-wrap items-end justify-between gap-4"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Continue in the HARU world</p><Link href="/insights/guides" className="font-black text-[#6f4e37]">All Production Guides →</Link></div><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <Link key={item.href} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span><strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong></Link>)}</div></div></section>
       </article>
     </main>
   );

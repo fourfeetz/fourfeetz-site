@@ -1,4 +1,5 @@
 import { howHaruInsight } from "@/lib/howHaruInsight";
+import type { InsightGroup } from "@/lib/insightGroups";
 import { magicLightInsight } from "@/lib/magicLightInsight";
 import { productionInsights, type ProductionInsight } from "@/lib/productionInsights";
 import { isPublishedContent, sortByFreshness, type PublishStatus } from "@/lib/publishing";
@@ -6,6 +7,7 @@ import { toolNewsInsights } from "@/lib/toolNewsInsights";
 
 export type InsightArticle = {
   slug: string;
+  group: InsightGroup;
   category: string;
   title: string;
   description: string;
@@ -26,6 +28,7 @@ export type InsightArticle = {
 function fromProductionInsight(article: ProductionInsight): InsightArticle {
   return {
     slug: article.slug,
+    group: "guides",
     category: article.category,
     title: article.shortTitle,
     description: article.description,
@@ -46,6 +49,7 @@ function fromProductionInsight(article: ProductionInsight): InsightArticle {
 export const insightArticles: InsightArticle[] = [
   ...Object.values(toolNewsInsights).map((article) => ({
     slug: article.slug,
+    group: "news" as const,
     category: article.category,
     title: article.shortTitle,
     description: article.description,
@@ -64,6 +68,7 @@ export const insightArticles: InsightArticle[] = [
   ...Object.values(productionInsights).map(fromProductionInsight),
   {
     slug: "kling-vs-veo",
+    group: "guides",
     category: "Tools",
     title: "Kling vs Veo",
     description: "A scene-by-scene planning comparison focused on motion realism, prompt control, continuity and production speed.",
@@ -77,6 +82,7 @@ export const insightArticles: InsightArticle[] = [
   },
   {
     slug: "runway-gen-4-review",
+    group: "guides",
     category: "AI Video",
     title: "Runway Gen-4 Review",
     description: "A practical review of image consistency, motion quality, camera control, and production workflow.",
@@ -91,6 +97,7 @@ export const insightArticles: InsightArticle[] = [
   },
   {
     slug: "ai-video-workflow",
+    group: "guides",
     category: "Workflow",
     title: "A Repeatable AI Video Workflow",
     description: "From story planning and reference images to animation, sound, editing, and publishing.",
@@ -105,6 +112,7 @@ export const insightArticles: InsightArticle[] = [
   },
   {
     slug: "veo3-complete-review",
+    group: "guides",
     category: "AI Video",
     title: "Veo 3 Complete Review",
     description: "A production-focused review of image quality, motion, prompts, and camera control.",
@@ -119,6 +127,7 @@ export const insightArticles: InsightArticle[] = [
   },
   {
     slug: "vertical-video-reframing",
+    group: "guides",
     category: "Social Media",
     title: "Vertical Video Reframing",
     description: "A practical workflow for turning cinematic masters into platform-ready vertical video.",
@@ -137,4 +146,8 @@ export function getPublishedInsightArticles(now = new Date()) {
   return sortByFreshness(
     insightArticles.filter((article) => article.listed !== false && isPublishedContent(article, now)),
   );
+}
+
+export function getPublishedInsightsByGroup(group: InsightGroup, now = new Date()) {
+  return getPublishedInsightArticles(now).filter((article) => article.group === group);
 }

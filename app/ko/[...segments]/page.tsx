@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import InsightsCategoryPage from "@/components/insights/InsightsCategoryPage";
 import {
   KoreanAboutPage,
   KoreanCharacterDetail,
@@ -20,6 +21,7 @@ import { shorts } from "@/data/shorts";
 import { characterDetails } from "@/lib/characterDetails";
 import { films, getFilm } from "@/lib/films";
 import { getPublishedInsightArticles } from "@/lib/insights";
+import { insightGroups, isInsightGroup } from "@/lib/insightGroups";
 import {
   koreanCharacters,
   koreanFilmDescriptions,
@@ -41,7 +43,7 @@ const sectionMetadata: Record<string, { title: string; description: string; engl
   shorts: { title: "AI 캐릭터 쇼츠 | FourFeetz", description: "HARU, LUNA, HUGO, RURU 등 FourFeetz 캐릭터들의 짧고 따뜻한 AI 쇼츠입니다.", englishPath: "/shorts", image: "/images/shorts-hero-v2.png" },
   characters: { title: "캐릭터 | FourFeetz", description: "HARU를 중심으로 확장되는 FourFeetz의 오리지널 동물 캐릭터를 소개합니다.", englishPath: "/characters", image: "/images/characters-hero-v2.png" },
   music: { title: "오리지널 음악 | FourFeetz", description: "FourFeetz 필름, 쇼츠와 캐릭터를 위해 만든 공식 테마와 오리지널 사운드트랙입니다.", englishPath: "/music", image: "/images/music-hero-v2.png" },
-  insights: { title: "AI 영상 제작 인사이트 | FourFeetz", description: "AI 영상 도구, 제작 과정과 실제 프로젝트 경험을 바탕으로 한 FourFeetz 인사이트입니다.", englishPath: "/insights", image: "/images/insights-hero-v2.png" },
+  insights: { title: "AI 영상 제작 인사이트 | FourFeetz", description: "FourFeetz의 실제 AI 애니메이션 제작 경험을 바탕으로 한 제작 가이드, 실사용 테스트, AI 영상 도구 업데이트를 제공합니다.", englishPath: "/insights", image: "/images/insights-hero-v2.png" },
   resources: { title: "AI 영상 제작 리소스 | FourFeetz", description: "AI 영상 제작을 위한 가이드, 템플릿, 체크리스트와 프롬프트 리소스입니다.", englishPath: "/resources", image: "/images/resources-hero-v2.png" },
   services: { title: "AI 영상 제작 서비스 | FourFeetz", description: "FourFeetz는 AI 쇼츠, 브랜드 광고, 캐릭터 애니메이션, 반려동물 콘텐츠와 감성 영상을 제작합니다.", englishPath: "/services", image: "/images/studio-hero-v2.png" },
 };
@@ -55,6 +57,8 @@ export function generateStaticParams() {
     ...shorts.map((item) => ({ segments: ["shorts", item.slug] })),
     ...characterDetails.map((item) => ({ segments: ["characters", item.slug] })),
     ...musicTracks.map((item) => ({ segments: ["music", item.slug] })),
+    { segments: ["insights", "guides"] },
+    { segments: ["insights", "news"] },
     ...getPublishedInsightArticles().map((item) => ({ segments: ["insights", item.slug] })),
     ...resourceDetails.map((item) => ({ segments: ["resources", item.slug] })),
   ];
@@ -73,6 +77,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       alternates: languageAlternates(meta.englishPath, koreanPath),
       openGraph: { type: "website", siteName: "FourFeetz Studios", title: meta.title, description: meta.description, url: koreanPath, locale: "ko_KR", alternateLocale: ["en_US"], images: [{ url: meta.image, alt: meta.title }] },
       twitter: { card: "summary_large_image", title: meta.title, description: meta.description, images: [meta.image] },
+    };
+  }
+
+  if (section === "insights" && isInsightGroup(slug)) {
+    const content = insightGroups[slug].ko;
+    const englishPath = `/insights/${slug}`;
+    return {
+      title: { absolute: content.title },
+      description: content.description,
+      alternates: languageAlternates(englishPath, koreanPath),
+      openGraph: {
+        type: "website",
+        siteName: "FourFeetz Studios",
+        title: content.title,
+        description: content.description,
+        url: koreanPath,
+        locale: "ko_KR",
+        alternateLocale: ["en_US"],
+        images: [{ url: "/images/insights-hero-v2.png", alt: content.title }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: content.title,
+        description: content.description,
+        images: ["/images/insights-hero-v2.png"],
+      },
     };
   }
 
@@ -130,6 +160,7 @@ export default async function Page({ params }: Props) {
   if (section === "shorts") return <KoreanShortDetail slug={slug} />;
   if (section === "characters") return <KoreanCharacterDetail slug={slug} />;
   if (section === "music") return <KoreanMusicDetail slug={slug} />;
+  if (section === "insights" && isInsightGroup(slug)) return <InsightsCategoryPage group={slug} language="ko" />;
   if (section === "insights") return <KoreanInsightDetail slug={slug} />;
   if (section === "resources") return <KoreanResourceDetail slug={slug} />;
   notFound();

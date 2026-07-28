@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { ToolNewsInsight } from "@/lib/toolNewsInsights";
+import { toolNewsInsights, type ToolNewsInsight } from "@/lib/toolNewsInsights";
 
 const siteUrl = "https://fourfeetz.com";
 
@@ -37,16 +37,30 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
     citation: article.source.url,
     keywords: article.keywords.join(", "),
   };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "Insights", item: `${siteUrl}/insights` },
+      { "@type": "ListItem", position: 3, name: "AI Tool Updates", item: `${siteUrl}/insights/news` },
+      { "@type": "ListItem", position: 4, name: article.shortTitle, item: canonical },
+    ],
+  };
+  const related = Object.values(toolNewsInsights).filter((item) => item.slug !== article.slug).slice(0, 3);
 
   return (
     <main className="bg-[#fffdf8]">
       <JsonLd value={articleSchema} />
+      <JsonLd value={breadcrumbSchema} />
       <article>
         <header className="mx-auto max-w-5xl px-6 pb-12 pt-16 md:pb-16 md:pt-24">
           <nav aria-label="Breadcrumb" className="text-sm font-bold text-[#8a7768]">
             <Link href="/" className="hover:text-[#6f4e37]">Home</Link>
             <span className="px-2">/</span>
             <Link href="/insights" className="hover:text-[#6f4e37]">Insights</Link>
+            <span className="px-2">/</span>
+            <Link href="/insights/news" className="hover:text-[#6f4e37]">AI Tool Updates</Link>
             <span className="px-2">/</span>
             <span>{article.shortTitle}</span>
           </nav>
@@ -133,6 +147,26 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
             </section>
           </div>
         </div>
+        <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16">
+          <div className="mx-auto max-w-6xl">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Related analysis</p>
+                <h2 className="mt-3 text-3xl font-black text-[#2b2119]">More AI Tool Updates</h2>
+              </div>
+              <Link href="/insights/news" className="font-black text-[#6f4e37]">All AI Tool Updates →</Link>
+            </div>
+            <div className="mt-7 grid gap-4 md:grid-cols-3">
+              {related.map((item) => (
+                <Link key={item.slug} href={`/insights/${item.slug}`} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  <span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">AI Tool Update</span>
+                  <strong className="mt-3 block text-lg text-[#2b2119]">{item.shortTitle}</strong>
+                  <span className="mt-3 block leading-7 text-[#76685d]">{item.description}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
       </article>
     </main>
   );

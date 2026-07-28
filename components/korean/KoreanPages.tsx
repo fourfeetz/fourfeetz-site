@@ -12,6 +12,7 @@ import {
   WandSparkles,
 } from "lucide-react";
 import MusicPlayer from "@/app/music/MusicPlayer";
+import InsightsHub from "@/components/InsightsHub";
 import PageHero from "@/components/PageHero";
 import KoreanQuoteForm from "@/components/korean/KoreanQuoteForm";
 import { shorts } from "@/data/shorts";
@@ -21,13 +22,13 @@ import { getPublishedInsightArticles } from "@/lib/insights";
 import {
   koreanCharacters,
   koreanFilmDescriptions,
-  koreanInsightDescriptions,
   koreanMusicDescriptions,
   koreanOrFallback,
   koreanResourceDescriptions,
   koreanShortDescriptions,
 } from "@/lib/koreanContent";
 import { koreanInsightSummaries } from "@/lib/koreanInsightSummaries";
+import { insightGroups } from "@/lib/insightGroups";
 import { getMusicTrack, musicTracks } from "@/lib/music";
 import { getResource, resourceDetails } from "@/lib/resourceDetails";
 
@@ -89,8 +90,7 @@ export function KoreanMusicPage() {
 }
 
 export function KoreanInsightsPage() {
-  const articles = getPublishedInsightArticles();
-  return <main><PageHero eyebrow="Creative Knowledge" title="인사이트" desc="AI 영상 도구, 제작 과정과 실제 FourFeetz 프로젝트에서 얻은 창작 인사이트를 소개합니다." illustration={{ src: "/images/insights-hero-v2.png", alt: "FourFeetz AI 영상 인사이트 라이브러리" }} /><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">{articles.map((item) => <MediaCard key={item.slug} href={`/ko/insights/${item.slug}`} image={item.image} title={item.title} category={item.category} description={koreanOrFallback(koreanInsightDescriptions, item.slug, "AI 영상 제작과 도구 활용에 관한 FourFeetz의 실용적인 인사이트입니다.")} />)}</div></section></main>;
+  return <InsightsHub language="ko" />;
 }
 
 export function KoreanResourcesPage() {
@@ -158,11 +158,20 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
   const item = getPublishedInsightArticles().find((entry) => entry.slug === slug);
   const content = koreanInsightSummaries[slug];
   if (!item || !content) notFound();
+  const group = insightGroups[item.group].ko;
+  const related = getPublishedInsightArticles()
+    .filter((entry) => entry.group === item.group && entry.slug !== item.slug)
+    .slice(0, 3);
 
   return (
     <main>
       <section className="mx-auto max-w-5xl px-6 py-16">
-        <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p>
+        <nav aria-label="경로" className="text-sm font-bold text-[#8a7768]">
+          <Link href="/ko">홈</Link><span className="px-2">/</span>
+          <Link href="/ko/insights">인사이트</Link><span className="px-2">/</span>
+          <Link href={`/ko/insights/${item.group}`}>{group.label}</Link>
+        </nav>
+        <p className="mt-10 text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{group.badge} · {item.category}</p>
         <h1 className="mt-4 text-5xl font-black leading-tight text-[#2b2119] md:text-7xl">{item.title}</h1>
         <p className="mt-5 text-2xl font-black leading-9 text-[#6f4e37]">{content.subtitle}</p>
         <div className="mt-8 space-y-4 text-lg leading-8 text-[#76685d]">
@@ -189,6 +198,21 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
           </p>
           <Link href={item.href} hrefLang="en" className={`${primaryButton} mt-6`}>영문 원문 읽기</Link>
         </div>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Link href={`/ko/insights/${item.group}`} className={secondaryButton}>{group.label} 더 보기</Link>
+          <Link href="/ko/insights" className={secondaryButton}>전체 인사이트</Link>
+        </div>
+        <section className="mt-16 border-t border-[#eadfce] pt-12">
+          <h2 className="text-3xl font-black text-[#2b2119]">관련 글</h2>
+          <div className="mt-7 grid gap-4 md:grid-cols-3">
+            {related.map((entry) => (
+              <Link key={entry.slug} href={`/ko/insights/${entry.slug}`} className="rounded-[24px] border border-[#eadfce] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                <span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{group.badge}</span>
+                <strong className="mt-3 block text-lg text-[#2b2119]">{entry.title}</strong>
+              </Link>
+            ))}
+          </div>
+        </section>
       </section>
     </main>
   );
