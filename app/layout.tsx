@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RelatedPosts from "@/components/RelatedPosts";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     "google-adsense-account": "ca-pub-8793962309929245",
     "naver-site-verification": "114f76443087cc8fa294d3c654d19d4b271a7666",
   },
-  alternates: { canonical: "/" },
+  alternates: englishLanguageAlternates("/", "/ko"),
   openGraph: {
     type: "website",
     siteName: "FourFeetz Studios",

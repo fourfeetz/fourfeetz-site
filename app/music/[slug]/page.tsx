@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import MusicPlayer from "../MusicPlayer";
 import { films } from "@/lib/films";
 import { getMusicTrack, musicTracks } from "@/lib/music";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: { absolute: title },
     description: track.description,
-    alternates: { canonical: `/music/${track.slug}` },
+    alternates: englishLanguageAlternates(`/music/${track.slug}`, `/ko/music/${track.slug}`),
     openGraph: { title, description: track.description, images: [{ url: track.cover, alt: `${track.title} cover artwork` }] },
     twitter: { card: "summary_large_image", title, description: track.description, images: [track.cover] },
   };

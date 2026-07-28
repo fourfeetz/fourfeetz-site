@@ -34,9 +34,12 @@ export default function InsightsArticleExperience() {
       heading.classList.add("scroll-mt-28");
       return { id, text: heading.textContent?.trim() || `Section ${index + 1}` };
     });
-    setHeadings(collected);
     const words = (article.textContent ?? "").trim().split(/\s+/).filter(Boolean).length;
-    setReadingTime(Math.max(1, Math.ceil(words / 220)));
+    const updateArticleState = window.setTimeout(() => {
+      setHeadings(collected);
+      setReadingTime(Math.max(1, Math.ceil(words / 220)));
+    }, 0);
+    return () => window.clearTimeout(updateArticleState);
   }, [isArticle, pathname]);
 
   useEffect(() => {

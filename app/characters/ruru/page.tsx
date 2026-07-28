@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import CharacterDetailPage from "@/components/CharacterDetailPage";
 import { getCharacter } from "@/lib/characterDetails";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 const character = getCharacter("ruru")!;
 
 export const metadata: Metadata = {
   title: "RURU | FourFeetz Characters",
   description: character.tagline,
-  alternates: { canonical: "/characters/ruru" },
+  alternates: englishLanguageAlternates("/characters/ruru", "/ko/characters/ruru"),
   openGraph: {
     title: "RURU | FourFeetz Characters",
     description: character.tagline,
