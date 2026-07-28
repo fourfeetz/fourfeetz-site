@@ -38,10 +38,10 @@ import { getResource, resourceDetails } from "@/lib/resourceDetails";
 type Props = { params: Promise<{ segments: string[] }> };
 
 const sectionMetadata: Record<string, { title: string; description: string; englishPath: string; image: string }> = {
-  about: { title: "FourFeetz 소개 | AI 애니메이션 스튜디오", description: "캐릭터 중심의 감성 영상, 음악과 창작 인사이트를 만드는 FourFeetz를 소개합니다.", englishPath: "/about", image: "/images/about-hero-v2.png" },
+  about: { title: "FourFeetz 소개 | AI 애니메이션 제작 스튜디오", description: "오리지널 캐릭터, AI 애니메이션 필름, 쇼츠와 음악을 직접 제작하고 실제 테스트 경험을 제작 가이드로 전하는 FourFeetz를 소개합니다.", englishPath: "/about", image: "/images/about-hero-v2.png" },
   films: { title: "AI 필름 | FourFeetz", description: "HARU와 FourFeetz 캐릭터들이 등장하는 감성적인 AI 필름과 힐링 영상을 만나보세요.", englishPath: "/films", image: "/images/works-hero-v2.png" },
   shorts: { title: "AI 캐릭터 쇼츠 | FourFeetz", description: "HARU, LUNA, HUGO, RURU 등 FourFeetz 캐릭터들의 짧고 따뜻한 AI 쇼츠입니다.", englishPath: "/shorts", image: "/images/shorts-hero-v2.png" },
-  characters: { title: "캐릭터 | FourFeetz", description: "HARU를 중심으로 확장되는 FourFeetz의 오리지널 동물 캐릭터를 소개합니다.", englishPath: "/characters", image: "/images/characters-hero-v2.png" },
+  characters: { title: "FourFeetz 캐릭터 | 오리지널 동물 캐릭터", description: "HARU, PORI, LUNA, HUGO, RURU와 MILO의 특징과 실제로 공개된 필름, 쇼츠, 음악을 함께 확인해 보세요.", englishPath: "/characters", image: "/images/characters-hero-v2.png" },
   music: { title: "오리지널 음악 | FourFeetz", description: "FourFeetz 필름, 쇼츠와 캐릭터를 위해 만든 공식 테마와 오리지널 사운드트랙입니다.", englishPath: "/music", image: "/images/music-hero-v2.png" },
   insights: { title: "AI 영상 제작 인사이트 | FourFeetz", description: "FourFeetz의 실제 AI 애니메이션 제작 경험을 바탕으로 한 제작 가이드, 실사용 테스트, AI 영상 도구 업데이트를 제공합니다.", englishPath: "/insights", image: "/images/insights-hero-v2.png" },
   resources: { title: "AI 영상 제작 리소스 | FourFeetz", description: "AI 영상 제작을 위한 가이드, 템플릿, 체크리스트와 프롬프트 리소스입니다.", englishPath: "/resources", image: "/images/resources-hero-v2.png" },
@@ -119,7 +119,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title = `${item.title} | FourFeetz 쇼츠`; description = koreanShortDescriptions[slug]; englishPath = `/shorts/${slug}`; image = item.poster ?? image;
   } else if (section === "characters") {
     const item = characterDetails.find((entry) => entry.slug === slug); if (!item) return {};
-    title = `${item.name} | FourFeetz 캐릭터`; description = koreanCharacters[slug].story; englishPath = `/characters/${slug}`; image = `/images/characters/${slug}/portrait.png`;
+    title = `${item.name} ${koreanCharacters[slug].species} | FourFeetz 캐릭터`; description = koreanCharacters[slug].metaDescription; englishPath = `/characters/${slug}`; image = `/images/characters/${slug}/portrait.png`;
   } else if (section === "music") {
     const item = getMusicTrack(slug); if (!item) return {};
     title = `${item.title} | FourFeetz 음악`; description = koreanOrFallback(koreanMusicDescriptions, slug, "FourFeetz 오리지널 음악입니다."); englishPath = `/music/${slug}`; image = item.cover;
