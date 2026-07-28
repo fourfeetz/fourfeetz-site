@@ -39,7 +39,7 @@ type Props = { params: Promise<{ segments: string[] }> };
 
 const sectionMetadata: Record<string, { title: string; description: string; englishPath: string; image: string }> = {
   about: { title: "FourFeetz 소개 | AI 애니메이션 스튜디오", description: "캐릭터 중심의 감성 영상, 음악과 창작 인사이트를 만드는 FourFeetz를 소개합니다.", englishPath: "/about", image: "/images/about-hero-v2.png" },
-  films: { title: "AI 필름 | FourFeetz", description: "HARU와 FourFeetz 캐릭터들이 등장하는 감성적인 AI 필름과 힐링 영상을 만나보세요.", englishPath: "/works", image: "/images/works-hero-v2.png" },
+  films: { title: "AI 필름 | FourFeetz", description: "HARU와 FourFeetz 캐릭터들이 등장하는 감성적인 AI 필름과 힐링 영상을 만나보세요.", englishPath: "/films", image: "/images/works-hero-v2.png" },
   shorts: { title: "AI 캐릭터 쇼츠 | FourFeetz", description: "HARU, LUNA, HUGO, RURU 등 FourFeetz 캐릭터들의 짧고 따뜻한 AI 쇼츠입니다.", englishPath: "/shorts", image: "/images/shorts-hero-v2.png" },
   characters: { title: "캐릭터 | FourFeetz", description: "HARU를 중심으로 확장되는 FourFeetz의 오리지널 동물 캐릭터를 소개합니다.", englishPath: "/characters", image: "/images/characters-hero-v2.png" },
   music: { title: "오리지널 음악 | FourFeetz", description: "FourFeetz 필름, 쇼츠와 캐릭터를 위해 만든 공식 테마와 오리지널 사운드트랙입니다.", englishPath: "/music", image: "/images/music-hero-v2.png" },

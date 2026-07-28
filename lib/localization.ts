@@ -11,6 +11,11 @@ const koreanPrefixes = new Set([
   "shorts",
 ]);
 
+const englishOnlyInsightPaths = new Set([
+  "/insights/runway-gen-4-review",
+  "/insights/veo3-complete-review",
+]);
+
 export function getSiteLanguage(pathname: string): SiteLanguage {
   return pathname === "/ko" || pathname.startsWith("/ko/") ? "ko" : "en";
 }
@@ -18,6 +23,7 @@ export function getSiteLanguage(pathname: string): SiteLanguage {
 export function toKoreanPath(pathname: string) {
   if (pathname === "/ko" || pathname.startsWith("/ko/")) return pathname;
   if (pathname === "/") return "/ko";
+  if (englishOnlyInsightPaths.has(pathname)) return "/ko/insights";
 
   const segments = pathname.split("/").filter(Boolean);
   const [section, ...rest] = segments;
@@ -41,7 +47,7 @@ export function toEnglishPath(pathname: string) {
   const [section, ...rest] = segments;
 
   if (section === "films") {
-    return `/works${rest.length ? `/${rest.join("/")}` : ""}`;
+    return rest.length ? `/works/${rest.join("/")}` : "/films";
   }
 
   if (section && koreanPrefixes.has(section)) {

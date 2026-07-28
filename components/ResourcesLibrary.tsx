@@ -9,8 +9,8 @@ const featuredResource = {
   title: "The FourFeetz AI Video Production Workflow",
   desc: "A repeatable production system covering story planning, reference images, AI video generation, sound, editing, and multi-platform publishing.",
   meta: ["Free Guide", "Updated July 2026"],
-  primaryHref: "/resources/ai-video-workflow",
-  secondaryHref: "/resources/ai-short-film-workflow",
+  primaryHref: "/resources/ai-short-film-workflow",
+  secondaryHref: "/insights/repeatable-ai-video-workflow",
 };
 
 const resources = [

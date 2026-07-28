@@ -491,7 +491,7 @@ export default function ServicesPage() {
             <a href="#contact" className="inline-flex rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:bg-[#fff8ef] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#6f4e37]">
               Request a Quote
             </a>
-            <Link href="/works" className="inline-flex rounded-full border border-white/45 px-7 py-4 font-black text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <Link href="/films" className="inline-flex rounded-full border border-white/45 px-7 py-4 font-black text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
               View Films
             </Link>
           </div>

@@ -6,13 +6,12 @@ import { useLanguage } from "@/components/LanguageProvider";
 import { localizedHref } from "@/lib/localization";
 
 const footerLinks = [
-  { href: "/works", label: "Films" },
+  { href: "/films", label: "Films" },
   { href: "/shorts", label: "Shorts" },
   { href: "/characters", label: "Characters" },
   { href: "/insights", label: "Insights" },
   { href: "/resources", label: "Resources" },
   { href: "/services", label: "Services" },
-  { href: "/studio", label: "Studio" },
   { href: "/tools", label: "Tools I Use" },
   { href: "/about", label: "About" },
   { href: "/privacy", label: "Privacy" },
@@ -29,7 +28,6 @@ export default function Footer() {
     Insights: "인사이트",
     Resources: "리소스",
     Services: "제작 의뢰",
-    Studio: "스튜디오",
     "Tools I Use": "사용 도구",
     About: "소개",
     Privacy: "개인정보 처리방침",

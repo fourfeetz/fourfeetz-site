@@ -83,10 +83,6 @@ const resourceContent: SiteContentItem[] = [
     searchable: true,
     detail: true,
   })),
-  { title: "AI Video Production Workflow", description: "The complete FourFeetz production system from story planning to publishing.", href: "/resources/ai-video-workflow", type: "Resources", category: "Workflow", tools: ["ChatGPT", "Runway", "Kling AI"], searchable: true, detail: true },
-  { title: "Character Consistency Guide", description: "A practical resource for maintaining character identity across production.", href: "/resources/character-consistency-guide", type: "Resources", category: "Characters", characters: ["HARU"], tools: ["ChatGPT"], searchable: true, detail: true },
-  { title: "Prompt Library", description: "Reusable prompt structures for characters, scenes, camera, lighting, and motion.", href: "/resources/prompt-library", type: "Resources", category: "Prompts", tools: ["ChatGPT"], searchable: true, detail: true },
-  { title: "Tool Comparisons", description: "Practical comparisons for selecting tools across the AI production workflow.", href: "/resources/tool-comparisons", type: "Resources", category: "Tools", tools: ["Runway", "Kling AI", "Veo"], searchable: true, detail: true },
 ];
 
 const musicContent: SiteContentItem[] = musicTracks.map((track) => ({

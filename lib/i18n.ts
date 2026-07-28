@@ -271,7 +271,8 @@ export const dict = {
 
 export const navItems = [
   { href: "/", key: "home" },
-  { href: "/works", key: "works" },
+  { href: "/about", key: "about" },
+  { href: "/films", key: "works" },
   { href: "/shorts", key: "shorts" },
   { href: "/characters", key: "characters" },
   { href: "/music", key: "music" },
@@ -279,7 +280,6 @@ export const navItems = [
   { href: "/resources", key: "resources" },
   { href: "/services", key: "services" },
   { href: "/tools", key: "tools" },
-  { href: "/studio", key: "studio" },
 ] as const;
 
 export const koreanNavItems = [
@@ -332,7 +332,7 @@ export const works = [
     duration: "01:20 draft",
     thumbnail: "",
     desc: "A premium brand reel concept showing how AI films, music, and knowledge products fit together.",
-    href: "/works",
+    href: "/films",
   },
   {
     title: "Character Theme Visualizer",
@@ -443,8 +443,8 @@ export const insights = [
 ];
 
 export const resources = [
-  { title: "Prompt Library", desc: "Reusable prompt patterns for scenes, characters, lighting, and motion.", href: "/resources/prompt-library" },
-  { title: "Workflow Guides", desc: "Step-by-step production systems for films, shorts, music, and publishing.", href: "/resources/ai-video-workflow" },
+  { title: "Prompt Library", desc: "Reusable prompt patterns for scenes, characters, lighting, and motion.", href: "/resources/image-to-video-prompt-framework" },
+  { title: "Workflow Guides", desc: "Step-by-step production systems for films, shorts, music, and publishing.", href: "/resources/ai-short-film-workflow" },
   { title: "Templates", desc: "Planning boards, shot lists, release calendars, and review checklists.", href: "/resources/production-notes-template" },
   { title: "Free Assets", desc: "Starter materials for future downloads, references, and production packs.", href: "/resources" },
 ];

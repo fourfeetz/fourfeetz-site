@@ -66,7 +66,7 @@ const ratings = [
 
 const related = [
   { title: "How HARU Was Created", href: "/insights/how-haru-was-created", desc: "The character design and production system behind HARU." },
-  { title: "HARU - First Journey", href: "/works", desc: "The first original AI short film from FourFeetz Studios." },
+  { title: "HARU - First Journey", href: "/films", desc: "The first original AI short film from FourFeetz Studios." },
   { title: "AI Video Production Workflow", href: "/resources/ai-short-film-workflow", desc: "A repeatable workflow from story to publishing." },
 ];
 

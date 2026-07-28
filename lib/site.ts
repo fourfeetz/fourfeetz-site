@@ -3,25 +3,25 @@
   description: "AI films, original characters, music, and creative production by FourFeetz.",
   nav: [
     { href: "/", label: "Home" },
-    { href: "/works", label: "Works" },
+    { href: "/films", label: "Films" },
     { href: "/characters", label: "Characters" },
     { href: "/music", label: "Music" },
     { href: "/insights", label: "Insights" },
     { href: "/resources", label: "Resources" },
-    { href: "/studio", label: "Studio" },
+    { href: "/about", label: "About" },
   ],
 };
 
 export const animals = [
   {
     name: "HARU",
-    href: "/animals/haru",
+    href: "/characters/haru",
     image: "/images/works/haru-first-journey/hero.png",
     desc: "The first original character from FourFeetz Studios.",
   },
   { name: "PORI", href: "/characters/pori", image: "", desc: "Coming soon" },
-  { name: "Turtle", href: "/animals", image: "", desc: "Future character in preparation." },
-  { name: "Fish", href: "/animals", image: "", desc: "Future story in preparation." },
+  { name: "Turtle", href: "/characters", image: "", desc: "Future character in preparation." },
+  { name: "Fish", href: "/characters", image: "", desc: "Future story in preparation." },
 ];
 
 export const notes = [

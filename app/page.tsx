@@ -165,7 +165,7 @@ export default function Home() {
             <p className="text-xl leading-9 text-[#76685d]">
               FourFeetz Studios is an AI Creative Studio creating original films, memorable characters, AI music, and practical creative knowledge. The studio connects storytelling, tool research, and production workflows for the next generation of creators.
             </p>
-            <Link href="/studio" className="mt-8 inline-flex rounded-full bg-[#6f4e37] px-7 py-4 font-bold text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29]">
+            <Link href="/about" className="mt-8 inline-flex rounded-full bg-[#6f4e37] px-7 py-4 font-bold text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29]">
               Learn More
             </Link>
           </div>
