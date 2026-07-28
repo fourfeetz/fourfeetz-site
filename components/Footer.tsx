@@ -28,7 +28,7 @@ export default function Footer() {
     Characters: "캐릭터",
     Insights: "인사이트",
     Resources: "리소스",
-    Services: "영상 제작",
+    Services: "제작 의뢰",
     Studio: "스튜디오",
     "Tools I Use": "사용 도구",
     About: "소개",
