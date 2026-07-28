@@ -1,0 +1,82 @@
+export type SiteLanguage = "en" | "ko";
+
+const koreanPrefixes = new Set([
+  "about",
+  "characters",
+  "films",
+  "insights",
+  "music",
+  "resources",
+  "services",
+  "shorts",
+]);
+
+export function getSiteLanguage(pathname: string): SiteLanguage {
+  return pathname === "/ko" || pathname.startsWith("/ko/") ? "ko" : "en";
+}
+
+export function toKoreanPath(pathname: string) {
+  if (pathname === "/ko" || pathname.startsWith("/ko/")) return pathname;
+  if (pathname === "/") return "/ko";
+
+  const segments = pathname.split("/").filter(Boolean);
+  const [section, ...rest] = segments;
+
+  if (section === "works" || section === "films") {
+    return `/ko/films${rest.length ? `/${rest.join("/")}` : ""}`;
+  }
+
+  if (section && koreanPrefixes.has(section)) {
+    return `/ko/${section}${rest.length ? `/${rest.join("/")}` : ""}`;
+  }
+
+  return "/ko";
+}
+
+export function toEnglishPath(pathname: string) {
+  if (pathname === "/ko") return "/";
+  if (!pathname.startsWith("/ko/")) return pathname;
+
+  const segments = pathname.slice(4).split("/").filter(Boolean);
+  const [section, ...rest] = segments;
+
+  if (section === "films") {
+    return `/works${rest.length ? `/${rest.join("/")}` : ""}`;
+  }
+
+  if (section && koreanPrefixes.has(section)) {
+    return `/${section}${rest.length ? `/${rest.join("/")}` : ""}`;
+  }
+
+  return "/";
+}
+
+export function localizedHref(href: string, language: SiteLanguage) {
+  if (language === "en" || !href.startsWith("/") || href.startsWith("//")) return href;
+
+  const [pathname, hash] = href.split("#");
+  const localized = toKoreanPath(pathname || "/");
+  return hash ? `${localized}#${hash}` : localized;
+}
+
+export function languageAlternates(englishPath: string, koreanPath = toKoreanPath(englishPath)) {
+  return {
+    canonical: koreanPath,
+    languages: {
+      en: englishPath,
+      ko: koreanPath,
+      "x-default": englishPath,
+    },
+  };
+}
+
+export function englishLanguageAlternates(englishPath: string, koreanPath = toKoreanPath(englishPath)) {
+  return {
+    canonical: englishPath,
+    languages: {
+      en: englishPath,
+      ko: koreanPath,
+      "x-default": englishPath,
+    },
+  };
+}

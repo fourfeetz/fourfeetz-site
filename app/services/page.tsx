@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { shorts } from "@/data/shorts";
 import { films } from "@/lib/films";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 const title = "AI Video Production Services | FourFeetz";
 const description =
@@ -22,7 +23,7 @@ const description =
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: { canonical: "/services" },
+  alternates: englishLanguageAlternates("/services", "/ko/services"),
   openGraph: {
     type: "website",
     siteName: "FourFeetz Studios",
@@ -99,17 +100,17 @@ const process = [
 const pricing = [
   {
     name: "Starter",
-    price: "$150",
+    price: "$149",
     description: "15-second social media videos",
   },
   {
     name: "Standard",
-    price: "$300",
+    price: "$299",
     description: "30-second promotional videos",
   },
   {
     name: "Premium",
-    price: "$700",
+    price: "$699",
     description: "60-second cinematic productions",
   },
   {
@@ -198,10 +199,10 @@ export default function ServicesPage() {
             FourFeetz Studio Services
           </p>
           <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">
-            AI Video Production Services
+            Cinematic AI Videos for Brands &amp; Creators
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">
-            Cinematic AI videos for brands, creators, YouTube channels and digital campaigns.
+            Character-driven AI videos crafted for social media, advertising, storytelling and digital campaigns.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#contact" className={primaryButton}>

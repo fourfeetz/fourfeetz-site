@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { shorts } from "@/data/shorts";
 import { films } from "@/lib/films";
 import { musicTracks } from "@/lib/music";
+import { characterDetails } from "@/lib/characterDetails";
+import { getPublishedInsightArticles } from "@/lib/insights";
+import { resourceDetails } from "@/lib/resourceDetails";
 
 const baseUrl = "https://fourfeetz.com";
 
@@ -48,7 +51,6 @@ const routes = [
   "/insights/runway-gen45-review",
   "/insights/veo3-complete-review",
   "/insights/vertical-video-reframing",
-  "/ko",
   "/music",
   "/notes",
   "/privacy",
@@ -66,6 +68,7 @@ const routes = [
   "/resources/tool-comparisons",
   "/resources/vertical-video-reframing-guide",
   "/social",
+  "/services",
   "/studio",
   "/terms",
   "/tools",
@@ -74,29 +77,67 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const pairedPaths = new Map<string, string>([
+    ["", "/ko"],
+    ["/about", "/ko/about"],
+    ["/works", "/ko/films"],
+    ["/shorts", "/ko/shorts"],
+    ["/characters", "/ko/characters"],
+    ["/music", "/ko/music"],
+    ["/insights", "/ko/insights"],
+    ["/resources", "/ko/resources"],
+    ["/services", "/ko/services"],
+    ...films.map((item) => [`/works/${item.slug}`, `/ko/films/${item.slug}`] as const),
+    ...shorts.map((item) => [`/shorts/${item.slug}`, `/ko/shorts/${item.slug}`] as const),
+    ...characterDetails.map((item) => [`/characters/${item.slug}`, `/ko/characters/${item.slug}`] as const),
+    ...musicTracks.map((item) => [`/music/${item.slug}`, `/ko/music/${item.slug}`] as const),
+    ...getPublishedInsightArticles().map((item) => [item.href, `/ko/insights/${item.slug}`] as const),
+    ...resourceDetails.map((item) => [`/resources/${item.slug}`, `/ko/resources/${item.slug}`] as const),
+  ]);
+
+  const alternateLanguages = (englishPath: string, koreanPath: string) => ({
+    en: `${baseUrl}${englishPath}`,
+    ko: `${baseUrl}${koreanPath}`,
+    "x-default": `${baseUrl}${englishPath}`,
+  });
+
   const staticPages = routes.map((route) => ({
     url: `${baseUrl}${route}`,
     changeFrequency: route === "" ? ("weekly" as const) : ("monthly" as const),
     priority: route === "" ? 1 : route.split("/").filter(Boolean).length === 1 ? 0.8 : 0.7,
+    ...(pairedPaths.has(route) ? { alternates: { languages: alternateLanguages(route, pairedPaths.get(route)!) } } : {}),
   }));
 
   const musicPages = musicTracks.map((track) => ({
     url: `${baseUrl}/music/${track.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.7,
+    alternates: { languages: alternateLanguages(`/music/${track.slug}`, `/ko/music/${track.slug}`) },
   }));
 
   const filmPages = films.map((film) => ({
     url: `${baseUrl}/works/${film.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.7,
+    alternates: { languages: alternateLanguages(`/works/${film.slug}`, `/ko/films/${film.slug}`) },
   }));
 
   const shortPages = shorts.map((short) => ({
     url: `${baseUrl}/shorts/${short.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.7,
+    alternates: { languages: alternateLanguages(`/shorts/${short.slug}`, `/ko/shorts/${short.slug}`) },
   }));
 
-  return [...staticPages, ...filmPages, ...shortPages, ...musicPages];
+  const koreanPages = [...new Set(pairedPaths.values())].map((koreanPath) => {
+    const englishPath = [...pairedPaths.entries()].find(([, value]) => value === koreanPath)?.[0] ?? "";
+    return {
+      url: `${baseUrl}${koreanPath}`,
+      changeFrequency: koreanPath === "/ko" ? ("weekly" as const) : ("monthly" as const),
+      priority: koreanPath === "/ko" ? 1 : koreanPath.split("/").filter(Boolean).length === 2 ? 0.8 : 0.7,
+      alternates: { languages: alternateLanguages(englishPath, koreanPath) },
+    };
+  });
+
+  return [...staticPages, ...filmPages, ...shortPages, ...musicPages, ...koreanPages];
 }

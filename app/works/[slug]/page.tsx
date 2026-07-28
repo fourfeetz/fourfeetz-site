@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import FilmDetailPage from "@/components/FilmDetailPage";
 import { films, getFilm } from "@/lib/films";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 type FilmPageProps = {
   params: Promise<{ slug: string }>;
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: FilmPageProps): Promise<Metad
   return {
     title: { absolute: title },
     description: film.description,
-    alternates: { canonical: path },
+    alternates: englishLanguageAlternates(path, `/ko/films/${film.slug}`),
     openGraph: {
       type: "video.movie",
       title,

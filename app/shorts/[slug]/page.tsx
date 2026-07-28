@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ShortDetailPage from "@/components/ShortDetailPage";
 import { getShort, shorts } from "@/data/shorts";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 type ShortPageProps = {
   params: Promise<{ slug: string }>;
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: ShortPageProps): Promise<Meta
   return {
     title: { absolute: title },
     description: short.description,
-    alternates: { canonical },
+    alternates: englishLanguageAlternates(`/shorts/${short.slug}`, `/ko/shorts/${short.slug}`),
     openGraph: {
       type: "video.other",
       siteName: "FourFeetz Studios",

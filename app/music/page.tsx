@@ -5,6 +5,7 @@ import MusicPlayer from "./MusicPlayer";
 import HaruMusicPlaylist from "@/components/HaruMusicPlaylist";
 import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import { musicTracks } from "@/lib/music";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 const pageTitle = "FourFeetz Music & Original Soundtracks";
 const pageDescription = "Listen to official character themes and original soundtracks used in FourFeetz films and shorts featuring HARU, LUNA, RURU, and the growing character universe.";
@@ -12,7 +13,7 @@ const pageDescription = "Listen to official character themes and original soundt
 export const metadata: Metadata = {
   title: { absolute: pageTitle },
   description: pageDescription,
-  alternates: { canonical: "https://fourfeetz.com/music" },
+  alternates: englishLanguageAlternates("/music", "/ko/music"),
   openGraph: { type: "website", title: pageTitle, description: pageDescription, url: "https://fourfeetz.com/music", images: [{ url: "/images/music-hero-v2.png", alt: "FourFeetz character music and original soundtracks" }] },
   twitter: { card: "summary_large_image", title: pageTitle, description: pageDescription, images: ["/images/music-hero-v2.png"] },
 };

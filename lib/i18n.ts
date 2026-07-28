@@ -4,6 +4,7 @@ export const dict = {
   en: {
     nav: {
       home: "Home",
+      about: "About",
       works: "Films",
       shorts: "Shorts",
       characters: "Characters",
@@ -135,17 +136,18 @@ export const dict = {
   },
   ko: {
     nav: {
-      home: "Home",
-      works: "Films",
-      shorts: "Shorts",
-      characters: "Characters",
-      music: "Music",
-      insights: "Insights",
-      resources: "Resources",
-      services: "Services",
-      tools: "Tools",
-      studio: "Studio",
-      social: "Social",
+      home: "홈",
+      about: "소개",
+      works: "필름",
+      shorts: "쇼츠",
+      characters: "캐릭터",
+      music: "음악",
+      insights: "인사이트",
+      resources: "리소스",
+      services: "제작 의뢰",
+      tools: "도구",
+      studio: "스튜디오",
+      social: "소셜",
       blog: "Insights",
       notes: "Insights",
       animals: "Characters",
@@ -162,13 +164,13 @@ export const dict = {
       secondary: "Latest Insights",
       featuredCharacter: "Featured Character",
       haruDesc: "The first original character from FourFeetz Studios.",
-      todaysUpdate: "Today's Update",
-      featuredWorks: "Featured Works",
-      characters: "Original Characters",
-      latestInsights: "Latest Insights",
-      resources: "Resources",
-      studio: "Studio",
-      social: "Social Platforms",
+      todaysUpdate: "스튜디오 소식",
+      featuredWorks: "대표 작품",
+      characters: "오리지널 캐릭터",
+      latestInsights: "최신 인사이트",
+      resources: "크리에이터 리소스",
+      studio: "스튜디오 소개",
+      social: "소셜 채널",
     },
     pages: {
       works: {
@@ -278,6 +280,18 @@ export const navItems = [
   { href: "/services", key: "services" },
   { href: "/tools", key: "tools" },
   { href: "/studio", key: "studio" },
+] as const;
+
+export const koreanNavItems = [
+  { href: "/ko", key: "home" },
+  { href: "/ko/about", key: "about" },
+  { href: "/ko/films", key: "works" },
+  { href: "/ko/shorts", key: "shorts" },
+  { href: "/ko/characters", key: "characters" },
+  { href: "/ko/music", key: "music" },
+  { href: "/ko/insights", key: "insights" },
+  { href: "/ko/resources", key: "resources" },
+  { href: "/ko/services", key: "services" },
 ] as const;
 
 export const todaysUpdates = [

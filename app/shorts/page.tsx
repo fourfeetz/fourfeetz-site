@@ -3,6 +3,7 @@ import Link from "next/link";
 import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import type { Short } from "@/data/shorts";
 import { shorts } from "@/data/shorts";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 const title = "AI Character Shorts | FourFeetz";
 const description = "Short cinematic AI videos created by FourFeetz featuring original characters including HARU, LUNA, and RURU.";
@@ -12,7 +13,7 @@ const socialImage = "/images/shorts-hero-v2.png";
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: { canonical },
+  alternates: englishLanguageAlternates("/shorts", "/ko/shorts"),
   openGraph: {
     type: "website",
     siteName: "FourFeetz Studios",

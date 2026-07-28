@@ -1,18 +1,21 @@
 "use client";
 
 import { createContext, useContext } from "react";
+import { usePathname } from "next/navigation";
 import { dict } from "@/lib/i18n";
+import { getSiteLanguage, type SiteLanguage } from "@/lib/localization";
 
 type LanguageContextValue = {
-  lang: "en";
-  t: typeof dict.en;
+  lang: SiteLanguage;
+  t: typeof dict.en | typeof dict.ko;
 };
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
-const englishLanguage = { lang: "en", t: dict.en } as const;
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  return <LanguageContext.Provider value={englishLanguage}>{children}</LanguageContext.Provider>;
+  const pathname = usePathname();
+  const lang = getSiteLanguage(pathname);
+  return <LanguageContext.Provider value={{ lang, t: dict[lang] }}>{children}</LanguageContext.Provider>;
 }
 
 export function useLanguage() {

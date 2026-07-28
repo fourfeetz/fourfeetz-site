@@ -29,6 +29,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import HeroIllustrationCard from "@/components/HeroIllustrationCard";
+import { englishLanguageAlternates } from "@/lib/localization";
 import { shorts } from "@/data/shorts";
 import { siteContent } from "@/lib/contentIndex";
 import { films } from "@/lib/films";
@@ -41,7 +42,7 @@ const heroImage = "/images/about-hero-v2.png";
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: { canonical },
+  alternates: englishLanguageAlternates("/about", "/ko/about"),
   openGraph: {
     type: "website",
     siteName: "FourFeetz Studios",
