@@ -4,6 +4,7 @@ import { films } from "@/lib/films";
 import { insightArticles } from "@/lib/insights";
 import { musicTracks } from "@/lib/music";
 import { resourceDetails } from "@/lib/resourceDetails";
+import { practicalResources } from "@/lib/practicalResources";
 
 export type ContentType = "Films" | "Shorts" | "Characters" | "Insights" | "Resources" | "Music";
 
@@ -80,6 +81,22 @@ const resourceContent: SiteContentItem[] = [
     category: resource.category,
     characters: resource.slug.includes("character") ? ["HARU"] : undefined,
     tools: resource.slug.includes("music") ? ["Suno"] : ["ChatGPT"],
+    searchable: true,
+    detail: true,
+  })),
+  ...practicalResources.map((resource) => ({
+    title: resource.en.title,
+    description: resource.en.description,
+    href: `/resources/${resource.slug}`,
+    type: "Resources" as const,
+    category: resource.en.category,
+    tools: ["AI Video Planning"],
+    keywords: [
+      ...resource.keywords,
+      resource.ko.title,
+      resource.ko.category,
+      ...resource.ko.fields.map((field) => field.label),
+    ],
     searchable: true,
     detail: true,
   })),

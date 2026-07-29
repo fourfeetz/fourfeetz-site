@@ -16,6 +16,7 @@ import InsightsHub from "@/components/InsightsHub";
 import PageHero from "@/components/PageHero";
 import ProductionInsightArticle from "@/components/ProductionInsightArticle";
 import KoreanQuoteForm from "@/components/korean/KoreanQuoteForm";
+import PracticalResourceCards from "@/components/resources/PracticalResourceCards";
 import { shorts } from "@/data/shorts";
 import { characterDetails, getCharacter } from "@/lib/characterDetails";
 import { films, getFilm } from "@/lib/films";
@@ -105,7 +106,7 @@ export function KoreanInsightsPage() {
 }
 
 export function KoreanResourcesPage() {
-  return <main><PageHero eyebrow="Creator Resources" title="리소스" desc="AI 영상 제작을 계획하고 검토하는 데 활용할 수 있는 가이드, 템플릿과 체크리스트입니다." illustration={{ src: "/images/resources-hero-v2.png", alt: "FourFeetz AI 영상 제작 리소스" }} /><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">{resourceDetails.map((item) => <MediaCard key={item.slug} href={`/ko/resources/${item.slug}`} image={item.image} title={item.title} category={item.category} description={koreanResourceDescriptions[item.slug]} />)}</div></section></main>;
+  return <main><PageHero eyebrow="Creator Resources" title="리소스" desc="AI 영상 제작을 계획하고 검토하는 데 활용할 수 있는 가이드, 템플릿과 체크리스트입니다." illustration={{ src: "/images/resources-hero-v2.png", alt: "FourFeetz AI 영상 제작 리소스" }} /><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">{resourceDetails.map((item) => <MediaCard key={item.slug} href={`/ko/resources/${item.slug}`} image={item.image} title={item.title} category={item.category} description={koreanResourceDescriptions[item.slug]} />)}</div></section><PracticalResourceCards language="ko" /></main>;
 }
 
 const serviceCards = [

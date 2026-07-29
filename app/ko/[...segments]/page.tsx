@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import InsightsCategoryPage from "@/components/insights/InsightsCategoryPage";
+import PracticalResourcePage from "@/components/resources/PracticalResourcePage";
 import {
   KoreanAboutPage,
   KoreanCharacterDetail,
@@ -38,6 +39,12 @@ import {
   isNewProductionGuideSlug,
 } from "@/lib/newProductionGuides";
 import { getResource, resourceDetails } from "@/lib/resourceDetails";
+import {
+  createPracticalResourceMetadata,
+  getPracticalResource,
+  isPracticalResourceSlug,
+  practicalResourceSlugs,
+} from "@/lib/practicalResources";
 
 type Props = { params: Promise<{ segments: string[] }> };
 
@@ -65,6 +72,7 @@ export function generateStaticParams() {
     { segments: ["insights", "news"] },
     ...getPublishedInsightArticles().map((item) => ({ segments: ["insights", item.slug] })),
     ...resourceDetails.map((item) => ({ segments: ["resources", item.slug] })),
+    ...practicalResourceSlugs.map((slug) => ({ segments: ["resources", slug] })),
   ];
 }
 
@@ -112,6 +120,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (section === "insights" && isNewProductionGuideSlug(slug)) {
     return createNewProductionGuideMetadata(slug, "ko");
+  }
+
+  if (section === "resources" && isPracticalResourceSlug(slug)) {
+    return createPracticalResourceMetadata(slug, "ko");
   }
 
   let title = "";
@@ -170,6 +182,11 @@ export default async function Page({ params }: Props) {
   if (section === "music") return <KoreanMusicDetail slug={slug} />;
   if (section === "insights" && isInsightGroup(slug)) return <InsightsCategoryPage group={slug} language="ko" />;
   if (section === "insights") return <KoreanInsightDetail slug={slug} />;
+  if (section === "resources" && isPracticalResourceSlug(slug)) {
+    const resource = getPracticalResource(slug);
+    if (!resource) notFound();
+    return <PracticalResourcePage resource={resource} language="ko" />;
+  }
   if (section === "resources") return <KoreanResourceDetail slug={slug} />;
   notFound();
 }

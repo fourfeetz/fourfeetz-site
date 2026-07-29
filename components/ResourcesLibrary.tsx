@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import HeroIllustrationCard from "./HeroIllustrationCard";
+import PracticalResourceCards from "./resources/PracticalResourceCards";
 
 const filters = ["All", "Prompts", "Workflows", "Templates", "Checklists", "Downloads", "AI Video", "AI Music", "Social Media"];
 
@@ -185,6 +186,8 @@ export default function ResourcesLibrary() {
           ))}
         </div>
       </section>
+
+      <PracticalResourceCards language="en" />
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20">
         <SectionHeader eyebrow="Process" title="Production Workflow" desc="A practical map for moving from idea to publishable AI content without losing continuity." />

@@ -10,6 +10,31 @@ type RenderableProductionInsight = ProductionInsight & {
   heroPosition?: string;
 };
 
+const relatedResourceMap: Record<string, { slug: string; en: string; ko: string }[]> = {
+  "ai-storyboarding-guide": [
+    { slug: "ai-video-shot-list-template", en: "AI Video Shot List Template", ko: "AI 영상 샷 리스트 템플릿" },
+  ],
+  "extend-ai-video-scenes-google-flow": [
+    { slug: "first-shot-image-review-checklist", en: "First Shot Image Review Checklist", ko: "First Shot 이미지 검토 체크리스트" },
+    { slug: "ai-video-continuity-checklist", en: "AI Video Continuity Checklist", ko: "AI 영상 장면 연속성 체크리스트" },
+  ],
+  "image-to-video-prompts": [
+    { slug: "ai-video-prompt-simplification-worksheet", en: "AI Video Prompt Simplification Worksheet", ko: "AI 영상 프롬프트 단순화 워크시트" },
+  ],
+  "common-ai-video-generation-failures": [
+    { slug: "ai-video-error-review-sheet", en: "AI Video Error Review Sheet", ko: "AI 영상 생성 오류 검토표" },
+  ],
+  "create-ai-shorts-9-16-from-start": [
+    { slug: "shorts-publishing-checklist", en: "Shorts Publishing Checklist", ko: "쇼츠 업로드 전 최종 점검표" },
+  ],
+  "seamless-loops-relaxing-ai-videos": [
+    { slug: "long-form-relaxing-video-planning-sheet", en: "Long-Form Relaxing Video Planning Sheet", ko: "롱폼 힐링 영상 기획표" },
+  ],
+  "repeatable-ai-video-workflow": [
+    { slug: "ai-video-asset-organization-guide", en: "AI Video Asset Organization Guide", ko: "AI 영상 제작 파일 정리 가이드" },
+  ],
+};
+
 const articleLabels = {
   en: {
     home: "Home", insights: "Insights", guides: "Production Guides",
@@ -186,12 +211,18 @@ export default function ProductionInsightArticle({
     "@type": "FAQPage",
     mainEntity: article.faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
   };
-  const related = article.related ?? [
+  const defaultRelated = article.related ?? [
     { label: "Related Film", title: "HARU: First Journey", href: "/works/haru-first-journey" },
     { label: "Related Shorts", title: "HARU Shorts", href: "/videos?type=shorts" },
     { label: "Related Music", title: "The Sound of HARU", href: "/music" },
     { label: "Related Character", title: "Meet HARU", href: "/characters/haru" },
   ];
+  const resourceRelated = (relatedResourceMap[article.slug] ?? []).map((item) => ({
+    label: isKorean ? "관련 리소스" : "Related Resource",
+    title: isKorean ? item.ko : item.en,
+    href: `${isKorean ? "/ko" : ""}/resources/${item.slug}`,
+  }));
+  const related = [...resourceRelated, ...defaultRelated].slice(0, 4);
 
   return (
     <main className="bg-[#fffdf8]">

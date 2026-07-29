@@ -5,6 +5,7 @@ import { musicTracks } from "@/lib/music";
 import { characterDetails } from "@/lib/characterDetails";
 import { getPublishedInsightArticles } from "@/lib/insights";
 import { resourceDetails } from "@/lib/resourceDetails";
+import { practicalResources } from "@/lib/practicalResources";
 
 const baseUrl = "https://fourfeetz.com";
 
@@ -66,6 +67,7 @@ const routes = [
   "/services",
   "/terms",
   "/tools",
+  ...practicalResources.map((resource) => `/resources/${resource.slug}`),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -86,6 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...musicTracks.map((item) => [`/music/${item.slug}`, `/ko/music/${item.slug}`] as const),
     ...getPublishedInsightArticles().map((item) => [item.href, `/ko/insights/${item.slug}`] as const),
     ...resourceDetails.map((item) => [`/resources/${item.slug}`, `/ko/resources/${item.slug}`] as const),
+    ...practicalResources.map((item) => [`/resources/${item.slug}`, `/ko/resources/${item.slug}`] as const),
   ]);
 
   const alternateLanguages = (englishPath: string, koreanPath: string) => ({
