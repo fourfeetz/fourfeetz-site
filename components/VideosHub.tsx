@@ -145,23 +145,25 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid items-start gap-6 md:grid-cols-2 lg:grid-cols-3">
             {visibleVideos.map((video) => (
               <Link
                 key={video.id}
                 href={video.href}
                 aria-label={`${labels.view}: ${video.title}`}
-                className="group flex h-full flex-col overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"
+                className="group flex flex-col overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"
               >
-                <article className="flex h-full flex-col">
-                  <div className="relative aspect-video overflow-hidden bg-[#f2e8dc]">
+                <article className="flex flex-col">
+                  <div className={`relative overflow-hidden bg-[#f2e8dc] ${video.type === "shorts" ? "aspect-[9/16]" : "aspect-video"}`}>
                     {video.image ? (
                       <Image
                         src={video.image}
                         alt={`${video.title} ${labels.altSuffix}`}
                         fill
                         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                        className={`${video.type === "shorts" ? "object-contain" : "object-cover"} transition-transform duration-200 group-hover:scale-[1.02]`}
+                        className={video.type === "shorts"
+                          ? "object-contain"
+                          : "object-cover transition-transform duration-200 group-hover:scale-[1.02]"}
                       />
                     ) : (
                       <video src={video.video} muted playsInline preload="metadata" className="h-full w-full object-contain" aria-hidden="true" />
