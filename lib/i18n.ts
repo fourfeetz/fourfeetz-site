@@ -5,6 +5,7 @@ export const dict = {
     nav: {
       home: "Home",
       about: "About",
+      videos: "Videos",
       works: "Films",
       shorts: "Shorts",
       characters: "Characters",
@@ -138,6 +139,7 @@ export const dict = {
     nav: {
       home: "홈",
       about: "소개",
+      videos: "영상",
       works: "필름",
       shorts: "쇼츠",
       characters: "캐릭터",
@@ -272,8 +274,7 @@ export const dict = {
 export const navItems = [
   { href: "/", key: "home" },
   { href: "/about", key: "about" },
-  { href: "/films", key: "works" },
-  { href: "/shorts", key: "shorts" },
+  { href: "/videos", key: "videos" },
   { href: "/characters", key: "characters" },
   { href: "/music", key: "music" },
   { href: "/insights", key: "insights" },
@@ -285,8 +286,7 @@ export const navItems = [
 export const koreanNavItems = [
   { href: "/ko", key: "home" },
   { href: "/ko/about", key: "about" },
-  { href: "/ko/films", key: "works" },
-  { href: "/ko/shorts", key: "shorts" },
+  { href: "/ko/videos", key: "videos" },
   { href: "/ko/characters", key: "characters" },
   { href: "/ko/music", key: "music" },
   { href: "/ko/insights", key: "insights" },
@@ -324,7 +324,7 @@ export const works = [
     duration: "6-part outline",
     thumbnail: "",
     desc: "A short-form series framework designed for social release across multiple platforms.",
-    href: "/shorts",
+    href: "/videos?type=shorts",
   },
   {
     title: "AI Studio Motion Reel",
@@ -332,7 +332,7 @@ export const works = [
     duration: "01:20 draft",
     thumbnail: "",
     desc: "A premium brand reel concept showing how AI films, music, and knowledge products fit together.",
-    href: "/films",
+    href: "/videos?type=long-form",
   },
   {
     title: "Character Theme Visualizer",

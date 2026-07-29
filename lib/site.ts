@@ -3,7 +3,7 @@
   description: "AI films, original characters, music, and creative production by FourFeetz.",
   nav: [
     { href: "/", label: "Home" },
-    { href: "/films", label: "Films" },
+    { href: "/videos", label: "Videos" },
     { href: "/characters", label: "Characters" },
     { href: "/music", label: "Music" },
     { href: "/insights", label: "Insights" },

@@ -146,7 +146,7 @@ export default function ProductionInsightArticle({ article }: { article: Product
   };
   const related = article.related ?? [
     { label: "Related Film", title: "HARU: First Journey", href: "/works/haru-first-journey" },
-    { label: "Related Shorts", title: "HARU Shorts", href: "/shorts" },
+    { label: "Related Shorts", title: "HARU Shorts", href: "/videos?type=shorts" },
     { label: "Related Music", title: "The Sound of HARU", href: "/music" },
     { label: "Related Character", title: "Meet HARU", href: "/characters/haru" },
   ];

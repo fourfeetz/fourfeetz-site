@@ -207,7 +207,7 @@ export const howHaruInsight: ProductionInsight = {
   ],
   related: [
     { label: "Related Film", title: "HARU: First Journey", href: "/works/haru-first-journey" },
-    { label: "Related Shorts", title: "HARU Shorts", href: "/shorts" },
+    { label: "Related Shorts", title: "HARU Shorts", href: "/videos?type=shorts" },
     { label: "Related Music", title: "HARU Music Library", href: "/music" },
     { label: "Related Insight", title: "Character Consistency Guide", href: "/insights/character-consistency-guide" },
     { label: "Related Insight", title: "Google Flow Complete Guide", href: "/insights/google-flow-complete-guide" },

@@ -6,8 +6,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 import { localizedHref } from "@/lib/localization";
 
 const footerLinks = [
-  { href: "/films", label: "Films" },
-  { href: "/shorts", label: "Shorts" },
+  { href: "/videos", label: "Videos" },
   { href: "/characters", label: "Characters" },
   { href: "/insights", label: "Insights" },
   { href: "/resources", label: "Resources" },
@@ -22,8 +21,7 @@ const footerLinks = [
 export default function Footer() {
   const { lang } = useLanguage();
   const labels = lang === "ko" ? {
-    Films: "필름",
-    Shorts: "쇼츠",
+    Videos: "영상",
     Characters: "캐릭터",
     Insights: "인사이트",
     Resources: "리소스",

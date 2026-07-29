@@ -67,8 +67,8 @@ const missionCards: { title: string; description: string; icon: LucideIcon }[] =
 
 const createCards: { title: string; href: string; icon: LucideIcon }[] = [
   { title: "HARU Stories", href: "/characters/haru", icon: PawPrint },
-  { title: "Original AI Films", href: "/films", icon: Film },
-  { title: "YouTube Shorts", href: "/shorts", icon: MonitorPlay },
+  { title: "Original AI Films", href: "/videos?type=long-form", icon: Film },
+  { title: "YouTube Shorts", href: "/videos?type=shorts", icon: MonitorPlay },
   { title: "Original Music", href: "/music", icon: Music2 },
   { title: "Workflow Guides", href: "/resources/ai-short-film-workflow", icon: Workflow },
   { title: "Prompt Engineering", href: "/resources/image-to-video-prompt-framework", icon: MessageSquareText },
@@ -141,8 +141,8 @@ const latestArticles = siteContent
   .map((article) => ({ title: article.title, description: article.description, href: article.href, meta: article.category }));
 
 const relatedGroups = [
-  { title: "Latest Films", href: "/films", items: latestFilms },
-  { title: "Latest Shorts", href: "/shorts", items: latestShorts },
+  { title: "Latest Films", href: "/videos?type=long-form", items: latestFilms },
+  { title: "Latest Shorts", href: "/videos?type=shorts", items: latestShorts },
   { title: "Latest Articles", href: "/insights", items: latestArticles },
 ];
 
@@ -244,7 +244,7 @@ export default function AboutPage() {
             <p className="mt-4 text-lg leading-8 text-[#76685d]">A curious little Jindo puppy whose stories explore friendship, quiet adventures, everyday life, and cinematic AI storytelling.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/characters/haru" className="rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">View HARU</Link>
-              <Link href="/films" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">Watch Films</Link>
+              <Link href="/videos" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">Watch Videos</Link>
             </div>
           </div>
         </div>

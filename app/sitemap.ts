@@ -19,7 +19,7 @@ const routes = [
   "/characters/ruru",
   "/characters/pori",
   "/contact",
-  "/films",
+  "/videos",
   "/insights",
   "/insights/guides",
   "/insights/news",
@@ -66,8 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pairedPaths = new Map<string, string>([
     ["", "/ko"],
     ["/about", "/ko/about"],
-    ["/films", "/ko/films"],
-    ["/shorts", "/ko/shorts"],
+    ["/videos", "/ko/videos"],
     ["/characters", "/ko/characters"],
     ["/music", "/ko/music"],
     ["/insights", "/ko/insights"],

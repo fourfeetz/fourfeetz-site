@@ -129,7 +129,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     personality: ["낙천성", "장난기", "너그러움", "유머", "끈기"],
     relatedContent: [
       { label: "캐릭터", title: "FourFeetz 캐릭터 둘러보기", description: "현재 공개된 여섯 캐릭터의 특징과 관련 콘텐츠를 한곳에서 확인할 수 있습니다.", href: "/ko/characters" },
-      { label: "필름", title: "공개 필름 보기", description: "FourFeetz가 현재 공개한 캐릭터 중심의 시네마틱 필름을 만나보세요.", href: "/ko/films" },
+      { label: "영상", title: "공개 롱폼 보기", description: "FourFeetz가 현재 공개한 캐릭터 중심의 시네마틱 필름을 만나보세요.", href: "/ko/videos?type=long-form" },
     ],
     relatedCharacters: ["pori", "haru"],
   },

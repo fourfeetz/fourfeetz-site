@@ -9,6 +9,7 @@ const koreanPrefixes = new Set([
   "resources",
   "services",
   "shorts",
+  "videos",
 ]);
 
 const englishOnlyInsightPaths = new Set([
@@ -29,7 +30,11 @@ export function toKoreanPath(pathname: string) {
   const [section, ...rest] = segments;
 
   if (section === "works" || section === "films") {
-    return `/ko/films${rest.length ? `/${rest.join("/")}` : ""}`;
+    return rest.length ? `/ko/films/${rest.join("/")}` : "/ko/videos?type=long-form";
+  }
+
+  if (section === "shorts") {
+    return rest.length ? `/ko/shorts/${rest.join("/")}` : "/ko/videos?type=shorts";
   }
 
   if (section && koreanPrefixes.has(section)) {
@@ -47,7 +52,11 @@ export function toEnglishPath(pathname: string) {
   const [section, ...rest] = segments;
 
   if (section === "films") {
-    return rest.length ? `/works/${rest.join("/")}` : "/films";
+    return rest.length ? `/works/${rest.join("/")}` : "/videos?type=long-form";
+  }
+
+  if (section === "shorts") {
+    return rest.length ? `/shorts/${rest.join("/")}` : "/videos?type=shorts";
   }
 
   if (section && koreanPrefixes.has(section)) {
