@@ -3,15 +3,22 @@ import InsightCard from "@/components/insights/InsightCard";
 import { insightGroups, type InsightGroup, type InsightLanguage } from "@/lib/insightGroups";
 import { getPublishedInsightsByGroup, type InsightArticle } from "@/lib/insights";
 import { koreanInsightSummaries } from "@/lib/koreanInsightSummaries";
+import { getNewProductionGuide } from "@/lib/newProductionGuides";
 
 const siteUrl = "https://fourfeetz.com";
 
 function localizeArticles(articles: InsightArticle[], language: InsightLanguage) {
   if (language === "en") return articles;
-  return articles.map((article) => ({
-    ...article,
-    description: koreanInsightSummaries[article.slug]?.summary[0] ?? article.description,
-  }));
+  return articles.map((article) => {
+    const newGuide = getNewProductionGuide(article.slug, "ko");
+    return {
+      ...article,
+      title: newGuide?.shortTitle ?? article.title,
+      category: newGuide?.category ?? article.category,
+      readTime: newGuide?.readTime ?? article.readTime,
+      description: newGuide?.description ?? koreanInsightSummaries[article.slug]?.summary[0] ?? article.description,
+    };
+  });
 }
 
 export default function InsightsCategoryPage({

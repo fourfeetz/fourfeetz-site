@@ -14,6 +14,7 @@ import {
 import MusicPlayer from "@/app/music/MusicPlayer";
 import InsightsHub from "@/components/InsightsHub";
 import PageHero from "@/components/PageHero";
+import ProductionInsightArticle from "@/components/ProductionInsightArticle";
 import KoreanQuoteForm from "@/components/korean/KoreanQuoteForm";
 import { shorts } from "@/data/shorts";
 import { characterDetails, getCharacter } from "@/lib/characterDetails";
@@ -29,6 +30,7 @@ import {
 } from "@/lib/koreanContent";
 import { koreanInsightSummaries } from "@/lib/koreanInsightSummaries";
 import { insightGroups } from "@/lib/insightGroups";
+import { getNewProductionGuide } from "@/lib/newProductionGuides";
 import { getMusicTrack, musicTracks } from "@/lib/music";
 import { getResource, resourceDetails } from "@/lib/resourceDetails";
 
@@ -170,6 +172,11 @@ export function KoreanMusicDetail({ slug }: { slug: string }) {
 }
 
 export function KoreanInsightDetail({ slug }: { slug: string }) {
+  const newGuide = getNewProductionGuide(slug, "ko");
+  if (newGuide) {
+    return <ProductionInsightArticle article={newGuide} language="ko" />;
+  }
+
   const item = getPublishedInsightArticles().find((entry) => entry.slug === slug);
   const content = koreanInsightSummaries[slug];
   if (!item || !content) notFound();

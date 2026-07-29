@@ -33,6 +33,10 @@ import {
 } from "@/lib/koreanContent";
 import { languageAlternates } from "@/lib/localization";
 import { getMusicTrack, musicTracks } from "@/lib/music";
+import {
+  createNewProductionGuideMetadata,
+  isNewProductionGuideSlug,
+} from "@/lib/newProductionGuides";
 import { getResource, resourceDetails } from "@/lib/resourceDetails";
 
 type Props = { params: Promise<{ segments: string[] }> };
@@ -104,6 +108,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         images: ["/images/insights-hero-v2.png"],
       },
     };
+  }
+
+  if (section === "insights" && isNewProductionGuideSlug(slug)) {
+    return createNewProductionGuideMetadata(slug, "ko");
   }
 
   let title = "";

@@ -5,16 +5,23 @@ import InsightsFilter from "@/components/insights/InsightsFilter";
 import { insightGroups, type InsightGroup, type InsightLanguage } from "@/lib/insightGroups";
 import { getPublishedInsightArticles, type InsightArticle } from "@/lib/insights";
 import { koreanInsightSummaries } from "@/lib/koreanInsightSummaries";
+import { getNewProductionGuide } from "@/lib/newProductionGuides";
 
 const siteUrl = "https://fourfeetz.com";
 const howHaruImage = "/images/insights/premium/how-haru-hero.png";
 
 function localizeArticles(articles: InsightArticle[], language: InsightLanguage) {
   if (language === "en") return articles;
-  return articles.map((article) => ({
-    ...article,
-    description: koreanInsightSummaries[article.slug]?.summary[0] ?? article.description,
-  }));
+  return articles.map((article) => {
+    const newGuide = getNewProductionGuide(article.slug, "ko");
+    return {
+      ...article,
+      title: newGuide?.shortTitle ?? article.title,
+      category: newGuide?.category ?? article.category,
+      readTime: newGuide?.readTime ?? article.readTime,
+      description: newGuide?.description ?? koreanInsightSummaries[article.slug]?.summary[0] ?? article.description,
+    };
+  });
 }
 
 export default function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {

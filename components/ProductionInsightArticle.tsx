@@ -3,12 +3,38 @@ import Link from "next/link";
 import type { ProductionInsight, ProductionInsightSection } from "@/lib/productionInsights";
 
 const siteUrl = "https://fourfeetz.com";
+type ArticleLanguage = "en" | "ko";
+type RenderableProductionInsight = ProductionInsight & {
+  heroAlt?: string;
+  heroFit?: "cover" | "contain";
+};
+
+const articleLabels = {
+  en: {
+    home: "Home", insights: "Insights", guides: "Production Guides",
+    productionNotes: "FourFeetz production notes", fromStudio: "From the studio",
+    educationalExample: "Educational example · not our proprietary master prompt",
+    viewFullSize: "View full size", viewFullSizeLabel: "View full-size image",
+    updated: "Updated", contents: "Table of contents", verdict: "Quick verdict",
+    faqTitle: "Questions creators ask us", continue: "Continue in the HARU world",
+    allGuides: "All Production Guides →",
+  },
+  ko: {
+    home: "홈", insights: "인사이트", guides: "제작 가이드",
+    productionNotes: "FourFeetz 제작 노트", fromStudio: "스튜디오 노트",
+    educationalExample: "교육용 예시 · 비공개 마스터 프롬프트가 아닙니다",
+    viewFullSize: "원본 크기로 보기", viewFullSizeLabel: "원본 크기 이미지 보기",
+    updated: "업데이트", contents: "목차", verdict: "핵심 정리",
+    faqTitle: "자주 묻는 질문", continue: "관련 제작 가이드",
+    allGuides: "제작 가이드 전체 보기 →",
+  },
+} as const;
 
 function JsonLd({ value }: { value: object }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(value).replace(/</g, "\\u003c") }} />;
 }
 
-function ProductionDiagram({ type }: { type: NonNullable<ProductionInsightSection["visual"]> }) {
+function ProductionDiagram({ type, language }: { type: NonNullable<ProductionInsightSection["visual"]>; language: ArticleLanguage }) {
   const items = type === "consistency"
     ? ["Silhouette", "Face", "Fur", "Collar", "Scale", "Behavior"]
     : type === "camera"
@@ -20,7 +46,9 @@ function ProductionDiagram({ type }: { type: NonNullable<ProductionInsightSectio
   return (
     <figure className="my-9 rounded-[28px] border border-[#dfcfbd] bg-[#2b2119] p-6 text-white shadow-xl shadow-[#6f4e37]/10 md:p-8">
       <figcaption className="text-xs font-black uppercase tracking-[0.22em] text-[#e5bd91]">
-        {type === "camera" ? "Camera distance diagram" : type === "consistency" ? "Character review diagram" : "Production workflow diagram"}
+        {language === "ko"
+          ? type === "camera" ? "카메라 거리 도표" : type === "consistency" ? "캐릭터 점검 도표" : "제작 과정 도표"
+          : type === "camera" ? "Camera distance diagram" : type === "consistency" ? "Character review diagram" : "Production workflow diagram"}
       </figcaption>
       <div className={`mt-6 grid gap-3 ${items.length >= 5 ? "md:grid-cols-5" : "md:grid-cols-3"}`}>
         {items.map((item, index) => (
@@ -35,10 +63,11 @@ function ProductionDiagram({ type }: { type: NonNullable<ProductionInsightSectio
   );
 }
 
-function ArticleSection({ section }: { section: ProductionInsightSection }) {
+function ArticleSection({ section, language }: { section: ProductionInsightSection; language: ArticleLanguage }) {
+  const labels = articleLabels[language];
   return (
     <section id={section.id} className="scroll-mt-28 border-t border-[#eadfce] py-12 first:border-t-0 first:pt-0 md:py-16">
-      <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">FourFeetz production notes</p>
+      <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{labels.productionNotes}</p>
       <h2 className="mt-3 text-3xl font-black tracking-tight text-[#2b2119] md:text-5xl">{section.title}</h2>
       <div className="mt-7 space-y-6 text-lg leading-8 text-[#665a50]">
         {section.paragraphs.map((paragraph) => <p key={paragraph.slice(0, 72)}>{paragraph}</p>)}
@@ -60,17 +89,17 @@ function ArticleSection({ section }: { section: ProductionInsightSection }) {
       ) : null}
       {section.note ? (
         <aside className="my-9 rounded-[28px] border border-[#d8c3ad] bg-white p-6 shadow-sm md:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">From the studio</p>
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{labels.fromStudio}</p>
           <p className="mt-4 text-lg font-bold leading-8 text-[#2b2119]">{section.note}</p>
         </aside>
       ) : null}
       {section.prompt ? (
         <div className="my-9 rounded-[28px] border border-[#d8c3ad] bg-[#2b2119] p-6 shadow-xl md:p-8">
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#e5bd91]">Educational example · not our proprietary master prompt</p>
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#e5bd91]">{labels.educationalExample}</p>
           <pre className="mt-5 overflow-x-auto whitespace-pre-wrap font-mono text-sm leading-7 text-[#fff8ef]"><code>{section.prompt}</code></pre>
         </div>
       ) : null}
-      {section.visual ? <ProductionDiagram type={section.visual} /> : null}
+      {section.visual ? <ProductionDiagram type={section.visual} language={language} /> : null}
       {section.videos ? (
         <div className={`my-9 grid gap-5 ${section.videos.length > 1 ? "md:grid-cols-2" : ""}`}>
           {section.videos.map((video) => (
@@ -88,9 +117,9 @@ function ArticleSection({ section }: { section: ProductionInsightSection }) {
           {section.images.map((image, index) => (
             <figure key={`${image.src}-${index}`} className={section.images!.length === 3 && index === 0 ? "md:col-span-2" : ""}>
               <div className={`relative overflow-hidden rounded-[26px] border border-[#eadfce] ${image.fit === "contain" ? "bg-white" : "bg-[#eadfce]"} ${image.aspect === "video" ? "aspect-video" : image.aspect === "landscape" ? "aspect-[3/2]" : "aspect-[4/3]"}`}>
-                <a href={image.src} target="_blank" rel="noreferrer" aria-label={`View full-size image: ${image.alt}`} className="group relative block h-full w-full">
+                <a href={image.src} target="_blank" rel="noreferrer" aria-label={`${labels.viewFullSizeLabel}: ${image.alt}`} className="group relative block h-full w-full">
                   <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, 760px" className={`${image.fit === "contain" ? "object-contain" : "object-cover"} transition duration-300 group-hover:scale-[1.01]`} style={{ objectPosition: image.position ?? "50% 50%" }} />
-                  <span className="absolute bottom-3 right-3 rounded-full border border-white/70 bg-[#2b2119]/85 px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-lg backdrop-blur-sm">View full size</span>
+                  <span className="absolute bottom-3 right-3 rounded-full border border-white/70 bg-[#2b2119]/85 px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-lg backdrop-blur-sm">{labels.viewFullSize}</span>
                 </a>
               </div>
               <figcaption className="mt-3 text-sm leading-6 text-[#76685d]">{image.caption}</figcaption>
@@ -113,8 +142,19 @@ function ArticleSection({ section }: { section: ProductionInsightSection }) {
   );
 }
 
-export default function ProductionInsightArticle({ article }: { article: ProductionInsight }) {
-  const canonical = `${siteUrl}/insights/${article.slug}`;
+export default function ProductionInsightArticle({
+  article,
+  language = "en",
+}: {
+  article: RenderableProductionInsight;
+  language?: ArticleLanguage;
+}) {
+  const isKorean = language === "ko";
+  const labels = articleLabels[language];
+  const homePath = isKorean ? "/ko" : "/";
+  const insightsPath = isKorean ? "/ko/insights" : "/insights";
+  const guidesPath = isKorean ? "/ko/insights/guides" : "/insights/guides";
+  const canonical = `${siteUrl}${isKorean ? "/ko" : ""}/insights/${article.slug}`;
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -124,6 +164,7 @@ export default function ProductionInsightArticle({ article }: { article: Product
     datePublished: article.published,
     dateModified: article.updated,
     mainEntityOfPage: canonical,
+    ...(article.heroAlt ? { inLanguage: isKorean ? "ko-KR" : "en-US" } : {}),
     author: { "@type": "Organization", name: "FourFeetz Studios", url: siteUrl },
     publisher: { "@type": "Organization", name: "FourFeetz Studios", url: siteUrl },
     keywords: article.keywords.join(", "),
@@ -133,9 +174,9 @@ export default function ProductionInsightArticle({ article }: { article: Product
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Insights", item: `${siteUrl}/insights` },
-      { "@type": "ListItem", position: 3, name: "Production Guides", item: `${siteUrl}/insights/guides` },
+      { "@type": "ListItem", position: 1, name: labels.home, item: isKorean ? `${siteUrl}/ko` : siteUrl },
+      { "@type": "ListItem", position: 2, name: labels.insights, item: `${siteUrl}${insightsPath}` },
+      { "@type": "ListItem", position: 3, name: labels.guides, item: `${siteUrl}${guidesPath}` },
       { "@type": "ListItem", position: 4, name: article.shortTitle, item: canonical },
     ],
   };
@@ -158,30 +199,30 @@ export default function ProductionInsightArticle({ article }: { article: Product
       <JsonLd value={faqSchema} />
       <article>
         <header className="mx-auto max-w-5xl px-6 pb-12 pt-16 md:pb-16 md:pt-24">
-          <nav aria-label="Breadcrumb" className="text-sm font-bold text-[#8a7768]"><Link href="/" className="hover:text-[#6f4e37]">Home</Link><span className="px-2">/</span><Link href="/insights" className="hover:text-[#6f4e37]">Insights</Link><span className="px-2">/</span><Link href="/insights/guides" className="hover:text-[#6f4e37]">Production Guides</Link><span className="px-2">/</span><span>{article.shortTitle}</span></nav>
+          <nav aria-label={isKorean ? "경로" : "Breadcrumb"} className="text-sm font-bold text-[#8a7768]"><Link href={homePath} className="hover:text-[#6f4e37]">{labels.home}</Link><span className="px-2">/</span><Link href={insightsPath} className="hover:text-[#6f4e37]">{labels.insights}</Link><span className="px-2">/</span><Link href={guidesPath} className="hover:text-[#6f4e37]">{labels.guides}</Link><span className="px-2">/</span><span>{article.shortTitle}</span></nav>
           <p className="mt-10 text-xs font-black uppercase tracking-[0.28em] text-[#a67c52]">{article.eyebrow} · {article.category}</p>
           <h1 className="mt-5 text-5xl font-black leading-[1.02] tracking-[-0.045em] text-[#2b2119] md:text-7xl">{article.title}</h1>
           <p className="mt-7 max-w-4xl text-xl leading-9 text-[#665a50]">{article.description}</p>
           <div className="mt-8 flex flex-wrap gap-3 text-sm font-black text-[#6f4e37]">
             <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">{article.readTime}</span>
-            <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">Updated {article.updated}</span>
+            <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">{labels.updated} {article.updated}</span>
             <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">FourFeetz Studios</span>
           </div>
-          <figure className="mt-10 overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#eadfce] shadow-2xl shadow-[#6f4e37]/10">
-            <Image src={article.hero} alt={`${article.shortTitle} hero artwork featuring the HARU production world`} width={1600} height={900} priority className="aspect-video h-auto w-full object-cover" />
+          <figure className={`mt-10 overflow-hidden rounded-[32px] border border-[#eadfce] shadow-2xl shadow-[#6f4e37]/10 ${article.heroFit === "contain" ? "bg-white" : "bg-[#eadfce]"}`}>
+            <Image src={article.hero} alt={article.heroAlt ?? `${article.shortTitle} hero artwork featuring the HARU production world`} width={1600} height={900} priority className={`aspect-video h-auto w-full ${article.heroFit === "contain" ? "object-contain" : "object-cover"}`} />
           </figure>
         </header>
 
         <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-24 lg:grid-cols-[250px_minmax(0,1fr)]">
-          <aside className="hidden lg:block"><div className="sticky top-28 rounded-[24px] border border-[#eadfce] bg-white p-5 shadow-sm"><p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">Table of contents</p><nav className="mt-4 grid gap-1">{article.sections.map((section) => <a key={section.id} href={`#${section.id}`} className="rounded-xl px-3 py-2 text-sm font-bold leading-5 text-[#76685d] hover:bg-[#f2e8dc] hover:text-[#2b2119]">{section.title}</a>)}<a href="#faq" className="rounded-xl px-3 py-2 text-sm font-bold text-[#76685d] hover:bg-[#f2e8dc] hover:text-[#2b2119]">FAQ</a></nav></div></aside>
+          <aside className="hidden lg:block"><div className="sticky top-28 rounded-[24px] border border-[#eadfce] bg-white p-5 shadow-sm"><p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">{labels.contents}</p><nav className="mt-4 grid gap-1">{article.sections.map((section) => <a key={section.id} href={`#${section.id}`} className="rounded-xl px-3 py-2 text-sm font-bold leading-5 text-[#76685d] hover:bg-[#f2e8dc] hover:text-[#2b2119]">{section.title}</a>)}<a href="#faq" className="rounded-xl px-3 py-2 text-sm font-bold text-[#76685d] hover:bg-[#f2e8dc] hover:text-[#2b2119]">FAQ</a></nav></div></aside>
           <div className="min-w-0">
-            <section className="mb-12 rounded-[30px] border border-[#d8c3ad] bg-[#f2e8dc] p-7 md:p-9"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Quick verdict</p><p className="mt-4 text-xl font-bold leading-9 text-[#2b2119] md:text-2xl">{article.verdict}</p></section>
-            {article.sections.map((section) => <ArticleSection key={section.id} section={section} />)}
-            <section id="faq" className="scroll-mt-28 border-t border-[#eadfce] py-16"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">FAQ</p><h2 className="mt-3 text-3xl font-black text-[#2b2119] md:text-5xl">Questions creators ask us</h2><div className="mt-8 space-y-3">{article.faqs.map((faq) => <details key={faq.question} className="rounded-2xl border border-[#eadfce] bg-white p-5"><summary className="cursor-pointer font-black text-[#2b2119]">{faq.question}</summary><p className="mt-4 leading-7 text-[#665a50]">{faq.answer}</p></details>)}</div></section>
+            <section className="mb-12 rounded-[30px] border border-[#d8c3ad] bg-[#f2e8dc] p-7 md:p-9"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{labels.verdict}</p><p className="mt-4 text-xl font-bold leading-9 text-[#2b2119] md:text-2xl">{article.verdict}</p></section>
+            {article.sections.map((section) => <ArticleSection key={section.id} section={section} language={language} />)}
+            <section id="faq" className="scroll-mt-28 border-t border-[#eadfce] py-16"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">FAQ</p><h2 className="mt-3 text-3xl font-black text-[#2b2119] md:text-5xl">{labels.faqTitle}</h2><div className="mt-8 space-y-3">{article.faqs.map((faq) => <details key={faq.question} className="rounded-2xl border border-[#eadfce] bg-white p-5"><summary className="cursor-pointer font-black text-[#2b2119]">{faq.question}</summary><p className="mt-4 leading-7 text-[#665a50]">{faq.answer}</p></details>)}</div></section>
           </div>
         </div>
 
-        <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16"><div className="mx-auto max-w-6xl"><div className="flex flex-wrap items-end justify-between gap-4"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Continue in the HARU world</p><Link href="/insights/guides" className="font-black text-[#6f4e37]">All Production Guides →</Link></div><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <Link key={item.href} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span><strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong></Link>)}</div></div></section>
+        <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16"><div className="mx-auto max-w-6xl"><div className="flex flex-wrap items-end justify-between gap-4"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{labels.continue}</p><Link href={guidesPath} className="font-black text-[#6f4e37]">{labels.allGuides}</Link></div><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <Link key={item.href} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span><strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong></Link>)}</div></div></section>
       </article>
     </main>
   );

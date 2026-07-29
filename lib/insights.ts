@@ -1,6 +1,7 @@
 import { howHaruInsight } from "@/lib/howHaruInsight";
 import type { InsightGroup } from "@/lib/insightGroups";
 import { magicLightInsight } from "@/lib/magicLightInsight";
+import { newProductionGuides } from "@/lib/newProductionGuides";
 import { productionInsights, type ProductionInsight } from "@/lib/productionInsights";
 import { isPublishedContent, sortByFreshness, type PublishStatus } from "@/lib/publishing";
 import { toolNewsInsights } from "@/lib/toolNewsInsights";
@@ -14,6 +15,7 @@ export type InsightArticle = {
   readTime: string;
   href: string;
   image: string;
+  imageFit?: "cover" | "contain";
   tags: string[];
   keywords: string[];
   tools?: string[];
@@ -25,7 +27,9 @@ export type InsightArticle = {
   listed?: boolean;
 };
 
-function fromProductionInsight(article: ProductionInsight): InsightArticle {
+function fromProductionInsight(
+  article: ProductionInsight & { heroFit?: "cover" | "contain" },
+): InsightArticle {
   return {
     slug: article.slug,
     group: "guides",
@@ -35,6 +39,7 @@ function fromProductionInsight(article: ProductionInsight): InsightArticle {
     readTime: article.readTime,
     href: `/insights/${article.slug}`,
     image: article.hero,
+    imageFit: article.heroFit,
     tags: article.tags,
     keywords: article.keywords,
     tools: article.tools,
@@ -65,6 +70,7 @@ export const insightArticles: InsightArticle[] = [
   })),
   fromProductionInsight(magicLightInsight),
   fromProductionInsight(howHaruInsight),
+  ...Object.values(newProductionGuides).map((article) => fromProductionInsight(article.en)),
   ...Object.values(productionInsights).map(fromProductionInsight),
   {
     slug: "kling-vs-veo",
