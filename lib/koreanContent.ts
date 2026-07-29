@@ -117,6 +117,22 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     ],
     relatedCharacters: ["luna", "hugo"],
   },
+  oli: {
+    species: "수달",
+    tagline: "호기심 많고 영리하며 모험을 좋아합니다.",
+    story: "OLI는 강을 따라가며 굽이마다 만나는 새로운 문제를 해결합니다. 영리한 앞발과 두려움 없는 호기심으로 물길과 해안, 숨겨진 통로를 탐험합니다.",
+    listing: "강과 해안을 따라 새로운 길을 찾고 작은 문제를 해결하는 영리한 수달입니다. 지도와 도구를 활용하는 모험가의 성격을 보여줍니다.",
+    role: "물과 자연을 배경으로 한 이야기의 문을 여는 창의적인 탐험가입니다.",
+    appearance: "짙은 갈색의 방수 털, 크림색 주둥이, 밝고 짙은 눈과 작은 주황색 도구 가방이 OLI의 실용적인 모습을 완성합니다.",
+    imageAlt: "짙은 갈색 털과 크림색 주둥이, 주황색 도구 가방을 지닌 수달 OLI의 공식 캐릭터 초상",
+    metaDescription: "호기심 많고 영리한 FourFeetz 캐릭터 OLI를 소개합니다. 수달 OLI의 외형과 성격, 물길과 해안을 탐험하는 역할을 확인해 보세요.",
+    personality: ["호기심", "영리함", "모험심", "수완", "민첩함"],
+    relatedContent: [
+      { label: "캐릭터", title: "FourFeetz 캐릭터 둘러보기", description: "현재 공개된 일곱 캐릭터의 특징과 각 캐릭터 페이지를 한곳에서 확인할 수 있습니다.", href: "/ko/characters" },
+      { label: "영상", title: "공개 영상 보기", description: "OLI 전용 영상은 아직 공개되지 않았습니다. 현재 공개된 FourFeetz 캐릭터 영상을 먼저 만나보세요.", href: "/ko/videos" },
+    ],
+    relatedCharacters: ["haru", "luna"],
+  },
   milo: {
     species: "미니피그",
     tagline: "낙천적이고 장난기 많으며 늘 배가 고픕니다.",

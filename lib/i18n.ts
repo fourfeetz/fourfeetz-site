@@ -386,6 +386,14 @@ export const characters = [
     desc: "Curious, shy, and irresistibly playful.",
   },
   {
+    name: "OLI",
+    href: "/characters/oli",
+    image: "/images/characters/oli/portrait.png",
+    role: "Original Character",
+    breed: "Otter",
+    desc: "Curious, clever, and loves adventure.",
+  },
+  {
     name: "MILO",
     href: "/characters/milo",
     image: "/images/characters/milo/portrait.png",

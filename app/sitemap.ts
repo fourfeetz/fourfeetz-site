@@ -16,6 +16,7 @@ const routes = [
   "/characters/hugo",
   "/characters/luna",
   "/characters/milo",
+  "/characters/oli",
   "/characters/ruru",
   "/characters/pori",
   "/contact",
