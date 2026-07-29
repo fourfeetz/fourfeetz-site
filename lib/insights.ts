@@ -16,6 +16,7 @@ export type InsightArticle = {
   href: string;
   image: string;
   imageFit?: "cover" | "contain";
+  imagePosition?: string;
   tags: string[];
   keywords: string[];
   tools?: string[];
@@ -28,7 +29,10 @@ export type InsightArticle = {
 };
 
 function fromProductionInsight(
-  article: ProductionInsight & { heroFit?: "cover" | "contain" },
+  article: ProductionInsight & {
+    heroFit?: "cover" | "contain";
+    heroPosition?: string;
+  },
 ): InsightArticle {
   return {
     slug: article.slug,
@@ -40,6 +44,7 @@ function fromProductionInsight(
     href: `/insights/${article.slug}`,
     image: article.hero,
     imageFit: article.heroFit,
+    imagePosition: article.heroPosition,
     tags: article.tags,
     keywords: article.keywords,
     tools: article.tools,

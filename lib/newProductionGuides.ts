@@ -15,6 +15,7 @@ export type NewProductionGuideLanguage = "en" | "ko";
 export type NewProductionGuide = ProductionInsight & {
   heroAlt: string;
   heroFit?: "cover" | "contain";
+  heroPosition?: string;
 };
 
 type LocalizedCopy = Pick<
@@ -27,6 +28,7 @@ type GuideSeed = {
   hero: string;
   heroAlt: { en: string; ko: string };
   heroFit?: "cover" | "contain";
+  heroPosition?: string;
   tags: string[];
   keywords: { en: string[]; ko: string[] };
   tools: string[];
@@ -51,12 +53,12 @@ const koreanGuideBasics = {
 const guides: GuideSeed[] = [
   {
     slug: "extend-ai-video-scenes-google-flow",
-    hero: "/images/shorts/luna/luna-shorts-ep01-end-frame.png",
+    hero: "/images/insights/production-guides/google-flow-scene-extension-wide.webp",
     heroAlt: {
-      en: "Published vertical end frame from a FourFeetz LUNA short",
-      ko: "FourFeetz LUNA 쇼츠에 공개된 세로형 마지막 프레임",
+      en: "LUNA and HARU resting in a warm sunlit reading room, composed as a 16:9 landscape scene",
+      ko: "따뜻한 햇살이 드는 독서 공간에서 쉬는 LUNA와 HARU를 담은 16:9 가로 장면",
     },
-    heroFit: "contain",
+    heroPosition: "50% 50%",
     tags: ["Google Flow", "Scene Extension", "Continuity", "AI Video"],
     keywords: {
       en: ["extend AI video scenes", "Google Flow Extend", "AI video continuity", "First Shot"],
@@ -258,12 +260,12 @@ const guides: GuideSeed[] = [
   },
   {
     slug: "common-ai-video-generation-failures",
-    hero: "/images/shorts/hugo/hugo-and-haru-meadow-frame-02.png",
+    hero: "/images/insights/production-guides/ai-video-generation-failures-wide.webp",
     heroAlt: {
-      en: "Published FourFeetz vertical frame of HUGO and HARU in a meadow",
-      ko: "초원에 있는 HUGO와 HARU의 공개된 FourFeetz 세로 프레임",
+      en: "HUGO grazing while HARU runs through a golden meadow in a 16:9 landscape scene",
+      ko: "황금빛 초원에서 풀을 뜯는 HUGO와 달리는 HARU를 담은 16:9 가로 장면",
     },
-    heroFit: "contain",
+    heroPosition: "50% 48%",
     tags: ["AI Video", "Production Failures", "Quality Control", "Continuity"],
     keywords: {
       en: ["AI video generation failures", "AI character errors", "AI video quality control"],
@@ -479,12 +481,12 @@ const guides: GuideSeed[] = [
   },
   {
     slug: "create-ai-shorts-9-16-from-start",
-    hero: "/images/shorts/haru/short-003-together.png",
+    hero: "/images/insights/production-guides/ai-shorts-9-16-wide.webp",
     heroAlt: {
-      en: "Published 9:16 frame from a FourFeetz HARU short",
-      ko: "FourFeetz HARU 쇼츠에 공개된 9:16 세로 프레임",
+      en: "HARU and PORI together in a flower garden at golden hour, composed as a 16:9 landscape scene",
+      ko: "노을빛 꽃밭에 나란히 있는 HARU와 PORI를 담은 16:9 가로 장면",
     },
-    heroFit: "contain",
+    heroPosition: "50% 50%",
     tags: ["AI Shorts", "Vertical Video", "9:16", "Social Video"],
     keywords: {
       en: ["create AI Shorts 9:16", "vertical AI video", "Shorts safe area", "AI Shorts thumbnail"],
@@ -682,12 +684,12 @@ const guides: GuideSeed[] = [
   },
   {
     slug: "reduce-character-inconsistency-ai-video",
-    hero: "/images/characters/haru/silhouette.png",
+    hero: "/images/insights/production-guides/character-consistency-wide.webp",
     heroAlt: {
-      en: "Published FourFeetz silhouette study of HARU",
-      ko: "FourFeetz에 공개된 HARU 실루엣 이미지",
+      en: "HARU seated in profile in a warm white studio, composed as a 16:9 landscape character study",
+      ko: "따뜻한 흰색 스튜디오에서 옆모습으로 앉아 있는 HARU의 16:9 가로 캐릭터 이미지",
     },
-    heroFit: "contain",
+    heroPosition: "45% 50%",
     tags: ["Character Consistency", "AI Animation", "Reference Images", "Quality Control"],
     keywords: {
       en: ["reduce character inconsistency AI video", "AI character reference", "consistent AI animation"],
@@ -1112,6 +1114,7 @@ function createArticle(seed: GuideSeed, language: NewProductionGuideLanguage): N
     hero: seed.hero,
     heroAlt: seed.heroAlt[language],
     heroFit: seed.heroFit,
+    heroPosition: seed.heroPosition,
     published,
     updated: published,
     tags: seed.tags,

@@ -7,6 +7,7 @@ type ArticleLanguage = "en" | "ko";
 type RenderableProductionInsight = ProductionInsight & {
   heroAlt?: string;
   heroFit?: "cover" | "contain";
+  heroPosition?: string;
 };
 
 const articleLabels = {
@@ -209,7 +210,7 @@ export default function ProductionInsightArticle({
             <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">FourFeetz Studios</span>
           </div>
           <figure className={`mt-10 overflow-hidden rounded-[32px] border border-[#eadfce] shadow-2xl shadow-[#6f4e37]/10 ${article.heroFit === "contain" ? "bg-white" : "bg-[#eadfce]"}`}>
-            <Image src={article.hero} alt={article.heroAlt ?? `${article.shortTitle} hero artwork featuring the HARU production world`} width={1600} height={900} priority className={`aspect-video h-auto w-full ${article.heroFit === "contain" ? "object-contain" : "object-cover"}`} />
+            <Image src={article.hero} alt={article.heroAlt ?? `${article.shortTitle} hero artwork featuring the HARU production world`} width={1600} height={900} priority className={`aspect-video h-auto w-full ${article.heroFit === "contain" ? "object-contain" : "object-cover"}`} style={{ objectPosition: article.heroPosition ?? "50% 50%" }} />
           </figure>
         </header>
 

@@ -25,6 +25,7 @@ export default function InsightCard({
           fill
           sizes="(min-width:1280px)30vw,(min-width:768px)45vw,100vw"
           className={`${article.imageFit === "contain" ? "object-contain" : "object-cover"} transition-transform duration-200 group-hover:scale-[1.02]`}
+          style={{ objectPosition: article.imagePosition ?? "50% 50%" }}
         />
       </div>
       <div className="flex flex-1 flex-col pt-5">
