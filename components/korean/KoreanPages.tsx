@@ -44,11 +44,15 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
   return <div className="mx-auto max-w-7xl"><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{eyebrow}</p><h2 className="mt-3 max-w-4xl text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">{title}</h2>{description ? <p className="mt-5 max-w-2xl text-lg leading-8 text-[#76685d]">{description}</p> : null}</div>;
 }
 
-function MediaCard({ href, image, title, category, description, portrait = false, imageAlt }: { href: string; image: string; title: string; category: string; description: string; portrait?: boolean; imageAlt?: string }) {
-  return <article className={`${cardClass} group flex h-full flex-col overflow-hidden bg-[#fffdf8]`}>
+function MediaCard({ href, image, title, category, description, portrait = false, imageAlt, fullyClickable = false }: { href: string; image: string; title: string; category: string; description: string; portrait?: boolean; imageAlt?: string; fullyClickable?: boolean }) {
+  const content = <>
     <div className={`relative overflow-hidden bg-[#f2e8dc] ${portrait ? "aspect-square" : "aspect-video"}`}><Image src={image} alt={imageAlt ?? `${title} 썸네일`} fill sizes="(min-width:1024px)33vw,(min-width:768px)50vw,100vw" className={portrait ? "object-contain p-3" : "object-cover transition-transform duration-200 group-hover:scale-[1.02]"} /></div>
-    <div className="flex flex-1 flex-col p-6"><p className="text-sm font-black text-[#a67c52]">{category}</p><h3 className="mt-3 text-2xl font-black text-[#2b2119]">{title}</h3><p className="mt-3 flex-1 leading-7 text-[#76685d]">{description}</p><Link href={href} className={`${secondaryButton} mt-6 self-start px-6 py-3`}>자세히 보기</Link></div>
-  </article>;
+    <div className="flex flex-1 flex-col p-6"><p className="text-sm font-black text-[#a67c52]">{category}</p><h3 className="mt-3 text-2xl font-black text-[#2b2119]">{title}</h3><p className="mt-3 flex-1 leading-7 text-[#76685d]">{description}</p>{fullyClickable ? <span className={`${secondaryButton} pointer-events-none mt-6 self-start px-6 py-3`}>자세히 보기</span> : <Link href={href} className={`${secondaryButton} mt-6 self-start px-6 py-3`}>자세히 보기</Link>}</div>
+  </>;
+
+  return fullyClickable
+    ? <Link href={href} className={`${cardClass} group flex h-full flex-col overflow-hidden bg-[#fffdf8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2`}>{content}</Link>
+    : <article className={`${cardClass} group flex h-full flex-col overflow-hidden bg-[#fffdf8]`}>{content}</article>;
 }
 
 export function KoreanHomePage() {
@@ -107,7 +111,7 @@ export function KoreanInsightsPage() {
 }
 
 export function KoreanResourcesPage() {
-  return <main><PageHero eyebrow="Creator Resources" title="리소스" desc="AI 영상 제작을 계획하고 검토하는 데 활용할 수 있는 가이드, 템플릿과 체크리스트입니다." illustration={{ src: "/images/resources-hero-v2.png", alt: "FourFeetz AI 영상 제작 리소스" }} /><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">{resourceDetails.map((item) => <MediaCard key={item.slug} href={`/ko/resources/${item.slug}`} image={item.image} title={item.title} category={item.category} description={koreanResourceDescriptions[item.slug]} />)}</div></section><PracticalResourceCards language="ko" /></main>;
+  return <main><PageHero eyebrow="Creator Resources" title="리소스" desc="AI 영상 제작을 계획하고 검토하는 데 활용할 수 있는 가이드, 템플릿과 체크리스트입니다." illustration={{ src: "/images/resources-hero-v2.png", alt: "FourFeetz AI 영상 제작 리소스" }} /><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">{resourceDetails.map((item) => <MediaCard key={item.slug} href={`/ko/resources/${item.slug}`} image={item.image} title={item.title} category={item.category} description={koreanResourceDescriptions[item.slug]} fullyClickable />)}</div></section><PracticalResourceCards language="ko" /></main>;
 }
 
 const serviceCards = [

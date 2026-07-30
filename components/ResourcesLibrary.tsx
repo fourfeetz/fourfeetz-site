@@ -168,7 +168,11 @@ export default function ResourcesLibrary() {
         <SectionHeader eyebrow="Library" title="AI Creator Resource Library" desc="Curated prompts, workflows, templates, checklists, and downloads for repeatable creative production." />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">
           {resources.map((resource) => (
-            <article key={resource.title} className="flex h-full flex-col rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10">
+            <Link
+              key={resource.title}
+              href={resource.href}
+              className="group flex h-full flex-col rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"
+            >
               <ResourceThumbnail src={resource.thumbnail} title={resource.title} />
               <div className="flex flex-1 flex-col pt-5">
                 <p className="text-sm font-black text-[#a67c52]">{resource.category}</p>
@@ -178,11 +182,11 @@ export default function ResourcesLibrary() {
                   <span className="rounded-full bg-[#f7f2ea] px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#6f4e37]">{resource.type}</span>
                   <span className="rounded-full bg-[#f7f2ea] px-3 py-1 text-xs font-black uppercase tracking-[0.14em] text-[#6f4e37]">{resource.access}</span>
                 </div>
-                <Link href={resource.href} className="mt-6 inline-flex w-fit text-sm font-black text-[#6f4e37] transition hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+                <span className="mt-6 inline-flex w-fit text-sm font-black text-[#6f4e37] transition group-hover:text-[#2b2119]">
                   Open Resource -&gt;
-                </Link>
+                </span>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>

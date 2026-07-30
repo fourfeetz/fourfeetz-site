@@ -23,7 +23,11 @@ export default function PracticalResourceCards({ language }: { language: "en" | 
             const copy = resource[language];
             const href = `${isKorean ? "/ko" : ""}/resources/${resource.slug}`;
             return (
-              <article key={resource.slug} className="flex h-full flex-col rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10">
+              <Link
+                key={resource.slug}
+                href={href}
+                className="group flex h-full flex-col rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"
+              >
                 <div className="aspect-[16/10] rounded-2xl border border-[#dfcfbd] bg-[#fffdf8] p-5" aria-hidden="true">
                   <span className="block h-2 w-2/5 rounded-full bg-[#a67c52]" />
                   <span className="mt-4 block h-3 w-4/5 rounded-full bg-[#dfcfbd]" />
@@ -42,11 +46,11 @@ export default function PracticalResourceCards({ language }: { language: "en" | 
                   <p className="text-sm font-black text-[#a67c52]">{copy.category}</p>
                   <h3 className="mt-3 text-2xl font-black leading-tight text-[#2b2119]">{copy.title}</h3>
                   <p className="mt-3 flex-1 leading-7 text-[#76685d]">{copy.description}</p>
-                  <Link href={href} className="mt-6 inline-flex w-fit text-sm font-black text-[#6f4e37] transition hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+                  <span className="mt-6 inline-flex w-fit text-sm font-black text-[#6f4e37] transition group-hover:text-[#2b2119]">
                     {isKorean ? "자료 열기 →" : "Open Resource →"}
-                  </Link>
+                  </span>
                 </div>
-              </article>
+              </Link>
             );
           })}
         </div>
