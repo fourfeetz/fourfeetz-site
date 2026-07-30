@@ -1,3 +1,6 @@
+import type { Metadata } from "next";
+import { englishLanguageAlternates } from "@/lib/localization";
+
 export type ResourceDetail = {
   slug: string; title: string; category: string; description: string; image: string;
   overview: string; preview: string[]; howTo: string[]; bestPractices: string[];
@@ -20,3 +23,26 @@ export const resourceDetails: ResourceDetail[] = [
 ];
 
 export function getResource(slug: string) { return resourceDetails.find(item => item.slug === slug); }
+
+export function createResourceMetadata(resource: ResourceDetail): Metadata {
+  const path = `/resources/${resource.slug}`;
+  const title = `${resource.title} | FourFeetz Studios`;
+  return {
+    title: { absolute: title },
+    description: resource.description,
+    alternates: englishLanguageAlternates(path, `/ko/resources/${resource.slug}`),
+    openGraph: {
+      type: "website",
+      title,
+      description: resource.description,
+      url: path,
+      images: [{ url: resource.image, alt: `${resource.title} resource preview` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: resource.description,
+      images: [resource.image],
+    },
+  };
+}

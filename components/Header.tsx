@@ -36,7 +36,7 @@ export default function Header() {
   const koreanHref = toKoreanPath(pathname);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#e6d8c8] bg-[#fbf7f0]/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-[#e6d8c8] bg-[#fbf7f0]/90 backdrop-blur-xl print:hidden">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-6 py-4">
         <Link href={homeHref} className="shrink-0">
           <Image

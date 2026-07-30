@@ -34,7 +34,7 @@ export default function Footer() {
   } as Record<string, string> : {};
 
   return (
-    <footer className="border-t border-[#e6d8c8] bg-[#fffdf8] px-6 py-12">
+    <footer className="border-t border-[#e6d8c8] bg-[#fffdf8] px-6 py-12 print:hidden">
       <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[minmax(260px,0.55fr)_minmax(0,1.45fr)]">
         <div>
           <Image

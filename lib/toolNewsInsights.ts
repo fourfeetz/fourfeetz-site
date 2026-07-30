@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { englishLanguageAlternates } from "@/lib/localization";
+
 export type ToolNewsInsightSlug =
   | "runway-dev-ai-media-platform"
   | "adobe-firefly-agentic-studio"
@@ -416,7 +418,7 @@ export function createToolNewsMetadata(slug: ToolNewsInsightSlug): Metadata {
     title: `${article.shortTitle} | FourFeetz Studios`,
     description: article.description,
     keywords: article.keywords,
-    alternates: { canonical },
+    alternates: englishLanguageAlternates(canonical, `/ko/insights/${article.slug}`),
     openGraph: {
       type: "article",
       title: article.title,

@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Runway Gen-4 Review for AI Character Films | FourFeetz Studios",
   description:
     "A practical Runway Gen-4 review based on producing HARU, covering character consistency, motion quality, camera control, prompts, and AI video workflow.",
+  alternates: {
+    canonical: "/insights/runway-gen-4-review",
+  },
   openGraph: {
     title: "Runway Gen-4 Review for AI Character Films | FourFeetz Studios",
     description:

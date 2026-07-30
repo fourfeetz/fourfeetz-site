@@ -18,3 +18,13 @@ body {
   background: #a67c52;
   color: white;
 }
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  [aria-label="Related Posts"] {
+    display: none !important;
+  }
+}

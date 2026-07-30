@@ -1,5 +1,7 @@
 ﻿import type { Metadata } from "next";
 
+import { englishLanguageAlternates } from "@/lib/localization";
+
 export type ProductionInsightSlug =
   | "google-flow-complete-guide"
   | "runway-gen45-review"
@@ -455,7 +457,7 @@ export function createProductionInsightMetadata(source: ProductionInsightSlug | 
     title: `${article.shortTitle} | FourFeetz Studios`,
     description: article.description,
     keywords: article.keywords,
-    alternates: { canonical },
+    alternates: englishLanguageAlternates(canonical, `/ko/insights/${article.slug}`),
     openGraph: {
       type: "article",
       title: article.title,

@@ -29,6 +29,7 @@ import {
   koreanResourceDescriptions,
   koreanShortDescriptions,
 } from "@/lib/koreanContent";
+import { koreanInsightDetails, koreanLegacyResourceDetails } from "@/lib/koreanContentDetails";
 import { koreanInsightSummaries } from "@/lib/koreanInsightSummaries";
 import { insightGroups } from "@/lib/insightGroups";
 import { getNewProductionGuide } from "@/lib/newProductionGuides";
@@ -180,7 +181,8 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
 
   const item = getPublishedInsightArticles().find((entry) => entry.slug === slug);
   const content = koreanInsightSummaries[slug];
-  if (!item || !content) notFound();
+  const detail = koreanInsightDetails[slug];
+  if (!item || !content || !detail) notFound();
   const group = insightGroups[item.group].ko;
   const related = getPublishedInsightArticles()
     .filter((entry) => entry.group === item.group && entry.slug !== item.slug)
@@ -214,6 +216,29 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
             ))}
           </ul>
         </div>
+        <section className="mt-6 rounded-[28px] border border-[#eadfce] bg-white p-8">
+          <h2 className="text-2xl font-black text-[#2b2119]">{detail.practiceTitle}</h2>
+          <div className="mt-5 space-y-4 leading-8 text-[#76685d]">
+            {detail.practice.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+        </section>
+        <section className="mt-6 rounded-[28px] border border-[#eadfce] bg-[#fffdf8] p-8">
+          <h2 className="text-2xl font-black text-[#2b2119]">실전 체크리스트</h2>
+          <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+            {detail.checklist.map((entry) => (
+              <li key={entry}>
+                <label className="flex cursor-pointer gap-3 rounded-2xl border border-[#eadfce] bg-white p-4 leading-7 text-[#5f5147]">
+                  <input type="checkbox" className="mt-1 size-4 shrink-0 accent-[#6f4e37]" />
+                  <span>{entry}</span>
+                </label>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <aside className="mt-6 rounded-[28px] border border-[#d8c3ad] bg-[#f7efe5] p-8">
+          <h2 className="text-xl font-black text-[#2b2119]">확인할 점</h2>
+          <p className="mt-3 leading-8 text-[#66584d]">{detail.caution}</p>
+        </aside>
         <div className="mt-6 rounded-[28px] border border-[#eadfce] bg-white p-8">
           <h2 className="text-2xl font-black text-[#2b2119]">한국어 요약 안내</h2>
           <p className="mt-4 leading-8 text-[#76685d]">
@@ -241,7 +266,84 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
   );
 }
 
+const legacyResourceGuideLinks: Record<string, { href: string; title: string }> = {
+  "character-consistency-prompt-pack": { href: "/ko/insights/character-consistency-guide", title: "AI 캐릭터 일관성 제작 가이드" },
+  "image-to-video-prompt-framework": { href: "/ko/insights/image-to-video-prompts", title: "이미지 투 비디오 지시 구성 가이드" },
+  "ai-short-film-workflow": { href: "/ko/insights/repeatable-ai-video-workflow", title: "반복 가능한 AI 영상 제작 흐름" },
+  "storyboard-planning-template": { href: "/ko/insights/ai-storyboarding-guide", title: "AI 영상 스토리보드 기획 가이드" },
+  "character-production-checklist": { href: "/ko/insights/character-consistency-guide", title: "AI 캐릭터 일관성 제작 가이드" },
+  "ai-music-prompt-starter-pack": { href: "/ko/insights/best-ai-music-tools", title: "AI 음악 도구와 제작 활용 가이드" },
+  "vertical-video-reframing-guide": { href: "/ko/insights/reframing-16-9-guide", title: "16:9 영상을 세로형으로 재구성하는 방법" },
+  "production-notes-template": { href: "/ko/insights/repeatable-ai-video-workflow", title: "반복 가능한 AI 영상 제작 흐름" },
+};
+
 export function KoreanResourceDetail({ slug }: { slug: string }) {
-  const item = getResource(slug); if (!item) notFound();
-  return <main><section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black leading-tight text-[#2b2119] md:text-7xl">{item.title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanResourceDescriptions[item.slug]}</p></div><div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border border-[#eadfce] bg-white"><Image src={item.image} alt={`${item.title} 리소스 미리보기`} fill priority className="object-contain p-5" /></div></section><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto max-w-5xl"><SectionHeading eyebrow="Resource Overview" title="자료 안내" /><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanResourceDescriptions[item.slug]}</p><ul className="mt-8 grid gap-4 md:grid-cols-2">{item.preview.map((entry) => <li key={entry} className="rounded-2xl border border-[#eadfce] bg-[#fffdf8] p-5 font-bold text-[#6f4e37]">{entry}</li>)}</ul></div></section></main>;
+  const item = getResource(slug);
+  const detail = koreanLegacyResourceDetails[slug];
+  const guide = legacyResourceGuideLinks[slug];
+  if (!item || !detail || !guide) notFound();
+
+  return (
+    <main>
+      <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p>
+          <h1 className="mt-4 text-5xl font-black leading-tight text-[#2b2119] md:text-7xl">{item.title}</h1>
+          <p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanResourceDescriptions[item.slug]}</p>
+        </div>
+        <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] border border-[#eadfce] bg-white">
+          <Image src={item.image} alt={`${item.title} 리소스 미리보기`} fill priority className="object-contain p-5" />
+        </div>
+      </section>
+      <section className="border-y border-[#eadfce] bg-white px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <SectionHeading eyebrow="Resource Overview" title="자료 안내" />
+          <p className="mt-6 text-lg leading-8 text-[#76685d]">{detail.overview}</p>
+          <ul className="mt-8 grid gap-4 md:grid-cols-2">
+            {item.preview.map((entry) => <li key={entry} className="rounded-2xl border border-[#eadfce] bg-[#fffdf8] p-5 font-bold text-[#6f4e37]">{entry}</li>)}
+          </ul>
+        </div>
+      </section>
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <SectionHeading eyebrow="How to Use" title="사용 방법" />
+          <ol className="mt-8 grid gap-4 md:grid-cols-2">
+            {detail.howTo.map((entry, index) => (
+              <li key={entry} className={`${cardClass} flex gap-4 p-6`}>
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#6f4e37] font-black text-white">{index + 1}</span>
+                <p className="leading-7 text-[#66584d]">{entry}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+      <section className="border-y border-[#eadfce] bg-white px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <SectionHeading eyebrow="Final Review" title="최종 체크리스트" />
+          <ul className="mt-8 grid gap-3 md:grid-cols-2">
+            {detail.checklist.map((entry) => (
+              <li key={entry}>
+                <label className="flex cursor-pointer gap-3 rounded-2xl border border-[#eadfce] bg-[#fffdf8] p-5 leading-7 text-[#5f5147]">
+                  <input type="checkbox" className="mt-1 size-4 shrink-0 accent-[#6f4e37]" />
+                  <span>{entry}</span>
+                </label>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+      <section className="px-6 py-20">
+        <div className="mx-auto max-w-5xl">
+          <SectionHeading eyebrow="Practical Tips" title="활용 팁" />
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            {detail.tips.map((tip) => <p key={tip} className="rounded-[24px] border border-[#eadfce] bg-white p-6 leading-8 text-[#66584d]">{tip}</p>)}
+          </div>
+          <div className="mt-8 rounded-[28px] bg-[#f2e8dc] p-7">
+            <p className="font-black text-[#2b2119]">함께 읽으면 좋은 제작 가이드</p>
+            <Link href={guide.href} className="mt-3 inline-flex font-black text-[#6f4e37] underline decoration-[#a67c52] underline-offset-4">{guide.title} →</Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
 }
