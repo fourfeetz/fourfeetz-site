@@ -406,7 +406,7 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          <EnglishQuoteForm buttonClassName={primaryButton} services={services} />
+          <EnglishQuoteForm buttonClassName={primaryButton} services={services.map(({ title: serviceTitle }) => ({ title: serviceTitle }))} />
         </div>
       </section>
 
