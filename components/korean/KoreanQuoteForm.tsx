@@ -21,7 +21,7 @@ const budgetOptions = [
   "아직 정하지 않음",
 ];
 
-type FieldName = "name" | "email" | "projectType" | "length" | "budget" | "message";
+type FieldName = "name" | "email" | "projectType" | "length" | "message";
 type FormErrors = Partial<Record<FieldName, string>>;
 
 function readValue(formData: FormData, field: string) {
@@ -64,7 +64,6 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
     }
     if (!values.projectType) nextErrors.projectType = "프로젝트 종류를 선택해 주세요.";
     if (!values.length) nextErrors.length = "원하는 영상 길이를 입력해 주세요.";
-    if (!values.budget) nextErrors.budget = "예상 예산을 선택해 주세요.";
     if (!values.message) nextErrors.message = "프로젝트 내용을 입력해 주세요.";
 
     if (Object.keys(nextErrors).length > 0) {
@@ -83,7 +82,7 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
       `회사명 또는 채널명: ${values.company || "미입력"}`,
       `프로젝트 종류: ${values.projectType}`,
       `원하는 영상 길이: ${values.length}`,
-      `예상 예산: ${values.budget}`,
+      `예상 예산: ${values.budget || "미입력"}`,
       "",
       "프로젝트 내용:",
       values.message,
@@ -159,20 +158,15 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
         {errors.length ? <span id="length-error" role="alert" className="text-sm font-semibold text-[#a13f2f]">{errors.length}</span> : null}
       </label>
       <label className="grid gap-2 text-sm font-black text-[#2b2119]">
-        예상 예산
+        예상 예산 <span className="font-medium text-[#76685d]">(선택)</span>
         <select
           name="budget"
           defaultValue=""
-          required
-          aria-invalid={Boolean(errors.budget)}
-          aria-describedby={errors.budget ? "budget-error" : undefined}
-          onChange={() => clearError("budget")}
           className="rounded-2xl border border-[#d8c3ad] bg-[#fffdf8] px-4 py-3.5"
         >
-          <option value="" disabled>선택해 주세요</option>
+          <option value="">선택 안 함</option>
           {budgetOptions.map((item) => <option key={item}>{item}</option>)}
         </select>
-        {errors.budget ? <span id="budget-error" role="alert" className="text-sm font-semibold text-[#a13f2f]">{errors.budget}</span> : null}
       </label>
       <label className="grid gap-2 text-sm font-black text-[#2b2119] md:col-span-2">
         프로젝트 내용
@@ -190,7 +184,7 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
       <div className="md:col-span-2">
         <button type="submit" className={buttonClassName}>견적 문의하기</button>
         <p className="mt-3 text-sm leading-6 text-[#9a8775]">
-          온라인 접수 기능은 준비 중입니다. 빠른 문의는{" "}
+          견적 문의하기를 누르면 이메일 작성 창이 열립니다. 직접 문의는{" "}
           <a href={`mailto:${inquiryEmail}`} className="font-bold text-[#6f4e37] underline underline-offset-4">
             {inquiryEmail}
           </a>

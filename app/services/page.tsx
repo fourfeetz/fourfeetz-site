@@ -15,6 +15,7 @@ import {
 import { shorts } from "@/data/shorts";
 import { films } from "@/lib/films";
 import { englishLanguageAlternates } from "@/lib/localization";
+import EnglishQuoteForm from "@/components/EnglishQuoteForm";
 
 const title = "AI Video Production Services | FourFeetz";
 const description =
@@ -405,80 +406,7 @@ export default function ServicesPage() {
             </div>
           </div>
 
-          <form className="grid gap-5 rounded-[36px] border border-[#eadfce] bg-[#fffdf8] p-6 shadow-xl shadow-[#6f4e37]/10 md:grid-cols-2 md:p-9">
-            <label className="grid gap-2 text-sm font-black text-[#2b2119]">
-              Name
-              <input
-                type="text"
-                name="name"
-                autoComplete="name"
-                className="rounded-2xl border border-[#d8c3ad] bg-white px-4 py-3.5 font-medium outline-none transition focus:border-[#6f4e37] focus:ring-2 focus:ring-[#a67c52]/25"
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-black text-[#2b2119]">
-              Email
-              <input
-                type="email"
-                name="email"
-                autoComplete="email"
-                className="rounded-2xl border border-[#d8c3ad] bg-white px-4 py-3.5 font-medium outline-none transition focus:border-[#6f4e37] focus:ring-2 focus:ring-[#a67c52]/25"
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-black text-[#2b2119]">
-              Company
-              <input
-                type="text"
-                name="company"
-                autoComplete="organization"
-                className="rounded-2xl border border-[#d8c3ad] bg-white px-4 py-3.5 font-medium outline-none transition focus:border-[#6f4e37] focus:ring-2 focus:ring-[#a67c52]/25"
-              />
-            </label>
-            <label className="grid gap-2 text-sm font-black text-[#2b2119]">
-              Project Type
-              <select
-                name="projectType"
-                defaultValue=""
-                className="rounded-2xl border border-[#d8c3ad] bg-white px-4 py-3.5 font-medium outline-none transition focus:border-[#6f4e37] focus:ring-2 focus:ring-[#a67c52]/25"
-              >
-                <option value="" disabled>Select a service</option>
-                {services.map((service) => <option key={service.title}>{service.title}</option>)}
-              </select>
-            </label>
-            <label className="grid gap-2 text-sm font-black text-[#2b2119] md:col-span-2">
-              Budget
-              <select
-                name="budget"
-                defaultValue=""
-                className="rounded-2xl border border-[#d8c3ad] bg-white px-4 py-3.5 font-medium outline-none transition focus:border-[#6f4e37] focus:ring-2 focus:ring-[#a67c52]/25"
-              >
-                <option value="" disabled>Select a budget range</option>
-                <option>$150–$299</option>
-                <option>$300–$699</option>
-                <option>$700–$1,499</option>
-                <option>$1,500+</option>
-                <option>Not sure yet</option>
-              </select>
-            </label>
-            <label className="grid gap-2 text-sm font-black text-[#2b2119] md:col-span-2">
-              Message
-              <textarea
-                name="message"
-                rows={6}
-                className="resize-y rounded-2xl border border-[#d8c3ad] bg-white px-4 py-3.5 font-medium outline-none transition focus:border-[#6f4e37] focus:ring-2 focus:ring-[#a67c52]/25"
-              />
-            </label>
-            <div className="flex flex-col items-start gap-3 md:col-span-2">
-              <button type="button" className={primaryButton}>
-                Request a Quote
-              </button>
-              <p className="text-sm leading-6 text-[#9a8775]">
-                Online submission is being prepared. For immediate inquiries, email{" "}
-                <a className="font-bold text-[#6f4e37] underline underline-offset-4" href="mailto:fourfeetzstudio@gmail.com">
-                  fourfeetzstudio@gmail.com
-                </a>.
-              </p>
-            </div>
-          </form>
+          <EnglishQuoteForm buttonClassName={primaryButton} services={services} />
         </div>
       </section>
 

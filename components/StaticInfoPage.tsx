@@ -49,7 +49,11 @@ export default function StaticInfoPage({ eyebrow, title, description, sections, 
               <h2 className="mt-3 max-w-3xl text-3xl font-black tracking-tight md:text-5xl">{cta.title}</h2>
               <p className="mt-4 max-w-2xl leading-7 text-[#f3e8db]">{cta.description}</p>
             </div>
-            <Link href={cta.href} className="w-fit shrink-0 rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:bg-[#fff7ed] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">{cta.label}</Link>
+            {cta.href.startsWith("mailto:") ? (
+              <a href={cta.href} className="w-fit shrink-0 rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:bg-[#fff7ed] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">{cta.label}</a>
+            ) : (
+              <Link href={cta.href} className="w-fit shrink-0 rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:bg-[#fff7ed] focus:outline-none focus-visible:ring-2 focus-visible:ring-white">{cta.label}</Link>
+            )}
           </div>
         </section>
       ) : null}

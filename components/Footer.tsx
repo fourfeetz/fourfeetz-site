@@ -15,7 +15,7 @@ const footerLinks = [
   { href: "/about", label: "About" },
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", koreanHref: "/ko/services#contact", label: "Contact" },
 ];
 
 export default function Footer() {
@@ -52,7 +52,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-3 text-sm font-bold text-[#6f4e37] md:justify-end lg:flex-nowrap lg:gap-x-3">
           {footerLinks.map((item) => (
-            <Link key={item.href} href={localizedHref(item.href, lang)} className="whitespace-nowrap hover:text-[#2b2119]">
+            <Link key={item.href} href={lang === "ko" && item.koreanHref ? item.koreanHref : localizedHref(item.href, lang)} className="whitespace-nowrap hover:text-[#2b2119]">
               {labels[item.label] ?? item.label}
             </Link>
           ))}
