@@ -1,5 +1,6 @@
 ﻿import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
+import { headers } from "next/headers";
 import Script from "next/script";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
@@ -42,9 +43,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const language = (await headers()).get("x-fourfeetz-language") === "ko" ? "ko" : "en";
+
   return (
-    <html lang="en">
+    <html lang={language}>
       <head>
         <Script
           id="fourfeetz-adsense"

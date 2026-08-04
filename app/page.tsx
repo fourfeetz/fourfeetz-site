@@ -16,7 +16,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 
 const todaysUpdates = getLatestUpdates(4);
 const works = getFeaturedWorks(4);
-const characters = getHomepageCharacters(4);
+const characters = getHomepageCharacters(9);
 const insights = getLatestInsights(4);
 const resources = getHomepageResources(4);
 
@@ -103,11 +103,11 @@ export default function Home() {
         <SectionHeader
           eyebrow="Character Universe"
           title={t.home.characters}
-          desc="HARU is the first featured original character. The universe is designed to expand with future characters, stories, music, and short-form series."
+          desc="Meet the original characters of FourFeetz, each with a unique personality and story."
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {characters.map((character) => (
-            <Link key={character.id} href={character.href} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+            <Link key={character.id} href={character.href} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               {character.image ? (
                 <Image src={character.image} alt={character.title} width={500} height={500} className="rounded-2xl bg-[#fffaf4]" />
               ) : (

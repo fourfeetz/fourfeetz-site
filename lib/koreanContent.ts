@@ -22,6 +22,7 @@ type KoreanCharacterLink = {
 };
 
 type KoreanCharacterContent = {
+  displayName?: string;
   species: string;
   tagline: string;
   story: string;
@@ -128,7 +129,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     metaDescription: "호기심 많고 영리한 FourFeetz 캐릭터 OLI를 소개합니다. 수달 OLI의 외형과 성격, 물길과 해안을 탐험하는 역할을 확인해 보세요.",
     personality: ["호기심", "영리함", "모험심", "수완", "민첩함"],
     relatedContent: [
-      { label: "캐릭터", title: "FourFeetz 캐릭터 둘러보기", description: "현재 공개된 일곱 캐릭터의 특징과 각 캐릭터 페이지를 한곳에서 확인할 수 있습니다.", href: "/ko/characters" },
+      { label: "캐릭터", title: "FourFeetz 캐릭터 둘러보기", description: "현재 공개된 아홉 캐릭터의 특징과 각 캐릭터 페이지를 한곳에서 확인할 수 있습니다.", href: "/ko/characters" },
       { label: "영상", title: "공개 영상 보기", description: "OLI 전용 영상은 아직 공개되지 않았습니다. 현재 공개된 FourFeetz 캐릭터 영상을 먼저 만나보세요.", href: "/ko/videos" },
     ],
     relatedCharacters: ["haru", "luna"],
@@ -144,10 +145,44 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     metaDescription: "낙천적인 FourFeetz 캐릭터 MILO를 소개합니다. 미니피그 MILO의 외형과 성격, FourFeetz 캐릭터 세계에서의 역할을 확인해 보세요.",
     personality: ["낙천성", "장난기", "너그러움", "유머", "끈기"],
     relatedContent: [
-      { label: "캐릭터", title: "FourFeetz 캐릭터 둘러보기", description: "현재 공개된 여섯 캐릭터의 특징과 관련 콘텐츠를 한곳에서 확인할 수 있습니다.", href: "/ko/characters" },
+      { label: "캐릭터", title: "FourFeetz 캐릭터 둘러보기", description: "현재 공개된 아홉 캐릭터의 특징과 관련 콘텐츠를 한곳에서 확인할 수 있습니다.", href: "/ko/characters" },
       { label: "영상", title: "공개 롱폼 보기", description: "FourFeetz가 현재 공개한 캐릭터 중심의 시네마틱 필름을 만나보세요.", href: "/ko/videos?type=long-form" },
     ],
     relatedCharacters: ["pori", "haru"],
+  },
+  feni: {
+    displayName: "페니 (FENI)",
+    species: "아기 사막여우",
+    tagline: "영리하고 호기심이 많지만 조금 겁이 많고 조심스럽습니다.",
+    story: "페니는 영리하고 호기심이 많지만 새로운 것을 만날 때는 조심스럽게 다가가는 아기 사막여우입니다. 커다란 귀와 따뜻한 눈빛으로 작고 특별한 모험을 만들어갑니다.",
+    listing: "새로운 발견에 호기심을 보이면서도 천천히 살피며 다가가는 아기 사막여우입니다. 커다란 귀와 따뜻한 갈색 눈이 특징입니다.",
+    role: "조심스러운 호기심을 중심으로 소개되는 FourFeetz의 새로운 오리지널 캐릭터입니다.",
+    appearance: "매우 어린 사막여우의 작은 체형과 커다란 귀, 부드러운 크림색 털, 작고 둥근 얼굴과 크고 따뜻한 갈색 눈이 특징입니다.",
+    imageAlt: "커다란 귀와 크림색 털, 따뜻한 갈색 눈을 가진 아기 사막여우 페니",
+    metaDescription: "영리하고 호기심 많지만 조심스러운 FourFeetz 캐릭터 페니를 소개합니다. 아기 사막여우 FENI의 성격과 외형을 확인해 보세요.",
+    personality: ["영리함", "호기심", "조심스러움"],
+    relatedContent: [
+      { label: "캐릭터", title: "FourFeetz 캐릭터 둘러보기", description: "페니와 함께 공개된 FourFeetz 오리지널 캐릭터들의 특징을 확인해 보세요.", href: "/ko/characters" },
+      { label: "영상", title: "공개 영상 보기", description: "페니 전용 영상은 아직 공개되지 않았습니다. 현재 공개된 FourFeetz 영상을 먼저 만나보세요.", href: "/ko/videos" },
+    ],
+    relatedCharacters: ["luna", "ruru"],
+  },
+  hori: {
+    displayName: "호리 (HORI)",
+    species: "아기 호랑이",
+    tagline: "씩씩해 보이지만 실제로는 다정하고 장난기가 많습니다.",
+    story: "호리는 씩씩해 보이지만 다정하고 애정이 많은 아기 호랑이입니다. 밝은 에너지와 귀여운 장난기로 가는 곳마다 즐거움을 더합니다.",
+    listing: "씩씩한 첫인상 안에 다정하고 장난기 많은 성격을 지닌 아기 호랑이입니다. 부드러운 주황색 털과 자연스러운 검은 줄무늬가 특징입니다.",
+    role: "밝은 에너지와 다정한 장난기를 중심으로 소개되는 FourFeetz의 새로운 오리지널 캐릭터입니다.",
+    appearance: "매우 어린 호랑이의 작은 체형과 부드러운 주황색 털, 선명하지만 자연스러운 검은 줄무늬, 둥근 얼굴과 작은 귀, 크고 따뜻한 눈이 특징입니다.",
+    imageAlt: "부드러운 주황색 털과 자연스러운 검은 줄무늬, 따뜻한 눈을 가진 아기 호랑이 호리",
+    metaDescription: "씩씩해 보이지만 다정하고 장난기 많은 FourFeetz 캐릭터 호리를 소개합니다. 아기 호랑이 HORI의 성격과 외형을 확인해 보세요.",
+    personality: ["장난기", "다정함", "애정"],
+    relatedContent: [
+      { label: "캐릭터", title: "FourFeetz 캐릭터 둘러보기", description: "호리와 함께 공개된 FourFeetz 오리지널 캐릭터들의 특징을 확인해 보세요.", href: "/ko/characters" },
+      { label: "영상", title: "공개 영상 보기", description: "호리 전용 영상은 아직 공개되지 않았습니다. 현재 공개된 FourFeetz 영상을 먼저 만나보세요.", href: "/ko/videos" },
+    ],
+    relatedCharacters: ["haru", "pori"],
   },
 };
 

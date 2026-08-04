@@ -49,7 +49,7 @@ export const dict = {
       characters: {
         eyebrow: "Original Character Universe",
         title: "Characters",
-        desc: "HARU is the first featured character. More original characters are being prepared for films, music, and social stories.",
+        desc: "Meet the original characters of FourFeetz, each with a unique personality and story.",
       },
       music: {
         eyebrow: "AI Music Lab",
@@ -183,7 +183,7 @@ export const dict = {
       characters: {
         eyebrow: "Original Character Universe",
         title: "Characters",
-        desc: "HARU is the first featured character. More original characters are being prepared for films, music, and social stories.",
+        desc: "서로 다른 개성과 이야기를 가진 FourFeetz의 오리지널 캐릭터들을 만나보세요.",
       },
       music: {
         eyebrow: "AI Music Lab",
