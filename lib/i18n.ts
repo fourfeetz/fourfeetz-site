@@ -382,7 +382,7 @@ export const characters = [
     href: "/characters/ruru",
     image: "/images/characters/ruru/portrait.png",
     role: "Original Character",
-    breed: "Baby Red Panda",
+    breed: "Red Panda",
     desc: "Curious, shy, and irresistibly playful.",
   },
   {
