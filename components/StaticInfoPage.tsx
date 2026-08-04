@@ -1,9 +1,10 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import PageHero from "@/components/PageHero";
 
 type ContentSection = {
   title: string;
-  paragraphs?: string[];
+  paragraphs?: ReactNode[];
   items?: string[];
 };
 
@@ -33,7 +34,7 @@ export default function StaticInfoPage({ eyebrow, title, description, sections, 
             {sections.map((section) => (
               <article key={section.title} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-7 shadow-sm md:p-9">
                 <h2 className="text-2xl font-black tracking-tight text-[#2b2119] md:text-3xl">{section.title}</h2>
-                {section.paragraphs?.map((paragraph) => <p key={paragraph} className="mt-4 leading-8 text-[#76685d]">{paragraph}</p>)}
+                {section.paragraphs?.map((paragraph, index) => <p key={index} className="mt-4 leading-8 text-[#76685d]">{paragraph}</p>)}
                 {section.items ? <ul className="mt-5 space-y-3 text-[#76685d]">{section.items.map((item) => <li key={item} className="flex gap-3 leading-7"><span aria-hidden="true" className="font-black text-[#a67c52]">-</span><span>{item}</span></li>)}</ul> : null}
               </article>
             ))}
