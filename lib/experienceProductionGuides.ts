@@ -1,6 +1,8 @@
 import type { ProductionInsight } from "@/lib/productionInsights";
+import { haruLunaRainyWindowGuide } from "@/lib/haruLunaRainyWindowInsight";
 
 export const experienceProductionGuideSlugs = [
+  "haru-luna-rainy-window-ai-pet-video",
   "why-fourfeetz-starts-animal-shorts-first-shot",
   "oli-swimming-scene-lessons",
   "google-flow-one-action-eight-second-scenes",
@@ -34,6 +36,7 @@ export const experienceProductionGuides: Record<
   ExperienceProductionGuideSlug,
   Record<Language, ExperienceProductionGuide>
 > = {
+  "haru-luna-rainy-window-ai-pet-video": haruLunaRainyWindowGuide,
   "why-fourfeetz-starts-animal-shorts-first-shot": {
     en: {
       ...shared,
