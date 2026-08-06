@@ -27,6 +27,8 @@ export type CharacterStudy = {
   label: "Hero portrait" | "Expression reference" | "Color and silhouette study";
   image: string;
   fit: "contain" | "cover";
+  imageAlt?: string;
+  koreanImageAlt?: string;
 };
 
 const characterBase: Omit<CharacterDetail, "gallery">[] = [
@@ -57,11 +59,19 @@ export const characterDetails: CharacterDetail[] = characterBase.map((character)
         label: "Expression reference",
         image: `/images/characters/${character.slug}/expression.png`,
         fit: "cover",
+        ...(character.slug === "milo" ? {
+          imageAlt: "Close-up of white mini pig MILO looking slightly to the side with a brown collar and gold name tag",
+          koreanImageAlt: "살짝 옆을 바라보며 갈색 목걸이와 금색 이름표를 한 흰색 미니피그 MILO의 얼굴 클로즈업",
+        } : {}),
       },
       {
         label: "Color and silhouette study",
         image: `/images/characters/${character.slug}/silhouette.png`,
         fit: "contain",
+        ...(character.slug === "milo" ? {
+          imageAlt: "Seated side view of white mini pig MILO showing a curled tail, brown collar, and gold name tag",
+          koreanImageAlt: "말린 꼬리와 갈색 목걸이, 금색 이름표가 보이는 흰색 미니피그 MILO의 앉은 옆모습",
+        } : {}),
       },
     ]),
   ] as CharacterStudy[],
