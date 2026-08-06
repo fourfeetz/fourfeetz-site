@@ -30,7 +30,7 @@ export default function Page() {
                   {portrait ? (
                     <Image
                       src={portrait}
-                      alt={`${character.name} character portrait`}
+                      alt={character.imageAlt ?? `${character.name} character portrait`}
                       width={640}
                       height={640}
                       className="aspect-square w-full object-cover transition duration-500 group-hover:scale-[1.03]"

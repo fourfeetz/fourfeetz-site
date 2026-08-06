@@ -141,7 +141,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     listing: "실수도 새로운 계획으로 바꾸는 낙천적인 미니피그입니다. 현재는 캐릭터 프로필을 통해 MILO의 모습과 성격을 먼저 소개합니다.",
     role: "친구들이 힘을 잃지 않도록 밝은 에너지를 더하는 FourFeetz 캐릭터 세계의 유쾌한 동반자입니다.",
     appearance: "부드러운 분홍빛 피부, 둥근 귀, 작게 말린 꼬리와 겨자색 반다나가 MILO의 친근하고 단순한 실루엣을 만듭니다.",
-    imageAlt: "분홍빛 피부와 겨자색 반다나를 한 미니피그 MILO의 공식 캐릭터 초상",
+    imageAlt: "흰 털과 갈색 목걸이, 금색 MILO 이름표를 한 미니피그 MILO의 정면 초상",
     metaDescription: "낙천적인 FourFeetz 캐릭터 MILO를 소개합니다. 미니피그 MILO의 외형과 성격, FourFeetz 캐릭터 세계에서의 역할을 확인해 보세요.",
     personality: ["낙천성", "장난기", "너그러움", "유머", "끈기"],
     relatedContent: [
