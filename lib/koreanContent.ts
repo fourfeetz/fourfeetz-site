@@ -5,6 +5,7 @@ export const koreanFilmDescriptions: Record<string, string> = {
 };
 
 export const koreanShortDescriptions: Record<string, string> = {
+  "haru-luna-quiet-rainy-evening": "비 오는 창가에서 HARU와 LUNA가 작은 눈빛과 느린 움직임을 나누며 조용히 쉬는 따뜻한 저녁 쇼츠입니다.",
   "ruru-tries-to-be-scary": "숲속 나무 뒤에서 무서운 표정을 연습하지만 귀여움을 숨길 수 없는 레서판다 RURU의 이야기입니다.",
   "hugo-and-haru-meadow": "햇살 가득한 초원에서 여유롭게 풀을 뜯는 HUGO와 뛰노는 HARU의 따뜻한 우정을 담았습니다.",
   "luna-shorts-ep01": "잠든 HARU 곁에서 창밖을 바라보던 LUNA가 호기심을 따라 조용히 움직이는 순간입니다.",
@@ -19,6 +20,10 @@ type KoreanCharacterLink = {
   title: string;
   description: string;
   href: string;
+};
+
+export const koreanShortTitles: Record<string, string> = {
+  "haru-luna-quiet-rainy-evening": "비 오는 창가, 하루와 루나의 조용한 저녁",
 };
 
 type KoreanCharacterContent = {
@@ -187,6 +192,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
 };
 
 export const koreanMusicDescriptions: Record<string, string> = {
+  "rainy-window-with-haru-luna": "비 오는 창가에서 조용히 쉬는 HARU와 LUNA를 위해 제작한 따뜻한 피아노 기반의 오리지널 음악",
   "ruru-theme": "RURU의 호기심 많고 수줍은 성격에서 영감을 받은 장난스럽고 포근한 공식 테마입니다.",
   "hugo-and-haru-meadow": "HUGO의 느긋한 초원 리듬과 HARU의 밝은 에너지를 담은 오리지널 사운드트랙입니다.",
   "snowy-hearth-nap": "벽난로 곁에서 잠든 HARU와 고요한 겨울 풍경을 위해 만든 편안한 힐링 음악입니다.",

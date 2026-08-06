@@ -59,6 +59,7 @@ export default async function Page({ params }: Props) {
           <p className="mt-4 text-xl font-black text-[#6f4e37]">{track.artist}</p>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">{track.description}</p>
           {track.audio ? <MusicPlayer title={track.title} src={track.audio} /> : <p className="mt-8 inline-flex rounded-full border border-[#d8c3ad] bg-white px-5 py-3 text-sm font-black text-[#6f4e37]">Preview in production</p>}
+          {track.insight ? <Link href={track.insight.href} className="mt-5 inline-flex rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37]">{track.insight.title}</Link> : null}
         </div>
         <div className="relative aspect-square overflow-hidden rounded-[32px] border border-[#eadfce] bg-white shadow-xl shadow-[#6f4e37]/10"><Image src={track.cover} alt={`${track.title} cover artwork`} fill priority sizes="(min-width: 768px) 560px, 100vw" className="object-contain p-5" /></div>
       </section>

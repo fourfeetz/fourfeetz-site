@@ -33,6 +33,7 @@ export type ProductionInsightSection = {
     poster: string;
     title: string;
     caption: string;
+    presentation?: "portrait";
   }[];
   images?: {
     src: string;

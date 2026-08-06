@@ -31,6 +31,7 @@ import {
   koreanOrFallback,
   koreanResourceDescriptions,
   koreanShortDescriptions,
+  koreanShortTitles,
 } from "@/lib/koreanContent";
 import { languageAlternates } from "@/lib/localization";
 import { getMusicTrack, musicTracks } from "@/lib/music";
@@ -136,7 +137,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title = `${item.title} | FourFeetz 필름`; description = koreanFilmDescriptions[slug]; englishPath = `/works/${slug}`; image = item.thumbnail;
   } else if (section === "shorts") {
     const item = shorts.find((entry) => entry.slug === slug); if (!item) return {};
-    title = `${item.title} | FourFeetz 쇼츠`; description = koreanShortDescriptions[slug]; englishPath = `/shorts/${slug}`; image = item.poster ?? image;
+    title = `${koreanShortTitles[slug] ?? item.title} | FourFeetz 쇼츠`; description = koreanShortDescriptions[slug]; englishPath = `/shorts/${slug}`; image = item.poster ?? image;
   } else if (section === "characters") {
     const item = characterDetails.find((entry) => entry.slug === slug); if (!item) return {};
     const koreanCharacter = koreanCharacters[slug];

@@ -36,6 +36,10 @@ export type Short = {
     title: string;
     href: string;
   };
+  insight?: {
+    title: string;
+    href: string;
+  };
   publishedAt?: string;
   updatedAt?: string;
   featured?: boolean;
@@ -43,6 +47,35 @@ export type Short = {
 };
 
 export const shorts: Short[] = [
+  {
+    id: "short-008",
+    slug: "haru-luna-quiet-rainy-evening",
+    type: "episode",
+    title: "A Quiet Rainy Evening with HARU & LUNA",
+    description: "HARU and LUNA rest beside a rain-streaked window as warm piano, small glances, and a quiet shared pause shape a gentle evening short.",
+    category: "HARU & LUNA Shorts",
+    duration: "29 sec",
+    tools: ["Google Flow", "CapCut"],
+    characters: ["HARU", "LUNA"],
+    productionNotes: [
+      { label: "Format", value: "A 29-second vertical short presented in its original 9:16 composition." },
+      { label: "Characters", value: "HARU and LUNA were given different reaction timing so their quiet movements would not feel mechanically synchronized." },
+      { label: "Music", value: "Rainy Window with HARU & LUNA, an original warm piano-based piece created for this rainy-window scene." },
+      { label: "Production", value: "Produced by FourFeetz Studio and finished as a responsive H.264/AAC web release." },
+    ],
+    video: "/videos/shorts/haru-luna/quiet-rainy-evening.mp4",
+    poster: "/images/insights/haru-luna-rainy-window-01-opening.webp",
+    characterLinks: [
+      { name: "HARU", href: "/characters/haru" },
+      { name: "LUNA", href: "/characters/luna" },
+    ],
+    music: { title: "Rainy Window with HARU & LUNA", href: "/music/rainy-window-with-haru-luna" },
+    insight: { title: "Read the Production Story", href: "/insights/haru-luna-rainy-window-ai-pet-video" },
+    publishedAt: "2026-08-06",
+    updatedAt: "2026-08-06",
+    featured: true,
+    publishStatus: "published",
+  },
   {
     id: "short-007",
     slug: "ruru-tries-to-be-scary",

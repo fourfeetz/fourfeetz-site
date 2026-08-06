@@ -42,6 +42,11 @@ export default function ShortDetailPage({ short }: { short: Short }) {
                 Listen to {short.music.title}
               </Link>
             ) : null}
+            {short.insight ? (
+              <Link href={short.insight.href} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119]">
+                {short.insight.title}
+              </Link>
+            ) : null}
             <span className="rounded-full border border-[#dfcfbd] bg-white px-5 py-3 font-black text-[#6f4e37]">{short.duration}</span>
           </div>
         </div>
@@ -140,17 +145,23 @@ export default function ShortDetailPage({ short }: { short: Short }) {
                 className="group overflow-hidden rounded-[28px] border border-[#eadfce] bg-white shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"
               >
                 <div className="overflow-hidden bg-black">
-                  <video
-                    src={related.video}
-                    poster={related.poster}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    className="pointer-events-none aspect-[9/16] h-auto w-full object-cover transition-transform duration-200 group-hover:scale-[1.015]"
-                    aria-hidden="true"
-                  />
+                  {related.slug === "haru-luna-quiet-rainy-evening" && related.poster ? (
+                    <div className="relative aspect-[9/16] w-full">
+                      <Image src={related.poster} alt="HARU and LUNA beside a rainy window" fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-contain transition-transform duration-200 group-hover:scale-[1.015]" />
+                    </div>
+                  ) : (
+                    <video
+                      src={related.video}
+                      poster={related.poster}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      className="pointer-events-none aspect-[9/16] h-auto w-full object-cover transition-transform duration-200 group-hover:scale-[1.015]"
+                      aria-hidden="true"
+                    />
+                  )}
                 </div>
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-3">

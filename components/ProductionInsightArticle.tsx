@@ -130,8 +130,8 @@ function ArticleSection({ section, language }: { section: ProductionInsightSecti
         <div className={`my-9 grid gap-5 ${section.videos.length > 1 ? "md:grid-cols-2" : ""}`}>
           {section.videos.map((video) => (
             <figure key={video.src}>
-              <div className="overflow-hidden rounded-[26px] border border-[#d8c3ad] bg-black shadow-xl shadow-[#6f4e37]/10">
-                <video src={video.src} poster={video.poster} controls playsInline preload="metadata" aria-label={video.title} className="aspect-video h-auto w-full object-cover" />
+              <div className={`overflow-hidden rounded-[26px] border border-[#d8c3ad] bg-black shadow-xl shadow-[#6f4e37]/10 ${video.presentation === "portrait" ? "mx-auto max-w-md" : ""}`}>
+                <video src={video.src} poster={video.poster} controls playsInline preload="metadata" aria-label={video.title} className={`${video.presentation === "portrait" ? "aspect-[9/16] object-contain" : "aspect-video object-cover"} h-auto w-full`} />
               </div>
               <figcaption className="mt-3 text-sm leading-6 text-[#76685d]">{video.caption}</figcaption>
             </figure>

@@ -28,6 +28,7 @@ import {
   koreanOrFallback,
   koreanResourceDescriptions,
   koreanShortDescriptions,
+  koreanShortTitles,
 } from "@/lib/koreanContent";
 import { koreanInsightDetails, koreanLegacyResourceDetails } from "@/lib/koreanContentDetails";
 import { koreanInsightSummaries } from "@/lib/koreanInsightSummaries";
@@ -96,7 +97,7 @@ export function KoreanFilmsPage() {
 }
 
 export function KoreanShortsPage() {
-  return <main><PageHero eyebrow="Short-form Films" title="FourFeetz 쇼츠" desc="FourFeetz 캐릭터들의 짧고 따뜻한 순간을 만나보세요." illustration={{ src: "/images/shorts-hero-v2.png", alt: "세로형 영상을 제작하는 FourFeetz 스튜디오" }} /><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-6 sm:grid-cols-2 lg:grid-cols-3">{shorts.map((item) => <MediaCard key={item.slug} href={`/ko/shorts/${item.slug}`} image={item.poster ?? "/images/shorts-hero-v2.png"} title={item.title} category={item.category} description={koreanShortDescriptions[item.slug]} />)}</div></section></main>;
+  return <main><PageHero eyebrow="Short-form Films" title="FourFeetz 쇼츠" desc="FourFeetz 캐릭터들의 짧고 따뜻한 순간을 만나보세요." illustration={{ src: "/images/shorts-hero-v2.png", alt: "세로형 영상을 제작하는 FourFeetz 스튜디오" }} /><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-6 sm:grid-cols-2 lg:grid-cols-3">{shorts.map((item) => <MediaCard key={item.slug} href={`/ko/shorts/${item.slug}`} image={item.poster ?? "/images/shorts-hero-v2.png"} title={koreanShortTitles[item.slug] ?? item.title} category={item.category} description={koreanShortDescriptions[item.slug]} />)}</div></section></main>;
 }
 
 export function KoreanCharactersPage() {
@@ -107,7 +108,7 @@ export function KoreanCharactersPage() {
 }
 
 export function KoreanMusicPage() {
-  return <main><PageHero eyebrow="FourFeetz Music Library" title="음악" desc="FourFeetz 필름과 쇼츠, 캐릭터의 감정을 위해 만든 공식 테마와 오리지널 사운드트랙입니다." illustration={{ src: "/images/music-hero-v2.png", alt: "FourFeetz 음악 제작 스튜디오" }} /><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2">{musicTracks.map((item) => <article key={item.slug} className={`${cardClass} bg-[#fffdf8] p-6`}><div className="flex gap-5"><div className="relative size-28 shrink-0 overflow-hidden rounded-2xl bg-white"><Image src={item.cover} alt={`${item.title} 앨범 이미지`} fill className="object-cover" /></div><div><p className="text-sm font-black text-[#a67c52]">{item.badge}</p><h2 className="mt-2 text-2xl font-black text-[#2b2119]">{item.title}</h2><p className="mt-2 text-sm font-bold text-[#6f4e37]">{item.artist}</p></div></div><p className="mt-5 leading-7 text-[#76685d]">{koreanOrFallback(koreanMusicDescriptions, item.slug, "FourFeetz 캐릭터와 이야기를 위해 만든 오리지널 음악입니다.")}</p>{item.audio ? <MusicPlayer title={item.title} src={item.audio} compact /> : null}<Link href={`/ko/music/${item.slug}`} className={`${secondaryButton} mt-5 px-6 py-3`}>곡 정보 보기</Link></article>)}</div></section></main>;
+  return <main><PageHero eyebrow="FourFeetz Music Library" title="음악" desc="FourFeetz 필름과 쇼츠, 캐릭터의 감정을 위해 만든 공식 테마와 오리지널 사운드트랙입니다." illustration={{ src: "/images/music-hero-v2.png", alt: "FourFeetz 음악 제작 스튜디오" }} /><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2">{musicTracks.map((item) => <article key={item.slug} className={`${cardClass} bg-[#fffdf8] p-6`}><div className="flex gap-5"><div className="relative size-28 shrink-0 overflow-hidden rounded-2xl bg-white"><Image src={item.cover} alt={`${item.title} 앨범 이미지`} fill className="object-cover" /></div><div><p className="text-sm font-black text-[#a67c52]">{item.badge}</p><h2 className="mt-2 text-2xl font-black text-[#2b2119]">{item.title}</h2><p className="mt-2 text-sm font-bold text-[#6f4e37]">{item.artist}</p></div></div><p className="mt-5 leading-7 text-[#76685d]">{koreanOrFallback(koreanMusicDescriptions, item.slug, "FourFeetz 캐릭터와 이야기를 위해 만든 오리지널 음악입니다.")}</p>{item.audio ? <MusicPlayer title={item.title} src={item.audio} compact /> : null}<div className="mt-5 flex flex-wrap gap-3"><Link href={`/ko/music/${item.slug}`} className={`${secondaryButton} px-6 py-3`}>곡 정보 보기</Link>{item.insight ? <Link href={`/ko${item.insight.href}`} className={`${secondaryButton} px-6 py-3`}>제작기 보기</Link> : null}</div></article>)}</div></section></main>;
 }
 
 export function KoreanInsightsPage() {
@@ -162,7 +163,7 @@ export function KoreanFilmDetail({ slug }: { slug: string }) {
 
 export function KoreanShortDetail({ slug }: { slug: string }) {
   const item = shorts.find((entry) => entry.slug === slug); if (!item) notFound();
-  return <main><section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[1fr_0.7fr] md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{item.title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanShortDescriptions[item.slug]}</p><p className="mt-5 font-black text-[#6f4e37]">{item.duration} · 세로형 영상</p></div><video controls playsInline poster={item.poster} className="mx-auto aspect-[9/16] max-h-[720px] w-auto rounded-[32px] bg-black shadow-xl"><source src={item.video} /></video></section></main>;
+  return <main><section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[1fr_0.7fr] md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{koreanShortTitles[item.slug] ?? item.title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanShortDescriptions[item.slug]}</p><p className="mt-5 font-black text-[#6f4e37]">{item.duration} · 세로형 영상</p>{item.insight ? <Link href={`/ko${item.insight.href}`} className={`${secondaryButton} mt-6`}>제작기 보기</Link> : null}</div><video controls playsInline preload="metadata" poster={item.poster} className="mx-auto aspect-[9/16] h-auto max-h-[720px] w-full max-w-sm object-contain rounded-[32px] bg-black shadow-xl"><source src={item.video} type="video/mp4" /></video></section></main>;
 }
 
 export function KoreanCharacterDetail({ slug }: { slug: string }) {
@@ -191,7 +192,7 @@ export function KoreanCharacterDetail({ slug }: { slug: string }) {
 
 export function KoreanMusicDetail({ slug }: { slug: string }) {
   const item = getMusicTrack(slug); if (!item) notFound();
-  return <main><section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.badge}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{item.title}</h1><p className="mt-4 text-xl font-black text-[#6f4e37]">{item.artist}</p><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanOrFallback(koreanMusicDescriptions, item.slug, "FourFeetz 이야기를 위해 만든 오리지널 음악입니다.")}</p>{item.audio ? <MusicPlayer title={item.title} src={item.audio} /> : null}</div><div className="relative aspect-square overflow-hidden rounded-[32px] border border-[#eadfce] bg-white"><Image src={item.cover} alt={`${item.title} 앨범 이미지`} fill priority className="object-contain p-5" /></div></section></main>;
+  return <main><section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.badge}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{item.title}</h1><p className="mt-4 text-xl font-black text-[#6f4e37]">{item.artist}</p><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanOrFallback(koreanMusicDescriptions, item.slug, "FourFeetz 이야기를 위해 만든 오리지널 음악입니다.")}</p>{item.audio ? <MusicPlayer title={item.title} src={item.audio} /> : null}{item.insight ? <Link href={`/ko${item.insight.href}`} className={`${secondaryButton} mt-5`}>제작기 보기</Link> : null}</div><div className="relative aspect-square overflow-hidden rounded-[32px] border border-[#eadfce] bg-white"><Image src={item.cover} alt={`${item.title} 앨범 이미지`} fill priority className="object-contain p-5" /></div></section></main>;
 }
 
 export function KoreanInsightDetail({ slug }: { slug: string }) {

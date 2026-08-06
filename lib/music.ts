@@ -16,6 +16,10 @@ export type MusicTrack = {
   prompt?: string;
   instruments?: string[];
   usage: string[];
+  insight?: {
+    title: string;
+    href: string;
+  };
   publishedAt?: string;
   updatedAt?: string;
   publishStatus?: "published" | "draft";
@@ -24,6 +28,28 @@ export type MusicTrack = {
 const haruCover = "/images/music/tracks/haru-theme.png";
 
 export const musicTracks: MusicTrack[] = [
+  {
+    slug: "rainy-window-with-haru-luna",
+    title: "Rainy Window with HARU & LUNA",
+    artist: "FourFeetz Studios",
+    category: "Original Soundtrack",
+    duration: "3:04",
+    description: "A warm, piano-led original piece created for HARU and LUNA as they rest quietly beside a rain-streaked window.",
+    audio: "/audio/music/rainy-window-with-haru-luna.mp3",
+    character: "HARU & LUNA",
+    featured: false,
+    badge: "ORIGINAL SOUNDTRACK",
+    status: "Released",
+    cover: "/images/insights/haru-luna-rainy-window-01-opening.webp",
+    mood: "Warm, restful, intimate, and softly rainy",
+    production: "The piano-led arrangement leaves space for the rain and the pets' small movements, supporting the short without overpowering its quiet evening pace.",
+    instruments: ["Warm piano", "Soft ambient textures", "Gentle accompaniment"],
+    usage: ["HARU and LUNA rainy-window short", "Quiet evening scenes", "Pet relaxation moments", "Reflective listening"],
+    insight: { title: "Read the Production Story", href: "/insights/haru-luna-rainy-window-ai-pet-video" },
+    publishedAt: "2026-08-06",
+    updatedAt: "2026-08-06",
+    publishStatus: "published",
+  },
   {
     slug: "ruru-theme",
     title: "RURU Theme",

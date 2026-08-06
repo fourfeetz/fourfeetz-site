@@ -3,7 +3,7 @@ import Link from "next/link";
 import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import { shorts } from "@/data/shorts";
 import { films } from "@/lib/films";
-import { koreanFilmDescriptions, koreanShortDescriptions } from "@/lib/koreanContent";
+import { koreanFilmDescriptions, koreanShortDescriptions, koreanShortTitles } from "@/lib/koreanContent";
 
 export type VideoFilter = "all" | "long-form" | "shorts";
 
@@ -22,6 +22,7 @@ type VideoCard = {
   duration: string;
   characters: string[];
   type: Exclude<VideoFilter, "all">;
+  insightHref?: string;
 };
 
 export function normalizeVideoFilter(value: string | string[] | undefined): VideoFilter {
@@ -43,7 +44,7 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
   }));
   const shortVideos: VideoCard[] = shorts.map((short) => ({
     id: `short-${short.slug}`,
-    title: short.title,
+    title: isKorean ? (koreanShortTitles[short.slug] ?? short.title) : short.title,
     description: isKorean ? koreanShortDescriptions[short.slug] : short.description,
     href: isKorean ? `/ko/shorts/${short.slug}` : `/shorts/${short.slug}`,
     image: short.poster,
@@ -51,6 +52,7 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
     duration: short.duration,
     characters: short.characters ?? [],
     type: "shorts",
+    insightHref: short.insight?.href ? (isKorean ? `/ko${short.insight.href}` : short.insight.href) : undefined,
   }));
   const allVideos = [...longFormVideos, ...shortVideos];
   const visibleVideos = activeFilter === "all"
@@ -77,6 +79,7 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
     },
     characters: "등장 캐릭터",
     view: "영상 보기",
+    productionStory: "제작기 보기",
     altSuffix: "영상 썸네일",
     heroAlt: "FourFeetz AI 롱폼 영상과 캐릭터 쇼츠 제작 장면",
   } : {
@@ -100,6 +103,7 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
     },
     characters: "Characters",
     view: "View Video",
+    productionStory: "Production Story",
     altSuffix: "video thumbnail",
     heroAlt: "FourFeetz AI long-form film and character shorts production setup",
   };
@@ -147,13 +151,12 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
 
           <div className="mt-10 grid items-start gap-6 md:grid-cols-2 lg:grid-cols-3">
             {visibleVideos.map((video) => (
-              <Link
+              <article
                 key={video.id}
-                href={video.href}
-                aria-label={`${labels.view}: ${video.title}`}
-                className="group flex flex-col overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"
+                className="group relative flex flex-col overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10"
               >
-                <article className="flex flex-col">
+                <Link href={video.href} aria-label={`${labels.view}: ${video.title}`} className="absolute inset-0 z-0 rounded-[32px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#6f4e37]"><span className="sr-only">{labels.view}: {video.title}</span></Link>
+                <div className="pointer-events-none relative z-10 flex flex-col">
                   <div className={`relative overflow-hidden bg-[#f2e8dc] ${video.type === "shorts" ? "aspect-[9/16]" : "aspect-video"}`}>
                     {video.image ? (
                       <Image
@@ -182,9 +185,10 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
                       </p>
                     ) : null}
                     <span className="mt-6 text-sm font-black uppercase tracking-[0.18em] text-[#6f4e37]">{labels.view} →</span>
+                    {video.insightHref ? <Link href={video.insightHref} className="pointer-events-auto relative z-20 mt-4 w-fit rounded-full border border-[#6f4e37]/40 bg-white px-4 py-2 text-sm font-black text-[#6f4e37] transition hover:border-[#6f4e37]">{labels.productionStory}</Link> : null}
                   </div>
-                </article>
-              </Link>
+                </div>
+              </article>
             ))}
           </div>
         </div>

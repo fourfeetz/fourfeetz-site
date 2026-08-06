@@ -81,6 +81,7 @@ export default function Page() {
                 <p className="mt-4 leading-7 text-[#76685d]">{track.description}</p>
                 <p className="mt-4 text-sm font-black text-[#a67c52]">Character: {track.character}</p>
                 <div className="pointer-events-auto"><MusicPlayer title={track.title} src={track.audio} compact /></div>
+                {track.insight ? <Link href={track.insight.href} className="pointer-events-auto relative z-20 mt-5 inline-flex rounded-full border border-[#6f4e37]/40 bg-white px-5 py-3 text-sm font-black text-[#6f4e37] transition hover:border-[#6f4e37]">{track.insight.title}</Link> : null}
               </div>
             </article>
           ))}
