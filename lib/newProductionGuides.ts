@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import {
+  experienceProductionGuides,
+  experienceProductionGuideSlugs,
+} from "@/lib/experienceProductionGuides";
 import type { ProductionInsight } from "@/lib/productionInsights";
 import { englishLanguageAlternates, languageAlternates } from "@/lib/localization";
 
@@ -8,6 +12,7 @@ export const newProductionGuideSlugs = [
   "create-ai-shorts-9-16-from-start",
   "reduce-character-inconsistency-ai-video",
   "seamless-loops-relaxing-ai-videos",
+  ...experienceProductionGuideSlugs,
 ] as const;
 
 export type NewProductionGuideSlug = (typeof newProductionGuideSlugs)[number];
@@ -89,7 +94,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "one-action",
-          title: "Give the First Eight Seconds One Clear Action",
+          title: "What We Tested: One Action in the First Eight Seconds",
           paragraphs: [
             "A short generation becomes harder to extend when it contains walking, turning, looking back, picking up an object and changing expression all at once. We choose one primary action for the first eight seconds and allow only small supporting movement. The result is easier to read and leaves the final frame in a usable state.",
             "One action does not mean a frozen shot. A character may breathe, blink or shift weight while completing the main movement. What matters is that the model and the editor share one destination. Excess action often produces a rushed ending, which gives Extend a distorted pose or an unfinished camera move to continue.",
@@ -102,7 +107,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "extend-connection",
-          title: "Connect Extend from a Stable Last Pose",
+          title: "What Worked: Extend from a Stable Last Pose",
           paragraphs: [
             "The last pose is the handoff point. We prefer a moment when the character’s weight is balanced, the face is readable and no limb is crossing the edge of the frame. Extend can then continue a small movement rather than inventing a recovery from an awkward transition.",
             "The next instruction describes continuation, not a new scene. We preserve the same camera position and environment unless change is essential to the story. At the join, we inspect silhouette, facial age, accessory position, shadow direction and camera speed. A smooth-looking motion is not accepted if identity changes during the handoff.",
@@ -115,7 +120,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "separate-scene",
-          title: "When a Separate Scene and Dissolve Work Better",
+          title: "What Went Wrong: Asking Extend to Carry Too Much Change",
           paragraphs: [
             "Not every transition should be generated as one continuous shot. A major camera-angle change, a new location, a large time shift or an action that requires a different body position may be cleaner as a separately planned scene. Forcing Extend across those changes can make the character stretch, duplicate or return with a different face.",
             "We create a new approved First Shot for the next scene and connect the two clips in the edit. A short dissolve can support a gentle passage of time or a relaxing mood, but it should not be used to conceal a severe identity mismatch. Hard cuts are often better when the story calls for a decisive change.",
@@ -132,7 +137,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "review",
-          title: "Review the Join Before Finishing",
+          title: "Practical Takeaway: Review the Join Before Finishing",
           paragraphs: [
             "We watch the join three ways: at normal speed for rhythm, without sound for visual continuity, and frame by frame for identity drift. The review includes face shape, ears, paws, name tag or collar, lighting, background lines and camera direction. Small errors are easier to see before music, grading and captions are added.",
             "If the join fails, we first decide whether the problem belongs to the First Shot, the last pose or the requested continuation. We regenerate the smallest failing part. This keeps the workflow understandable and avoids exposing or relying on a long proprietary prompt as a substitute for clear shot design.",
@@ -184,7 +189,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "one-action",
-          title: "첫 8초에는 하나의 행동만 담습니다",
+          title: "실제로 테스트한 것: 첫 8초에 하나의 행동만 담기",
           paragraphs: [
             "걷기, 뒤돌아보기, 소품 들기, 표정 바꾸기와 카메라 이동을 짧은 시간 안에 모두 넣으면 마지막 프레임이 불안정해집니다. FourFeetz는 첫 8초에 하나의 주된 행동을 정하고 호흡, 눈 깜빡임, 작은 체중 이동 정도만 보조 움직임으로 둡니다.",
             "행동이 단순하면 영상이 정적으로 보인다는 뜻은 아닙니다. 장면의 도착 지점이 분명해져야 마지막 자세가 급하게 무너지지 않고, Extend도 새로운 행동을 억지로 만들어내지 않은 채 자연스럽게 이어갈 수 있습니다.",
@@ -197,7 +202,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "extend-connection",
-          title: "안정적인 마지막 자세에서 Extend를 연결합니다",
+          title: "효과가 있었던 방법: 안정적인 마지막 자세에서 Extend 연결하기",
           paragraphs: [
             "첫 클립의 마지막 자세는 다음 클립으로 넘어가는 인계 지점입니다. 캐릭터의 중심이 잡혀 있고 얼굴이 보이며, 팔다리가 화면 가장자리에서 잘리지 않는 순간이 연결에 유리했습니다. 마지막 자세를 아주 짧게라도 유지하면 Extend가 어색한 동작을 복구하는 대신 작은 움직임을 이어갈 수 있습니다.",
             "다음 장면의 지시는 새로운 장면을 만드는 설명이 아니라 현재 행동을 계속하는 설명으로 제한합니다. 연결부에서는 실루엣, 얼굴 나이, 소품 위치, 그림자 방향과 카메라 속도를 확인하며, 움직임만 부드럽고 캐릭터가 달라진 결과는 사용하지 않습니다.",
@@ -210,7 +215,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "separate-scene",
-          title: "별도 장면과 디졸브가 더 나은 경우",
+          title: "문제가 생긴 방식: 너무 많은 변화를 Extend에 맡기기",
           paragraphs: [
             "큰 카메라 각도 변화, 새로운 장소, 시간의 이동, 완전히 다른 몸 자세가 필요한 행동은 하나의 Extend로 밀어붙이지 않습니다. 이런 변화까지 연속 동작으로 만들면 신체가 늘어나거나 캐릭터가 중복되고, 화면 밖에서 다른 얼굴로 다시 등장할 가능성이 커졌습니다.",
             "이 경우 다음 장면을 위한 First Shot을 별도로 만들고 편집에서 연결합니다. 짧은 디졸브는 시간의 흐름이나 잔잔한 분위기를 표현할 때 유용하지만, 심한 얼굴이나 체형 불일치를 숨기는 용도로 사용하지 않습니다.",
@@ -227,7 +232,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "review",
-          title: "후반 작업 전에 연결부를 점검합니다",
+          title: "실전 핵심 정리: 후반 작업 전에 연결부 점검하기",
           paragraphs: [
             "연결부는 정상 속도로 리듬을 확인하고, 소리를 끈 상태에서 시각적 연결을 보고, 마지막으로 프레임 단위에서 형태 변화를 확인합니다. 얼굴, 귀, 발, 이름표나 목걸이, 조명, 배경선과 카메라 방향을 음악과 색 보정 전에 점검합니다.",
             "문제가 있으면 First Shot, 마지막 자세, 이어지는 행동 중 어느 부분이 처음 실패했는지 구분합니다. 실패한 범위만 다시 제작하면 과정이 명확해지고, 비공개 마스터 프롬프트를 공개하거나 지나치게 긴 지시로 문제를 덮을 필요가 없습니다.",
@@ -272,7 +277,7 @@ const guides: GuideSeed[] = [
       ko: ["AI 영상 생성 실패", "AI 캐릭터 오류", "AI 영상 품질 점검"],
     },
     tools: ["Google Flow", "Runway", "Kling AI"],
-    characters: ["HARU", "HUGO"],
+    characters: ["HARU", "HUGO", "OLI"],
     popularity: 95,
     en: {
       ...guideBasics,
@@ -286,7 +291,7 @@ const guides: GuideSeed[] = [
       sections: [
         {
           id: "failure-log",
-          title: "Why We Keep a Failure Log",
+          title: "What We Tested: A Production Failure Log",
           paragraphs: [
             "Failed generations are useful only when the rejection reason is specific. During FourFeetz production, notes such as “looks strange” did not help the next test. We began recording the first visible break: a paw changed shape, a face aged after re-entry, a prop switched sides, or the camera moved when the shot required stillness.",
             "The list below combines recurring observations across real production tests. It does not expose our private prompts or character bible. Its purpose is to help creators inspect generated clips in a repeatable order and decide whether to trim, edit, replace or regenerate a shot.",
@@ -297,6 +302,7 @@ const guides: GuideSeed[] = [
           title: "1–2. Body Deformation and Appearance Changes After Re-entry",
           paragraphs: [
             "Body deformation often appears during turns, jumps, contact with props or moments when limbs overlap. A clip may look acceptable at normal speed while a paw merges with the ground or a leg changes length for several frames. We inspect movement at reduced speed before accepting the shot.",
+            "OLI’s swimming and backstroke tests made this especially clear. When the shot asked for coordinated full-body swimming, the leg motion and body shape could become unnatural even though the opening frame looked correct. FourFeetz therefore treated the simpler action and the more stable composition as the better production choice, rather than preserving a complex movement that was not convincing.",
             "A second failure occurs when a character leaves the frame and returns with a different face, age, coat pattern or body size. The model has to reconstruct missing visual evidence. We reduce that risk by keeping important features visible and avoiding unnecessary off-screen exits in continuity-sensitive shots.",
           ],
           bullets: [
@@ -342,7 +348,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "triage",
-          title: "Use the Smallest Honest Repair",
+          title: "Practical Takeaway: Use the Smallest Honest Repair",
           paragraphs: [
             "We first decide whether the failure affects identity, story clarity or only a disposable edge of the clip. A clean trim may remove a late defect. A planned cut or dissolve may connect two valid scenes. A central body or face error normally requires regeneration because finishing cannot restore missing anatomy or identity.",
             "Review in layers: character, important props, environment, camera and action. Record the first broken layer and change one relevant variable in the next test. This produces clearer evidence than rewriting everything and helps the team avoid claiming that an untested result is production-ready.",
@@ -388,7 +394,7 @@ const guides: GuideSeed[] = [
       sections: [
         {
           id: "failure-log",
-          title: "실패 기록을 남기는 이유",
+          title: "실제로 테스트한 것: 제작 실패 기록표",
           paragraphs: [
             "FourFeetz 제작 과정에서 ‘이상해 보인다’는 기록은 다음 테스트에 도움이 되지 않았습니다. 발 모양이 바뀌었는지, 화면 밖에서 돌아온 얼굴이 달라졌는지, 소품 위치가 이동했는지, 고정해야 할 카메라가 움직였는지처럼 처음 발생한 문제를 구체적으로 기록합니다.",
             "아래 내용은 실제 제작 테스트에서 반복적으로 확인한 사례를 정리한 것입니다. 비공개 프롬프트나 캐릭터 바이블을 공개하지 않으며, 생성된 영상을 일정한 순서로 검토하고 잘라낼지, 편집할지, 다시 만들지 판단하는 데 목적이 있습니다.",
@@ -399,6 +405,7 @@ const guides: GuideSeed[] = [
           title: "1–2. 신체 변형과 화면 재등장 후 외형 변화",
           paragraphs: [
             "신체 변형은 몸을 돌리거나 점프할 때, 소품과 접촉하거나 팔다리가 겹칠 때 자주 나타났습니다. 정상 속도에서는 자연스러워 보여도 몇 프레임 동안 발이 바닥과 합쳐지거나 다리 길이가 달라질 수 있어 느린 속도로도 확인합니다.",
+            "OLI의 수영과 배영 장면에서 이 문제가 특히 분명했습니다. 전신이 함께 움직이는 복잡한 수영을 요청하자 시작 화면은 맞아도 다리 움직임과 몸 형태가 어색해지는 결과가 나왔습니다. FourFeetz 제작에서는 설득력이 떨어지는 복잡한 동작을 유지하기보다 행동을 단순화하고 구도를 안정시키는 쪽이 더 적합하다고 판단했습니다.",
             "캐릭터가 화면 밖으로 나갔다가 다시 등장하면 얼굴, 나이, 털무늬나 몸 크기가 달라지는 경우가 있습니다. 사라진 정보를 다시 구성해야 하기 때문에 중요한 특징을 계속 화면에 두고, 연속성이 중요한 장면에서는 불필요한 화면 이탈을 줄입니다.",
           ],
           bullets: [
@@ -444,7 +451,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "triage",
-          title: "문제에 맞는 가장 작은 해결 방법을 선택합니다",
+          title: "실전 핵심 정리: 문제에 맞는 가장 작은 해결 방법 선택하기",
           paragraphs: [
             "먼저 오류가 캐릭터 정체성과 이야기 이해에 영향을 주는지, 아니면 클립 끝부분의 제거 가능한 문제인지 구분합니다. 늦게 발생한 오류는 잘라낼 수 있고, 각각 정상인 두 장면은 계획된 컷이나 디졸브로 연결할 수 있습니다. 중심 인물의 얼굴과 신체 오류는 후반 작업으로 복원할 수 없어 다시 제작합니다.",
             "캐릭터, 중요한 소품, 환경, 카메라, 행동 순서로 확인하고 처음 깨진 지점을 기록합니다. 다음 테스트에서는 관련된 조건 하나만 바꾸면 어떤 선택이 실제로 개선에 기여했는지 알 수 있습니다.",
@@ -507,9 +514,10 @@ const guides: GuideSeed[] = [
       sections: [
         {
           id: "vertical-first-shot",
-          title: "Start with a Vertical First Shot",
+          title: "What We Tested: A Native 9:16 First Shot",
           paragraphs: [
             "A landscape First Shot encourages wide spacing, side-to-side action and environmental details that cannot all survive a vertical crop. In our Shorts workflow, the 9:16 frame is approved before motion begins. The character’s size, eye line, movement path and background are designed for the final viewing shape.",
+            "For FourFeetz animal-character Shorts, that vertical image is also the production reference for appearance, composition and lighting. Motion tests begin only after those three layers read correctly in the 9:16 First Shot, so a later generation is judged against a concrete frame rather than a newly invented description.",
             "This also improves generation review. We can see whether ears, paws and important accessories remain inside the frame throughout the planned action. Reframing later may rescue a simple shot, but it cannot restore visual information that was composed outside the crop.",
           ],
         },
@@ -541,7 +549,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "crop-problems",
-          title: "Why Cropping a Finished 16:9 Video Often Fails",
+          title: "What Went Wrong: Cropping a Finished 16:9 Video",
           paragraphs: [
             "A central crop removes both sides of a landscape frame. Two characters may no longer fit together, a hand or paw may leave the screen, and camera movement can push the subject outside the vertical window. Automated reframing may follow the face but produce distracting lateral movement.",
             "Cropping can be acceptable when the original action is already central, slow and generously framed. Otherwise we create a vertical First Shot and generate the scene for 9:16. That preserves the intended relationship between character and environment instead of treating the background as disposable.",
@@ -558,7 +566,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "thumbnail",
-          title: "Keep the Shorts Thumbnail Vertical Too",
+          title: "Practical Takeaway: Keep the Shorts Thumbnail Vertical Too",
           paragraphs: [
             "The thumbnail should be selected from or designed for the same vertical composition. Placing a small portrait image inside a wide thumbnail area weakens the subject and misrepresents how the Short is viewed. We retain the full 9:16 image and check that the face and action remain legible at small size.",
             "Before publishing, we review the opening frame, cover choice, captions and interface safe area together. A strong vertical clip can still lose clarity if its cover crops the ears, hides the key prop or uses a frame from the middle of a distorted transition.",
@@ -600,9 +608,10 @@ const guides: GuideSeed[] = [
       sections: [
         {
           id: "vertical-first-shot",
-          title: "세로 First Shot으로 시작합니다",
+          title: "실제로 테스트한 것: 9:16 세로 First Shot",
           paragraphs: [
             "가로 First Shot은 넓은 인물 간격, 좌우 이동과 많은 배경 정보를 자연스럽게 유도하지만 이 요소가 세로 크롭 안에 모두 남기는 어렵습니다. FourFeetz는 쇼츠 제작에서 움직임을 만들기 전에 9:16 프레임의 캐릭터 크기, 시선, 이동 경로와 배경 구성을 먼저 확인합니다.",
+            "FourFeetz 동물 캐릭터 쇼츠에서는 이 세로 이미지가 외형, 구도와 조명의 제작 기준도 됩니다. 세 요소가 9:16 First Shot 안에서 제대로 보이는지 승인한 뒤 영상 테스트를 시작하므로, 이후 결과를 새로 덧붙인 외형 설명이 아니라 구체적인 기준 프레임과 비교할 수 있습니다.",
             "세로 기준을 먼저 잡으면 귀, 발과 중요한 소품이 행동 중에도 화면 안에 남는지 바로 검토할 수 있습니다. 단순한 장면은 나중에 재구성할 수 있지만, 원래 크롭 밖에 배치된 정보는 편집으로 되살릴 수 없습니다.",
           ],
         },
@@ -634,7 +643,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "crop-problems",
-          title: "완성된 16:9 영상을 자를 때 생기는 문제",
+          title: "문제가 생긴 방식: 완성된 16:9 영상 자르기",
           paragraphs: [
             "가로 화면을 중앙에서 자르면 양쪽 정보가 사라집니다. 두 캐릭터가 함께 보이지 않거나 손과 발이 화면 밖으로 나가고, 카메라가 움직일 때 대상이 세로 창을 벗어날 수 있습니다. 자동 리프레이밍이 얼굴을 따라가더라도 불필요한 좌우 이동이 생기기도 합니다.",
             "원본 행동이 이미 중앙에 있고 느리며 여백이 충분하면 크롭을 시험할 수 있습니다. 그렇지 않다면 9:16 First Shot을 새로 정하고 세로 장면으로 제작하는 편이 캐릭터와 환경의 관계를 정확하게 유지합니다.",
@@ -651,7 +660,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "thumbnail",
-          title: "쇼츠 썸네일도 세로 비율을 유지합니다",
+          title: "실전 핵심 정리: 쇼츠 썸네일도 세로 비율 유지하기",
           paragraphs: [
             "썸네일은 같은 세로 구도에서 선택하거나 9:16을 기준으로 만들어야 합니다. 넓은 이미지 영역 가운데 작은 세로 이미지를 넣으면 캐릭터가 작아지고 실제 시청 화면과도 달라집니다. 원본 비율을 유지한 채 작은 크기에서 얼굴과 행동이 보이는지 확인합니다.",
             "게시 전에는 시작 프레임, 커버, 자막과 안전 영역을 함께 검토합니다. 좋은 세로 영상도 썸네일에서 귀가 잘리거나 중요한 소품이 가려지고, 변형 중인 중간 프레임을 사용하면 매력이 떨어질 수 있습니다.",
@@ -710,9 +719,10 @@ const guides: GuideSeed[] = [
       sections: [
         {
           id: "reference",
-          title: "Begin with One Clear Reference Purpose",
+          title: "What We Tested: One Clear Reference Purpose",
           paragraphs: [
             "A reference image is useful only when the team knows what it proves. A neutral character image may establish face, ears, proportions and accessories. A cinematic frame may establish lighting and mood. We avoid treating several visually different images as interchangeable evidence inside one shot.",
+            "Once a First Shot is approved, FourFeetz keeps the same visible environment and lets the reference carry the appearance decisions. The motion instruction stays concise and describes what the character does next. Repeating new appearance language too aggressively can compete with the evidence already present in the frame and introduce an unintended redesign.",
             "For each generation, we identify the primary public reference and list the visible features that must survive. This guide shares the review principle, not the private prompt or complete character bible used by FourFeetz.",
           ],
           note:
@@ -733,7 +743,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "simple-action",
-          title: "Simplify the Action Before Adding Complexity",
+          title: "What Worked: Simplify the Action Before Adding Complexity",
           paragraphs: [
             "Every new action asks the generation to solve more anatomy, contact and timing. A walk, turn, jump, prop interaction and expression change inside one clip creates several opportunities for the character to be rebuilt. We divide the sequence into shots with one primary action.",
             "Small secondary movement keeps the result alive: breathing, blinking, a restrained glance or a gentle weight shift. We add complexity only after the simplest version preserves identity. This gives us a clear baseline and makes failures easier to diagnose.",
@@ -759,7 +769,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "reentry",
-          title: "Limit Off-screen Exits and Re-entry",
+          title: "Practical Takeaway: Limit Off-screen Exits and Re-entry",
           paragraphs: [
             "When a character disappears completely, the next frames must reconstruct its face, body and position without continuous visual evidence. We avoid unnecessary exits in shots that must preserve identity and keep at least the most important features visible whenever the composition allows.",
             "If leaving and returning is essential, we often split the moment into separately approved shots and edit them together. The final review checks silhouette, face, age, scale, ears, paws and accessories. A smooth transition is not enough if the returning character is no longer the same.",
@@ -805,9 +815,10 @@ const guides: GuideSeed[] = [
       sections: [
         {
           id: "reference",
-          title: "기준 이미지의 역할을 하나로 정합니다",
+          title: "실제로 테스트한 것: 기준 이미지의 역할 하나로 정하기",
           paragraphs: [
             "기준 이미지는 무엇을 확인하기 위한 자료인지 분명해야 합니다. 정면에 가까운 캐릭터 이미지는 얼굴, 귀, 비율과 소품을 보여주고, 영상 프레임은 조명과 분위기를 보여줄 수 있습니다. 서로 다른 목적의 이미지를 한 장면에서 같은 기준처럼 섞지 않습니다.",
+            "First Shot이 승인되면 FourFeetz는 화면에 보이는 환경을 그대로 유지하고, 외형에 관한 판단은 기준 이미지가 담당하게 합니다. 영상 지시는 캐릭터가 다음에 무엇을 하는지 간결하게 적습니다. 새로운 외형 설명을 지나치게 반복하면 이미 프레임에 있는 근거와 경쟁해 의도하지 않은 재설계를 만들 수 있었습니다.",
             "각 생성에서는 가장 중요한 공개 기준 이미지를 정하고 반드시 유지할 특징을 눈으로 확인합니다. 여기서는 검토 원칙만 공유하며 FourFeetz의 비공개 프롬프트와 전체 캐릭터 바이블은 공개하지 않습니다.",
           ],
           note:
@@ -828,7 +839,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "simple-action",
-          title: "복잡한 연출 전에 행동을 단순화합니다",
+          title: "효과가 있었던 방법: 복잡한 연출 전에 행동 단순화하기",
           paragraphs: [
             "행동이 늘어날수록 신체 구조, 접촉과 타이밍을 새로 해결해야 합니다. 걷기, 뒤돌기, 점프, 소품 사용과 표정 변화를 한 클립에 넣으면 캐릭터가 다시 구성될 기회도 많아집니다. 한 장면에는 하나의 주된 행동을 둡니다.",
             "호흡, 눈 깜빡임, 작은 시선 이동이나 체중 변화는 장면을 자연스럽게 만들 수 있습니다. 가장 단순한 버전에서 정체성이 유지된 뒤에만 보조 움직임을 추가하면 실패 원인을 구분하기 쉽습니다.",
@@ -854,7 +865,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "reentry",
-          title: "화면 밖 이탈과 재등장을 줄입니다",
+          title: "실전 핵심 정리: 화면 밖 이탈과 재등장 줄이기",
           paragraphs: [
             "캐릭터가 완전히 사라지면 다음 프레임은 연속된 시각 정보 없이 얼굴, 몸과 위치를 다시 구성해야 합니다. 정체성을 유지해야 하는 장면에서는 불필요한 이탈을 피하고, 구도가 허용하면 중요한 특징을 화면 안에 남깁니다.",
             "나갔다가 돌아오는 행동이 꼭 필요하면 각각 승인한 별도 장면으로 나누어 편집하는 방법도 사용합니다. 최종 검토에서는 실루엣, 얼굴, 나이, 크기, 귀, 발과 소품을 확인하며 연결만 부드럽고 캐릭터가 달라진 결과는 사용하지 않습니다.",
@@ -901,7 +912,7 @@ const guides: GuideSeed[] = [
       en: ["seamless AI video loop", "relaxing AI video", "loop dissolve", "AI animation loop"],
       ko: ["AI 영상 자연스러운 반복", "힐링 AI 영상", "반복 영상 디졸브", "AI 애니메이션 루프"],
     },
-    tools: ["AI Video", "Video Editing"],
+    tools: ["AI Video", "CapCut"],
     characters: ["HARU"],
     popularity: 93,
     en: {
@@ -916,9 +927,9 @@ const guides: GuideSeed[] = [
       sections: [
         {
           id: "micro-action",
-          title: "Choose a Micro-action That Can Repeat",
+          title: "What We Tested: HARU’s Resting Micro-actions",
           paragraphs: [
-            "Relaxing loops benefit from movement without a strong before-and-after state. Breathing, a slow blink, a small ear movement, gentle fabric or restrained light variation can return close to the starting condition. Walking across the frame, standing up or moving a prop usually creates a destination that is difficult to reverse invisibly.",
+            "For HARU relaxing videos, FourFeetz avoided large posture changes and built the performance around a comfortable resting pose, breathing, slow blinking and other micro-actions. These movements can return close to the starting condition. Walking across the frame, standing up or moving a prop creates a destination that is difficult to reverse invisibly.",
             "We begin by asking whether the action can continue for several cycles without changing the story. If repetition makes the character appear trapped or mechanical, the action is not suitable. The motion should support the atmosphere, not become a puzzle the viewer waits to see reset.",
           ],
           bullets: [
@@ -929,7 +940,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "pose-light",
-          title: "Keep Pose, Framing and Lighting Stable",
+          title: "What Went Wrong: Large Changes in Pose and Framing",
           paragraphs: [
             "The first and final loop regions do not need to be identical, but they must be compatible. We compare the character’s body angle, head height, ear position, paw placement and screen position. A large posture change becomes visible even under a soft transition.",
             "Lighting is equally important. A moving highlight, shadow direction or sudden exposure change can reveal the loop before the body movement does. We use a stable camera and avoid unnecessary weather or light changes unless those changes are themselves designed as a repeating cycle.",
@@ -952,10 +963,11 @@ const guides: GuideSeed[] = [
         },
         {
           id: "dissolve",
-          title: "Use a Short Dissolve Only for Small Differences",
+          title: "What Worked: Finish the Loop in CapCut",
           paragraphs: [
-            "A short dissolve can smooth minor breathing, fur or lighting differences between compatible regions. If it is too long, the character may appear transparent or doubled. If it is too short, a positional jump remains visible. We adjust it while watching several repetitions, not a single transition.",
+            "FourFeetz finishes and tests the loop in CapCut. A short dissolve can smooth minor breathing, fur or lighting differences between compatible regions. If it is too long, the character may appear transparent or doubled. If it is too short, a positional jump remains visible. The overlap is adjusted while watching several repetitions, not a single transition.",
             "When the overlap produces two faces, four ears or sliding paws, the source regions are too different. We choose new points or replace the shot rather than extending the dissolve. The edit should polish a structurally valid loop, not hide broken anatomy.",
+            "Not every generated take reached a perfect loop. Some were shortened because the final pose drifted; others needed different in and out points, a smaller dissolve or full replacement. Recording those limits is part of the FourFeetz production note, because CapCut can improve timing and continuity but cannot repair a changed face or broken body shape.",
           ],
           table: {
             title: "What a dissolve can and cannot solve",
@@ -969,7 +981,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "quality-check",
-          title: "Check Face, Ears, Paws and Name Tag",
+          title: "Practical Takeaway: Check Face, Ears, Paws and Name Tag",
           paragraphs: [
             "Repeated playback makes small identity errors more visible. We watch the face, ears, paws and name tag or collar through several cycles. We also check the background edges, shadow direction and any object that crosses the dissolve. A detail that changes once becomes a rhythmic flicker when looped.",
             "Finally, we listen with the intended ambience. Audio should not contain a click, sudden volume change or event that exposes the restart. Visual and sound loops are reviewed together, but the source video must remain convincing without using sound to distract from a visible mismatch.",
@@ -1011,9 +1023,9 @@ const guides: GuideSeed[] = [
       sections: [
         {
           id: "micro-action",
-          title: "반복할 수 있는 미세 행동을 선택합니다",
+          title: "실제로 테스트한 것: HARU의 편안한 미세 행동",
           paragraphs: [
-            "힐링 영상에는 시작과 끝의 상태가 크게 달라지지 않는 움직임이 적합합니다. 호흡, 느린 눈 깜빡임, 작은 귀 움직임, 잔잔한 천이나 조명 변화는 시작 상태와 가까운 지점으로 돌아올 수 있습니다. 화면을 가로질러 걷거나 일어서고 소품을 옮기는 행동은 되돌아가는 순간이 눈에 띕니다.",
+            "HARU 릴렉스 영상은 큰 자세 변화를 피하고 편안히 쉬는 자세, 호흡, 느린 눈 깜빡임 같은 미세 행동을 중심으로 구성했습니다. 이런 움직임은 시작 상태와 가까운 지점으로 돌아올 수 있습니다. 화면을 가로질러 걷거나 일어서고 소품을 옮기는 행동은 되돌아가는 순간이 눈에 띕니다.",
             "먼저 같은 행동이 여러 번 반복되어도 이야기의 상태가 바뀌지 않는지 확인합니다. 반복할수록 캐릭터가 갇혀 있거나 기계적으로 보이면 좋은 루프 행동이 아닙니다. 움직임은 분위기를 돕고 재시작을 찾게 만들지 않아야 합니다.",
           ],
           bullets: [
@@ -1024,7 +1036,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "pose-light",
-          title: "자세, 구도와 조명을 유지합니다",
+          title: "문제가 생긴 방식: 자세와 구도를 크게 바꾸기",
           paragraphs: [
             "반복 구간의 처음과 끝이 완전히 같을 필요는 없지만 서로 연결 가능한 상태여야 합니다. 몸의 각도, 머리 높이, 귀 위치, 발의 접촉과 화면 속 위치를 비교합니다. 큰 자세 차이는 부드러운 전환을 사용해도 눈에 띕니다.",
             "조명도 중요합니다. 하이라이트 위치, 그림자 방향이나 노출이 갑자기 바뀌면 신체 움직임보다 먼저 반복 지점을 드러냅니다. 안정적인 카메라를 사용하고, 반복 자체로 설계한 변화가 아니라면 불필요한 날씨와 조명 변화를 줄입니다.",
@@ -1047,10 +1059,11 @@ const guides: GuideSeed[] = [
         },
         {
           id: "dissolve",
-          title: "작은 차이에만 짧은 디졸브를 사용합니다",
+          title: "효과가 있었던 방법: CapCut에서 루프 마무리하기",
           paragraphs: [
-            "짧은 디졸브는 서로 연결 가능한 구간의 작은 호흡, 털이나 조명 차이를 부드럽게 만들 수 있습니다. 너무 길면 캐릭터가 투명해지거나 두 개로 보이고, 너무 짧으면 위치가 튀어 보입니다. 한 번의 전환이 아니라 여러 번 반복해서 보며 길이를 조정합니다.",
+            "FourFeetz는 CapCut에서 최종 루프를 조립하고 반복 재생으로 확인합니다. 짧은 디졸브는 서로 연결 가능한 구간의 작은 호흡, 털이나 조명 차이를 부드럽게 만들 수 있습니다. 너무 길면 캐릭터가 투명해지거나 두 개로 보이고, 너무 짧으면 위치가 튀어 보입니다. 한 번의 전환이 아니라 여러 번 반복해서 보며 길이를 조정합니다.",
             "겹치는 동안 얼굴이 두 개가 되거나 귀와 발이 늘어나고 미끄러지면 원본 구간의 차이가 너무 큰 것입니다. 디졸브를 더 길게 하지 않고 새로운 반복 지점을 고르거나 해당 장면을 교체합니다.",
+            "모든 생성 결과가 완벽한 루프로 이어진 것은 아닙니다. 마지막 자세가 달라진 클립은 길이를 줄였고, 일부는 시작점과 끝점을 다시 고르거나 디졸브를 짧게 조정했으며, 신체나 얼굴이 깨진 결과는 교체했습니다. CapCut은 타이밍과 연결을 보완하지만 달라진 얼굴과 잘못된 신체 형태까지 고칠 수는 없었습니다.",
           ],
           table: {
             title: "디졸브가 해결할 수 있는 차이",
@@ -1064,7 +1077,7 @@ const guides: GuideSeed[] = [
         },
         {
           id: "quality-check",
-          title: "얼굴·귀·발·이름표를 점검합니다",
+          title: "실전 핵심 정리: 얼굴·귀·발·이름표 점검하기",
           paragraphs: [
             "반복 재생에서는 작은 정체성 오류가 더 잘 보입니다. 여러 번 재생하면서 얼굴, 귀, 발과 이름표 또는 목걸이를 확인합니다. 배경 가장자리, 그림자 방향과 디졸브를 지나는 물체도 점검하며, 한 번의 변화가 반복되면 규칙적인 깜빡임처럼 보일 수 있습니다.",
             "마지막으로 사용할 앰비언스와 함께 들어봅니다. 소리에 클릭, 갑작스러운 음량 변화나 재시작을 드러내는 사건이 없어야 합니다. 영상과 소리를 함께 검토하지만, 눈에 보이는 불일치를 소리로 가리지 않습니다.",
@@ -1097,16 +1110,50 @@ const guides: GuideSeed[] = [
   },
 ];
 
+const productionExampleLinks: Partial<
+  Record<
+    NewProductionGuideSlug,
+    Record<NewProductionGuideLanguage, { label: string; title: string; href: string }[]>
+  >
+> = {
+  "extend-ai-video-scenes-google-flow": {
+    en: [{ label: "Production Example", title: "HARU — Snowy Hearth Nap", href: "/works/haru-snowy-hearth-nap" }],
+    ko: [{ label: "실제 제작 영상", title: "HARU — Snowy Hearth Nap", href: "/works/haru-snowy-hearth-nap" }],
+  },
+  "common-ai-video-generation-failures": {
+    en: [{ label: "Character Example", title: "Meet OLI", href: "/characters/oli" }],
+    ko: [{ label: "캐릭터 사례", title: "OLI 캐릭터 보기", href: "/characters/oli" }],
+  },
+  "create-ai-shorts-9-16-from-start": {
+    en: [{ label: "Character Example", title: "Meet HARU", href: "/characters/haru" }],
+    ko: [{ label: "캐릭터 사례", title: "HARU 캐릭터 보기", href: "/characters/haru" }],
+  },
+  "reduce-character-inconsistency-ai-video": {
+    en: [{ label: "Character Example", title: "Meet HARU", href: "/characters/haru" }],
+    ko: [{ label: "캐릭터 사례", title: "HARU 캐릭터 보기", href: "/characters/haru" }],
+  },
+  "seamless-loops-relaxing-ai-videos": {
+    en: [
+      { label: "Production Example", title: "HARU — Snowy Hearth Nap", href: "/works/haru-snowy-hearth-nap" },
+      { label: "Related Character", title: "Meet HARU", href: "/characters/haru" },
+    ],
+    ko: [
+      { label: "실제 제작 영상", title: "HARU — Snowy Hearth Nap", href: "/works/haru-snowy-hearth-nap" },
+      { label: "관련 캐릭터", title: "HARU 캐릭터 보기", href: "/characters/haru" },
+    ],
+  },
+};
+
 function createArticle(seed: GuideSeed, language: NewProductionGuideLanguage): NewProductionGuide {
   const copy = seed[language];
-  const related = guides
+  const guideLinks = guides
     .filter((entry) => entry.slug !== seed.slug)
-    .slice(0, 4)
     .map((entry) => ({
       label: language === "ko" ? "관련 제작 가이드" : "Related Production Guide",
       title: entry[language].shortTitle,
       href: `${language === "ko" ? "/ko" : ""}/insights/${entry.slug}`,
     }));
+  const related = [...(productionExampleLinks[seed.slug]?.[language] ?? []), ...guideLinks].slice(0, 4);
 
   return {
     slug: seed.slug,
@@ -1126,7 +1173,7 @@ function createArticle(seed: GuideSeed, language: NewProductionGuideLanguage): N
   };
 }
 
-export const newProductionGuides = Object.fromEntries(
+const existingProductionGuides = Object.fromEntries(
   guides.map((seed) => [
     seed.slug,
     {
@@ -1134,7 +1181,12 @@ export const newProductionGuides = Object.fromEntries(
       ko: createArticle(seed, "ko"),
     },
   ]),
-) as Record<NewProductionGuideSlug, Record<NewProductionGuideLanguage, NewProductionGuide>>;
+) as Record<(typeof guides)[number]["slug"], Record<NewProductionGuideLanguage, NewProductionGuide>>;
+
+export const newProductionGuides = {
+  ...existingProductionGuides,
+  ...experienceProductionGuides,
+} as Record<NewProductionGuideSlug, Record<NewProductionGuideLanguage, NewProductionGuide>>;
 
 export function isNewProductionGuideSlug(slug: string): slug is NewProductionGuideSlug {
   return newProductionGuideSlugs.includes(slug as NewProductionGuideSlug);
