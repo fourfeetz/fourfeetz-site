@@ -122,8 +122,8 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
         ],
         videos: [
           {
-            src: "/videos/shorts/haru-luna/quiet-rainy-evening.mp4",
-            poster: "/images/insights/haru-luna-rainy-window-01-opening.webp",
+            src: "/videos/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2.mp4",
+            poster: "/images/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2-poster.webp",
             title: "A Quiet Rainy Evening with HARU and LUNA",
             caption: "The completed 9:16 short keeps the original sound and presents the final timing, restrained movement, and quiet ending described in this production story.",
             presentation: "portrait",
@@ -266,8 +266,8 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
         ],
         videos: [
           {
-            src: "/videos/shorts/haru-luna/quiet-rainy-evening.mp4",
-            poster: "/images/insights/haru-luna-rainy-window-01-opening.webp",
+            src: "/videos/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2.mp4",
+            poster: "/images/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2-poster.webp",
             title: "비 오는 창가, 하루와 루나의 조용한 저녁",
             caption: "완성된 9:16 쇼츠에서 이번 제작기에 기록한 서로 다른 반응 타이밍, 절제된 움직임과 조용한 마무리를 확인할 수 있습니다. 영상의 기존 오디오도 그대로 유지했습니다.",
             presentation: "portrait",
