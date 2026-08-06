@@ -41,6 +41,7 @@ export type ProductionInsightSection = {
     position?: string;
     fit?: "cover" | "contain";
     aspect?: "standard" | "landscape" | "video";
+    presentation?: "portrait";
   }[];
 };
 export type ProductionInsight = {

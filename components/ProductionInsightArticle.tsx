@@ -142,9 +142,9 @@ function ArticleSection({ section, language }: { section: ProductionInsightSecti
         <div className={`my-9 grid gap-5 ${section.images.length > 1 ? "md:grid-cols-2" : ""}`}>
           {section.images.map((image, index) => (
             <figure key={`${image.src}-${index}`} className={section.images!.length === 3 && index === 0 ? "md:col-span-2" : ""}>
-              <div className={`relative overflow-hidden rounded-[26px] border border-[#eadfce] ${image.fit === "contain" ? "bg-white" : "bg-[#eadfce]"} ${image.aspect === "video" ? "aspect-video" : image.aspect === "landscape" ? "aspect-[3/2]" : "aspect-[4/3]"}`}>
+              <div className={`relative w-full max-w-full overflow-hidden rounded-[26px] border border-[#eadfce] ${image.fit === "contain" ? "bg-white" : "bg-[#eadfce]"} ${image.presentation === "portrait" ? "h-[min(72vh,760px)]" : image.aspect === "video" ? "aspect-video" : image.aspect === "landscape" ? "aspect-[3/2]" : "aspect-[4/3]"}`}>
                 <a href={image.src} target="_blank" rel="noreferrer" aria-label={`${labels.viewFullSizeLabel}: ${image.alt}`} className="group relative block h-full w-full">
-                  <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, 760px" className={`${image.fit === "contain" ? "object-contain" : "object-cover"} transition duration-300 group-hover:scale-[1.01]`} style={{ objectPosition: image.position ?? "50% 50%" }} />
+                  <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 100vw, 760px" className={`${image.fit === "contain" ? "object-contain" : "object-cover"} ${image.presentation === "portrait" ? "" : "transition duration-300 group-hover:scale-[1.01]"}`} style={{ objectPosition: image.position ?? "50% 50%" }} />
                   <span className="absolute bottom-3 right-3 rounded-full border border-white/70 bg-[#2b2119]/85 px-3 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-lg backdrop-blur-sm">{labels.viewFullSize}</span>
                 </a>
               </div>

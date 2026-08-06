@@ -241,9 +241,9 @@ export const experienceProductionGuides: Record<
       shortTitle: "What We Learned From OLI’s Swimming Scene",
       description:
         "A candid FourFeetz case study on unstable legs and body shape in OLI’s swimming and backstroke tests, and why simpler action produced a more convincing scene.",
-      hero: "/images/characters/oli/portrait.png",
-      heroAlt: "OLI the FourFeetz otter used as the character reference for a swimming scene case study",
-      heroFit: "contain",
+      hero: "/images/insights/production/oli-creek-first-shot.png",
+      heroAlt: "OLI standing on a mossy rock beside a sunlit forest stream in the approved First Shot",
+      heroPosition: "50% 48%",
       readTime: "11 min read",
       verdict:
         "OLI’s swimming test improved when the shot stopped asking for a complete athletic performance. A stable view and one readable action protected the character better than complex full-body motion.",
@@ -259,6 +259,15 @@ export const experienceProductionGuides: Record<
           paragraphs: [
             "OLI is an otter, so swimming feels like an obvious action for the character. The production challenge was that an audience also knows how an otter should move through water. The first tests asked the scene to coordinate the head, spine, front paws, rear legs, tail, water surface and forward travel within one short clip. Backstroke added a second layer because the belly, legs and face remained exposed while the body rotated and floated.",
             "The tests were reviewed as character performances, not as isolated technical demos. FourFeetz compared the opening reference with the middle and final frames, slowed the motion around kicks and turns, and watched the silhouette against the water. That review showed that a pleasant first second could hide unstable anatomy later in the take.",
+          ],
+          images: [
+            {
+              src: "/images/insights/production/oli-backstroke-test.png",
+              alt: "OLI floating on his back in a clear forest stream during a FourFeetz swimming motion test",
+              caption: "Vertical production image from OLI’s swimming and backstroke test. Keeping the full body visible made it possible to review leg position, torso shape and contact with the water.",
+              fit: "contain",
+              presentation: "portrait",
+            },
           ],
         },
         {
@@ -342,9 +351,9 @@ export const experienceProductionGuides: Record<
       shortTitle: "OLI 수영 장면에서 배운 것",
       description:
         "OLI의 수영과 배영 테스트에서 다리와 신체 형태가 어색해졌던 문제, 그리고 단순한 행동과 안정된 구도가 더 설득력 있었던 이유를 기록합니다.",
-      hero: "/images/characters/oli/portrait.png",
-      heroAlt: "수영 장면 제작 사례의 기준 캐릭터로 사용된 FourFeetz 수달 OLI",
-      heroFit: "contain",
+      hero: "/images/insights/production/oli-creek-first-shot.png",
+      heroAlt: "햇살이 드는 숲속 개울가의 이끼 낀 바위 위에 서 있는 OLI First Shot",
+      heroPosition: "50% 48%",
       readTime: "약 11분",
       verdict:
         "OLI 수영 장면은 완전한 운동 동작을 한 번에 요구하지 않을 때 좋아졌습니다. 안정된 시점과 하나의 읽기 쉬운 행동이 복잡한 전신 움직임보다 캐릭터를 잘 지켰습니다.",
@@ -360,6 +369,15 @@ export const experienceProductionGuides: Record<
           paragraphs: [
             "OLI는 수달이기 때문에 수영은 자연스럽게 떠올릴 수 있는 행동입니다. 하지만 시청자도 수달이 물에서 어떻게 움직여야 하는지 알고 있다는 점이 제작 난도를 높였습니다. 첫 테스트는 짧은 장면 안에서 머리, 척추, 앞발, 뒷다리, 꼬리, 수면과 전진을 함께 움직이도록 구성했습니다. 배영은 몸을 돌린 상태에서 배와 다리, 얼굴이 모두 보인다는 어려움까지 더해졌습니다.",
             "이 테스트는 기술 시연이 아니라 OLI의 연기로 검토했습니다. 시작 기준 이미지와 중간·마지막 프레임을 비교하고, 발차기와 회전 구간을 느리게 재생하며, 물을 배경으로 한 실루엣을 따로 확인했습니다. 첫 1초가 자연스러워도 뒤에서 신체 구조가 무너질 수 있다는 점이 분명했습니다.",
+          ],
+          images: [
+            {
+              src: "/images/insights/production/oli-backstroke-test.png",
+              alt: "FourFeetz 수영 동작 테스트에서 맑은 숲속 개울에 배영 자세로 떠 있는 OLI",
+              caption: "OLI 수영·배영 테스트의 세로형 제작 이미지입니다. 전신을 화면에 유지해 다리 위치, 몸통 형태와 물의 접촉을 함께 검토했습니다.",
+              fit: "contain",
+              presentation: "portrait",
+            },
           ],
         },
         {
