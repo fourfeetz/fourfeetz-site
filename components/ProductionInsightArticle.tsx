@@ -138,6 +138,17 @@ function ArticleSection({ section, language }: { section: ProductionInsightSecti
           ))}
         </div>
       ) : null}
+      {section.audio ? (
+        <figure className="my-9 rounded-[26px] border border-[#d8c3ad] bg-white p-6 shadow-sm md:p-8">
+          <figcaption>
+            <strong className="block text-xl text-[#2b2119]">{section.audio.title}</strong>
+            <span className="mt-2 block leading-7 text-[#76685d]">{section.audio.description}</span>
+          </figcaption>
+          <audio controls preload="metadata" className="mt-5 block w-full max-w-full" aria-label={section.audio.title}>
+            <source src={section.audio.src} type="audio/mpeg" />
+          </audio>
+        </figure>
+      ) : null}
       {section.images ? (
         <div className={`my-9 grid gap-5 ${section.images.length > 1 ? "md:grid-cols-2" : ""}`}>
           {section.images.map((image, index) => (
@@ -211,6 +222,18 @@ export default function ProductionInsightArticle({
     "@type": "FAQPage",
     mainEntity: article.faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })),
   };
+  const videoSchema = article.featuredVideo ? {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: article.featuredVideo.name,
+    description: article.featuredVideo.description,
+    thumbnailUrl: [`${siteUrl}${article.featuredVideo.thumbnailUrl}`],
+    contentUrl: `${siteUrl}${article.featuredVideo.contentUrl}`,
+    duration: article.featuredVideo.duration,
+    uploadDate: article.featuredVideo.uploadDate,
+    inLanguage: isKorean ? "ko-KR" : "en-US",
+    isPartOf: { "@type": "Article", "@id": canonical },
+  } : undefined;
   const defaultRelated = article.related ?? [
     { label: "Related Film", title: "HARU: First Journey", href: "/works/haru-first-journey" },
     { label: "Related Shorts", title: "HARU Shorts", href: "/videos?type=shorts" },
@@ -229,6 +252,7 @@ export default function ProductionInsightArticle({
       <JsonLd value={articleSchema} />
       <JsonLd value={breadcrumbSchema} />
       <JsonLd value={faqSchema} />
+      {videoSchema ? <JsonLd value={videoSchema} /> : null}
       <article>
         <header className="mx-auto max-w-5xl px-6 pb-12 pt-16 md:pb-16 md:pt-24">
           <nav aria-label={isKorean ? "경로" : "Breadcrumb"} className="text-sm font-bold text-[#8a7768]"><Link href={homePath} className="hover:text-[#6f4e37]">{labels.home}</Link><span className="px-2">/</span><Link href={insightsPath} className="hover:text-[#6f4e37]">{labels.insights}</Link><span className="px-2">/</span><Link href={guidesPath} className="hover:text-[#6f4e37]">{labels.guides}</Link><span className="px-2">/</span><span>{article.shortTitle}</span></nav>

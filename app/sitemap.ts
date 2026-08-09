@@ -28,6 +28,7 @@ const routes = [
   "/insights/character-consistency-guide",
   "/insights/character-consistency-haru-ruru-milo",
   "/insights/common-ai-video-generation-failures",
+  "/insights/cozy-retriever-kitten-sleep-short",
   "/insights/create-ai-shorts-9-16-from-start",
   "/insights/elevenlabs-music-v2-references",
   "/insights/extend-ai-video-scenes-google-flow",

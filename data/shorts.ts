@@ -17,6 +17,11 @@ export type Short = {
   duration: string;
   tools: string[];
   characters?: string[];
+  aspectRatio?: string;
+  spokenLanguage?: string;
+  koreanSpokenLanguage?: string;
+  moods?: string[];
+  koreanMoods?: string[];
   productionNotes: ShortProductionNote[];
   video: string;
   poster?: string;
@@ -47,6 +52,34 @@ export type Short = {
 };
 
 export const shorts: Short[] = [
+  {
+    id: "short-009",
+    slug: "cozy-retriever-kitten-sleep-short",
+    type: "episode",
+    title: "A Golden Retriever Fell Asleep… Then a Tiny Kitten Joined Him",
+    description: "A sleepy young retriever slowly dozes off in the warm afternoon sunlight. Then a tiny ginger tabby kitten walks over, curls up beside him, and turns a quiet nap into the sweetest moment.",
+    category: "Animal Story Shorts",
+    duration: "32 sec",
+    tools: ["Google Flow", "Veo"],
+    aspectRatio: "9:16",
+    spokenLanguage: "No dialogue",
+    koreanSpokenLanguage: "대사 없음",
+    moods: ["Cozy", "Relaxing", "Animal Story"],
+    koreanMoods: ["포근함", "편안함", "동물 이야기"],
+    productionNotes: [
+      { label: "Format", value: "A 32.323-second vertical short presented in its original 9:16 composition." },
+      { label: "Language", value: "No dialogue." },
+      { label: "Mood", value: "Cozy, relaxing animal storytelling in warm afternoon light." },
+      { label: "Music", value: "Sunbeam Paws Lullaby, a gentle instrumental track created for the finished short." },
+    ],
+    video: "/videos/shorts/cozy-retriever-kitten/cozy-retriever-kitten-sleep-short.mp4",
+    poster: "/images/shorts/cozy-retriever-kitten/cozy-retriever-kitten-poster.png",
+    insight: { title: "Read the Production Story", href: "/insights/cozy-retriever-kitten-sleep-short" },
+    publishedAt: "2026-08-09",
+    updatedAt: "2026-08-09",
+    featured: true,
+    publishStatus: "published",
+  },
   {
     id: "short-008",
     slug: "haru-luna-quiet-rainy-evening",

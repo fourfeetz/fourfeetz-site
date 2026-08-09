@@ -145,9 +145,9 @@ export default function ShortDetailPage({ short }: { short: Short }) {
                 className="group overflow-hidden rounded-[28px] border border-[#eadfce] bg-white shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"
               >
                 <div className="overflow-hidden bg-black">
-                  {related.slug === "haru-luna-quiet-rainy-evening" && related.poster ? (
+                  {(related.slug === "haru-luna-quiet-rainy-evening" || related.slug === "cozy-retriever-kitten-sleep-short") && related.poster ? (
                     <div className="relative aspect-[9/16] w-full">
-                      <Image src={related.poster} alt="HARU and LUNA beside a rainy window" fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-contain transition-transform duration-200 group-hover:scale-[1.015]" />
+                      <Image src={related.poster} alt={`${related.title} poster`} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-contain transition-transform duration-200 group-hover:scale-[1.015]" />
                     </div>
                   ) : (
                     <video

@@ -23,6 +23,10 @@ type VideoCard = {
   characters: string[];
   type: Exclude<VideoFilter, "all">;
   insightHref?: string;
+  aspectRatio?: string;
+  spokenLanguage?: string;
+  moods?: string[];
+  publishedAt?: string;
 };
 
 export function normalizeVideoFilter(value: string | string[] | undefined): VideoFilter {
@@ -41,6 +45,7 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
     duration: film.duration,
     characters: [film.character],
     type: "long-form",
+    publishedAt: film.publishedAt,
   }));
   const shortVideos: VideoCard[] = shorts.map((short) => ({
     id: `short-${short.slug}`,
@@ -53,8 +58,14 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
     characters: short.characters ?? [],
     type: "shorts",
     insightHref: short.insight?.href ? (isKorean ? `/ko${short.insight.href}` : short.insight.href) : undefined,
+    aspectRatio: short.aspectRatio,
+    spokenLanguage: isKorean ? (short.koreanSpokenLanguage ?? short.spokenLanguage) : short.spokenLanguage,
+    moods: isKorean ? (short.koreanMoods ?? short.moods) : short.moods,
+    publishedAt: short.publishedAt,
   }));
-  const allVideos = [...longFormVideos, ...shortVideos];
+  const allVideos = [...longFormVideos, ...shortVideos].sort(
+    (left, right) => (right.publishedAt ?? "").localeCompare(left.publishedAt ?? ""),
+  );
   const visibleVideos = activeFilter === "all"
     ? allVideos
     : allVideos.filter((video) => video.type === activeFilter);
@@ -179,6 +190,11 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
                     <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">{video.duration}</p>
                     <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{video.title}</h3>
                     <p className="mt-4 flex-1 leading-7 text-[#76685d]">{video.description}</p>
+                    {video.aspectRatio || video.spokenLanguage || video.moods?.length ? (
+                      <p className="mt-5 text-sm font-bold leading-6 text-[#8a7768]">
+                        {[video.aspectRatio, video.spokenLanguage, video.moods?.join(", ")].filter(Boolean).join(" · ")}
+                      </p>
+                    ) : null}
                     {video.characters.length ? (
                       <p className="mt-6 border-t border-[#eadfce] pt-5 text-sm text-[#76685d]">
                         <strong className="text-[#2b2119]">{labels.characters}:</strong> {video.characters.join(", ")}

@@ -35,6 +35,11 @@ export type ProductionInsightSection = {
     caption: string;
     presentation?: "portrait";
   }[];
+  audio?: {
+    src: string;
+    title: string;
+    description: string;
+  };
   images?: {
     src: string;
     alt: string;
@@ -62,6 +67,14 @@ export type ProductionInsight = {
   tools: string[];
   characters: string[];
   popularity: number;
+  featuredVideo?: {
+    name: string;
+    description: string;
+    thumbnailUrl: string;
+    contentUrl: string;
+    duration: string;
+    uploadDate: string;
+  };
   sections: ProductionInsightSection[];
   faqs: { question: string; answer: string }[];
   related?: { label: string; title: string; href: string }[];
