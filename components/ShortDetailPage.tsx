@@ -153,9 +153,7 @@ export default function ShortDetailPage({ short }: { short: Short }) {
                     <video
                       src={related.video}
                       poster={related.poster}
-                      autoPlay
                       muted
-                      loop
                       playsInline
                       preload="metadata"
                       className="pointer-events-none aspect-[9/16] h-auto w-full object-cover transition-transform duration-200 group-hover:scale-[1.015]"

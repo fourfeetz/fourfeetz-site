@@ -5,6 +5,7 @@ export const koreanFilmDescriptions: Record<string, string> = {
 };
 
 export const koreanShortDescriptions: Record<string, string> = {
+  "oli-peaceful-swim": "아기 수달 OLI가 물 위를 부드럽게 떠다니며 여유로운 수영을 즐깁니다. 편안하게 감상할 수 있는 FourFeetz 쇼츠입니다.",
   "cozy-retriever-kitten-sleep-short": "따뜻한 오후 햇살 속에서 어린 리트리버가 천천히 잠듭니다. 잠시 후 아기 치즈태비 고양이가 다가와 앞다리에 기대어 누우며 포근한 낮잠을 함께합니다.",
   "haru-luna-quiet-rainy-evening": "비 오는 창가에서 HARU와 LUNA가 작은 눈빛과 느린 움직임을 나누며 조용히 쉬는 따뜻한 저녁 쇼츠입니다.",
   "ruru-tries-to-be-scary": "숲속 나무 뒤에서 무서운 표정을 연습하지만 귀여움을 숨길 수 없는 레서판다 RURU의 이야기입니다.",
@@ -24,6 +25,7 @@ type KoreanCharacterLink = {
 };
 
 export const koreanShortTitles: Record<string, string> = {
+  "oli-peaceful-swim": "올리의 평화로운 수영 시간",
   "cozy-retriever-kitten-sleep-short": "리트리버가 잠들자 아기 고양이가 다가왔어요",
   "haru-luna-quiet-rainy-evening": "비 오는 창가, 하루와 루나의 조용한 저녁",
 };

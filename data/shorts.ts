@@ -53,6 +53,32 @@ export type Short = {
 
 export const shorts: Short[] = [
   {
+    id: "short-010",
+    slug: "oli-peaceful-swim",
+    type: "episode",
+    title: "OLI’s Peaceful Swim",
+    description: "OLI the little otter enjoys a calm swim, gently floating through the water in this relaxing FourFeetz short.",
+    category: "OLI Shorts",
+    duration: "29.351 sec",
+    tools: [],
+    characters: ["OLI"],
+    aspectRatio: "9:16",
+    moods: ["Calm", "Relaxing", "Otter Story"],
+    koreanMoods: ["평온함", "편안함", "수달 이야기"],
+    productionNotes: [
+      { label: "Format", value: "A 29.351-second vertical short presented in its original 1080 × 1920, 9:16 composition." },
+      { label: "Character", value: "OLI, the official FourFeetz otter character, is the central character in the finished short." },
+      { label: "Audio", value: "The finished MP4 includes its audio track, so no separate audio playback is added to the video page." },
+    ],
+    video: "/videos/shorts/oli/oli-peaceful-swim.mp4",
+    poster: "/images/shorts/oli/oli-peaceful-swim-poster.png",
+    characterHref: "/characters/oli",
+    publishedAt: "2026-08-09",
+    updatedAt: "2026-08-09",
+    featured: true,
+    publishStatus: "published",
+  },
+  {
     id: "short-009",
     slug: "cozy-retriever-kitten-sleep-short",
     type: "episode",
