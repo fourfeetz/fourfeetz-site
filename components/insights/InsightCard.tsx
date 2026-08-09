@@ -12,6 +12,7 @@ export default function InsightCard({
 }) {
   const href = language === "ko" ? `/ko/insights/${article.slug}` : article.href;
   const group = insightGroups[article.group][language];
+  const hasPortraitThumbnail = article.imageFit === "contain";
 
   return (
     <Link
@@ -19,14 +20,37 @@ export default function InsightCard({
       className="group flex h-full flex-col rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37]"
     >
       <div className="relative aspect-video overflow-hidden rounded-2xl bg-[#f6ebdd]">
-        <Image
-          src={article.image}
-          alt={`${article.title} ${language === "ko" ? "대표 이미지" : "thumbnail"}`}
-          fill
-          sizes="(min-width:1280px)30vw,(min-width:768px)45vw,100vw"
-          className={`${article.imageFit === "contain" ? "object-contain" : "object-cover"} transition-transform duration-200 group-hover:scale-[1.02]`}
-          style={{ objectPosition: article.imagePosition ?? "50% 50%" }}
-        />
+        {hasPortraitThumbnail ? (
+          <>
+            <Image
+              src={article.image}
+              alt=""
+              aria-hidden="true"
+              fill
+              sizes="(min-width:1280px)30vw,(min-width:768px)45vw,100vw"
+              className="scale-110 object-cover blur-xl brightness-[0.7]"
+              style={{ objectPosition: article.imagePosition ?? "50% 50%" }}
+            />
+            <span aria-hidden="true" className="absolute inset-0 bg-[#2b2119]/10" />
+            <Image
+              src={article.image}
+              alt={`${article.title} ${language === "ko" ? "대표 이미지" : "thumbnail"}`}
+              fill
+              sizes="(min-width:1280px)30vw,(min-width:768px)45vw,100vw"
+              className="object-contain"
+              style={{ objectPosition: article.imagePosition ?? "50% 50%" }}
+            />
+          </>
+        ) : (
+          <Image
+            src={article.image}
+            alt={`${article.title} ${language === "ko" ? "대표 이미지" : "thumbnail"}`}
+            fill
+            sizes="(min-width:1280px)30vw,(min-width:768px)45vw,100vw"
+            className="object-cover transition-transform duration-200 group-hover:scale-[1.02]"
+            style={{ objectPosition: article.imagePosition ?? "50% 50%" }}
+          />
+        )}
       </div>
       <div className="flex flex-1 flex-col pt-5">
         <div className="flex flex-wrap items-center gap-2">
