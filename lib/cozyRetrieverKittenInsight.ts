@@ -1,4 +1,4 @@
-import type { ProductionInsight } from "@/lib/productionInsights";
+import type { ProductionInsight, VideoUploadDate } from "@/lib/productionInsights";
 
 type LocalizedInsight = ProductionInsight & {
   heroAlt: string;
@@ -7,6 +7,7 @@ type LocalizedInsight = ProductionInsight & {
 
 const slug = "cozy-retriever-kitten-sleep-short";
 const published = "2026-08-09";
+const uploadDate: VideoUploadDate = "2026-08-09T22:15:03+09:00";
 const hero = "/images/shorts/cozy-retriever-kitten/cozy-retriever-kitten-poster.png";
 const video = "/videos/shorts/cozy-retriever-kitten/cozy-retriever-kitten-sleep-short.mp4";
 const extendCapture = "/images/insights/cozy-retriever-kitten-veo-extend-output.png";
@@ -38,7 +39,7 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
       thumbnailUrl: hero,
       contentUrl: video,
       duration: "PT32.323S",
-      uploadDate: published,
+      uploadDate,
     },
     sections: [
       {
@@ -166,7 +167,7 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
       thumbnailUrl: hero,
       contentUrl: video,
       duration: "PT32.323S",
-      uploadDate: published,
+      uploadDate,
     },
     sections: [
       {

@@ -35,6 +35,35 @@ const relatedResourceMap: Record<string, { slug: string; en: string; ko: string 
   ],
 };
 
+const videoUploadDatePattern = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(Z|([+-])(\d{2}):(\d{2}))$/;
+
+function validateVideoUploadDate(uploadDate: string): string {
+  const match = videoUploadDatePattern.exec(uploadDate);
+
+  if (!match) {
+    throw new Error(`Invalid VideoObject.uploadDate: ${uploadDate}`);
+  }
+
+  const [, year, month, day, hour, minute, second, , , offsetHour, offsetMinute] = match;
+  const parts = [year, month, day, hour, minute, second].map(Number);
+  const [numericYear, numericMonth, numericDay, numericHour, numericMinute, numericSecond] = parts;
+  const calendarDate = new Date(Date.UTC(numericYear, numericMonth - 1, numericDay, numericHour, numericMinute, numericSecond));
+  const validCalendarDate = calendarDate.getUTCFullYear() === numericYear
+    && calendarDate.getUTCMonth() === numericMonth - 1
+    && calendarDate.getUTCDate() === numericDay
+    && calendarDate.getUTCHours() === numericHour
+    && calendarDate.getUTCMinutes() === numericMinute
+    && calendarDate.getUTCSeconds() === numericSecond;
+  const validOffset = offsetHour === undefined
+    || (Number(offsetHour) <= 14 && Number(offsetMinute) <= 59 && (offsetHour !== "14" || offsetMinute === "00"));
+
+  if (!validCalendarDate || !validOffset || Number.isNaN(Date.parse(uploadDate))) {
+    throw new Error(`Invalid VideoObject.uploadDate: ${uploadDate}`);
+  }
+
+  return uploadDate;
+}
+
 const articleLabels = {
   en: {
     home: "Home", insights: "Insights", guides: "Production Guides",
@@ -230,7 +259,7 @@ export default function ProductionInsightArticle({
     thumbnailUrl: [`${siteUrl}${article.featuredVideo.thumbnailUrl}`],
     contentUrl: `${siteUrl}${article.featuredVideo.contentUrl}`,
     duration: article.featuredVideo.duration,
-    uploadDate: article.featuredVideo.uploadDate,
+    uploadDate: validateVideoUploadDate(article.featuredVideo.uploadDate),
     inLanguage: isKorean ? "ko-KR" : "en-US",
     isPartOf: { "@type": "Article", "@id": canonical },
   } : undefined;

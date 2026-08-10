@@ -18,6 +18,8 @@ export type ProductionInsightSlug =
   | "reframing-16-9-guide";
 
 export type ProductionInsightTable = { title: string; headers: string[]; rows: string[][] };
+type Iso8601TimeZone = "Z" | `${"+" | "-"}${number}:${number}`;
+export type VideoUploadDate = `${number}-${number}-${number}T${number}:${number}:${number}${Iso8601TimeZone}`;
 export type ProductionInsightSection = {
   id: string;
   title: string;
@@ -73,7 +75,7 @@ export type ProductionInsight = {
     thumbnailUrl: string;
     contentUrl: string;
     duration: string;
-    uploadDate: string;
+    uploadDate: VideoUploadDate;
   };
   sections: ProductionInsightSection[];
   faqs: { question: string; answer: string }[];
