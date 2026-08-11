@@ -1,6 +1,7 @@
 export type MusicTrack = {
   slug: string;
   title: string;
+  koreanTitle?: string;
   artist: string;
   category: "Official Soundtrack" | "Original Soundtrack";
   duration: string;
@@ -12,22 +13,52 @@ export type MusicTrack = {
   status: "Released";
   cover: string;
   mood: string;
+  koreanMood?: string;
   production: string;
+  koreanProduction?: string;
   prompt?: string;
   instruments?: string[];
   usage: string[];
+  koreanUsage?: string[];
   insight?: {
     title: string;
     href: string;
   };
   publishedAt?: string;
   updatedAt?: string;
+  schemaDuration?: string;
   publishStatus?: "published" | "draft";
 };
 
 const haruCover = "/images/music/tracks/haru-theme.png";
 
 export const musicTracks: MusicTrack[] = [
+  {
+    slug: "calming-fireplace-rain-for-dogs",
+    title: "Calming Fireplace & Rain for Dogs",
+    koreanTitle: "강아지를 위한 편안한 벽난로와 빗소리",
+    artist: "FourFeetz Studios",
+    category: "Original Soundtrack",
+    duration: "5:12",
+    schemaDuration: "PT5M11.904S",
+    description: "A gentle calming track shaped for dogs, pets, sleep and quiet rest, with a warm fireplace mood and space for the soft rhythm of rain.",
+    audio: "/audio/music/calming-fireplace-rain-for-dogs.mp3",
+    character: "Puppy & Kitten",
+    featured: false,
+    badge: "ORIGINAL SOUNDTRACK",
+    status: "Released",
+    cover: "/images/works/calming-fireplace-rain-puppy-kitten/puppy-kitten-fireplace-rain-poster.jpg",
+    mood: "Relaxing, calming, sleepy, softly rainy, and warmly lit",
+    koreanMood: "편안하고 차분하며 졸음을 부르는 빗속의 따뜻한 분위기",
+    production: "The track keeps an unhurried, unobtrusive atmosphere so the rain, warm firelight and sleeping pets remain the focus rather than competing with the music.",
+    koreanProduction: "음악이 앞서지 않는 느리고 고른 분위기를 유지해 비와 따뜻한 불빛, 잠든 반려동물이 중심에 남도록 구성했습니다.",
+    usage: ["Calming rest for dogs and pets", "Sleep and quiet-time listening", "Rainy-day relaxation", "FourFeetz Relax Moments"],
+    koreanUsage: ["강아지와 반려동물의 편안한 휴식", "수면과 조용한 시간", "비 오는 날의 휴식", "FourFeetz Relax Moments"],
+    insight: { title: "Read the Production Story", href: "/insights/calming-dog-music-puppy-kitten-fireplace-rain" },
+    publishedAt: "2026-08-11",
+    updatedAt: "2026-08-11",
+    publishStatus: "published",
+  },
   {
     slug: "rainy-window-with-haru-luna",
     title: "Rainy Window with HARU & LUNA",

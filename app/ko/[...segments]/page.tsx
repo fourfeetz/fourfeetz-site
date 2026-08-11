@@ -134,7 +134,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (section === "films") {
     const item = getFilm(slug); if (!item) return {};
-    title = `${item.title} | FourFeetz 필름`; description = koreanFilmDescriptions[slug]; englishPath = `/works/${slug}`; image = item.thumbnail;
+    title = `${item.koreanTitle ?? item.title} | FourFeetz 필름`; description = koreanFilmDescriptions[slug]; englishPath = `/works/${slug}`; image = item.thumbnail;
   } else if (section === "shorts") {
     const item = shorts.find((entry) => entry.slug === slug); if (!item) return {};
     title = `${koreanShortTitles[slug] ?? item.title} | FourFeetz 쇼츠`; description = koreanShortDescriptions[slug]; englishPath = `/shorts/${slug}`; image = item.poster ?? image;
@@ -144,7 +144,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title = `${koreanCharacter.displayName ?? item.name} ${koreanCharacter.species} | FourFeetz 캐릭터`; description = koreanCharacter.metaDescription; englishPath = `/characters/${slug}`; image = item.gallery[0]?.image ?? "/images/characters-hero-v2.png";
   } else if (section === "music") {
     const item = getMusicTrack(slug); if (!item) return {};
-    title = `${item.title} | FourFeetz 음악`; description = koreanOrFallback(koreanMusicDescriptions, slug, "FourFeetz 오리지널 음악입니다."); englishPath = `/music/${slug}`; image = item.cover;
+    title = `${item.koreanTitle ?? item.title} | FourFeetz 음악`; description = koreanOrFallback(koreanMusicDescriptions, slug, "FourFeetz 오리지널 음악입니다."); englishPath = `/music/${slug}`; image = item.cover;
   } else if (section === "insights") {
     const item = getPublishedInsightArticles().find((entry) => entry.slug === slug); if (!item) return {};
     title = `${item.title} | FourFeetz 인사이트`; description = koreanOrFallback(koreanInsightDescriptions, slug, "AI 영상 제작과 도구에 관한 FourFeetz 인사이트입니다."); englishPath = item.href; image = item.image;

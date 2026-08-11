@@ -1,8 +1,10 @@
 import type { ProductionInsight } from "@/lib/productionInsights";
 import { haruLunaRainyWindowGuide } from "@/lib/haruLunaRainyWindowInsight";
 import { cozyRetrieverKittenInsight } from "@/lib/cozyRetrieverKittenInsight";
+import { calmingFireplaceRainInsight } from "@/lib/calmingFireplaceRainInsight";
 
 export const experienceProductionGuideSlugs = [
+  "calming-dog-music-puppy-kitten-fireplace-rain",
   "cozy-retriever-kitten-sleep-short",
   "haru-luna-rainy-window-ai-pet-video",
   "why-fourfeetz-starts-animal-shorts-first-shot",
@@ -38,6 +40,7 @@ export const experienceProductionGuides: Record<
   ExperienceProductionGuideSlug,
   Record<Language, ExperienceProductionGuide>
 > = {
+  "calming-dog-music-puppy-kitten-fireplace-rain": calmingFireplaceRainInsight,
   "cozy-retriever-kitten-sleep-short": cozyRetrieverKittenInsight,
   "haru-luna-rainy-window-ai-pet-video": haruLunaRainyWindowGuide,
   "why-fourfeetz-starts-animal-shorts-first-shot": {

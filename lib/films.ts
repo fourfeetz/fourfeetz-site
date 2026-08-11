@@ -6,6 +6,7 @@ export type FilmVideo = { title: string; description: string; video: string; thu
 export type Film = {
   slug: string;
   title: string;
+  koreanTitle?: string;
   category: string;
   duration: string;
   description: string;
@@ -37,6 +38,43 @@ export type Film = {
 };
 
 export const films: Film[] = [
+  {
+    slug: "calming-dog-music-puppy-kitten-fireplace-rain",
+    title: "Calming Music for Dogs 🐶 Puppy & Kitten Sleeping by the Fireplace in the Rain | FourFeetz Relax Moments",
+    koreanTitle: "강아지를 위한 편안한 음악 🐶 빗소리와 벽난로 옆에서 잠든 강아지와 아기 고양이",
+    category: "FourFeetz Relax Moments",
+    duration: "50 sec",
+    description: "A peaceful puppy and kitten sleep beside a warm fireplace while gentle rain falls outside. Soft calming music, warm firelight and quiet rain create a relaxing moment for dogs, pets and anyone who needs a peaceful break.",
+    video: "/videos/films/calming-fireplace-rain-puppy-kitten/calming-fireplace-rain-puppy-kitten.mp4",
+    thumbnail: "/images/works/calming-fireplace-rain-puppy-kitten/puppy-kitten-fireplace-rain-poster.jpg",
+    heroImage: "/images/works/calming-fireplace-rain-puppy-kitten/puppy-kitten-fireplace-rain-poster.jpg",
+    character: "Puppy & Kitten",
+    tools: [],
+    productionNotes: [
+      { label: "Series", value: "FourFeetz Relax Moments · Episode 4" },
+      { label: "Format", value: "1920 × 1080 · 16:9 · 30 fps · H.264/AVC with AAC audio" },
+      { label: "Runtime", value: "50.016 seconds" },
+      { label: "Visual Direction", value: "Warm firelight indoors, gentle rain beyond the window, and restrained animal movement." },
+      { label: "Sound Direction", value: "Calming music stays beneath the quiet fireplace-and-rain atmosphere." },
+    ],
+    gallery: [
+      { title: "First Shot", image: "/images/works/calming-fireplace-rain-puppy-kitten/puppy-kitten-fireplace-rain-first-shot.png" },
+      { title: "Puppy & Kitten Resting", image: "/images/works/calming-fireplace-rain-puppy-kitten/puppy-kitten-fireplace-rain-poster.jpg" },
+    ],
+    release: "August 2026",
+    status: "Released",
+    language: "Music & Ambience",
+    resolution: "Full HD",
+    badges: ["NEW", "RELAX MOMENTS"],
+    watchDescription: "A 50-second rainy-day relaxation film with a puppy and kitten sleeping beside a warm fireplace. Viewer-controlled playback preserves a quiet, unhurried start.",
+    relatedInsights: [
+      { title: "How We Created a Calming Fireplace and Rain Moment for Dogs", description: "The visual and sound direction behind this quiet rainy-day Relax Moments scene.", href: "/insights/calming-dog-music-puppy-kitten-fireplace-rain" },
+    ],
+    musicSlugs: ["calming-fireplace-rain-for-dogs"],
+    publishedAt: "2026-08-11",
+    updatedAt: "2026-08-11",
+    publishStatus: "published",
+  },
   {
     slug: "haru-snowy-hearth-nap",
     title: "HARU — Snowy Hearth Nap",

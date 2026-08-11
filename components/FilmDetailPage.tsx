@@ -107,10 +107,10 @@ export default function FilmDetailPage({ film }: { film: Film }) {
         <div className="mx-auto mt-8 grid max-w-7xl gap-4 sm:grid-cols-2 lg:grid-cols-4">{details.map((detail) => <article key={detail.label} className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{detail.label}</p><p className="mt-3 text-xl font-black text-[#2b2119]">{detail.value}</p></article>)}</div>
       </section>
 
-      <section className="border-y border-[#eadfce] bg-white px-6 py-20">
+      {film.tools.length ? <section className="border-y border-[#eadfce] bg-white px-6 py-20">
         <SectionHeader eyebrow="Pipeline" title="Made With" />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">{film.tools.map((tool) => <article key={tool} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><div className="grid h-11 w-11 place-items-center rounded-2xl bg-[#6f4e37] text-sm font-black text-white">AI</div><h3 className="mt-5 text-xl font-black text-[#2b2119]">{tool}</h3></article>)}</div>
-      </section>
+      </section> : null}
 
       <section className="px-6 py-20">
         <SectionHeader eyebrow="Frames" title="Gallery" description={`Images from ${film.title}.`} />

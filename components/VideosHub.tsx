@@ -42,13 +42,16 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
   const basePath = isKorean ? "/ko/videos" : "/videos";
   const longFormVideos: VideoCard[] = films.map((film) => ({
     id: `film-${film.slug}`,
-    title: film.title,
+    title: isKorean ? (film.koreanTitle ?? film.title) : film.title,
     description: isKorean ? koreanFilmDescriptions[film.slug] : film.description,
     href: isKorean ? `/ko/films/${film.slug}` : `/works/${film.slug}`,
     image: film.thumbnail,
     duration: film.duration,
     characters: [film.character],
     type: "long-form" as const,
+    insightHref: film.relatedInsights?.[0]?.href
+      ? (isKorean ? `/ko${film.relatedInsights[0].href}` : film.relatedInsights[0].href)
+      : undefined,
     publishedAt: film.publishedAt,
   })).sort(newestFirst);
   const shortVideos: VideoCard[] = shorts.map((short) => ({

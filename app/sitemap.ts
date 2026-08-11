@@ -25,6 +25,7 @@ const routes = [
   "/insights/ai-thumbnail-design-guide",
   "/insights/best-ai-music-tools",
   "/insights/camera-movement-guide",
+  "/insights/calming-dog-music-puppy-kitten-fireplace-rain",
   "/insights/character-consistency-guide",
   "/insights/character-consistency-haru-ruru-milo",
   "/insights/common-ai-video-generation-failures",

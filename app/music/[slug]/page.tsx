@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: { absolute: title },
     description: track.description,
     alternates: englishLanguageAlternates(`/music/${track.slug}`, `/ko/music/${track.slug}`),
-    openGraph: { title, description: track.description, images: [{ url: track.cover, alt: `${track.title} cover artwork` }] },
+    openGraph: { type: "website", siteName: "FourFeetz Studios", title, description: track.description, url: `/music/${track.slug}`, images: [{ url: track.cover, alt: `${track.title} cover artwork` }] },
     twitter: { card: "summary_large_image", title, description: track.description, images: [track.cover] },
   };
 }
@@ -42,9 +42,11 @@ export default async function Page({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "MusicRecording",
     name: track.title,
-    duration: track.duration,
+    duration: track.schemaDuration ?? track.duration,
     image: track.cover,
     byArtist: { "@type": "Organization", name: track.artist },
+    contentUrl: `https://fourfeetz.com${track.audio}`,
+    encodingFormat: "audio/mpeg",
     url: `https://fourfeetz.com/music/${track.slug}`,
   };
 
