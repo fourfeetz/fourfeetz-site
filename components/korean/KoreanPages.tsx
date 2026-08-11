@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
+  ArrowUpRight,
   BadgeCheck,
   BookOpen,
   Clapperboard,
@@ -134,6 +135,23 @@ const pricing = [
   { name: "기업 프로젝트", price: "별도 견적", features: ["브랜드 캠페인", "캐릭터 개발", "장편 콘텐츠", "다수 결과물"] },
 ];
 
+const kmongServices = [
+  {
+    title: "사진으로 만드는 반려동물 추억 영상",
+    description: "반려동물 사진을 바탕으로 생일, 기념일과 소중한 일상을 따뜻한 감성 영상으로 제작합니다. 간단하고 부담 없이 특별한 추억을 남기고 싶은 분께 추천합니다.",
+    detail: "사진 기반 감성 영상 · 39,000원부터",
+    button: "추억 영상 의뢰하기",
+    href: "https://kmong.com/gig/801888",
+  },
+  {
+    title: "맞춤형 반려동물 AI 스토리 영상",
+    description: "반려동물의 특징을 반영해 새로운 배경과 콘셉트, 여러 장면으로 구성된 맞춤형 AI 영상을 제작합니다. SNS 콘텐츠, 특별한 스토리와 홍보 영상이 필요한 분께 추천합니다.",
+    detail: "맞춤 콘셉트·스토리 구성 · 99,000원부터",
+    button: "맞춤 영상 의뢰하기",
+    href: "https://kmong.com/gig/798551",
+  },
+];
+
 export function KoreanServicesPage() {
   const portfolioSlugs = ["haru-snowy-hearth-nap", "morning-with-haru", "haru-ep03-best-friends", "luna-shorts-ep01", "hugo-and-haru-meadow", "ruru-tries-to-be-scary"];
   const work = portfolioSlugs.map((slug) => getFilm(slug) ? { kind: "films", item: getFilm(slug)! } : { kind: "shorts", item: shorts.find((entry) => entry.slug === slug)! });
@@ -151,6 +169,24 @@ export function KoreanServicesPage() {
     <section id="work" className="scroll-mt-24 px-6 py-20"><SectionHeading eyebrow="Selected Work" title="제작 사례" /><div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 lg:grid-cols-3">{work.map(({ kind, item }) => <MediaCard key={item.slug} href={`/ko/${kind}/${item.slug}`} image={"thumbnail" in item ? item.thumbnail : item.poster!} title={item.title} category={item.category} description={"thumbnail" in item ? koreanFilmDescriptions[item.slug] : koreanShortDescriptions[item.slug]} />)}</div><div className="mx-auto mt-10 flex max-w-7xl flex-wrap gap-3"><Link href="/ko/videos?type=long-form" className={primaryButton}>모든 롱폼 보기</Link><Link href="/ko/videos?type=shorts" className={secondaryButton}>모든 쇼츠 보기</Link></div></section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><SectionHeading eyebrow="Process" title="제작 과정" /><ol className="mx-auto mt-10 grid max-w-7xl gap-5 lg:grid-cols-4">{[["프로젝트 상담","브랜드, 제품, 원하는 분위기, 영상 길이와 사용 목적을 알려주세요."],["기획 및 견적","프로젝트를 검토한 후 제작 방향, 일정과 견적을 안내합니다."],["AI 영상 제작","프로젝트에 맞는 AI 제작 과정과 편집 작업을 진행합니다."],["검토 및 전달","결과물을 확인하고 포함된 수정 과정을 거친 뒤 최종 파일을 전달합니다."]].map(([title, copy], index) => <li key={title} className={`${cardClass} bg-[#fffdf8] p-7`}><span className="grid size-11 place-items-center rounded-full bg-[#6f4e37] font-black text-white">{index + 1}</span><h3 className="mt-6 text-xl font-black text-[#2b2119]">{title}</h3><p className="mt-3 leading-7 text-[#76685d]">{copy}</p></li>)}</ol></section>
     <section className="px-6 py-20"><SectionHeading eyebrow="Pricing" title="프로젝트 시작 가격" /><div className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">{pricing.map((tier) => <article key={tier.name} className={`${cardClass} p-8`}><p className="text-sm font-black uppercase tracking-[0.18em] text-[#a67c52]">{tier.name}</p><p className="mt-6 text-3xl font-black text-[#2b2119]">{tier.price}</p><ul className="mt-7 space-y-3 text-[#76685d]">{tier.features.map((feature) => <li key={feature} className="flex gap-2"><BadgeCheck className="mt-0.5 size-5 shrink-0 text-[#a67c52]" aria-hidden="true" />{feature}</li>)}</ul></article>)}</div><p className="mx-auto mt-8 max-w-7xl rounded-2xl border border-[#eadfce] bg-white px-6 py-5 text-center leading-7 text-[#76685d]">최종 견적은 영상 길이, 장면 수, 캐릭터 일관성, 수정 횟수, 제작 난이도, 납기와 상업적 사용 범위에 따라 달라질 수 있습니다.</p></section>
+    <section className="border-y border-[#eadfce] bg-white px-6 py-20">
+      <SectionHeading eyebrow="Kmong Services" title="크몽에서 편리하게 의뢰하세요" description="원하시는 제작 방식에 맞는 서비스를 선택해 주세요. 크몽에서 상담과 결제를 안전하고 편리하게 진행하실 수 있습니다." />
+      <div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2">
+        {kmongServices.map((service) => <article key={service.href} className={`${cardClass} flex h-full min-w-0 flex-col bg-[#fffdf8] p-7 md:p-8`}>
+          <h3 className="text-2xl font-black text-[#2b2119]">{service.title}</h3>
+          <p className="mt-4 flex-1 leading-8 text-[#76685d]">{service.description}</p>
+          <p className="mt-6 font-black text-[#6f4e37]">{service.detail}</p>
+          <a href={service.href} target="_blank" rel="noopener noreferrer" className={`${primaryButton} mt-6 w-full gap-2 sm:w-fit`}>
+            {service.button}
+            <ArrowUpRight className="size-5" aria-hidden="true" />
+          </a>
+        </article>)}
+      </div>
+      <div className="mx-auto mt-10 flex max-w-7xl flex-col gap-5 rounded-[32px] border border-[#eadfce] bg-[#fffaf4] p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
+        <p className="max-w-3xl leading-8 text-[#76685d]">제작 범위를 먼저 상담하고 싶으신가요? FourFeetz 홈페이지에서 무료 맞춤 견적을 요청하실 수 있습니다.</p>
+        <a href="#contact" className={`${secondaryButton} shrink-0`}>무료 견적 받기</a>
+      </div>
+    </section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto max-w-4xl"><SectionHeading eyebrow="FAQ" title="자주 묻는 질문" /><div className="mt-10 divide-y divide-[#eadfce] overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8]">{faqs.map(([question, answer]) => <details key={question} className="group px-6 py-2 md:px-8"><summary className="flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-lg font-black text-[#2b2119]">{question}<span className="text-2xl text-[#a67c52] transition group-open:rotate-45">+</span></summary><p className="pb-6 pr-8 leading-7 text-[#76685d]">{answer}</p></details>)}</div></div></section>
     <section id="contact" className="scroll-mt-24 px-6 py-20"><div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.8fr_1.2fr]"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">Contact</p><h2 className="mt-3 text-4xl font-black text-[#2b2119] md:text-6xl">프로젝트를 시작해보세요</h2><p className="mt-5 text-lg leading-8 text-[#76685d]">원하시는 영상과 사용 목적을 알려주시면 검토 후 맞춤 견적을 안내드립니다.</p></div><KoreanQuoteForm buttonClassName={primaryButton} /></div></section>
   </main>;
