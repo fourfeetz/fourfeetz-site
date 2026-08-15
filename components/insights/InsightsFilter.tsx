@@ -3,7 +3,7 @@
 import { Search, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import InsightCard from "@/components/insights/InsightCard";
-import { insightGroups, type InsightLanguage } from "@/lib/insightGroups";
+import type { InsightLanguage } from "@/lib/insightGroups";
 import type { InsightArticle } from "@/lib/insights";
 
 const slugify = (value: string) => value.toLowerCase().replace(/\s+/g, "-");
@@ -51,8 +51,14 @@ export default function InsightsFilter({
 
   const filtered = useMemo(() => articles.filter((article) => {
     const groupMatch = activeFilter === "all"
-      || article.group === activeFilter
-      || [article.category, ...article.tags].some((tag) => slugify(tag) === activeFilter);
+      ? true
+      : activeFilter === "records"
+        ? article.contentType === "production-record"
+        : activeFilter === "guides"
+          ? article.contentType === "production-guide"
+          : activeFilter === "news"
+            ? article.contentType === "studio-analysis"
+            : [article.category, ...article.tags].some((tag) => slugify(tag) === activeFilter);
     const haystack = normalize([
       article.title,
       article.description,
@@ -66,6 +72,7 @@ export default function InsightsFilter({
   const labels = language === "ko"
     ? {
         all: "전체",
+        records: "실제 제작 기록",
         search: "제목, 요약, 태그와 도구 검색",
         library: "전체 인사이트",
         count: "개 글",
@@ -75,6 +82,7 @@ export default function InsightsFilter({
       }
     : {
         all: "All Insights",
+        records: "Real Production Notes",
         search: "Search titles, summaries, tags and tools",
         library: "Knowledge Library",
         count: filtered.length === 1 ? "Article" : "Articles",
@@ -85,8 +93,9 @@ export default function InsightsFilter({
 
   const filters = [
     { value: "all", label: labels.all },
-    { value: "guides", label: insightGroups.guides[language].label },
-    { value: "news", label: insightGroups.news[language].label },
+    { value: "records", label: labels.records },
+    { value: "guides", label: language === "ko" ? "제작 가이드" : "Production Guides" },
+    { value: "news", label: language === "ko" ? "스튜디오 분석 / 도구 업데이트" : "Studio Analysis / Tool Updates" },
   ];
 
   return (

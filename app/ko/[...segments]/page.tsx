@@ -31,6 +31,7 @@ import {
   koreanMusicDescriptions,
   koreanOrFallback,
   koreanResourceDescriptions,
+  koreanResourceTitles,
   koreanShortDescriptions,
   koreanShortTitles,
 } from "@/lib/koreanContent";
@@ -51,12 +52,12 @@ import {
 type Props = { params: Promise<{ segments: string[] }> };
 
 const sectionMetadata: Record<string, { title: string; description: string; englishPath: string; image: string }> = {
-  about: { title: "FourFeetz 소개 | AI 애니메이션 제작 스튜디오", description: "오리지널 캐릭터, AI 애니메이션 필름, 쇼츠와 음악을 직접 제작하고 실제 테스트 경험을 제작 가이드로 전하는 FourFeetz를 소개합니다.", englishPath: "/about", image: "/images/about-hero-v2.png" },
+  about: { title: "FourFeetz 소개 | 오리지널 동물 캐릭터 제작 스튜디오", description: "자체 동물 캐릭터, 필름, 쇼츠와 음악을 제작·관리하고 실제 프로젝트 근거가 있는 제작 기록을 공유하는 독립 FourFeetz 스튜디오를 소개합니다.", englishPath: "/about", image: "/images/about-hero-v2.png" },
   films: { title: "AI 필름 | FourFeetz", description: "HARU와 FourFeetz 캐릭터들이 등장하는 감성적인 AI 필름과 힐링 영상을 만나보세요.", englishPath: "/films", image: "/images/works-hero-v2.png" },
   shorts: { title: "AI 캐릭터 쇼츠 | FourFeetz", description: "HARU, LUNA, HUGO, RURU 등 FourFeetz 캐릭터들의 짧고 따뜻한 AI 쇼츠입니다.", englishPath: "/shorts", image: "/images/shorts-hero-v2.png" },
   characters: { title: "FourFeetz 캐릭터 | 오리지널 동물 캐릭터", description: "HARU, PORI, LUNA, HUGO, RURU, OLI, MILO, FENI와 HORI의 서로 다른 개성과 이야기를 만나보세요.", englishPath: "/characters", image: "/images/characters-hero-v2.png" },
   music: { title: "오리지널 음악 | FourFeetz", description: "FourFeetz 필름, 쇼츠와 캐릭터 장면을 위해 만들고 실제 편집에 맞춰 선별한 공식 테마와 오리지널 사운드트랙입니다.", englishPath: "/music", image: "/images/music-hero-v2.png" },
-  insights: { title: "AI 영상 제작 인사이트 | FourFeetz", description: "FourFeetz의 실제 AI 애니메이션 제작 경험을 바탕으로 한 제작 가이드, 실사용 테스트, AI 영상 도구 업데이트를 제공합니다.", englishPath: "/insights", image: "/images/insights-hero-v2.png" },
+  insights: { title: "실제 AI 영상 제작 기록과 가이드 | FourFeetz", description: "공개된 FourFeetz 동물 캐릭터 프로젝트의 실제 제작 기록과 제작 가이드, 구분된 AI 영상 도구 분석을 제공합니다.", englishPath: "/insights", image: "/images/insights-hero-v2.png" },
   resources: { title: "AI 영상 제작 리소스 | FourFeetz", description: "FourFeetz 실제 제작 경험에서 정리한 공개 가이드, 템플릿과 체크리스트입니다. 내부 캐릭터 자산과 핵심 설정은 포함하지 않습니다.", englishPath: "/resources", image: "/images/resources-hero-v2.png" },
   services: { title: "AI 영상 제작 서비스 | FourFeetz", description: "FourFeetz는 AI 쇼츠, 브랜드 광고, 캐릭터 애니메이션, 반려동물 콘텐츠와 감성 영상을 제작합니다.", englishPath: "/services", image: "/images/studio-hero-v2.png" },
   tools: { title: "실제 제작에 사용한 AI 도구 | FourFeetz", description: "FourFeetz 완성 영상 제작에 사용한 AI 영상, 음악, 기획과 편집 도구의 실제 역할과 한계를 설명합니다.", englishPath: "/tools", image: "/images/tools-hero-v2.png" },
@@ -152,7 +153,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title = `${item.title} | FourFeetz 인사이트`; description = koreanOrFallback(koreanInsightDescriptions, slug, "AI 영상 제작과 도구에 관한 FourFeetz 인사이트입니다."); englishPath = item.href; image = item.image;
   } else if (section === "resources") {
     const item = getResource(slug); if (!item) return {};
-    title = `${item.title} | FourFeetz 리소스`; description = koreanResourceDescriptions[slug]; englishPath = `/resources/${slug}`; image = item.image;
+    title = `${koreanResourceTitles[slug] ?? item.title} | FourFeetz 리소스`; description = koreanResourceDescriptions[slug]; englishPath = `/resources/${slug}`; image = item.image;
   } else return {};
 
   return {

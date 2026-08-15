@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { insightGroups, type InsightLanguage } from "@/lib/insightGroups";
+import type { InsightLanguage } from "@/lib/insightGroups";
+import { insightContentTypeLabels } from "@/lib/insightClassification";
 import type { InsightArticle } from "@/lib/insights";
 
 export default function InsightCard({
@@ -11,7 +12,7 @@ export default function InsightCard({
   language: InsightLanguage;
 }) {
   const href = language === "ko" ? `/ko/insights/${article.slug}` : article.href;
-  const group = insightGroups[article.group][language];
+  const contentType = insightContentTypeLabels[article.contentType][language];
   const hasPortraitThumbnail = article.imageFit === "contain";
   const imageAlt =
     article.imageAlt?.[language] ??
@@ -58,12 +59,17 @@ export default function InsightCard({
       <div className="flex flex-1 flex-col pt-5">
         <div className="flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-[#6f4e37] px-3 py-1 text-[11px] font-black uppercase tracking-[0.12em] text-white">
-            {group.badge}
+            {contentType}
           </span>
           <span className="text-xs font-black uppercase tracking-[0.12em] text-[#a67c52]">{article.category}</span>
         </div>
         <h2 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{article.title}</h2>
         <p className="mt-3 flex-1 leading-7 text-[#76685d]">{article.description}</p>
+        {article.hasPublishedWork ? (
+          <p className="mt-4 text-xs font-black uppercase tracking-[0.14em] text-[#6f4e37]">
+            {language === "ko" ? "공개 영상·프로젝트 연결" : "Linked to published FourFeetz work"}
+          </p>
+        ) : null}
         <div className="mt-6 flex items-center justify-between gap-4 text-sm font-bold">
           <span className="text-[#9a8775]">{article.readTime}</span>
           <span className="text-[#6f4e37]">{language === "ko" ? "글 보기 →" : "Read Article →"}</span>

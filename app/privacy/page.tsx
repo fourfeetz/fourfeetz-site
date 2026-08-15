@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import StaticInfoPage from "@/components/StaticInfoPage";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 export const metadata: Metadata = {
   title: { absolute: "Privacy Policy | FourFeetz Studios" },
   description: "Learn how FourFeetz Studios collects, uses, and protects information, including Google Analytics, Google AdSense, cookies, and affiliate disclosures.",
-  alternates: { canonical: "/privacy" },
+  alternates: englishLanguageAlternates("/privacy", "/ko/privacy"),
 };
 
 export default function PrivacyPage() {

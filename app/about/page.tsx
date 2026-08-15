@@ -34,8 +34,8 @@ import { shorts } from "@/data/shorts";
 import { siteContent } from "@/lib/contentIndex";
 import { films } from "@/lib/films";
 
-const title = "About FourFeetz Studios | AI Creative Studio";
-const description = "Learn about FourFeetz Studios, creator of HARU, original AI films, cinematic music, tutorials, and creative resources.";
+const title = "About FourFeetz Studios | Original Animal Character Studio";
+const description = "Meet FourFeetz Studios, an independent studio creating and managing original animal characters, published films, shorts, music, and selected production records.";
 const canonical = "https://fourfeetz.com/about";
 const heroImage = "/images/about-hero-v2.png";
 
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 const missionCards: { title: string; description: string; icon: LucideIcon }[] = [
   { title: "Original Characters", description: "Creating lovable characters that can grow into long-term stories.", icon: Heart },
   { title: "AI Filmmaking", description: "Producing cinematic AI films using modern creative workflows.", icon: Clapperboard },
-  { title: "Creative Knowledge", description: "Sharing practical tutorials, workflows and production experience with creators worldwide.", icon: BookOpen },
+  { title: "Production Records", description: "Sharing selected project frames, visible problems and review decisions from work the studio actually completed.", icon: BookOpen },
 ];
 
 const createCards: { title: string; href: string; icon: LucideIcon }[] = [
@@ -71,7 +71,7 @@ const createCards: { title: string; href: string; icon: LucideIcon }[] = [
   { title: "YouTube Shorts", href: "/videos?type=shorts", icon: MonitorPlay },
   { title: "Original Music", href: "/music", icon: Music2 },
   { title: "Workflow Guides", href: "/resources/ai-short-film-workflow", icon: Workflow },
-  { title: "Prompt Engineering", href: "/resources/image-to-video-prompt-framework", icon: MessageSquareText },
+  { title: "Production Notes", href: "/insights?group=records", icon: MessageSquareText },
   { title: "AI Reviews", href: "/insights", icon: Sparkles },
   { title: "Creative Resources", href: "/resources", icon: BookOpen },
 ];
@@ -109,7 +109,7 @@ const futureCards: { title: string; icon: LucideIcon }[] = [
 
 const whyCards: { title: string; description: string; icon: LucideIcon }[] = [
   { title: "Original", description: "Every character is created specifically for FourFeetz.", icon: Sparkles },
-  { title: "Practical", description: "Every workflow is tested during real productions.", icon: CheckCircle2 },
+  { title: "Evidence-led", description: "Production records are tied to real project frames, review decisions and published results.", icon: CheckCircle2 },
   { title: "Growing", description: "New films, music, tutorials and resources are added continuously.", icon: TrendingUp },
 ];
 
@@ -190,7 +190,7 @@ export default function AboutPage() {
         <div className="order-2 max-w-[900px] md:order-1">
           <SectionLabel>FourFeetz Studios</SectionLabel>
           <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">About FourFeetz Studios</h1>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">Creating original AI films, lovable characters, cinematic music, and practical creative knowledge for the next generation of storytellers.</p>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">Creating and managing original animal characters, published films, shorts and music—then sharing selected evidence from the work behind them.</p>
         </div>
         <div className="order-1 md:order-2">
           <HeroIllustrationCard src={heroImage} alt="HARU beside a camera laptop microphone film reel editing tablet and coffee cup in the FourFeetz studio" priority />

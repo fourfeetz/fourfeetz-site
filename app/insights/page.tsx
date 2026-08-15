@@ -4,10 +4,10 @@ import { englishLanguageAlternates } from "@/lib/localization";
 
 export const metadata: Metadata = {
   title: { absolute: "Insights | FourFeetz Studios" },
-  description: "Practical AI animation production guides, real-world tests, and carefully analyzed updates from the tools used by FourFeetz.",
+  description: "Production records from published FourFeetz animal-character projects, plus practical guides and clearly separated AI tool analysis.",
   alternates: englishLanguageAlternates("/insights", "/ko/insights"),
-  openGraph: { title: "Insights | FourFeetz Studios", description: "Practical AI animation production guides, real-world tests, and carefully analyzed updates from the tools used by FourFeetz.", url: "https://fourfeetz.com/insights", images: ["/images/insights-hero-v2.png"] },
-  twitter: { card: "summary_large_image", title: "Insights | FourFeetz Studios", description: "Practical production guides, real-world tests, and analyzed AI video tool updates.", images: ["/images/insights-hero-v2.png"] },
+  openGraph: { title: "Insights | FourFeetz Studios", description: "Production records from published FourFeetz animal-character projects, plus practical guides and clearly separated AI tool analysis.", url: "https://fourfeetz.com/insights", images: ["/images/insights-hero-v2.png"] },
+  twitter: { card: "summary_large_image", title: "Insights | FourFeetz Studios", description: "Real FourFeetz production records, practical guides, and clearly separated AI video tool analysis.", images: ["/images/insights-hero-v2.png"] },
 };
 
 export default function Page() {

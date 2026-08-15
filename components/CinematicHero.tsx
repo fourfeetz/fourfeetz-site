@@ -140,7 +140,7 @@ export default function CinematicHero() {
           {t.home.desc}
         </p>
         <div className="mt-7 flex flex-wrap gap-4">
-          <Link href="/works/haru-first-journey" className="rounded-full bg-[#6f4e37] px-7 py-4 font-bold text-white shadow-lg transition hover:bg-[#573b29]">
+          <Link href="/videos" className="rounded-full bg-[#6f4e37] px-7 py-4 font-bold text-white shadow-lg transition hover:bg-[#573b29]">
             {t.home.primary}
           </Link>
           <Link href="/insights" className="rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-bold text-[#6f4e37] transition hover:border-[#6f4e37]">
@@ -154,7 +154,7 @@ export default function CinematicHero() {
         <div className="px-3 py-3">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-[#a67c52]">FEATURED FILM</p>
           <h2 className="mt-2 text-3xl font-black text-[#2b2119]">HARU — First Journey</h2>
-          <p className="mt-2 text-[#76685d]">Original AI Short Film by FourFeetz Studios.</p>
+          <p className="mt-2 text-[#76685d]">Published original character film by FourFeetz Studios.</p>
         </div>
       </div>
     </section>

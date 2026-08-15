@@ -17,10 +17,10 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: {
-    default: "FourFeetz Studios | AI Creative Studio",
+    default: "FourFeetz Studios | Original Animal Character Studio",
     template: "%s | FourFeetz Studios",
   },
-  description: "AI films, original characters, music, and creative production by FourFeetz.",
+  description: "Original animal characters, published films, relaxing videos, music, and selected production records by FourFeetz Studios.",
   metadataBase: new URL("https://fourfeetz.com"),
   other: {
     "google-adsense-account": "ca-pub-8793962309929245",
@@ -30,15 +30,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "FourFeetz Studios",
-    title: "FourFeetz Studios | AI Creative Studio",
-    description: "AI films, original characters, music, and creative production by FourFeetz.",
+    title: "FourFeetz Studios | Original Animal Character Studio",
+    description: "Original animal characters, published films, relaxing videos, music, and selected production records by FourFeetz Studios.",
     url: "/",
-    images: [{ url: "/images/studio-hero.png", alt: "FourFeetz Studios AI Creative Studio" }],
+    images: [{ url: "/images/studio-hero.png", alt: "FourFeetz original animal character production studio" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FourFeetz Studios | AI Creative Studio",
-    description: "AI films, original characters, music, and creative production by FourFeetz.",
+    title: "FourFeetz Studios | Original Animal Character Studio",
+    description: "Original animal characters, published films, relaxing videos, music, and selected production records by FourFeetz Studios.",
     images: ["/images/studio-hero.png"],
   },
 };

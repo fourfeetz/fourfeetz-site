@@ -25,12 +25,14 @@ function localizeArticles(articles: InsightArticle[], language: InsightLanguage)
 }
 
 export default function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {
-  const articles = localizeArticles(getPublishedInsightArticles(), language);
+  const articles = localizeArticles(getPublishedInsightArticles(), language).sort(
+    (a, b) => Number(b.contentType === "production-record") - Number(a.contentType === "production-record"),
+  );
   const isKorean = language === "ko";
   const hubPath = isKorean ? "/ko/insights" : "/insights";
   const intro = isKorean
-    ? "FourFeetz의 실제 AI 애니메이션 제작 경험을 바탕으로 한 제작 가이드, 실사용 테스트, AI 영상 도구 업데이트를 제공합니다."
-    : "Practical AI animation production guides, real-world tests, and carefully analyzed updates from the tools used by FourFeetz.";
+    ? "공개된 FourFeetz 작품의 실제 제작 기록을 먼저 살펴보고, 그 경험에서 일반화한 제작 가이드와 도구 분석을 함께 확인할 수 있습니다."
+    : "Start with records from published FourFeetz projects, then explore production guides and clearly separated studio analysis of AI video tools.";
   const categoryOrder: InsightGroup[] = ["guides", "news"];
   const featured = articles.find((article) => article.slug === "how-haru-was-created");
   const collectionSchema = {
@@ -40,11 +42,20 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
     description: intro,
     url: `${siteUrl}${hubPath}`,
     inLanguage: isKorean ? "ko-KR" : "en-US",
-    hasPart: categoryOrder.map((group) => ({
-      "@type": "CollectionPage",
-      name: insightGroups[group][language].label,
-      url: `${siteUrl}${hubPath}/${group}`,
-    })),
+    hasPart: [
+      {
+        "@type": "CollectionPage",
+        name: isKorean ? "실제 제작 기록" : "Real Production Notes",
+        url: `${siteUrl}${hubPath}?group=records`,
+      },
+      ...categoryOrder.map((group) => ({
+        "@type": "CollectionPage",
+        name: group === "news"
+          ? (isKorean ? "스튜디오 분석 / 도구 업데이트" : "Studio Analysis / Tool Updates")
+          : insightGroups[group][language].label,
+        url: `${siteUrl}${hubPath}?group=${group}`,
+      })),
+    ],
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: articles.length,
@@ -85,14 +96,40 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
           <p className="text-sm font-black uppercase tracking-[0.3em] text-[#a67c52]">
             {isKorean ? "콘텐츠 분류" : "Explore by Category"}
           </p>
-          <div className="mt-8 grid gap-6 md:grid-cols-[1.12fr_0.88fr]">
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
+            <Link
+              href={`${hubPath}?group=records`}
+              className="rounded-[36px] border border-[#d8c3ad] bg-[#6f4e37] p-8 text-white shadow-xl shadow-[#6f4e37]/15 transition duration-200 hover:-translate-y-[3px] hover:shadow-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] md:p-10"
+            >
+              <span className="inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white">
+                {isKorean ? "실제 프로젝트 근거" : "Original project evidence"}
+              </span>
+              <h2 className="mt-6 text-3xl font-black md:text-4xl">{isKorean ? "실제 제작 기록" : "Real Production Notes"}</h2>
+              <p className="mt-4 leading-8 text-[#f4e8da]">
+                {isKorean
+                  ? "공개 영상, 실제 프레임, 발생한 문제와 채택·수정·거절 판단이 함께 남아 있는 FourFeetz 프로젝트 기록입니다."
+                  : "Published work, real project frames, visible problems, and the decisions to accept, revise or reject a result."}
+              </p>
+              <p className="mt-7 font-black">
+                {isKorean
+                  ? `${articles.filter((article) => article.contentType === "production-record").length}개 기록 보기 →`
+                  : `Explore ${articles.filter((article) => article.contentType === "production-record").length} records →`}
+              </p>
+            </Link>
             {categoryOrder.map((group, index) => {
               const content = insightGroups[group][language];
-              const count = articles.filter((article) => article.group === group).length;
+              const isAnalysis = group === "news";
+              const count = articles.filter((article) => article.contentType === (isAnalysis ? "studio-analysis" : "production-guide")).length;
+              const label = isAnalysis
+                ? (isKorean ? "스튜디오 분석 / 도구 업데이트" : "Studio Analysis / Tool Updates")
+                : content.label;
+              const description = isAnalysis
+                ? (isKorean ? "실제 사용 범위와 확인된 발표를 구분하고, 미검증 기능은 다음 테스트 항목으로 남기는 FourFeetz 도구 분석입니다." : "FourFeetz tool analysis that separates documented studio use, confirmed announcements, and the production questions still requiring a test.")
+                : content.description;
               return (
                 <Link
                   key={group}
-                  href={`${hubPath}/${group}`}
+                  href={`${hubPath}?group=${group}`}
                   className={`rounded-[36px] border border-[#eadfce] p-8 transition duration-200 hover:-translate-y-[3px] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] md:p-10 ${
                     index === 0 ? "bg-[#fffaf4] shadow-lg shadow-[#6f4e37]/10" : "bg-white shadow-sm"
                   }`}
@@ -100,8 +137,8 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
                   <span className="inline-flex rounded-full bg-[#6f4e37] px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-white">
                     {content.badge}
                   </span>
-                  <h2 className="mt-6 text-3xl font-black text-[#2b2119] md:text-4xl">{content.label}</h2>
-                  <p className="mt-4 leading-8 text-[#76685d]">{content.description}</p>
+                  <h2 className="mt-6 text-3xl font-black text-[#2b2119] md:text-4xl">{label}</h2>
+                  <p className="mt-4 leading-8 text-[#76685d]">{description}</p>
                   <p className="mt-7 font-black text-[#6f4e37]">
                     {isKorean ? `${count}개 글 보기 →` : `Explore ${count} articles →`}
                   </p>
@@ -120,7 +157,7 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
           >
             <div>
               <p className="text-sm font-black uppercase tracking-[0.22em] text-[#a67c52]">
-                {isKorean ? "추천 제작 가이드" : "Featured Production Guide"}
+                {isKorean ? "추천 실제 제작 기록" : "Featured Production Record"}
               </p>
               <h2 className="mt-4 max-w-4xl text-4xl font-black text-[#2b2119] md:text-5xl">{featured.title}</h2>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">{featured.description}</p>

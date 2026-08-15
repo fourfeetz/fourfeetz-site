@@ -139,8 +139,8 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     metaDescription: "호기심 많고 영리한 FourFeetz 캐릭터 OLI를 소개합니다. 수달 OLI의 외형과 성격, 물길과 해안을 탐험하는 역할을 확인해 보세요.",
     personality: ["호기심", "영리함", "모험심", "수완", "민첩함"],
     relatedContent: [
-      { label: "캐릭터", title: "FourFeetz 캐릭터 둘러보기", description: "현재 공개된 아홉 캐릭터의 특징과 각 캐릭터 페이지를 한곳에서 확인할 수 있습니다.", href: "/ko/characters" },
-      { label: "영상", title: "공개 영상 보기", description: "OLI 전용 영상은 아직 공개되지 않았습니다. 현재 공개된 FourFeetz 캐릭터 영상을 먼저 만나보세요.", href: "/ko/videos" },
+      { label: "쇼츠", title: "OLI의 평화로운 수영", description: "OLI가 물 위를 천천히 이동하고 편안히 떠 있는 공개 세로형 쇼츠입니다.", href: "/ko/shorts/oli-peaceful-swim" },
+      { label: "실제 제작 기록", title: "OLI 수영 장면에서 배운 것", description: "실제 제작 프레임과 완성 쇼츠를 바탕으로 물 접촉, 팔다리와 움직임을 검수한 기록입니다.", href: "/ko/insights/oli-swimming-scene-lessons" },
     ],
     relatedCharacters: ["haru", "luna"],
   },
@@ -214,14 +214,25 @@ export const koreanInsightDescriptions: Record<string, string> = {
 };
 
 export const koreanResourceDescriptions: Record<string, string> = {
-  "character-consistency-prompt-pack": "여러 장면에서 캐릭터의 외형, 의상과 비율을 일관되게 유지하기 위한 프롬프트 구조입니다.",
+  "character-consistency-prompt-pack": "비공개 캐릭터 자산을 공개하지 않고 여러 장면에서 외형, 의상과 비율을 검토하는 공개 기획 프레임워크입니다.",
   "image-to-video-prompt-framework": "피사체 움직임, 카메라, 환경, 조명과 연속성을 지시하는 실용적인 이미지 투 비디오 프레임워크입니다.",
   "ai-short-film-workflow": "스토리 기획과 레퍼런스부터 애니메이션, 사운드, 편집과 배포까지 이어지는 제작 과정입니다.",
   "storyboard-planning-template": "프레이밍, 동작, 카메라, 사운드, 전환과 연속성을 정리하는 스토리보드 템플릿입니다.",
   "character-production-checklist": "캐릭터 정체성, 움직임, 음성, 음악과 최종 결과물을 점검하는 체크리스트입니다.",
-  "ai-music-prompt-starter-pack": "캐릭터 테마, 시네마틱 배경음, 앰비언트와 소셜 루프를 위한 음악 프롬프트 패턴입니다.",
+  "ai-music-prompt-starter-pack": "장면 기능, 감정의 절제, 곡 구조, 앰비언스 여백과 사용 권리를 검토하는 공개 음악 기획 가이드입니다.",
   "vertical-video-reframing-guide": "16:9 영상을 Shorts, Reels와 TikTok용 9:16 화면으로 안전하게 재구성하는 가이드입니다.",
-  "production-notes-template": "프롬프트, 레퍼런스, 모델 설정, 검토 결과와 최종 결정을 기록하는 제작 노트 템플릿입니다.",
+  "production-notes-template": "장면 목적, 공개 가능한 레퍼런스, 확인한 문제, 검토 결과와 최종 결정을 정리하는 웹 기반 제작 노트 워크시트입니다.",
+};
+
+export const koreanResourceTitles: Record<string, string> = {
+  "character-consistency-prompt-pack": "캐릭터 일관성 기획 프레임워크",
+  "image-to-video-prompt-framework": "이미지 투 비디오 지시 구성 가이드",
+  "ai-short-film-workflow": "AI 단편 영상 제작 흐름",
+  "storyboard-planning-template": "스토리보드 기획 워크시트",
+  "character-production-checklist": "캐릭터 제작 검수 체크리스트",
+  "ai-music-prompt-starter-pack": "AI 음악 방향 설정 가이드",
+  "vertical-video-reframing-guide": "16:9 영상 세로형 재구성 가이드",
+  "production-notes-template": "FourFeetz 제작 노트 워크시트",
 };
 
 export function koreanOrFallback(map: Record<string, string>, slug: string, fallback: string) {

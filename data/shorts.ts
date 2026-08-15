@@ -73,6 +73,7 @@ export const shorts: Short[] = [
     video: "/videos/shorts/oli/oli-peaceful-swim.mp4",
     poster: "/images/shorts/oli/oli-peaceful-swim-poster.png",
     characterHref: "/characters/oli",
+    insight: { title: "Read the Production Record", href: "/insights/oli-swimming-scene-lessons" },
     publishedAt: "2026-08-09",
     updatedAt: "2026-08-09",
     featured: true,

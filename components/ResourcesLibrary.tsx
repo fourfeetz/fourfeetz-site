@@ -3,24 +3,24 @@ import Link from "next/link";
 import HeroIllustrationCard from "./HeroIllustrationCard";
 import PracticalResourceCards from "./resources/PracticalResourceCards";
 
-const filters = ["All", "Prompts", "Workflows", "Templates", "Checklists", "Downloads", "AI Video", "AI Music", "Social Media"];
+const resourceFormats = ["Public Web Guides", "Workflows", "Worksheets", "Checklists", "AI Video", "AI Music", "Social Media"];
 
 const featuredResource = {
   category: "Workflow",
   title: "The FourFeetz AI Video Production Workflow",
   desc: "A repeatable production system covering story planning, reference images, AI video generation, sound, editing, and multi-platform publishing.",
-  meta: ["Free Guide", "Updated July 2026"],
+  meta: ["Public Web Guide", "Read Online"],
   primaryHref: "/resources/ai-short-film-workflow",
   secondaryHref: "/insights/repeatable-ai-video-workflow",
 };
 
 const resources = [
   {
-    category: "Prompts",
-    title: "Character Consistency Prompt Pack",
-    desc: "Reusable prompts for keeping characters, outfits, facial features, and visual style consistent across scenes.",
-    type: "Prompt Pack",
-    access: "Free",
+    category: "Planning",
+    title: "Character Consistency Planning Framework",
+    desc: "A public review structure for tracking visible identity, wardrobe, proportions and continuity without sharing FourFeetz character prompts.",
+    type: "Planning Framework",
+    access: "Read Online",
     href: "/resources/character-consistency-prompt-pack",
     thumbnail: "/images/resources/character-consistency-prompt-pack.svg",
   },
@@ -29,7 +29,7 @@ const resources = [
     title: "Image-to-Video Prompt Framework",
     desc: "A practical prompt structure for camera movement, subject motion, lighting, environment, and continuity.",
     type: "Guide",
-    access: "Free",
+    access: "Read Online",
     href: "/resources/image-to-video-prompt-framework",
     thumbnail: "/images/resources/image-to-video-prompt-framework.svg",
   },
@@ -38,7 +38,7 @@ const resources = [
     title: "AI Short Film Workflow",
     desc: "A repeatable pipeline from concept and reference images to animation, sound, editing, and publishing.",
     type: "Workflow",
-    access: "Free",
+    access: "Read Online",
     href: "/resources/ai-short-film-workflow",
     thumbnail: "/images/resources/ai-short-film-workflow.svg",
   },
@@ -47,25 +47,25 @@ const resources = [
     title: "Storyboard Planning Template",
     desc: "A reusable planning sheet for scenes, shot types, camera direction, sound, and transitions.",
     type: "Template",
-    access: "Free",
+    access: "Read Online",
     href: "/resources/storyboard-planning-template",
     thumbnail: "/images/resources/storyboard-planning-template.svg",
   },
   {
     category: "Checklists",
     title: "Character Production Checklist",
-    desc: "A checklist for visual consistency, prompts, voice, music, motion, and final delivery.",
+    desc: "A public checklist for visible identity, motion, sound, edit continuity and final delivery review.",
     type: "Checklist",
-    access: "Free",
+    access: "Read Online",
     href: "/resources/character-production-checklist",
     thumbnail: "/images/resources/character-production-checklist.svg",
   },
   {
     category: "AI Music",
-    title: "AI Music Prompt Starter Pack",
-    desc: "Prompt examples for cinematic, emotional, cute, ambient, and trailer-style background music.",
-    type: "Prompt Pack",
-    access: "Free",
+    title: "AI Music Direction Guide",
+    desc: "A public planning guide for defining scene function, emotional restraint, structure, ambience space and rights review.",
+    type: "Direction Guide",
+    access: "Read Online",
     href: "/resources/ai-music-prompt-starter-pack",
     thumbnail: "/images/resources/ai-music-prompt-starter-pack.svg",
   },
@@ -74,16 +74,16 @@ const resources = [
     title: "16:9 to 9:16 Reframing Guide",
     desc: "A practical guide for adapting cinematic AI videos to TikTok, Instagram Reels, YouTube Shorts, and Naver Clip.",
     type: "Guide",
-    access: "Free",
+    access: "Read Online",
     href: "/resources/vertical-video-reframing-guide",
     thumbnail: "/images/resources/vertical-video-reframing-guide.svg",
   },
   {
-    category: "Downloads",
-    title: "FourFeetz Production Notes Template",
-    desc: "A clean reusable document for recording prompts, tools, settings, problems, and final results.",
-    type: "Download",
-    access: "Free",
+    category: "Worksheets",
+    title: "FourFeetz Production Notes Worksheet",
+    desc: "A browser-readable worksheet for recording references, tools, visible problems, review decisions, and final results without exposing private studio assets.",
+    type: "Worksheet",
+    access: "Read Online",
     href: "/resources/production-notes-template",
     thumbnail: "/images/resources/production-notes-template.svg",
   },
@@ -155,11 +155,11 @@ export default function ResourcesLibrary() {
       </section>
 
       <section className="px-6 py-12">
-        <div className="mx-auto flex max-w-7xl flex-wrap gap-2" aria-label="Resource categories">
-          {filters.map((filter) => (
-            <button key={filter} type="button" className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
-              {filter}
-            </button>
+        <div className="mx-auto flex max-w-7xl flex-wrap gap-2" aria-label="Available resource formats">
+          {resourceFormats.map((format) => (
+            <span key={format} className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#6f4e37]">
+              {format}
+            </span>
           ))}
         </div>
       </section>
@@ -212,7 +212,7 @@ export default function ResourcesLibrary() {
             <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Toolkit</p>
             <h2 className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">Build Better AI Stories</h2>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[#76685d]">
-              Use FourFeetz resources to plan, create, refine, and publish AI films more consistently.
+              Read public planning and review materials in the browser, then compare the methods with FourFeetz’s published work and production records.
             </p>
           </div>
           <div className="mt-8 flex flex-wrap gap-3 md:mt-0">

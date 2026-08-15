@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { KoreanHomePage } from "@/components/korean/KoreanPages";
 import { languageAlternates } from "@/lib/localization";
 
-const title = "FourFeetz | AI 애니메이션 스튜디오";
-const description = "FourFeetz는 AI 캐릭터, 감성 쇼츠, 힐링 영상과 제작 인사이트를 만드는 AI 애니메이션 스튜디오입니다.";
+const title = "FourFeetz | 오리지널 동물 캐릭터 스튜디오";
+const description = "FourFeetz는 자체 동물 캐릭터로 필름, 쇼츠, 릴렉싱 영상과 음악을 제작하고 실제 프로젝트 제작 기록을 공유하는 독립 스튜디오입니다.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     url: "/ko",
     locale: "ko_KR",
     alternateLocale: ["en_US"],
-    images: [{ url: "/images/studio-hero-v2.png", alt: "FourFeetz AI 애니메이션 스튜디오" }],
+    images: [{ url: "/images/studio-hero-v2.png", alt: "FourFeetz 오리지널 동물 캐릭터 스튜디오" }],
   },
   twitter: { card: "summary_large_image", title, description, images: ["/images/studio-hero-v2.png"] },
 };

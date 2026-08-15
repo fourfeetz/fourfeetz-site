@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ProductionInsight, ProductionInsightSection } from "@/lib/productionInsights";
+import { classifyInsight, isProductionRecordSlug } from "@/lib/insightClassification";
 
 const siteUrl = "https://fourfeetz.com";
 type ArticleLanguage = "en" | "ko";
@@ -67,22 +68,24 @@ function validateVideoUploadDate(uploadDate: string): string {
 
 const articleLabels = {
   en: {
-    home: "Home", insights: "Insights", guides: "Production Guides",
+    home: "Home", insights: "Insights", guides: "Production Guides", analysis: "Studio Analysis / Tool Updates",
     productionNotes: "FourFeetz production notes", fromStudio: "From the studio",
     educationalExample: "Educational example · not our proprietary master prompt",
     viewFullSize: "View full size", viewFullSizeLabel: "View full-size image",
     updated: "Updated", contents: "Table of contents", verdict: "Quick verdict",
+    record: "Production Record", recordBasis: "Based on original FourFeetz project frames, test clips, and published work.",
     faqTitle: "Questions creators ask us", continue: "Continue in the HARU world",
-    allGuides: "All Production Guides →",
+    allGuides: "All Production Guides →", allAnalysis: "All Studio Analysis →",
   },
   ko: {
-    home: "홈", insights: "인사이트", guides: "제작 가이드",
+    home: "홈", insights: "인사이트", guides: "제작 가이드", analysis: "스튜디오 분석 / 도구 업데이트",
     productionNotes: "FourFeetz 제작 노트", fromStudio: "스튜디오 노트",
     educationalExample: "교육용 예시 · 비공개 마스터 프롬프트가 아닙니다",
     viewFullSize: "원본 크기로 보기", viewFullSizeLabel: "원본 크기 이미지 보기",
     updated: "업데이트", contents: "목차", verdict: "핵심 정리",
+    record: "실제 제작 기록", recordBasis: "실제 프로젝트 프레임, 테스트 영상 및 공개된 FourFeetz 결과물을 바탕으로 작성했습니다.",
     faqTitle: "자주 묻는 질문", continue: "관련 제작 가이드",
-    allGuides: "제작 가이드 전체 보기 →",
+    allGuides: "제작 가이드 전체 보기 →", allAnalysis: "스튜디오 분석 전체 보기 →",
   },
 } as const;
 
@@ -217,10 +220,16 @@ export default function ProductionInsightArticle({
   language?: ArticleLanguage;
 }) {
   const isKorean = language === "ko";
+  const isProductionRecord = isProductionRecordSlug(article.slug);
+  const contentType = classifyInsight(article.slug, "guides");
+  const isStudioAnalysis = contentType === "studio-analysis";
   const labels = articleLabels[language];
   const homePath = isKorean ? "/ko" : "/";
   const insightsPath = isKorean ? "/ko/insights" : "/insights";
-  const guidesPath = isKorean ? "/ko/insights/guides" : "/insights/guides";
+  const guidesPath = `${insightsPath}?group=guides`;
+  const analysisPath = `${insightsPath}?group=news`;
+  const listingPath = isProductionRecord ? `${insightsPath}?group=records` : isStudioAnalysis ? analysisPath : guidesPath;
+  const listingLabel = isProductionRecord ? labels.record : isStudioAnalysis ? labels.analysis : labels.guides;
   const canonical = `${siteUrl}${isKorean ? "/ko" : ""}/insights/${article.slug}`;
   const articleSchema = {
     "@context": "https://schema.org",
@@ -243,7 +252,7 @@ export default function ProductionInsightArticle({
     itemListElement: [
       { "@type": "ListItem", position: 1, name: labels.home, item: isKorean ? `${siteUrl}/ko` : siteUrl },
       { "@type": "ListItem", position: 2, name: labels.insights, item: `${siteUrl}${insightsPath}` },
-      { "@type": "ListItem", position: 3, name: labels.guides, item: `${siteUrl}${guidesPath}` },
+      { "@type": "ListItem", position: 3, name: listingLabel, item: `${siteUrl}${listingPath}` },
       { "@type": "ListItem", position: 4, name: article.shortTitle, item: canonical },
     ],
   };
@@ -285,7 +294,7 @@ export default function ProductionInsightArticle({
       {videoSchema ? <JsonLd value={videoSchema} /> : null}
       <article>
         <header className="mx-auto max-w-5xl px-6 pb-12 pt-16 md:pb-16 md:pt-24">
-          <nav aria-label={isKorean ? "경로" : "Breadcrumb"} className="text-sm font-bold text-[#8a7768]"><Link href={homePath} className="hover:text-[#6f4e37]">{labels.home}</Link><span className="px-2">/</span><Link href={insightsPath} className="hover:text-[#6f4e37]">{labels.insights}</Link><span className="px-2">/</span><Link href={guidesPath} className="hover:text-[#6f4e37]">{labels.guides}</Link><span className="px-2">/</span><span>{article.shortTitle}</span></nav>
+          <nav aria-label={isKorean ? "경로" : "Breadcrumb"} className="text-sm font-bold text-[#8a7768]"><Link href={homePath} className="hover:text-[#6f4e37]">{labels.home}</Link><span className="px-2">/</span><Link href={insightsPath} className="hover:text-[#6f4e37]">{labels.insights}</Link><span className="px-2">/</span><Link href={listingPath} className="hover:text-[#6f4e37]">{listingLabel}</Link><span className="px-2">/</span><span>{article.shortTitle}</span></nav>
           <p className="mt-10 text-xs font-black uppercase tracking-[0.28em] text-[#a67c52]">{article.eyebrow} · {article.category}</p>
           <h1 className="mt-5 text-5xl font-black leading-[1.02] tracking-[-0.045em] text-[#2b2119] md:text-7xl">{article.title}</h1>
           <p className="mt-7 max-w-4xl text-xl leading-9 text-[#665a50]">{article.description}</p>
@@ -294,6 +303,15 @@ export default function ProductionInsightArticle({
             <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">{labels.updated} {article.updated}</span>
             <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">FourFeetz Studios</span>
           </div>
+          {isProductionRecord ? (
+            <div className="mt-7 rounded-[24px] border border-[#d8c3ad] bg-white p-5 shadow-sm md:flex md:items-center md:gap-6 md:p-6">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">{labels.record}</p>
+              <div className="mt-3 md:mt-0">
+                <Link href={isKorean ? "/ko/about" : "/about"} className="font-black text-[#2b2119] underline decoration-[#d8c3ad] underline-offset-4">FourFeetz Studios</Link>
+                <p className="mt-2 leading-7 text-[#76685d]">{labels.recordBasis}</p>
+              </div>
+            </div>
+          ) : <p className="mt-7 inline-flex rounded-full border border-[#d8c3ad] bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#6f4e37]">{listingLabel}</p>}
           <figure className={`mt-10 overflow-hidden rounded-[32px] border border-[#eadfce] shadow-2xl shadow-[#6f4e37]/10 ${article.heroFit === "contain" ? "bg-white" : "bg-[#eadfce]"}`}>
             <Image src={article.hero} alt={article.heroAlt ?? `${article.shortTitle} hero artwork featuring the HARU production world`} width={1600} height={900} priority className={`aspect-video h-auto w-full ${article.heroFit === "contain" ? "object-contain" : "object-cover"}`} style={{ objectPosition: article.heroPosition ?? "50% 50%" }} />
             {article.heroCaption ? <figcaption className="border-t border-[#eadfce] bg-white px-5 py-4 text-sm leading-6 text-[#76685d] md:px-6">{article.heroCaption}</figcaption> : null}
@@ -309,7 +327,7 @@ export default function ProductionInsightArticle({
           </div>
         </div>
 
-        <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16"><div className="mx-auto max-w-6xl"><div className="flex flex-wrap items-end justify-between gap-4"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{labels.continue}</p><Link href={guidesPath} className="font-black text-[#6f4e37]">{labels.allGuides}</Link></div><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <Link key={item.href} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span><strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong></Link>)}</div></div></section>
+        <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16"><div className="mx-auto max-w-6xl"><div className="flex flex-wrap items-end justify-between gap-4"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{labels.continue}</p><Link href={listingPath} className="font-black text-[#6f4e37]">{isProductionRecord ? `${labels.record} →` : isStudioAnalysis ? labels.allAnalysis : labels.allGuides}</Link></div><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <Link key={item.href} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span><strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong></Link>)}</div></div></section>
       </article>
     </main>
   );

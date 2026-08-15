@@ -114,6 +114,7 @@ export const films: Film[] = [
       { step: "Final Review", description: "Check loop joins, collar continuity, window masking, audio balance, and the closing FourFeetz mark." },
     ],
     relatedInsights: [
+      { title: "Turning a Short Scene Into a Relaxing Video", description: "How the approved First Shot, restrained resting loop, short dissolves, masking and ambience became the finished four-minute film.", href: "/insights/turning-short-scene-into-relaxing-video" },
       { title: "MagicLight, Seedance & Google Flow Production Test", description: "Why the final EP.03 workflow stayed with Google Flow after real scene tests in MagicLight and Seedance.", href: "/insights/magiclight-seedance-2-real-production-test" },
       { title: "Google Flow Complete Guide", description: "A production-focused guide to First Shot planning, controlled motion, and extensions.", href: "/insights/google-flow-complete-guide" },
       { title: "Writing Better Image-to-Video Prompts", description: "Lessons from restrained HARU motion and continuity-focused image-to-video work.", href: "/insights/image-to-video-prompts" },

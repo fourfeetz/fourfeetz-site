@@ -43,7 +43,7 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
       { "@type": "ListItem", position: 2, name: "Insights", item: `${siteUrl}/insights` },
-      { "@type": "ListItem", position: 3, name: "AI Tool Updates", item: `${siteUrl}/insights/news` },
+      { "@type": "ListItem", position: 3, name: "Studio Analysis / Tool Updates", item: `${siteUrl}/insights/news` },
       { "@type": "ListItem", position: 4, name: article.shortTitle, item: canonical },
     ],
   };
@@ -60,7 +60,7 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
             <span className="px-2">/</span>
             <Link href="/insights" className="hover:text-[#6f4e37]">Insights</Link>
             <span className="px-2">/</span>
-            <Link href="/insights/news" className="hover:text-[#6f4e37]">AI Tool Updates</Link>
+            <Link href="/insights/news" className="hover:text-[#6f4e37]">Studio Analysis / Tool Updates</Link>
             <span className="px-2">/</span>
             <span>{article.shortTitle}</span>
           </nav>
@@ -71,6 +71,7 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
             <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">{article.readTime}</span>
             <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">Published {article.publishedAt}</span>
             <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">Official source checked</span>
+            <Link href="/about" className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2 underline decoration-[#d8c3ad] underline-offset-4">FourFeetz Studios</Link>
           </div>
           <figure className="mt-10 overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#eadfce] shadow-2xl shadow-[#6f4e37]/10">
             <Image src={article.hero} alt={`${article.shortTitle} editorial workflow illustration`} width={1664} height={936} priority className="aspect-video h-auto w-full object-cover" />
@@ -154,7 +155,7 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Related analysis</p>
                 <h2 className="mt-3 text-3xl font-black text-[#2b2119]">More AI Tool Updates</h2>
               </div>
-              <Link href="/insights/news" className="font-black text-[#6f4e37]">All AI Tool Updates →</Link>
+              <Link href="/insights/news" className="font-black text-[#6f4e37]">All Studio Analysis →</Link>
             </div>
             <div className="mt-7 grid gap-4 md:grid-cols-3">
               {related.map((item) => (

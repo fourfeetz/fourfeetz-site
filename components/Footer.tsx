@@ -11,10 +11,10 @@ const footerLinks = [
   { href: "/insights", label: "Insights" },
   { href: "/resources", label: "Resources" },
   { href: "/services", label: "Services" },
-  { href: "/tools", label: "Tools I Use" },
+  { href: "/tools", label: "Production Tools" },
   { href: "/about", label: "About" },
-  { href: "/privacy", label: "Privacy" },
-  { href: "/terms", label: "Terms" },
+  { href: "/privacy", koreanHref: "/ko/privacy", label: "Privacy" },
+  { href: "/terms", koreanHref: "/terms", label: "Terms" },
   { href: "/contact", koreanHref: "/ko/services#contact", label: "Contact" },
 ];
 
@@ -26,7 +26,7 @@ export default function Footer() {
     Insights: "인사이트",
     Resources: "리소스",
     Services: "제작 의뢰",
-    "Tools I Use": "사용 도구",
+    "Production Tools": "제작 도구",
     About: "소개",
     Privacy: "개인정보 처리방침",
     Terms: "이용약관",
@@ -46,8 +46,8 @@ export default function Footer() {
           />
           <p className="mt-5 max-w-md text-[#76685d]">
             {lang === "ko"
-              ? "FourFeetz는 따뜻한 AI 캐릭터 영상, 음악과 창작 인사이트를 만드는 AI 애니메이션 스튜디오입니다."
-              : "FourFeetz Studios creates original AI films, characters, music and creative knowledge."}
+              ? "FourFeetz Studios는 자체 동물 캐릭터와 공개 영상을 제작·관리하고, 실제 프로젝트에서 선별한 제작 기록을 공유하는 독립 제작 스튜디오입니다."
+              : "FourFeetz Studios is an independent studio creating and managing original animal characters, published films, and selected records from real projects."}
           </p>
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-3 text-sm font-bold text-[#6f4e37] md:justify-end lg:flex-nowrap lg:gap-x-3">

@@ -135,6 +135,26 @@ export function getLatestInsights(limit = 4, now = new Date()) {
   ).slice(0, limit);
 }
 
+const homepageProductionRecordOrder = [
+  "from-first-image-to-final-short",
+  "oli-swimming-scene-lessons",
+  "haru-luna-rainy-window-ai-pet-video",
+  "turning-short-scene-into-relaxing-video",
+  "how-haru-was-created",
+  "cozy-retriever-kitten-sleep-short",
+];
+
+export function getHomepageProductionRecords(limit = 6, now = new Date()) {
+  const records = publishedItems(now).filter(
+    (item) => item.type === "Insight" && insightArticles.find((article) => article.slug === item.id)?.contentType === "production-record",
+  );
+
+  return homepageProductionRecordOrder
+    .map((slug) => records.find((item) => item.id === slug))
+    .filter((item): item is HomepageContentItem => Boolean(item))
+    .slice(0, limit);
+}
+
 export function getHomepageCharacters(limit = 4, now = new Date()) {
   const characters = sortByFreshness(
     publishedItems(now).filter((item) => item.type === "Character"),

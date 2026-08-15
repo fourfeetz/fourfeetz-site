@@ -7,27 +7,15 @@ import { socialPlatforms } from "@/lib/i18n";
 import {
   getFeaturedWorks,
   getHomepageCharacters,
+  getHomepageProductionRecords,
   getHomepageResources,
-  getLatestInsights,
-  getLatestUpdates,
-  type HomepageContentType,
 } from "@/lib/homepageContent";
 import { useLanguage } from "@/components/LanguageProvider";
 
-const todaysUpdates = getLatestUpdates(4);
 const works = getFeaturedWorks(4);
 const characters = getHomepageCharacters(9);
-const insights = getLatestInsights(4);
+const productionRecords = getHomepageProductionRecords(6);
 const resources = getHomepageResources(4);
-
-const updateIcons: Record<HomepageContentType, string> = {
-  Film: "🎬",
-  Short: "🎬",
-  Music: "🎵",
-  Insight: "📝",
-  Resource: "🧰",
-  Character: "🐾",
-};
 
 function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: string; desc: string }) {
   return (
@@ -54,29 +42,11 @@ export default function Home() {
     <main>
       <CinematicHero />
 
-      <section className="border-y border-[#eadfce] bg-white px-6 py-16 md:py-20">
-        <SectionHeader
-          eyebrow="Now in Studio"
-          title={t.home.todaysUpdate}
-          desc="A compact look at what the studio is building, testing, writing, and preparing next."
-        />
-        <div className="mx-auto mt-8 grid max-w-7xl gap-4 md:grid-cols-4">
-          {todaysUpdates.map((item) => (
-            <Link key={`${item.type}-${item.id}`} href={item.href} aria-label={`View ${item.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-6 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
-              <div className="text-3xl" aria-hidden="true">{updateIcons[item.type]}</div>
-              <p className="mt-5 text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">New {item.type}</p>
-              <h3 className="mt-2 text-xl font-black text-[#2b2119]">{item.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-[#76685d]">{item.description}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
       <section className="px-6 py-20 md:py-24">
         <SectionHeader
-          eyebrow="Portfolio"
+          eyebrow="Published FourFeetz Work"
           title={t.home.featuredWorks}
-          desc="AI films, shorts, music videos, series concepts, and commercial experiments prepared for multi-platform storytelling."
+          desc="Watch finished films and shorts featuring FourFeetz original characters and studio-directed animal stories."
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">
           {works.map((work) => (
@@ -93,6 +63,7 @@ export default function Home() {
                 </div>
                 <h3 className="mt-3 text-2xl font-black text-[#2b2119]">{work.title}</h3>
                 <p className="mt-3 text-[#76685d]">{work.description}</p>
+                <p className="mt-5 text-sm font-black text-[#6f4e37]">Watch the published work →</p>
               </div>
             </Link>
           ))}
@@ -101,13 +72,32 @@ export default function Home() {
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20 md:py-24">
         <SectionHeader
+          eyebrow="Real Production Notes"
+          title="What the finished work taught us"
+          desc="Project records built from published FourFeetz videos, selected frames, visible production problems, and the decisions to revise, reject or keep a result."
+        />
+        <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {productionRecords.map((article) => (
+            <Link key={article.id} href={article.href} aria-label={`Read ${article.title}`} className="group flex h-full flex-col rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-5 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
+              {article.image ? <Image src={article.image} alt={`${article.title} production record`} width={720} height={405} className="aspect-video w-full rounded-2xl bg-[#f6ebdd] object-cover" /> : null}
+              <p className="mt-5 text-xs font-black uppercase tracking-[0.18em] text-[#a67c52]">Production Record · Published Work</p>
+              <h3 className="mt-3 text-2xl font-black leading-tight text-[#2b2119]">{article.title}</h3>
+              <p className="mt-3 flex-1 leading-7 text-[#76685d]">{article.description}</p>
+              <p className="mt-6 text-sm font-black text-[#6f4e37]">{article.readTime} · Read the record →</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-6 py-20 md:py-24">
+        <SectionHeader
           eyebrow="Character Universe"
           title={t.home.characters}
-          desc="Meet the original characters of FourFeetz, each with a unique personality and story."
+          desc="Meet the original animal characters FourFeetz creates, manages, and develops across films, shorts, music, and production records."
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {characters.map((character) => (
-            <Link key={character.id} href={character.href} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
+            <Link key={character.id} href={character.href} className="rounded-3xl border border-[#eadfce] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
               {character.image ? (
                 <Image src={character.image} alt={character.title} width={500} height={500} className="rounded-2xl bg-[#fffaf4]" />
               ) : (
@@ -121,21 +111,17 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-20 md:py-24">
-        <SectionHeader
-          eyebrow="Creative Knowledge"
-          title={t.home.latestInsights}
-          desc="Editorial articles and practical notes for creators working with AI films, characters, music, tools, and repeatable workflows."
-        />
-        <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {insights.map((article) => (
-            <Link key={article.id} href={article.href} aria-label={`Read ${article.title}`} className="block cursor-pointer rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
-              <p className="text-sm font-black text-[#a67c52]">{article.category}</p>
-              <h3 className="mt-4 text-2xl font-black leading-tight text-[#2b2119]">{article.title}</h3>
-              <p className="mt-3 text-[#76685d]">{article.description}</p>
-              <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] text-[#9a8775]">{article.readTime}</p>
-            </Link>
-          ))}
+      <section className="px-6 py-16 md:py-20">
+        <div className="mx-auto grid max-w-7xl gap-8 rounded-[40px] border border-[#eadfce] bg-[#6f4e37] p-8 text-white shadow-xl shadow-[#6f4e37]/15 md:grid-cols-[1.15fr_0.85fr] md:items-center md:p-12">
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#e5c9a8]">Studio Services</p>
+            <h2 className="mt-3 text-4xl font-black md:text-5xl">Seen the work and the process?</h2>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-[#f4e8da]">Review FourFeetz’s published work and production notes first, then ask about an animal-character video shaped for your own project.</p>
+          </div>
+          <div className="flex flex-wrap gap-3 md:justify-end">
+            <Link href="/services" className="rounded-full bg-white px-7 py-4 font-black text-[#6f4e37]">View Services</Link>
+            <Link href="/services#contact" className="rounded-full border border-white/40 px-7 py-4 font-black text-white">Request a Quote</Link>
+          </div>
         </div>
       </section>
 
@@ -143,7 +129,7 @@ export default function Home() {
         <SectionHeader
           eyebrow="Creator Toolkit"
           title={t.home.resources}
-          desc="A premium resource library prepared for tutorials, templates, prompt systems, and downloadable creative assets."
+          desc="Public web guides, worksheets, and review frameworks derived from studio work. Private character prompts and internal production assets are not included."
         />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-4">
           {resources.map((resource) => (
@@ -163,7 +149,7 @@ export default function Home() {
           </div>
           <div>
             <p className="text-xl leading-9 text-[#76685d]">
-              FourFeetz Studios is an AI Creative Studio creating original films, memorable characters, AI music, and practical creative knowledge. The studio connects storytelling, tool research, and production workflows for the next generation of creators.
+              FourFeetz Studios is an independent animal-character production studio. We create and manage original characters, publish finished films, shorts and music, and document selected production decisions without exposing proprietary character assets.
             </p>
             <Link href="/about" className="mt-8 inline-flex rounded-full bg-[#6f4e37] px-7 py-4 font-bold text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29]">
               Learn More
@@ -176,7 +162,7 @@ export default function Home() {
         <SectionHeader
           eyebrow="Distribution"
           title={t.home.social}
-          desc="FourFeetz distributes AI films, shorts, knowledge, and studio updates across multiple social platforms."
+          desc="Follow published FourFeetz films, shorts, music, production notes, and studio updates."
         />
         <div className="mx-auto mt-8 flex max-w-7xl flex-wrap gap-3">
           {socialPlatforms.map((platform) => (

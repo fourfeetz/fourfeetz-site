@@ -1,5 +1,6 @@
 import { howHaruInsight } from "@/lib/howHaruInsight";
 import type { InsightGroup } from "@/lib/insightGroups";
+import { classifyInsight, type InsightContentType } from "@/lib/insightClassification";
 import { magicLightInsight } from "@/lib/magicLightInsight";
 import { newProductionGuides } from "@/lib/newProductionGuides";
 import { productionInsights, type ProductionInsight } from "@/lib/productionInsights";
@@ -9,6 +10,8 @@ import { toolNewsInsights } from "@/lib/toolNewsInsights";
 export type InsightArticle = {
   slug: string;
   group: InsightGroup;
+  contentType: InsightContentType;
+  hasPublishedWork: boolean;
   category: string;
   title: string;
   description: string;
@@ -39,6 +42,8 @@ function fromProductionInsight(
   return {
     slug: article.slug,
     group: "guides",
+    contentType: classifyInsight(article.slug, "guides"),
+    hasPublishedWork: classifyInsight(article.slug, "guides") === "production-record",
     category: article.category,
     title: article.shortTitle,
     description: article.description,
@@ -63,6 +68,8 @@ export const insightArticles: InsightArticle[] = [
   ...Object.values(toolNewsInsights).map((article) => ({
     slug: article.slug,
     group: "news" as const,
+    contentType: "studio-analysis" as const,
+    hasPublishedWork: false,
     category: article.category,
     title: article.shortTitle,
     description: article.description,
@@ -88,6 +95,8 @@ export const insightArticles: InsightArticle[] = [
   {
     slug: "kling-vs-veo",
     group: "guides",
+    contentType: "studio-analysis",
+    hasPublishedWork: false,
     category: "Tools",
     title: "Kling vs Veo",
     description: "A scene-by-scene planning comparison focused on motion realism, prompt control, continuity and production speed.",
@@ -102,6 +111,8 @@ export const insightArticles: InsightArticle[] = [
   {
     slug: "runway-gen-4-review",
     group: "guides",
+    contentType: "studio-analysis",
+    hasPublishedWork: false,
     category: "AI Video",
     title: "Runway Gen-4 Review",
     description: "A practical review of image consistency, motion quality, camera control, and production workflow.",
@@ -117,6 +128,8 @@ export const insightArticles: InsightArticle[] = [
   {
     slug: "veo3-complete-review",
     group: "guides",
+    contentType: "studio-analysis",
+    hasPublishedWork: false,
     category: "AI Video",
     title: "Veo 3 Complete Review",
     description: "A production-focused review of image quality, motion, prompts, and camera control.",
@@ -137,6 +150,10 @@ export function getPublishedInsightArticles(now = new Date()) {
   );
 }
 
+export function getProductionRecordInsights(now = new Date()) {
+  return getPublishedInsightArticles(now).filter((article) => article.contentType === "production-record");
+}
+
 export function getPublishedInsightsByGroup(group: InsightGroup, now = new Date()) {
-  return getPublishedInsightArticles(now).filter((article) => article.group === group);
+  return getPublishedInsightArticles(now).filter((article) => article.contentType === (group === "guides" ? "production-guide" : "studio-analysis"));
 }
