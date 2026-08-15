@@ -24,6 +24,7 @@ export type NewProductionGuideSlug = (typeof newProductionGuideSlugs)[number];
 export type NewProductionGuideLanguage = "en" | "ko";
 export type NewProductionGuide = ProductionInsight & {
   heroAlt: string;
+  heroCaption?: string;
   heroFit?: "cover" | "contain";
   heroPosition?: string;
 };

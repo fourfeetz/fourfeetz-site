@@ -6,6 +6,7 @@ const siteUrl = "https://fourfeetz.com";
 type ArticleLanguage = "en" | "ko";
 type RenderableProductionInsight = ProductionInsight & {
   heroAlt?: string;
+  heroCaption?: string;
   heroFit?: "cover" | "contain";
   heroPosition?: string;
 };
@@ -295,6 +296,7 @@ export default function ProductionInsightArticle({
           </div>
           <figure className={`mt-10 overflow-hidden rounded-[32px] border border-[#eadfce] shadow-2xl shadow-[#6f4e37]/10 ${article.heroFit === "contain" ? "bg-white" : "bg-[#eadfce]"}`}>
             <Image src={article.hero} alt={article.heroAlt ?? `${article.shortTitle} hero artwork featuring the HARU production world`} width={1600} height={900} priority className={`aspect-video h-auto w-full ${article.heroFit === "contain" ? "object-contain" : "object-cover"}`} style={{ objectPosition: article.heroPosition ?? "50% 50%" }} />
+            {article.heroCaption ? <figcaption className="border-t border-[#eadfce] bg-white px-5 py-4 text-sm leading-6 text-[#76685d] md:px-6">{article.heroCaption}</figcaption> : null}
           </figure>
         </header>
 

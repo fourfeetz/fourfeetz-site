@@ -15,6 +15,7 @@ export type InsightArticle = {
   readTime: string;
   href: string;
   image: string;
+  imageAlt?: Partial<Record<"en" | "ko", string>>;
   imageFit?: "cover" | "contain";
   imagePosition?: string;
   tags: string[];
@@ -33,6 +34,7 @@ function fromProductionInsight(
     heroFit?: "cover" | "contain";
     heroPosition?: string;
   },
+  imageAlt?: InsightArticle["imageAlt"],
 ): InsightArticle {
   return {
     slug: article.slug,
@@ -43,6 +45,7 @@ function fromProductionInsight(
     readTime: article.readTime,
     href: `/insights/${article.slug}`,
     image: article.hero,
+    imageAlt,
     imageFit: article.heroFit,
     imagePosition: article.heroPosition,
     tags: article.tags,
@@ -75,8 +78,13 @@ export const insightArticles: InsightArticle[] = [
   })),
   fromProductionInsight(magicLightInsight),
   fromProductionInsight(howHaruInsight),
-  ...Object.values(newProductionGuides).map((article) => fromProductionInsight(article.en)),
-  ...Object.values(productionInsights).map(fromProductionInsight),
+  ...Object.values(newProductionGuides).map((article) =>
+    fromProductionInsight(article.en, {
+      en: article.en.heroAlt,
+      ko: article.ko.heroAlt,
+    }),
+  ),
+  ...Object.values(productionInsights).map((article) => fromProductionInsight(article)),
   {
     slug: "kling-vs-veo",
     group: "guides",

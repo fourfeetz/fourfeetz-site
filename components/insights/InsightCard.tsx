@@ -13,6 +13,9 @@ export default function InsightCard({
   const href = language === "ko" ? `/ko/insights/${article.slug}` : article.href;
   const group = insightGroups[article.group][language];
   const hasPortraitThumbnail = article.imageFit === "contain";
+  const imageAlt =
+    article.imageAlt?.[language] ??
+    `${article.title} ${language === "ko" ? "대표 이미지" : "thumbnail"}`;
 
   return (
     <Link
@@ -34,7 +37,7 @@ export default function InsightCard({
             <span aria-hidden="true" className="absolute inset-0 bg-[#2b2119]/10" />
             <Image
               src={article.image}
-              alt={`${article.title} ${language === "ko" ? "대표 이미지" : "thumbnail"}`}
+              alt={imageAlt}
               fill
               sizes="(min-width:1280px)30vw,(min-width:768px)45vw,100vw"
               className="object-contain"
@@ -44,7 +47,7 @@ export default function InsightCard({
         ) : (
           <Image
             src={article.image}
-            alt={`${article.title} ${language === "ko" ? "대표 이미지" : "thumbnail"}`}
+            alt={imageAlt}
             fill
             sizes="(min-width:1280px)30vw,(min-width:768px)45vw,100vw"
             className="object-cover transition-transform duration-200 group-hover:scale-[1.02]"
