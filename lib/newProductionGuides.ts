@@ -4,6 +4,10 @@ import {
   experienceProductionGuideSlugs,
 } from "@/lib/experienceProductionGuides";
 import type { ProductionInsight } from "@/lib/productionInsights";
+import {
+  studioWorkflowInsights,
+  studioWorkflowInsightSlugs,
+} from "@/lib/studioWorkflowInsights";
 import { englishLanguageAlternates, languageAlternates } from "@/lib/localization";
 
 export const newProductionGuideSlugs = [
@@ -13,6 +17,7 @@ export const newProductionGuideSlugs = [
   "reduce-character-inconsistency-ai-video",
   "seamless-loops-relaxing-ai-videos",
   ...experienceProductionGuideSlugs,
+  ...studioWorkflowInsightSlugs,
 ] as const;
 
 export type NewProductionGuideSlug = (typeof newProductionGuideSlugs)[number];
@@ -1186,6 +1191,7 @@ const existingProductionGuides = Object.fromEntries(
 export const newProductionGuides = {
   ...existingProductionGuides,
   ...experienceProductionGuides,
+  ...studioWorkflowInsights,
 } as Record<NewProductionGuideSlug, Record<NewProductionGuideLanguage, NewProductionGuide>>;
 
 export function isNewProductionGuideSlug(slug: string): slug is NewProductionGuideSlug {

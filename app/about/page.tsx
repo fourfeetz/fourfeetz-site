@@ -201,8 +201,9 @@ export default function AboutPage() {
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.38fr_0.62fr] md:items-start">
           <SectionHeading eyebrow="Our Studio" title="Who We Are" />
           <div className="rounded-[36px] border border-[#eadfce] bg-[#fffdf8] p-8 shadow-xl shadow-[#6f4e37]/10 md:p-10">
-            <p className="text-xl font-bold leading-9 text-[#2b2119]">FourFeetz Studios is an independent AI creative studio dedicated to building original characters, films, music, and educational resources.</p>
-            <p className="mt-6 text-lg leading-8 text-[#76685d]">Rather than creating one-off AI videos, our goal is to build long-lasting original worlds centered around memorable animal characters such as HARU.</p>
+            <p className="text-xl font-bold leading-9 text-[#2b2119]">FourFeetz Studios is an independent production studio that creates and manages its own animal characters, finished films, shorts and music.</p>
+            <p className="mt-6 text-lg leading-8 text-[#76685d]">Rather than presenting AI tools as the product, we use them within a directed workflow: approve a character and scene reference, test one readable action, review identity and continuity, edit the usable result, and publish the finished work.</p>
+            <p className="mt-6 text-lg leading-8 text-[#76685d]">Our production articles are grounded in the images, clips, project records and completed videos shown on this site. We do not invent first-person results, audience numbers or client outcomes. Character master prompts, internal bibles and current core settings remain private.</p>
           </div>
         </div>
       </section>

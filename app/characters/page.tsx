@@ -16,6 +16,14 @@ export default function Page() {
         }}
       />
 
+      <section className="px-6 pb-12">
+        <div className="mx-auto max-w-7xl rounded-[32px] border border-[#eadfce] bg-white p-8 md:p-10">
+          <h2 className="text-3xl font-black text-[#2b2119] md:text-4xl">Characters built for finished scenes.</h2>
+          <p className="mt-5 max-w-4xl text-lg leading-8 text-[#76685d]">Each public page records the character’s visible identity, temperament and place in the FourFeetz world. When a film or short has been released, it is linked as evidence of how that character reads in motion. Unreleased appearances are not presented as completed work, and the private character bible and master prompts are not published.</p>
+          <div className="mt-7 flex flex-wrap gap-3"><Link href="/videos" className="rounded-full bg-[#6f4e37] px-6 py-3 font-black text-white">Watch released videos</Link><Link href="/insights/what-we-keep-private-character-production" className="rounded-full border border-[#6f4e37]/40 px-6 py-3 font-black text-[#6f4e37]">Read our character policy</Link></div>
+        </div>
+      </section>
+
       <section className="px-6 pb-20">
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-3">
           {characterDetails.map((character) => {

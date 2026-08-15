@@ -48,15 +48,6 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang={language}>
-      <head>
-        <Script
-          id="fourfeetz-adsense"
-          async
-          strategy="afterInteractive"
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8793962309929245"
-          crossOrigin="anonymous"
-        />
-      </head>
       <body className={montserrat.className}>
         <LanguageProvider>
           <Header />
@@ -65,6 +56,13 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <Footer />
         </LanguageProvider>
         <GoogleAnalytics gaId="G-T4L4K2EHN2" />
+        <Script
+          id="fourfeetz-adsense"
+          async
+          strategy="afterInteractive"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8793962309929245"
+          crossOrigin="anonymous"
+        />
       </body>
     </html>
   );

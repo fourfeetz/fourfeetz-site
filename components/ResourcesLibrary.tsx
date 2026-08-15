@@ -125,7 +125,7 @@ export default function ResourcesLibrary() {
           <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">CREATOR TOOLKIT</p>
           <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">Resources</h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">
-            Practical prompts, workflows, templates, and production materials for AI films, characters, music, and social content.
+            Public planning and review materials derived from FourFeetz production work. They teach transferable decisions without exposing character master prompts, internal bibles or current core settings.
           </p>
         </div>
         <HeroIllustrationCard src="/images/resources-hero-v2.png" alt="FourFeetz creator toolkit with laptop workflow cards templates and checklist" priority />
@@ -165,7 +165,7 @@ export default function ResourcesLibrary() {
       </section>
 
       <section className="px-6 pb-20">
-        <SectionHeader eyebrow="Library" title="AI Creator Resource Library" desc="Curated prompts, workflows, templates, checklists, and downloads for repeatable creative production." />
+        <SectionHeader eyebrow="Library" title="AI Creator Resource Library" desc="Use these public frameworks to record scene purpose, references, failures and review decisions. They are educational resources, not the private production package for a FourFeetz character." />
         <div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">
           {resources.map((resource) => (
             <Link

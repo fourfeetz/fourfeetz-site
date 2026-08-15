@@ -77,7 +77,7 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
   const labels = isKorean ? {
     eyebrow: "FourFeetz Video Library",
     title: "영상",
-    description: "FourFeetz가 제작한 AI 롱폼 영상과 캐릭터 쇼츠를 한곳에서 만나보세요.",
+    description: "FourFeetz가 직접 완성하고 공개한 AI 롱폼 영상과 캐릭터 쇼츠를 제작기, 캐릭터 정보와 함께 확인하세요.",
     tabs: [
       { value: "all" as const, label: "전체 영상", href: basePath },
       { value: "long-form" as const, label: "롱폼", href: `${basePath}?type=long-form` },
@@ -101,7 +101,7 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
   } : {
     eyebrow: "FourFeetz Video Library",
     title: "Videos",
-    description: "Explore FourFeetz AI-generated films and shorts, from peaceful long-form stories to short character moments.",
+    description: "Watch finished FourFeetz films and character shorts, then follow the linked production notes to see the real scene decisions, limitations and review evidence behind them.",
     tabs: [
       { value: "all" as const, label: "All Videos", href: basePath },
       { value: "long-form" as const, label: "Long-form", href: `${basePath}?type=long-form` },

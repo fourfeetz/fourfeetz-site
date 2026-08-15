@@ -3,7 +3,7 @@ import VideosHub, { normalizeVideoFilter } from "@/components/VideosHub";
 import { englishLanguageAlternates } from "@/lib/localization";
 
 const title = "AI Videos: Films & Shorts | FourFeetz";
-const description = "Explore FourFeetz AI-generated films and shorts, from peaceful long-form stories to short character moments.";
+const description = "Watch finished FourFeetz films and animal character shorts with direct links to the real production notes, scene decisions and review evidence behind them.";
 
 export const metadata: Metadata = {
   title: { absolute: title },

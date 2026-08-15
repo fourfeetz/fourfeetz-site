@@ -15,6 +15,7 @@ import {
   KoreanResourceDetail,
   KoreanResourcesPage,
   KoreanServicesPage,
+  KoreanToolsPage,
   KoreanShortDetail,
   KoreanShortsPage,
 } from "@/components/korean/KoreanPages";
@@ -54,10 +55,11 @@ const sectionMetadata: Record<string, { title: string; description: string; engl
   films: { title: "AI 필름 | FourFeetz", description: "HARU와 FourFeetz 캐릭터들이 등장하는 감성적인 AI 필름과 힐링 영상을 만나보세요.", englishPath: "/films", image: "/images/works-hero-v2.png" },
   shorts: { title: "AI 캐릭터 쇼츠 | FourFeetz", description: "HARU, LUNA, HUGO, RURU 등 FourFeetz 캐릭터들의 짧고 따뜻한 AI 쇼츠입니다.", englishPath: "/shorts", image: "/images/shorts-hero-v2.png" },
   characters: { title: "FourFeetz 캐릭터 | 오리지널 동물 캐릭터", description: "HARU, PORI, LUNA, HUGO, RURU, OLI, MILO, FENI와 HORI의 서로 다른 개성과 이야기를 만나보세요.", englishPath: "/characters", image: "/images/characters-hero-v2.png" },
-  music: { title: "오리지널 음악 | FourFeetz", description: "FourFeetz 필름, 쇼츠와 캐릭터를 위해 만든 공식 테마와 오리지널 사운드트랙입니다.", englishPath: "/music", image: "/images/music-hero-v2.png" },
+  music: { title: "오리지널 음악 | FourFeetz", description: "FourFeetz 필름, 쇼츠와 캐릭터 장면을 위해 만들고 실제 편집에 맞춰 선별한 공식 테마와 오리지널 사운드트랙입니다.", englishPath: "/music", image: "/images/music-hero-v2.png" },
   insights: { title: "AI 영상 제작 인사이트 | FourFeetz", description: "FourFeetz의 실제 AI 애니메이션 제작 경험을 바탕으로 한 제작 가이드, 실사용 테스트, AI 영상 도구 업데이트를 제공합니다.", englishPath: "/insights", image: "/images/insights-hero-v2.png" },
-  resources: { title: "AI 영상 제작 리소스 | FourFeetz", description: "AI 영상 제작을 위한 가이드, 템플릿, 체크리스트와 프롬프트 리소스입니다.", englishPath: "/resources", image: "/images/resources-hero-v2.png" },
+  resources: { title: "AI 영상 제작 리소스 | FourFeetz", description: "FourFeetz 실제 제작 경험에서 정리한 공개 가이드, 템플릿과 체크리스트입니다. 내부 캐릭터 자산과 핵심 설정은 포함하지 않습니다.", englishPath: "/resources", image: "/images/resources-hero-v2.png" },
   services: { title: "AI 영상 제작 서비스 | FourFeetz", description: "FourFeetz는 AI 쇼츠, 브랜드 광고, 캐릭터 애니메이션, 반려동물 콘텐츠와 감성 영상을 제작합니다.", englishPath: "/services", image: "/images/studio-hero-v2.png" },
+  tools: { title: "실제 제작에 사용한 AI 도구 | FourFeetz", description: "FourFeetz 완성 영상 제작에 사용한 AI 영상, 음악, 기획과 편집 도구의 실제 역할과 한계를 설명합니다.", englishPath: "/tools", image: "/images/tools-hero-v2.png" },
 };
 
 export const dynamicParams = false;
@@ -175,6 +177,7 @@ export default async function Page({ params }: Props) {
     if (section === "insights") return <KoreanInsightsPage />;
     if (section === "resources") return <KoreanResourcesPage />;
     if (section === "services") return <KoreanServicesPage />;
+    if (section === "tools") return <KoreanToolsPage />;
     notFound();
   }
 

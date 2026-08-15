@@ -9,6 +9,7 @@ const koreanPrefixes = new Set([
   "resources",
   "services",
   "shorts",
+  "tools",
   "videos",
 ]);
 

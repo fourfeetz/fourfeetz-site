@@ -19,9 +19,9 @@ export const metadata: Metadata = {
 };
 
 const tools = [
-  { name: "Suno", desc: "AI music composition" },
-  { name: "ChatGPT", desc: "Lyrics and creative direction" },
-  { name: "CapCut", desc: "Final mastering and synchronization" },
+  { name: "Suno", desc: "Used to explore original cues for specific FourFeetz scenes; outputs still require selection and an edit-aware arrangement." },
+  { name: "ChatGPT", desc: "Used to organize mood, structure and lyric drafts; the released track is chosen against the real picture edit." },
+  { name: "CapCut", desc: "Used to place, trim and balance music with ambience. It cannot make an unsuitable cue serve the scene." },
 ];
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -90,7 +90,7 @@ export default function Page() {
 
       <section className="px-6 py-20"><SectionHeader eyebrow="Made With" title="Sound Tools" /><div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-3">{tools.map((tool) => <article key={tool.name} className="rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><span className="grid size-12 place-items-center rounded-2xl bg-[#6f4e37] text-sm font-black text-white">AI</span><h3 className="mt-6 text-2xl font-black text-[#2b2119]">{tool.name}</h3><p className="mt-3 leading-7 text-[#76685d]">{tool.desc}</p></article>)}</div></section>
 
-      <section className="border-t border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.42fr_0.58fr]"><SectionLabel>Behind the Music</SectionLabel><div><h2 className="text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">Behind the Sound</h2><div className="mt-6 space-y-5 text-lg leading-8 text-[#76685d]"><p>Every soundtrack begins with the emotional tone of the story.</p><p>FourFeetz starts with character, atmosphere, and cinematic pacing so the music supports emotion rather than competing with it.</p></div></div></div></section>
+      <section className="border-t border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.42fr_0.58fr]"><SectionLabel>Behind the Music</SectionLabel><div><h2 className="text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">Behind the Sound</h2><div className="mt-6 space-y-5 text-lg leading-8 text-[#76685d]"><p>Every released soundtrack begins with a specific film, short or character mood rather than a generic request for background music.</p><p>FourFeetz tests the cue against the picture edit, leaves room for ambience and avoids distinctive accents at loop boundaries. The track pages link back to the production where that context is available; generation alone is not treated as a finished soundtrack.</p></div></div></div></section>
     </main>
   );
 }
