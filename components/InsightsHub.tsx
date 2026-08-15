@@ -3,29 +3,15 @@ import Link from "next/link";
 import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import InsightsFilter from "@/components/insights/InsightsFilter";
 import { insightGroups, type InsightGroup, type InsightLanguage } from "@/lib/insightGroups";
-import { getPublishedInsightArticles, type InsightArticle } from "@/lib/insights";
-import { koreanInsightSummaries } from "@/lib/koreanInsightSummaries";
-import { getNewProductionGuide } from "@/lib/newProductionGuides";
+import { isAnalysisContentType } from "@/lib/insightClassification";
+import { localizeInsightArticles } from "@/lib/insightLocalization";
+import { getPublishedInsightArticles } from "@/lib/insights";
 
 const siteUrl = "https://fourfeetz.com";
 const howHaruImage = "/images/insights/premium/how-haru-hero.png";
 
-function localizeArticles(articles: InsightArticle[], language: InsightLanguage) {
-  if (language === "en") return articles;
-  return articles.map((article) => {
-    const newGuide = getNewProductionGuide(article.slug, "ko");
-    return {
-      ...article,
-      title: newGuide?.shortTitle ?? article.title,
-      category: newGuide?.category ?? article.category,
-      readTime: newGuide?.readTime ?? article.readTime,
-      description: newGuide?.description ?? koreanInsightSummaries[article.slug]?.summary[0] ?? article.description,
-    };
-  });
-}
-
 export default function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {
-  const articles = localizeArticles(getPublishedInsightArticles(), language).sort(
+  const articles = localizeInsightArticles(getPublishedInsightArticles(), language).sort(
     (a, b) => Number(b.contentType === "production-record") - Number(a.contentType === "production-record"),
   );
   const isKorean = language === "ko";
@@ -119,7 +105,7 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
             {categoryOrder.map((group, index) => {
               const content = insightGroups[group][language];
               const isAnalysis = group === "news";
-              const count = articles.filter((article) => article.contentType === (isAnalysis ? "studio-analysis" : "production-guide")).length;
+              const count = articles.filter((article) => isAnalysis ? isAnalysisContentType(article.contentType) : article.contentType === "production-guide").length;
               const label = isAnalysis
                 ? (isKorean ? "스튜디오 분석 / 도구 업데이트" : "Studio Analysis / Tool Updates")
                 : content.label;

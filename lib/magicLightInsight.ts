@@ -16,7 +16,6 @@ export const magicLightInsight: ProductionInsight = {
   keywords: ["MagicLight review", "Seedance 2.0 test", "Seedance 2.0 Fast", "AI animal animation", "HARU", "character consistency", "Magic Claw", "Google Flow"],
   tools: ["MagicLight", "Magic Claw", "Seedance 2.0 Fast", "Google Flow", "CapCut"],
   characters: ["HARU"],
-  popularity: 98,
   sections: [
     {
       id: "production-goal",

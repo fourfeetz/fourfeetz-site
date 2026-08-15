@@ -4,6 +4,7 @@ import { Search, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import InsightCard from "@/components/insights/InsightCard";
 import type { InsightLanguage } from "@/lib/insightGroups";
+import { isAnalysisContentType } from "@/lib/insightClassification";
 import type { InsightArticle } from "@/lib/insights";
 
 const slugify = (value: string) => value.toLowerCase().replace(/\s+/g, "-");
@@ -57,7 +58,7 @@ export default function InsightsFilter({
         : activeFilter === "guides"
           ? article.contentType === "production-guide"
           : activeFilter === "news"
-            ? article.contentType === "studio-analysis"
+            ? isAnalysisContentType(article.contentType)
             : [article.category, ...article.tags].some((tag) => slugify(tag) === activeFilter);
     const haystack = normalize([
       article.title,

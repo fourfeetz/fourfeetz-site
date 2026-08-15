@@ -21,6 +21,8 @@ import PracticalResourceCards from "@/components/resources/PracticalResourceCard
 import { shorts } from "@/data/shorts";
 import { characterDetails, getCharacter } from "@/lib/characterDetails";
 import { films, getFilm } from "@/lib/films";
+import { insightContentTypeLabels, isAnalysisContentType } from "@/lib/insightClassification";
+import { localizeInsightArticle } from "@/lib/insightLocalization";
 import { getProductionRecordInsights, getPublishedInsightArticles } from "@/lib/insights";
 import {
   koreanCharacters,
@@ -34,7 +36,6 @@ import {
 } from "@/lib/koreanContent";
 import { koreanInsightDetails, koreanLegacyResourceDetails } from "@/lib/koreanContentDetails";
 import { koreanInsightSummaries } from "@/lib/koreanInsightSummaries";
-import { insightGroups } from "@/lib/insightGroups";
 import { getNewProductionGuide } from "@/lib/newProductionGuides";
 import { getMusicTrack, musicTracks } from "@/lib/music";
 import { getResource, resourceDetails } from "@/lib/resourceDetails";
@@ -84,7 +85,7 @@ export function KoreanHomePage() {
       <div className="relative aspect-[4/3] overflow-hidden rounded-[36px] border border-[#d8c3ad] bg-[#f2e8dc] shadow-2xl shadow-[#6f4e37]/15"><Image src="/images/studio-hero-v2.png" alt="FourFeetz 캐릭터와 AI 애니메이션 스튜디오" fill priority sizes="(min-width:768px)44vw,100vw" className="object-cover" /></div>
     </section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><SectionHeading eyebrow="Published FourFeetz Work" title="대표 작품" description="FourFeetz 오리지널 캐릭터와 스튜디오가 직접 기획·편집해 공개한 필름과 쇼츠입니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 xl:grid-cols-4">{featuredFilms.map((item) => <MediaCard key={item.slug} href={`/ko/films/${item.slug}`} image={item.thumbnail} title={item.koreanTitle ?? item.title} category={item.category} description={koreanFilmDescriptions[item.slug]} fullyClickable />)}{featuredShorts.map((item) => <MediaCard key={item.slug} href={`/ko/shorts/${item.slug}`} image={item.poster!} title={koreanShortTitles[item.slug] ?? item.title} category={item.category} description={koreanShortDescriptions[item.slug]} fullyClickable />)}</div></section>
-    <section className="px-6 py-20"><SectionHeading eyebrow="Real Production Notes" title="완성 작품에서 배운 실제 제작 기록" description="공개 영상, 실제 프로젝트 프레임, 제작 중 발생한 문제와 수정·거절·채택 판단이 함께 있는 기록만 모았습니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 xl:grid-cols-3">{productionRecords.map((article) => { if (!article) return null; const localized = getNewProductionGuide(article.slug, "ko"); const title = localized?.shortTitle ?? (article.slug === "how-haru-was-created" ? "HARU가 만들어진 과정" : article.title); return <MediaCard key={article.slug} href={`/ko/insights/${article.slug}`} image={article.image} imageAlt={article.imageAlt?.ko} title={title} category="실제 제작 기록" description={localized?.description ?? koreanInsightSummaries[article.slug]?.summary[0] ?? article.description} fullyClickable />; })}</div></section>
+    <section className="px-6 py-20"><SectionHeading eyebrow="Real Production Notes" title="완성 작품에서 배운 실제 제작 기록" description="공개 영상, 실제 프로젝트 프레임, 제작 중 발생한 문제와 수정·거절·채택 판단이 함께 있는 기록만 모았습니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 xl:grid-cols-3">{productionRecords.map((article) => { if (!article) return null; const localized = localizeInsightArticle(article, "ko"); return <MediaCard key={article.slug} href={`/ko/insights/${article.slug}`} image={article.image} imageAlt={article.imageAlt?.ko} title={localized.title} category="실제 제작 기록" description={localized.description} fullyClickable />; })}</div></section>
     <section className="px-6 py-20"><SectionHeading eyebrow="Character Universe" title="오리지널 캐릭터" description="FourFeetz가 직접 만들고 관리하며 필름, 쇼츠, 음악과 제작 기록으로 확장하는 동물 캐릭터입니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-3">{characterDetails.map((item) => <MediaCard key={item.slug} href={`/ko/characters/${item.slug}`} image={item.gallery[0]?.image} imageAlt={koreanCharacters[item.slug].imageAlt} title={koreanCharacters[item.slug].displayName ?? item.name} category={koreanCharacters[item.slug].species} description={koreanCharacters[item.slug].tagline} portrait fullyClickable />)}</div></section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-16"><div className="mx-auto grid max-w-7xl gap-8 rounded-[40px] bg-[#6f4e37] p-8 text-white md:grid-cols-[1.15fr_0.85fr] md:items-center md:p-12"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#e5c9a8]">Studio Services</p><h2 className="mt-3 text-4xl font-black md:text-5xl">작품과 제작 방식을 확인하셨나요?</h2><p className="mt-5 max-w-3xl text-lg leading-8 text-[#f4e8da]">FourFeetz의 공개 작품과 실제 제작 기록을 살펴본 뒤 프로젝트에 맞는 동물 캐릭터 영상 제작을 문의할 수 있습니다.</p></div><div className="flex flex-wrap gap-3 md:justify-end"><Link href="/ko/services" className="rounded-full bg-white px-7 py-4 font-black text-[#6f4e37]">서비스 보기</Link><Link href="/ko/services#contact" className="rounded-full border border-white/40 px-7 py-4 font-black text-white">견적 문의</Link></div></div></section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><SectionHeading eyebrow="Public Resources" title="공개 제작 자료와 도구 기록" description="실제 제작 경험에서 정리한 웹 가이드와 워크시트입니다. 비공개 캐릭터 프롬프트·바이블·핵심 설정은 포함하지 않습니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">{featuredResources.map((item) => <Link key={item.slug} href={`/ko/resources/${item.slug}`} className={`${cardClass} p-7`}><p className="text-sm font-black text-[#a67c52]">공개 웹 자료</p><h3 className="mt-3 text-2xl font-black text-[#2b2119]">{koreanResourceTitles[item.slug] ?? item.title}</h3><p className="mt-4 leading-7 text-[#76685d]">{koreanResourceDescriptions[item.slug]}</p><span className="mt-6 inline-flex font-black text-[#6f4e37]">브라우저에서 읽기 →</span></Link>)}</div><div className="mx-auto mt-8 flex max-w-7xl flex-wrap gap-3"><Link href="/ko/resources" className={primaryButton}>전체 자료 보기</Link><Link href="/ko/tools" className={secondaryButton}>제작 도구와 한계 보기</Link></div></section>
@@ -231,18 +232,35 @@ export function KoreanFilmDetail({ slug }: { slug: string }) {
   const title = item.koreanTitle ?? item.title;
   const insight = item.relatedInsights?.[0];
   const music = item.musicSlugs?.[0];
-  return <main><section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanFilmDescriptions[item.slug]}</p><div className="mt-7 flex flex-wrap gap-3">{insight ? <Link href={`/ko${insight.href}`} className={secondaryButton}>제작기 보기</Link> : null}{music ? <Link href={`/ko/music/${music}`} className={secondaryButton}>음악 듣기</Link> : null}</div></div><div className="relative aspect-video overflow-hidden rounded-[32px] border border-[#eadfce] bg-white"><Image src={item.thumbnail} alt={`${title} 필름 장면`} fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" /></div></section><section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto max-w-5xl"><video controls playsInline preload="metadata" poster={item.thumbnail} className="aspect-video h-auto w-full rounded-[32px] bg-black object-cover shadow-xl"><source src={item.video} type="video/mp4" /></video></div></section><section className="px-6 py-20"><SectionHeading eyebrow="Film Information" title="작품 정보" /><div className="mx-auto mt-8 grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-4">{[["길이",item.duration],["캐릭터",item.character],["상태",item.status ?? "공개"],["해상도",item.resolution ?? "Full HD"]].map(([label,value]) => <article key={label} className={`${cardClass} p-6`}><p className="text-sm font-black text-[#a67c52]">{label}</p><p className="mt-3 text-xl font-black text-[#2b2119]">{value}</p></article>)}</div></section></main>;
+  return <main>
+    <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center">
+      <div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanFilmDescriptions[item.slug]}</p><div className="mt-7 flex flex-wrap gap-3">
+        {item.characterSlugs?.map((characterSlug) => <Link key={characterSlug} href={`/ko/characters/${characterSlug}`} className={secondaryButton}>{item.character} 캐릭터</Link>)}
+        {insight ? <Link href={`/ko${insight.href}`} className={secondaryButton}>제작기 보기</Link> : null}
+        {music ? <Link href={`/ko/music/${music}`} className={secondaryButton}>음악 듣기</Link> : null}
+        <Link href="/ko/videos" className={secondaryButton}>관련 작품 보기</Link>
+      </div></div>
+      <div className="relative aspect-video overflow-hidden rounded-[32px] border border-[#eadfce] bg-white"><Image src={item.thumbnail} alt={`${title} 필름 장면`} fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" /></div>
+    </section>
+    <section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto max-w-5xl"><video controls playsInline preload="metadata" poster={item.thumbnail} className="aspect-video h-auto w-full rounded-[32px] bg-black object-cover shadow-xl"><source src={item.video} type="video/mp4" /></video></div></section>
+    <section className="px-6 py-20"><SectionHeading eyebrow="Film Information" title="작품 정보" /><div className="mx-auto mt-8 grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-4">{[["길이",item.duration],["캐릭터",item.character],["상태",item.status ?? "공개"],["해상도",item.resolution ?? "Full HD"]].map(([label,value]) => <article key={label} className={`${cardClass} p-6`}><p className="text-sm font-black text-[#a67c52]">{label}</p><p className="mt-3 text-xl font-black text-[#2b2119]">{value}</p></article>)}</div></section>
+    {item.featuredRelease ? <section className="px-6 pb-20"><SectionHeading eyebrow="Published Release" title="함께 볼 공개 쇼츠" /><Link href={`/ko${item.featuredRelease.href}`} className="mx-auto mt-8 block max-w-7xl rounded-[40px] border border-[#eadfce] bg-white p-8 shadow-xl shadow-[#6f4e37]/10 transition hover:-translate-y-1 hover:shadow-2xl md:p-12"><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">공개된 캐릭터 쇼츠</p><h2 className="mt-4 text-4xl font-black text-[#2b2119] md:text-6xl">{item.featuredRelease.koreanTitle}</h2><p className="mt-5 max-w-2xl text-lg leading-8 text-[#76685d]">{item.featuredRelease.koreanDescription}</p><span className="mt-7 inline-flex font-black text-[#6f4e37]">공개 쇼츠 보기 →</span></Link></section> : null}
+  </main>;
 }
 
 export function KoreanShortDetail({ slug }: { slug: string }) {
   const item = shorts.find((entry) => entry.slug === slug); if (!item) notFound();
-  return <main><section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[1fr_0.7fr] md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{koreanShortTitles[item.slug] ?? item.title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanShortDescriptions[item.slug]}</p><p className="mt-5 font-black text-[#6f4e37]">{item.duration} · 세로형 영상</p><div className="mt-6 flex flex-wrap gap-3">{item.characterHref ? <Link href={`/ko${item.characterHref}`} className={secondaryButton}>{item.characters?.[0] ?? "캐릭터"} 캐릭터 보기</Link> : null}{item.insight ? <Link href={`/ko${item.insight.href}`} className={secondaryButton}>제작기 보기</Link> : null}</div></div><video controls playsInline preload="metadata" poster={item.poster} className="mx-auto aspect-[9/16] h-auto max-h-[720px] w-full max-w-sm object-contain rounded-[32px] bg-black shadow-xl"><source src={item.video} type="video/mp4" /></video></section></main>;
+  const characterLinks = item.characterLinks ?? (item.characterHref ? [{ name: item.characters?.[0] ?? "캐릭터", href: item.characterHref }] : []);
+  return <main><section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[1fr_0.7fr] md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{koreanShortTitles[item.slug] ?? item.title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanShortDescriptions[item.slug]}</p><p className="mt-5 font-black text-[#6f4e37]">{item.duration} · 세로형 영상</p><div className="mt-6 flex flex-wrap gap-3">{characterLinks.map((character) => <Link key={character.href} href={`/ko${character.href}`} className={secondaryButton}>{character.name} 캐릭터</Link>)}{item.insight ? <Link href={`/ko${item.insight.href}`} className={secondaryButton}>관련 제작 기록</Link> : null}</div></div><video controls playsInline preload="metadata" poster={item.poster} className="mx-auto aspect-[9/16] h-auto max-h-[720px] w-full max-w-sm object-contain rounded-[32px] bg-black shadow-xl"><source src={item.video} type="video/mp4" /></video></section></main>;
 }
 
 export function KoreanCharacterDetail({ slug }: { slug: string }) {
   const item = getCharacter(slug); const ko = koreanCharacters[slug]; if (!item || !ko) notFound();
   const relatedCharacters = ko.relatedCharacters.map((relatedSlug) => ({ item: getCharacter(relatedSlug)!, ko: koreanCharacters[relatedSlug] }));
-  const hasPublishedMedia = !["milo", "oli", "feni", "hori"].includes(slug);
+  const hasPublishedShort = shorts.some((short) => short.publishStatus === "published" && short.characters?.includes(item.name));
+  const hasPublishedFilm = films.some((film) => film.publishStatus === "published" && film.characterSlugs?.includes(slug));
+  const hasPublishedMusic = musicTracks.some((track) => track.character === item.name && track.featured);
+  const hasPublishedMedia = hasPublishedShort || hasPublishedFilm || hasPublishedMusic;
   const displayName = ko.displayName ?? item.name;
   const portrait = item.gallery[0]?.image;
   const miloReferenceStudies = slug === "milo" ? item.gallery.slice(1) : [];
@@ -258,7 +276,7 @@ export function KoreanCharacterDetail({ slug }: { slug: string }) {
   return <main><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(characterSchema).replace(/</g, "\\u003c") }} /><section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">Original Character</p><h1 className="mt-4 text-6xl font-black text-[#2b2119] md:text-7xl">{displayName}</h1><p className="mt-4 text-2xl font-black text-[#6f4e37]">{ko.species}</p><p className="mt-6 text-lg leading-8 text-[#76685d]">{ko.tagline}</p></div><div className="relative aspect-square overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#f2e8dc]">{portrait ? <Image src={portrait} alt={ko.imageAlt} fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-contain p-5" /> : <div className="flex h-full items-center justify-center p-8 text-center font-black text-[#8a7768]">공식 캐릭터 이미지 준비 중</div>}</div></section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[0.4fr_0.6fr]"><SectionHeading eyebrow="Character Story" title="캐릭터 이야기" /><div className="space-y-5 text-lg leading-8 text-[#76685d]"><p>{ko.story}</p><p><strong className="text-[#2b2119]">FourFeetz에서의 역할.</strong> {ko.role}</p><p><strong className="text-[#2b2119]">외형적 특징.</strong> {ko.appearance}</p><div className="flex flex-wrap gap-2 pt-3">{ko.personality.map((trait) => <span key={trait} className="rounded-full bg-[#f2e8dc] px-4 py-2 font-bold text-[#6f4e37]">{trait}</span>)}</div></div></div></section>
     {miloReferenceStudies.length ? <section className="px-6 py-20"><SectionHeading eyebrow="Gallery" title="MILO 캐릭터 레퍼런스" /><div className="mx-auto mt-8 grid max-w-7xl gap-5 md:grid-cols-2">{miloReferenceStudies.map((study) => <figure key={study.label} className="overflow-hidden rounded-3xl border border-[#eadfce] bg-[#fffaf4] p-4"><div className="relative aspect-square overflow-hidden rounded-2xl bg-white"><Image src={study.image} alt={study.koreanImageAlt ?? `MILO ${study.label}`} fill sizes="(min-width: 768px) 45vw, 100vw" className={study.fit === "cover" ? "object-cover" : "object-contain p-3"} /></div><figcaption className="pt-4 text-sm font-bold text-[#6f4e37]">{study.label === "Expression reference" ? "얼굴과 표정 참고" : "옆모습과 실루엣 참고"}</figcaption></figure>)}</div></section> : null}
-    <section className="px-6 py-20"><SectionHeading eyebrow="Related Stories" title={hasPublishedMedia ? `${item.name} 관련 콘텐츠` : "FourFeetz 세계 둘러보기"} description={hasPublishedMedia ? "실제로 공개된 영상과 음악에서 캐릭터의 표정, 움직임과 분위기를 확인해 보세요." : `${item.name}가 등장하는 개별 영상과 음악은 아직 공개되지 않았습니다. 현재 공개된 캐릭터와 필름을 먼저 만나보세요.`} /><div className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2 lg:grid-cols-3">{ko.relatedContent.map((content) => <Link key={content.href} href={content.href} className={`${cardClass} p-7`}><p className="text-sm font-black text-[#a67c52]">{content.label}</p><h3 className="mt-3 text-2xl font-black text-[#2b2119]">{content.title}</h3><p className="mt-4 leading-7 text-[#76685d]">{content.description}</p><span className="mt-6 inline-flex font-black text-[#6f4e37]">관련 페이지 보기 →</span></Link>)}</div></section>
+    <section className="px-6 py-20"><SectionHeading eyebrow="Related Stories" title={hasPublishedMedia ? `${displayName} 영상과 제작 기록` : "FourFeetz 세계 둘러보기"} description={hasPublishedMedia ? "실제로 공개된 영상, 음악과 제작 기록에서 캐릭터의 표정, 움직임과 분위기를 확인해 보세요." : `${displayName}가 등장하는 개별 영상과 음악은 아직 공개되지 않았습니다. 현재 공개된 캐릭터와 필름을 먼저 만나보세요.`} /><div className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2 lg:grid-cols-3">{ko.relatedContent.map((content) => <Link key={content.href} href={content.href} className={`${cardClass} p-7`}><p className="text-sm font-black text-[#a67c52]">{content.label}</p><h3 className="mt-3 text-2xl font-black text-[#2b2119]">{content.title}</h3><p className="mt-4 leading-7 text-[#76685d]">{content.description}</p><span className="mt-6 inline-flex font-black text-[#6f4e37]">관련 페이지 보기 →</span></Link>)}</div></section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><SectionHeading eyebrow="Character Universe" title="다른 캐릭터 만나기" /><div className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2">{relatedCharacters.map(({ item: related, ko: relatedKo }) => <Link key={related.slug} href={`/ko/characters/${related.slug}`} className={`${cardClass} flex items-center gap-5 p-5`}><div className="relative size-28 shrink-0 overflow-hidden rounded-2xl bg-[#fffaf4]"><Image src={`/images/characters/${related.slug}/portrait.png`} alt={relatedKo.imageAlt} fill sizes="112px" className="object-contain p-2" /></div><div><p className="text-sm font-black text-[#a67c52]">{relatedKo.species}</p><h3 className="mt-2 text-2xl font-black text-[#2b2119]">{related.name}</h3><p className="mt-2 leading-7 text-[#76685d]">{relatedKo.tagline}</p></div></Link>)}</div></section>
   </main>;
 }
@@ -291,28 +309,69 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
   const content = koreanInsightSummaries[slug];
   const detail = koreanInsightDetails[slug];
   if (!item || !content || !detail) notFound();
-  const group = insightGroups[item.group].ko;
+  const localized = localizeInsightArticle(item, "ko");
+  const contentTypeLabel = insightContentTypeLabels[item.contentType].ko;
+  const listing = item.contentType === "production-record"
+    ? { href: "/ko/insights?group=records", label: "실제 제작 기록" }
+    : isAnalysisContentType(item.contentType)
+      ? { href: "/ko/insights/news", label: contentTypeLabel }
+      : { href: "/ko/insights/guides", label: "제작 가이드" };
   const related = getPublishedInsightArticles()
-    .filter((entry) => entry.group === item.group && entry.slug !== item.slug)
-    .slice(0, 3);
+    .filter((entry) => entry.contentType === item.contentType && entry.slug !== item.slug)
+    .slice(0, 3)
+    .map((entry) => localizeInsightArticle(entry, "ko"));
+  const canonical = `https://fourfeetz.com/ko/insights/${item.slug}`;
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: localized.title,
+    description: localized.description,
+    image: `https://fourfeetz.com${item.image}`,
+    ...(item.publishedAt ? { datePublished: item.publishedAt } : {}),
+    ...(item.updatedAt ? { dateModified: item.updatedAt } : {}),
+    inLanguage: "ko-KR",
+    mainEntityOfPage: canonical,
+    author: { "@type": "Organization", name: "FourFeetz Studios", url: "https://fourfeetz.com/ko/about" },
+    publisher: { "@type": "Organization", name: "FourFeetz Studios", url: "https://fourfeetz.com" },
+  };
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "홈", item: "https://fourfeetz.com/ko" },
+      { "@type": "ListItem", position: 2, name: "인사이트", item: "https://fourfeetz.com/ko/insights" },
+      { "@type": "ListItem", position: 3, name: listing.label, item: `https://fourfeetz.com${listing.href}` },
+      { "@type": "ListItem", position: 4, name: localized.title, item: canonical },
+    ],
+  };
 
   return (
     <main>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema).replace(/</g, "\\u003c") }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }} />
       <section className="mx-auto max-w-5xl px-6 py-16">
         <nav aria-label="경로" className="text-sm font-bold text-[#8a7768]">
           <Link href="/ko">홈</Link><span className="px-2">/</span>
           <Link href="/ko/insights">인사이트</Link><span className="px-2">/</span>
-          <Link href={`/ko/insights/${item.group}`}>{group.label}</Link>
+          <Link href={listing.href}>{listing.label}</Link>
         </nav>
-        <p className="mt-10 text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{group.badge} · {item.category}</p>
-        <h1 className="mt-4 text-5xl font-black leading-tight text-[#2b2119] md:text-7xl">{item.title}</h1>
+        <p className="mt-10 text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{contentTypeLabel} · {localized.category}</p>
+        <h1 className="mt-4 text-5xl font-black leading-tight text-[#2b2119] md:text-7xl">{localized.title}</h1>
         <p className="mt-5 text-2xl font-black leading-9 text-[#6f4e37]">{content.subtitle}</p>
+        <div className="mt-6 flex flex-wrap gap-3 text-sm font-black text-[#6f4e37]">
+          <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">{localized.readTime}</span>
+          <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">{contentTypeLabel}</span>
+          <Link href="/ko/about" className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2 hover:border-[#6f4e37]">FourFeetz Studios</Link>
+        </div>
         <div className="mt-8 space-y-4 text-lg leading-8 text-[#76685d]">
           {content.summary.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
-        <div className="relative mt-10 aspect-video overflow-hidden rounded-[32px] border border-[#eadfce]">
-          <Image src={item.image} alt={`${item.title} 대표 이미지`} fill priority className="object-cover" />
-        </div>
+        <figure className="mt-10 overflow-hidden rounded-[32px] border border-[#eadfce] bg-white">
+          <div className="relative aspect-video">
+            <Image src={item.image} alt={localized.imageAlt?.ko ?? `${localized.title} 대표 이미지`} fill priority className={item.imageFit === "contain" ? "object-contain" : "object-cover"} />
+          </div>
+          {content.imageCaption ? <figcaption className="border-t border-[#eadfce] px-5 py-4 text-sm leading-6 text-[#76685d]">{content.imageCaption}</figcaption> : null}
+        </figure>
         <div className="mt-10 rounded-[28px] border border-[#eadfce] bg-white p-8">
           <h2 className="text-2xl font-black text-[#2b2119]">이 글에서 다루는 내용</h2>
           <ul className="mt-5 space-y-3 text-[#76685d]">
@@ -355,7 +414,7 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
           <Link href={item.href} hrefLang="en" className={`${primaryButton} mt-6`}>영문 원문 읽기</Link>
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link href={`/ko/insights/${item.group}`} className={secondaryButton}>{group.label} 더 보기</Link>
+          <Link href={listing.href} className={secondaryButton}>{listing.label} 더 보기</Link>
           <Link href="/ko/insights" className={secondaryButton}>전체 인사이트</Link>
         </div>
         <section className="mt-16 border-t border-[#eadfce] pt-12">
@@ -363,7 +422,7 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
           <div className="mt-7 grid gap-4 md:grid-cols-3">
             {related.map((entry) => (
               <Link key={entry.slug} href={`/ko/insights/${entry.slug}`} className="rounded-[24px] border border-[#eadfce] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                <span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{group.badge}</span>
+                <span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{insightContentTypeLabels[entry.contentType].ko}</span>
                 <strong className="mt-3 block text-lg text-[#2b2119]">{entry.title}</strong>
               </Link>
             ))}

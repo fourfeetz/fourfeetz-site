@@ -68,7 +68,7 @@ function validateVideoUploadDate(uploadDate: string): string {
 
 const articleLabels = {
   en: {
-    home: "Home", insights: "Insights", guides: "Production Guides", analysis: "Studio Analysis / Tool Updates",
+    home: "Home", insights: "Insights", guides: "Production Guides", analysis: "Studio Analysis",
     productionNotes: "FourFeetz production notes", fromStudio: "From the studio",
     educationalExample: "Educational example · not our proprietary master prompt",
     viewFullSize: "View full size", viewFullSizeLabel: "View full-size image",
@@ -78,7 +78,7 @@ const articleLabels = {
     allGuides: "All Production Guides →", allAnalysis: "All Studio Analysis →",
   },
   ko: {
-    home: "홈", insights: "인사이트", guides: "제작 가이드", analysis: "스튜디오 분석 / 도구 업데이트",
+    home: "홈", insights: "인사이트", guides: "제작 가이드", analysis: "스튜디오 분석",
     productionNotes: "FourFeetz 제작 노트", fromStudio: "스튜디오 노트",
     educationalExample: "교육용 예시 · 비공개 마스터 프롬프트가 아닙니다",
     viewFullSize: "원본 크기로 보기", viewFullSizeLabel: "원본 크기 이미지 보기",

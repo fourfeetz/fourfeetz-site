@@ -413,13 +413,13 @@ export const insights = [
     href: "/insights/magiclight-seedance-2-real-production-test",
   },
   {
-    titleEn: "Runway Gen-4 Review",
-    titleKo: "Runway Gen-4 Review",
+    titleEn: "Runway Gen-4.5 Review",
+    titleKo: "Runway Gen-4.5 제작 리뷰",
     category: "AI Video",
     readTime: "6 min read",
-    descEn: "A practical look at image consistency, motion quality, and where the model fits in a creator workflow.",
-    descKo: "A practical look at image consistency, motion quality, and where the model fits in a creator workflow.",
-    href: "/insights/runway-gen-4-review",
+    descEn: "The current FourFeetz review of image consistency, motion quality, and where the model fits in a creator workflow.",
+    descKo: "이미지 일관성, 움직임 품질과 제작 흐름에서의 활용 범위를 다룬 최신 FourFeetz 리뷰입니다.",
+    href: "/insights/runway-gen45-review",
   },
   {
     titleEn: "Kling vs Veo",

@@ -16,7 +16,6 @@ export const howHaruInsight: ProductionInsight = {
   keywords: ["AI character consistency", "consistent AI character", "AI character development", "character drift in AI video", "AI animation character workflow", "creating a consistent character", "HARU FourFeetz"],
   tools: ["ChatGPT", "Google Flow", "Runway", "Kling AI", "Suno", "CapCut"],
   characters: ["HARU"],
-  popularity: 100,
   sections: [
     {
       id: "introduction",

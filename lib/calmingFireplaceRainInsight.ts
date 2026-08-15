@@ -32,7 +32,6 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
     keywords: ["calming music for dogs", "puppy kitten fireplace rain", "pet relaxation video", "FourFeetz Relax Moments"],
     tools: [],
     characters: [],
-    popularity: 120,
     featuredVideo: {
       name: "Calming Music for Dogs — Puppy & Kitten Sleeping by the Fireplace in the Rain",
       description: "A peaceful puppy and kitten sleep beside a warm fireplace while gentle rain falls outside and calming music supports the quiet room.",
@@ -139,7 +138,6 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
     keywords: ["강아지를 위한 편안한 음악", "강아지 고양이 벽난로 빗소리", "반려동물 휴식 영상", "FourFeetz Relax Moments"],
     tools: [],
     characters: [],
-    popularity: 120,
     featuredVideo: {
       name: "강아지를 위한 편안한 음악 — 빗소리와 벽난로 옆에서 잠든 강아지와 아기 고양이",
       description: "창밖에는 잔잔한 비가 내리고 따뜻한 벽난로 옆에서는 강아지와 아기 고양이가 편안하게 잠든 휴식 영상입니다.",

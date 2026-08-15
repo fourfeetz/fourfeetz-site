@@ -14,6 +14,7 @@ export type Film = {
   thumbnail: string;
   heroImage: string;
   character: string;
+  characterSlugs?: string[];
   tools: string[];
   productionNotes: FilmMeta[];
   gallery: FilmImage[];
@@ -30,7 +31,14 @@ export type Film = {
   relatedInsights?: FilmLink[];
   relatedResources?: FilmLink[];
   musicSlugs?: string[];
-  nextProject?: { eyebrow: string; title: string; description: string };
+  featuredRelease?: {
+    eyebrow: string;
+    title: string;
+    koreanTitle: string;
+    description: string;
+    koreanDescription: string;
+    href: string;
+  };
   publishedAt?: string;
   updatedAt?: string;
   featured?: boolean;
@@ -85,6 +93,7 @@ export const films: Film[] = [
     thumbnail: "/images/works/haru-relax-moments-ep03/first-shot.webp",
     heroImage: "/images/works/haru-relax-moments-ep03/first-shot.webp",
     character: "HARU",
+    characterSlugs: ["haru"],
     tools: ["Google Flow", "Veo 3.1 Lite", "CapCut", "Suno", "ChatGPT"],
     productionNotes: [
       { label: "Series", value: "FourFeetz Relax Moments · EP.03" },
@@ -135,6 +144,7 @@ export const films: Film[] = [
     thumbnail: "/images/works/haru-first-journey/video-thumbnails/haru-first-journey.jpg",
     heroImage: "/images/works/haru-first-journey/detail-hero.png",
     character: "HARU",
+    characterSlugs: ["haru"],
     tools: ["Google Flow", "Runway", "Kling AI", "ChatGPT", "Suno", "CapCut", "Aleph 2.0"],
     productionNotes: [
       { label: "Character", value: "HARU (Original FourFeetz Character)" },
@@ -184,7 +194,7 @@ export const films: Film[] = [
     ],
     relatedInsights: [
       { title: "How HARU Was Created", description: "A practical look at building FourFeetz Studios' first original character.", href: "/insights/how-haru-was-created" },
-      { title: "Runway Gen-4 Review", description: "Notes on image consistency, motion quality, and production workflow.", href: "/insights/runway-gen-4-review" },
+      { title: "Runway Gen-4.5 Review", description: "The current review of image consistency, motion quality, and production workflow.", href: "/insights/runway-gen45-review" },
       { title: "Image-to-Video Prompt Guide", description: "A framework for camera movement, subject motion, lighting, and continuity.", href: "/insights/image-to-video-prompts" },
     ],
     relatedResources: [
@@ -197,7 +207,14 @@ export const films: Film[] = [
     updatedAt: "2026-07-17",
     featured: true,
     publishStatus: "published",
-    nextProject: { eyebrow: "In Production", title: "PORI — Coming Soon", description: "The next original FourFeetz story is already in production." },
+    featuredRelease: {
+      eyebrow: "Published Character Short",
+      title: "HARU & PORI — A Golden Evening Together",
+      koreanTitle: "HARU와 PORI — 함께한 황금빛 저녁",
+      description: "Watch the published FourFeetz short in which HARU and PORI run and rest together in a flower-filled garden at golden hour.",
+      koreanDescription: "황금빛 저녁의 꽃이 가득한 정원에서 HARU와 PORI가 함께 달리고 쉬는 공개 FourFeetz 쇼츠입니다.",
+      href: "/shorts/haru-ep03-best-friends",
+    },
   },
   {
     slug: "haru-relaxing-home",
@@ -209,6 +226,7 @@ export const films: Film[] = [
     thumbnail: "/images/works/haru-relaxing-home/thumbnail.png",
     heroImage: "/images/works/haru-relaxing-home/thumbnail.png",
     character: "HARU",
+    characterSlugs: ["haru"],
     tools: ["Google Flow", "Aleph 2.0"],
     productionNotes: [
       { label: "AI Workflow", value: "Google Flow" },
@@ -225,6 +243,9 @@ export const films: Film[] = [
     language: "No Dialogue",
     resolution: "Full HD",
     watchDescription: "A quiet long-form viewing experience built around natural breathing, a static camera, and warm cinematic light.",
+    relatedInsights: [
+      { title: "Why HARU's Relaxing Videos Stay Calm and Natural", description: "A production record about restrained motion, static framing, and the review criteria used for HARU relaxing scenes.", href: "/insights/haru-relaxing-videos-calm-natural" },
+    ],
     publishedAt: "2026-07-16",
     featured: true,
     publishStatus: "published",

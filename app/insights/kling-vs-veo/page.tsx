@@ -8,12 +8,12 @@ const heroImage = "/images/insights/kling-vs-veo.png";
 export const metadata: Metadata = {
   title: "Kling vs Veo: AI Video Comparison | FourFeetz Studios",
   description:
-    "A practical comparison of Kling and Veo for motion quality, character consistency, camera control, prompt following, and AI filmmaking workflows.",
+    "A production-planning comparison of the questions creators should verify when choosing Kling or Veo for motion, continuity, camera control, and editing.",
   alternates: englishLanguageAlternates("/insights/kling-vs-veo", "/ko/insights/kling-vs-veo"),
   openGraph: {
     title: "Kling vs Veo: AI Video Comparison | FourFeetz Studios",
     description:
-      "A practical comparison of Kling and Veo for motion quality, character consistency, camera control, prompt following, and AI filmmaking workflows.",
+      "A production-planning comparison of the questions creators should verify when choosing Kling or Veo for motion, continuity, camera control, and editing.",
     images: [heroImage],
   },
   twitter: {
@@ -23,58 +23,38 @@ export const metadata: Metadata = {
 };
 
 const quickVerdict = [
-  { label: "Motion Quality", winner: "Kling" },
-  { label: "Character Consistency", winner: "Veo" },
-  { label: "Camera Control", winner: "Veo" },
-  { label: "Prompt Following", winner: "Kling" },
-  { label: "Production Speed", winner: "Kling" },
-  { label: "Overall Cinematic Quality", winner: "Veo" },
+  { label: "Fast animal motion", focus: "Check anatomy, ground contact, and readable action" },
+  { label: "Character continuity", focus: "Compare identity through the full clip and adjacent shots" },
+  { label: "Camera direction", focus: "Verify the move starts, settles, and leaves an edit point" },
+  { label: "Prompt response", focus: "Change one visible instruction at a time" },
+  { label: "Workflow fit", focus: "Compare accepted material, not generation volume" },
+  { label: "Current terms", focus: "Confirm access, rights, credits, and limits live" },
 ];
 
-const testSetup = [
-  "Same first-frame image direction for each test whenever possible",
+const comparisonSetup = [
+  "Use the same approved first-frame direction wherever the tools permit it",
   "One clear subject action per generation",
-  "One clear camera instruction per test",
+  "One clear camera instruction per comparison",
   "Warm daylight or golden-hour lighting language",
-  "Review based on usable shots, not only impressive single outputs",
+  "Review based on edit-ready candidates, not an impressive isolated output",
 ];
 
 const workedBest = [
-  { title: "Kling for Active Motion", desc: "Kling felt strongest when the scene needed energy, speed, and direct prompt response." },
-  { title: "Veo for Cinematic Framing", desc: "Veo produced the most polished camera behavior and natural cinematic atmosphere." },
-  { title: "Simple Actions", desc: "Both tools performed better when the shot had one primary subject action." },
-  { title: "Prepared References", desc: "The quality of the starting image mattered more than adding longer prompt text." },
+  { title: "Active Motion", desc: "Check whether fast movement keeps paws, body shape, direction, and a clean stopping point." },
+  { title: "Cinematic Framing", desc: "Check whether the requested camera path remains physical, restrained, and editable." },
+  { title: "Simple Actions", desc: "Use one primary subject action so a failure can be located and revised." },
+  { title: "Prepared References", desc: "Approve the starting image before asking prompt text to solve identity and staging together." },
 ];
 
 const didNotWork = [
   { title: "Too Many Instructions", desc: "Layering several actions, camera moves, and style requests reduced control." },
   { title: "Fast Anatomy Changes", desc: "Complex running, jumping, and object interaction still needed repeated attempts." },
   { title: "Long Continuity Assumptions", desc: "Neither tool replaced manual planning for multi-shot character continuity." },
-  { title: "One Perfect Output", desc: "The best result usually came from comparing several short generations." },
-];
-
-const klingScores = [
-  { label: "Motion Quality", value: "4.7/5" },
-  { label: "Character Consistency", value: "4.2/5" },
-  { label: "Camera Control", value: "4.1/5" },
-  { label: "Prompt Following", value: "4.6/5" },
-  { label: "Workflow Speed", value: "4.7/5" },
-  { label: "Cinematic Quality", value: "4.4/5" },
-  { label: "Overall", value: "4.5/5" },
-];
-
-const veoScores = [
-  { label: "Motion Quality", value: "4.5/5" },
-  { label: "Character Consistency", value: "4.8/5" },
-  { label: "Camera Control", value: "4.9/5" },
-  { label: "Prompt Following", value: "4.4/5" },
-  { label: "Workflow Speed", value: "4.0/5" },
-  { label: "Cinematic Quality", value: "4.9/5" },
-  { label: "Overall", value: "4.6/5" },
+  { title: "One Perfect Output", desc: "A single attractive result cannot establish repeatability or continuity by itself." },
 ];
 
 const related = [
-  { title: "Runway Gen-4 Review", href: "/insights/runway-gen-4-review", desc: "A practical review of character consistency, motion quality, and camera control." },
+  { title: "Runway Gen-4.5 Review", href: "/insights/runway-gen45-review", desc: "The current FourFeetz review of character consistency, motion quality, and camera control." },
   { title: "A Repeatable AI Video Workflow", href: "/insights/repeatable-ai-video-workflow", desc: "A production pipeline for planning, generating, editing, and publishing AI video." },
   { title: "Writing Better Image-to-Video Prompts", href: "/insights/image-to-video-prompts", desc: "Prompt structure for movement, lighting, environment, and continuity." },
   { title: "Camera Movement Guide for AI Filmmakers", href: "/insights/camera-movement-guide", desc: "A guide to tracking shots, push-ins, orbits, pans, tilts, and cinematic AI camera movement." },
@@ -105,7 +85,7 @@ const breadcrumbJsonLd = {
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://fourfeetz.com" },
     { "@type": "ListItem", position: 2, name: "Insights", item: "https://fourfeetz.com/insights" },
-    { "@type": "ListItem", position: 3, name: "Production Guides", item: "https://fourfeetz.com/insights/guides" },
+    { "@type": "ListItem", position: 3, name: "Studio Analysis", item: "https://fourfeetz.com/insights/news" },
     { "@type": "ListItem", position: 4, name: "Kling vs Veo", item: "https://fourfeetz.com/insights/kling-vs-veo" },
   ],
 };
@@ -128,22 +108,6 @@ function CompactCard({ title, desc }: { title: string; desc: string }) {
   );
 }
 
-function ScoreCard({ title, scores }: { title: string; scores: { label: string; value: string }[] }) {
-  return (
-    <article className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm">
-      <h3 className="text-2xl font-black text-[#2b2119]">{title}</h3>
-      <div className="mt-5 grid gap-3">
-        {scores.map((score) => (
-          <div key={score.label} className="flex items-center justify-between gap-4 border-t border-[#eadfce] pt-3 first:border-t-0 first:pt-0">
-            <p className="text-base font-bold text-[#76685d]">{score.label}</p>
-            <p className="text-base font-black text-[#2b2119]">{score.value}</p>
-          </div>
-        ))}
-      </div>
-    </article>
-  );
-}
-
 export default function Page() {
   return (
     <main>
@@ -155,12 +119,12 @@ export default function Page() {
           <nav aria-label="Breadcrumb" className="text-sm font-bold text-[#8a7768]">
             <Link href="/">Home</Link><span className="px-2">/</span>
             <Link href="/insights">Insights</Link><span className="px-2">/</span>
-            <Link href="/insights/guides">Production Guides</Link>
+            <Link href="/insights/news">Studio Analysis</Link>
           </nav>
-          <p className="mt-10 text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Production Guide · Tools</p>
+          <p className="mt-10 text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Studio Analysis · Tools</p>
           <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">Kling vs Veo</h1>
           <p className="mt-6 max-w-3xl text-xl leading-8 text-[#76685d] md:text-2xl md:leading-9">
-            A practical side-by-side comparison of motion quality, character consistency, camera control, prompt following, workflow speed, and overall usefulness for AI filmmaking.
+            A production-planning comparison of the questions creators should verify before choosing either tool for motion, continuity, camera direction, and editability.
           </p>
           <div className="mt-8 flex flex-wrap gap-3 text-sm font-black text-[#6f4e37]">
             <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-2">8 min read</span>
@@ -182,13 +146,13 @@ export default function Page() {
         <div className="mx-auto max-w-3xl px-6 pb-20 md:pb-24">
           <Section title="Quick Verdict">
             <p>
-              Kling felt faster and more responsive for action-oriented tests, while Veo produced the more polished cinematic image when camera control and character stability mattered most.
+              This page does not assign a winner or a numerical score. It organizes the production questions that should be checked with your own authorized material before either tool is selected for a shot.
             </p>
             <div className="grid gap-4 md:grid-cols-2">
               {quickVerdict.map((item) => (
                 <article key={item.label} className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm">
                   <p className="text-sm font-black uppercase tracking-[0.22em] text-[#a67c52]">{item.label}</p>
-                  <p className="mt-3 text-2xl font-black text-[#2b2119]">{item.winner}</p>
+                  <p className="mt-3 text-xl font-black leading-8 text-[#2b2119]">{item.focus}</p>
                 </article>
               ))}
             </div>
@@ -196,21 +160,21 @@ export default function Page() {
 
           <Section title="Why We Compared Them">
             <p>
-              FourFeetz uses AI video tools as part of a controlled production workflow, not as one-click filmmaking machines. The real question was not which model could make the flashiest clip, but which one produced shots that could survive editing, continuity checks, and repeated character use.
+              FourFeetz uses AI video tools inside a controlled production workflow, not as one-click filmmaking machines. A useful comparison therefore begins with the shot that must survive editing, continuity checks, and repeated character use.
             </p>
             <p>
-              Kling and Veo were compared because both are useful for image-to-video production, short cinematic shots, social video tests, and original character workflows. The test focused on practical usefulness for AI filmmaking rather than brand hype.
+              The repository does not contain a matched Kling-and-Veo benchmark set that supports a universal performance ranking. The sections below are a planning framework: hold the reference and shot purpose steady, then record the first visible failure and the editorial value of each candidate.
             </p>
           </Section>
 
-          <Section title="Test Setup">
+          <Section title="Comparison Setup">
             <p>
-              The comparison used the same production mindset as the HARU workflow: prepare the first frame carefully, ask for one subject action, define one camera behavior, then judge whether the output could be connected to the next shot.
+              Use the same production mindset as the HARU workflow: prepare the first frame carefully, ask for one subject action, define one camera behavior, then judge whether the output can connect to the next shot.
             </p>
             <div className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm">
               <p className="text-sm font-black uppercase tracking-[0.22em] text-[#a67c52]">Review conditions</p>
               <ul className="mt-5 space-y-3 text-base leading-7 text-[#76685d]">
-                {testSetup.map((item) => <li key={item}>{item}</li>)}
+                {comparisonSetup.map((item) => <li key={item}>{item}</li>)}
               </ul>
             </div>
             <div className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm">
@@ -219,19 +183,19 @@ export default function Page() {
             </div>
           </Section>
 
-          <Section title="Walking Test">
+          <Section title="Walking Motion">
             <p>
-              Walking shots are deceptively difficult because the motion must feel natural while the body shape remains stable. Kling produced energetic movement quickly and followed simple direction well. Veo produced smoother cinematic atmosphere and more stable framing, but sometimes felt slower to iterate.
+              Walking shots are deceptively difficult because the motion must feel natural while the body shape remains stable. For either tool, inspect foot order, ground contact, body scale, direction, and whether the character settles into an editable final pose.
             </p>
             <div className="grid gap-4 md:grid-cols-2">
-              <CompactCard title="Kling" desc="Best for fast walking tests, clear movement, and quick variations from the same setup." />
-              <CompactCard title="Veo" desc="Best for controlled pace, steadier framing, and more refined cinematic softness." />
+              <CompactCard title="Kling review question" desc="Does direct motion wording preserve anatomy and a clean stopping point?" />
+              <CompactCard title="Veo review question" desc="Does cinematic camera wording preserve framing and character identity through the full walk?" />
             </div>
           </Section>
 
-          <Section title="Running Test">
+          <Section title="Running Motion">
             <p>
-              Running increased the difficulty for both tools. Kling handled speed and momentum better, which made it useful for energetic tests. Veo kept the image more cinematic but was more sensitive to complex action and needed tighter shot planning.
+              Running increases the difficulty for any animal-character model. Speed can hide extra limbs, sliding contact, scale changes, and a camera move that no longer matches the planned direction. Treat fast action as a separate production problem rather than assuming the result of a walking shot will transfer.
             </p>
             <aside className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm">
               <p className="text-sm font-black uppercase tracking-[0.22em] text-[#a67c52]">Recommendation</p>
@@ -239,28 +203,28 @@ export default function Page() {
             </aside>
           </Section>
 
-          <Section title="Close-Up Test">
+          <Section title="Close-Up Review">
             <p>
-              Close-ups revealed the biggest difference in character handling. Veo was stronger at preserving a polished face, soft lighting, and believable camera presence. Kling remained useful, but facial proportions and fine details were more likely to shift when the shot asked for emotional nuance.
+              Close-ups make small identity changes easier to see. Compare muzzle width, eye spacing, ear placement, accessories, coat texture, and the emotional tone of the reference through the entire clip.
             </p>
             <div className="grid gap-4 md:grid-cols-2">
               <CompactCard title="Kling" desc="Useful for expressive variations, but detail drift needs careful review." />
-              <CompactCard title="Veo" desc="Stronger for stable close-ups, mood, and premium cinematic framing." />
+              <CompactCard title="Review criterion" desc="Approve a close-up only when identity, light, and camera distance remain coherent with adjacent shots." />
             </div>
           </Section>
 
           <Section id="camera-movement" title="Camera Movement">
             <p>
-              Veo had the advantage in camera movement. Slow tracking, gentle push-ins, over-the-shoulder framing, and cinematic depth generally felt more physically plausible. Kling was still useful for direct movement prompts, but the camera language needed to stay simple.
+              Camera behavior should be evaluated independently from subject performance. A slow track, restrained push, or locked frame must begin and settle cleanly without changing lens behavior or overwhelming the character action.
             </p>
             <p>
-              The best results came from camera instructions that could exist in the real world: slow dolly in, fixed side profile, gentle tracking shot, shallow depth of field, and golden-hour lighting.
+              Use camera instructions that could exist in the physical world, and compare the opening and closing composition before judging surface polish.
             </p>
           </Section>
 
           <Section title="Prompt Following">
             <p>
-              Kling was slightly stronger at following direct action instructions. If the prompt asked for a clear movement, Kling often responded quickly and produced usable variations. Veo followed cinematic direction well, but complex prompt details sometimes became softer or more interpretive.
+              Prompt following must be judged against visible instructions, not the overall attractiveness of a clip. Change one action or camera instruction at a time so the reason for a difference remains legible.
             </p>
             <p>
               For both tools, short prompts outperformed overloaded prompts. A good first frame plus one clear movement direction was more reliable than a long paragraph full of competing instructions.
@@ -269,11 +233,11 @@ export default function Page() {
 
           <Section title="Workflow Speed">
             <p>
-              Kling had the advantage for speed. It was useful when testing multiple motion ideas, comparing prompt phrasing, or producing quick options for short-form video. Veo felt slower as a workflow tool but often produced outputs that needed less visual polishing when the shot succeeded.
+              Workflow speed depends on access, queue conditions, settings, the number of rejected candidates, and the amount of repair required in the edit. Compare the path to an accepted shot in your own project rather than relying on a universal speed claim.
             </p>
             <div className="grid gap-4 md:grid-cols-2">
-              <CompactCard title="Kling" desc="Faster for iteration, prompt testing, and movement exploration." />
-              <CompactCard title="Veo" desc="Slower, but often stronger for final cinematic candidate shots." />
+              <CompactCard title="Iteration check" desc="Record what changed, why a candidate failed, and whether the next attempt tests one known variable." />
+              <CompactCard title="Finishing check" desc="Place the accepted candidate in the edit before deciding that surface polish reduced total work." />
             </div>
           </Section>
 
@@ -289,26 +253,19 @@ export default function Page() {
             </div>
           </Section>
 
-          <Section title="Final Scores">
-            <div className="grid gap-5 md:grid-cols-2">
-              <ScoreCard title="Kling" scores={klingScores} />
-              <ScoreCard title="Veo" scores={veoScores} />
-            </div>
-          </Section>
-
           <Section title="Verdict">
             <p>
-              Kling is the better choice when production speed, prompt responsiveness, and active motion are the priority. It fits early exploration, movement tests, and short clips where iteration speed matters.
+              Neither tool receives a universal FourFeetz score here. Choose the candidate that passes the current shot&apos;s identity, anatomy, camera, continuity, and edit requirements with the clearest revision path.
             </p>
             <p>
-              Veo is the stronger choice when the shot needs premium cinematic atmosphere, stable close-ups, and more refined camera behavior. For FourFeetz-style AI filmmaking, the best workflow is not choosing one tool forever. It is choosing the tool that fits the shot.
+              Current availability, rights, pricing, and output limits must be checked in each service before production. A tool comparison is useful only when the reference, shot purpose, and acceptance criteria are visible.
             </p>
           </Section>
         </div>
 
         <section className="border-t border-[#eadfce] bg-white px-6 py-20">
           <div className="mx-auto max-w-7xl">
-            <div className="flex flex-wrap items-end justify-between gap-4"><p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Related Articles</p><Link href="/insights/guides" className="font-black text-[#6f4e37]">All Production Guides →</Link></div>
+            <div className="flex flex-wrap items-end justify-between gap-4"><p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Related Articles</p><Link href="/insights/news" className="font-black text-[#6f4e37]">All Studio Analysis →</Link></div>
             <h2 className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">Continue Exploring</h2>
             <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
               {related.map((item) => (

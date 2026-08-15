@@ -22,12 +22,12 @@ import {
 import { shorts } from "@/data/shorts";
 import { characterDetails } from "@/lib/characterDetails";
 import { films, getFilm } from "@/lib/films";
+import { localizeInsightArticle } from "@/lib/insightLocalization";
 import { getPublishedInsightArticles } from "@/lib/insights";
 import { insightGroups, isInsightGroup } from "@/lib/insightGroups";
 import {
   koreanCharacters,
   koreanFilmDescriptions,
-  koreanInsightDescriptions,
   koreanMusicDescriptions,
   koreanOrFallback,
   koreanResourceDescriptions,
@@ -150,7 +150,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title = `${item.koreanTitle ?? item.title} | FourFeetz 음악`; description = koreanOrFallback(koreanMusicDescriptions, slug, "FourFeetz 오리지널 음악입니다."); englishPath = `/music/${slug}`; image = item.cover;
   } else if (section === "insights") {
     const item = getPublishedInsightArticles().find((entry) => entry.slug === slug); if (!item) return {};
-    title = `${item.title} | FourFeetz 인사이트`; description = koreanOrFallback(koreanInsightDescriptions, slug, "AI 영상 제작과 도구에 관한 FourFeetz 인사이트입니다."); englishPath = item.href; image = item.image;
+    const localized = localizeInsightArticle(item, "ko");
+    title = `${localized.title} | FourFeetz 인사이트`; description = localized.description; englishPath = item.href; image = item.image;
   } else if (section === "resources") {
     const item = getResource(slug); if (!item) return {};
     title = `${koreanResourceTitles[slug] ?? item.title} | FourFeetz 리소스`; description = koreanResourceDescriptions[slug]; englishPath = `/resources/${slug}`; image = item.image;

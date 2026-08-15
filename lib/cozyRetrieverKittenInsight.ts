@@ -32,7 +32,6 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
     keywords: ["cozy animal short", "retriever kitten video", "AI video production experience", "vertical animal story"],
     tools: ["Google Flow", "Veo"],
     characters: [],
-    popularity: 110,
     featuredVideo: {
       name: "A Golden Retriever Fell Asleep… Then a Tiny Kitten Joined Him",
       description: "A sleepy young retriever dozes off in warm afternoon sunlight before a tiny ginger tabby kitten curls up beside him.",
@@ -160,7 +159,6 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
     keywords: ["동물 쇼츠 제작", "리트리버 고양이 영상", "AI 영상 제작 경험", "세로형 동물 이야기"],
     tools: ["Google Flow", "Veo"],
     characters: [],
-    popularity: 110,
     featuredVideo: {
       name: "리트리버가 잠들자 아기 고양이가 다가왔어요",
       description: "따뜻한 오후 햇살 속에서 어린 리트리버가 잠들고 아기 치즈태비 고양이가 다가와 곁에 눕는 포근한 쇼츠입니다.",
@@ -213,7 +211,7 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
         title: "신체 변형을 줄인 방법",
         paragraphs: [
           "리트리버가 앞발로 고양이를 끌어안게 하면 다리와 발이 변형될 가능성이 커서 해당 동작은 사용하지 않았습니다. 대신 고양이가 스스로 리트리버의 앞다리에 얼굴을 가볍게 비비고, 몸을 낮춘 다음 머리를 기대어 잠들도록 만들었습니다.",
-          "마지막 장면에서는 동작을 많이 넣지 않았습니다. 두 동물의 미세한 호흡, 고양이 귀의 아주 작은 움직임, 8초 동안 약 3~5%의 느린 줌아웃만으로 장면이 살아 있으면서도 포근한 자세가 흐트러지지 않게 했습니다.",
+          "마지막 장면에서는 동작을 많이 넣지 않았습니다. 두 동물의 미세한 호흡, 고양이 귀의 아주 작은 움직임과 매우 느린 줌아웃만으로 장면이 살아 있으면서도 포근한 자세가 흐트러지지 않게 했습니다.",
         ],
       },
       {

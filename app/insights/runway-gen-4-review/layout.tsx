@@ -1,3 +1,3 @@
 import { createPageMetadata } from "@/lib/seo";
-export const metadata = createPageMetadata({ title: "Runway Gen-4 Review", description: "An independent FourFeetz Studios review of Runway Gen-4 for AI filmmaking, motion, camera control, and character consistency.", path: "/insights/runway-gen-4-review", image: "/images/insights/runway/09_og-image.png" });
+export const metadata = createPageMetadata({ title: "Runway Gen-4.5 Review", description: "The current FourFeetz studio review of Runway Gen-4.5 for character motion, camera control, continuity, and editability.", path: "/insights/runway-gen45-review", image: "/images/insights/production/runway-gen45-set-hugo.png" });
 export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) { return children; }

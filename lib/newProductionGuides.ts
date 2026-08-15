@@ -44,7 +44,6 @@ type GuideSeed = {
   keywords: { en: string[]; ko: string[] };
   tools: string[];
   characters: string[];
-  popularity: number;
   en: LocalizedCopy;
   ko: LocalizedCopy;
 };
@@ -77,7 +76,6 @@ const guides: GuideSeed[] = [
     },
     tools: ["Google Flow"],
     characters: ["LUNA", "HARU"],
-    popularity: 96,
     en: {
       ...guideBasics,
       title: "How to Extend AI Video Scenes Naturally in Google Flow",
@@ -284,7 +282,6 @@ const guides: GuideSeed[] = [
     },
     tools: ["Google Flow", "Runway", "Kling AI"],
     characters: ["HARU", "HUGO", "OLI"],
-    popularity: 95,
     en: {
       ...guideBasics,
       title: "8 Common AI Video Generation Failures We Encountered",
@@ -507,7 +504,6 @@ const guides: GuideSeed[] = [
     },
     tools: ["Google Flow", "AI Video"],
     characters: ["HARU"],
-    popularity: 94,
     en: {
       ...guideBasics,
       title: "Why AI Shorts Should Be Created in 9:16 from the Start",
@@ -712,7 +708,6 @@ const guides: GuideSeed[] = [
     },
     tools: ["AI Image", "AI Video"],
     characters: ["HARU"],
-    popularity: 97,
     en: {
       ...guideBasics,
       title: "How We Reduce Character Inconsistency in AI Videos",
@@ -920,7 +915,6 @@ const guides: GuideSeed[] = [
     },
     tools: ["AI Video", "CapCut"],
     characters: ["HARU"],
-    popularity: 93,
     en: {
       ...guideBasics,
       title: "How to Create Seamless Loops for Relaxing AI Videos",
@@ -1174,7 +1168,6 @@ function createArticle(seed: GuideSeed, language: NewProductionGuideLanguage): N
     keywords: seed.keywords[language],
     tools: seed.tools,
     characters: seed.characters,
-    popularity: seed.popularity,
     related,
   };
 }

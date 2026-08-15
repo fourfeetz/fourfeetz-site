@@ -1,4 +1,8 @@
 export type KoreanInsightSummary = {
+  title: string;
+  category: string;
+  imageAlt?: string;
+  imageCaption?: string;
   subtitle: string;
   summary: [string, string, string];
   topics: [string, string, string];
@@ -6,6 +10,8 @@ export type KoreanInsightSummary = {
 
 export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
   "runway-dev-ai-media-platform": {
+    title: "Runway Dev 통합 AI 미디어 제작 플랫폼 분석",
+    category: "도구 업데이트",
     subtitle: "Runway가 생성 도구를 넘어 통합 제작 환경으로 확장하려는 방향을 살펴봅니다.",
     summary: [
       "이 글은 Runway Dev가 공개한 통합 AI 미디어 제작 플랫폼의 핵심 변화와 제작 현장에서의 의미를 정리합니다.",
@@ -15,6 +21,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["통합 제작 플랫폼의 주요 변화", "제작 단계 간 연결이 주는 이점", "도입 전에 검증할 운영 기준"],
   },
   "adobe-firefly-agentic-studio": {
+    title: "Adobe Firefly 에이전트형 스튜디오 분석",
+    category: "도구 업데이트",
     subtitle: "Adobe Firefly의 에이전트형 기능이 크리에이티브 제작 흐름을 어떻게 바꾸는지 분석합니다.",
     summary: [
       "이 글은 Adobe Firefly가 발표한 AI Assistant, Elements, Projects와 Quick Cut의 역할을 제작 흐름 중심으로 설명합니다.",
@@ -24,6 +32,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["Firefly의 새로운 제작 기능", "자산 재사용과 프로젝트 연속성", "자동 편집 결과의 검토 기준"],
   },
   "elevenlabs-music-v2-references": {
+    title: "ElevenLabs Music v2 레퍼런스 기능 분석",
+    category: "도구 업데이트",
     subtitle: "레퍼런스 트랙으로 음악을 지시하는 기능과 저작권 검토의 경계를 살펴봅니다.",
     summary: [
       "이 글은 ElevenLabs Music v2의 레퍼런스 트랙 기능이 음악의 분위기와 악기 구성을 전달하는 방식을 소개합니다.",
@@ -33,6 +43,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["레퍼런스 기반 음악 생성 방식", "캐릭터 테마와 편집 활용성", "입력 음원 권리와 기록 관리"],
   },
   "luma-ray-3-2-production-control": {
+    title: "Luma Ray3.2 제작 제어 기능 분석",
+    category: "도구 업데이트",
     subtitle: "다중 키프레임과 고품질 출력이 AI 영상 후반 작업에 미치는 영향을 검토합니다.",
     summary: [
       "이 글은 Luma Ray3.2의 다중 키프레임, 긴 영상 생성, HDR과 EXR 출력 기능이 제작 과정에 주는 변화를 설명합니다.",
@@ -42,6 +54,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["다중 키프레임 연출 가능성", "HDR·EXR 후반 작업 활용", "긴 클립의 일관성 검토"],
   },
   "magiclight-seedance-2-real-production-test": {
+    title: "MagicLight·Seedance 2 실제 제작 테스트",
+    category: "실제 제작 기록",
     subtitle: "실제 캐릭터 영상 제작에서 여러 AI 도구의 결과와 활용 범위를 비교합니다.",
     summary: [
       "이 글은 HARU 장면을 제작하며 MagicLight, Seedance와 Google Flow 계열 도구를 실제로 테스트한 결과를 정리합니다.",
@@ -51,6 +65,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["실제 제작 테스트의 평가 기준", "움직임과 캐릭터 연속성 비교", "장면 목적에 맞는 도구 선택"],
   },
   "how-haru-was-created": {
+    title: "HARU가 만들어진 과정",
+    category: "실제 제작 기록",
     subtitle: "HARU가 하나의 이미지에서 지속 가능한 오리지널 캐릭터로 발전한 과정을 소개합니다.",
     summary: [
       "이 글은 FourFeetz의 오리지널 캐릭터 HARU가 초기 아이디어에서 영상 속 주인공으로 자리 잡기까지의 과정을 다룹니다.",
@@ -60,6 +76,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["HARU의 캐릭터 개발 배경", "장면 간 정체성을 지키는 기준", "캐릭터 중심 제작에서 얻은 교훈"],
   },
   "google-flow-complete-guide": {
+    title: "Google Flow 멀티숏 제작 가이드",
+    category: "AI 영상 제작",
     subtitle: "Google Flow에서 여러 장면을 하나의 이야기로 연결하는 제작 원칙을 정리합니다.",
     summary: [
       "이 글은 Google Flow를 활용해 여러 숏으로 구성된 AI 영상을 기획하고 검토하는 전체 흐름을 설명합니다.",
@@ -69,6 +87,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["멀티숏 장면 기획", "영상 확장 시 연속성 확인", "편집을 기준으로 한 결과 검토"],
   },
   "runway-gen45-review": {
+    title: "Runway Gen-4.5 제작 리뷰",
+    category: "AI 영상 분석",
     subtitle: "Runway Gen-4.5의 움직임과 카메라 표현을 실제 편집 가능성 중심으로 평가합니다.",
     summary: [
       "이 글은 Runway Gen-4.5로 캐릭터 움직임과 카메라 동작을 테스트하며 확인한 장점과 한계를 정리합니다.",
@@ -78,6 +98,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["캐릭터 움직임의 안정성", "카메라 동작의 활용 범위", "편집 가능한 결과의 판단 기준"],
   },
   "kling-ai-complete-review": {
+    title: "Kling AI 제작 리뷰",
+    category: "AI 영상 분석",
     subtitle: "Kling AI의 이어 만들기와 종료 프레임 제어를 장면 보완 관점에서 살펴봅니다.",
     summary: [
       "이 글은 Kling AI의 연속 생성과 종료 프레임 기능이 기존 장면을 이어가거나 특정 동작을 보완할 때 어떻게 쓰이는지 설명합니다.",
@@ -87,6 +109,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["이어 만들기와 종료 프레임", "연결 지점의 품질 점검", "목표 동작 중심의 장면 보완"],
   },
   "flux-image-guide": {
+    title: "Flux 제작용 이미지 가이드",
+    category: "AI 이미지",
     subtitle: "AI 이미지를 매력적인 한 장에서 반복 사용 가능한 제작 자료로 발전시키는 방법을 다룹니다.",
     summary: [
       "이 글은 Flux 계열 이미지 생성 도구로 캐릭터 레퍼런스와 시네마틱 장면을 만들 때 필요한 기본 판단 기준을 소개합니다.",
@@ -96,6 +120,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["제작용 캐릭터 이미지의 기준", "정체성과 구도의 단계별 검토", "승인 후 품질 작업의 효율"],
   },
   "ai-lighting-guide": {
+    title: "AI 조명 제작 가이드",
+    category: "영상 제작",
     subtitle: "AI 이미지와 영상에서 조명의 방향과 캐릭터 색을 일관되게 유지하는 원칙을 설명합니다.",
     summary: [
       "이 글은 캐릭터의 형태와 감정을 선명하게 보여주는 시네마틱 조명 설계의 기본을 다룹니다.",
@@ -105,6 +131,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["주광 방향과 색온도 설정", "밝은 디테일을 지키는 노출", "장면 사이 조명 연속성"],
   },
   "camera-movement-guide": {
+    title: "AI 영상 카메라 움직임 가이드",
+    category: "영상 제작",
     subtitle: "AI 영상에서 이야기의 목적을 살리는 카메라 움직임을 선택하는 방법을 소개합니다.",
     summary: [
       "이 글은 고정 숏, 푸시 인, 트래킹과 풀백 같은 카메라 움직임이 감정과 정보 전달에 미치는 차이를 설명합니다.",
@@ -114,6 +142,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["장면 목적에 맞는 카메라 선택", "피사체와 카메라 동작의 균형", "편집을 고려한 시작·종료 구도"],
   },
   "ai-thumbnail-design-guide": {
+    title: "AI 썸네일 디자인 가이드",
+    category: "디자인",
     subtitle: "작은 모바일 화면에서도 캐릭터와 콘텐츠의 약속이 명확한 썸네일을 만드는 방법입니다.",
     summary: [
       "이 글은 AI 생성 이미지를 활용해 유튜브 썸네일을 설계할 때 필요한 시각적 우선순위를 설명합니다.",
@@ -123,6 +153,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["모바일 화면에서의 가독성", "캐릭터 중심 시각적 위계", "정직한 이미지와 문구 구성"],
   },
   "ai-storyboarding-guide": {
+    title: "AI 스토리보드 제작 가이드",
+    category: "제작 과정",
     subtitle: "영상 생성을 시작하기 전에 이야기의 흐름과 장면 기능을 검증하는 스토리보드 방법입니다.",
     summary: [
       "이 글은 이야기의 감정적 흐름을 숏 목록, 레퍼런스 이미지와 간단한 편집 시퀀스로 바꾸는 과정을 설명합니다.",
@@ -132,6 +164,10 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["이야기 비트를 장면으로 전환", "각 숏의 편집 기능 설계", "생성 전 화면 연속성 점검"],
   },
   "character-consistency-guide": {
+    title: "캐릭터 일관성 제작 가이드",
+    category: "캐릭터 제작",
+    imageAlt: "공개된 HARU First Journey 장면에서 열린 자동차 문 옆에 서 있는 HARU",
+    imageCaption: "환경, 조명과 구도가 추가된 뒤에도 HARU의 정체성이 유지되는지 검토하는 데 사용하는 공개 필름 프레임입니다.",
     subtitle: "여러 AI 장면에서 캐릭터가 같은 존재로 인식되도록 지키는 핵심 기준을 정리합니다.",
     summary: [
       "이 글은 카메라, 조명과 환경이 바뀌어도 캐릭터의 실루엣, 얼굴, 비율과 주요 액세서리를 안정적으로 유지하는 원칙을 설명합니다.",
@@ -141,6 +177,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["캐릭터 정체성의 핵심 요소", "각도와 움직임 변화 속 연속성", "단계별 품질 검토 기준"],
   },
   "best-ai-music-tools": {
+    title: "영상 제작자를 위한 AI 음악 도구 분석",
+    category: "AI 음악 분석",
     subtitle: "AI 음악 도구를 곡의 인상보다 편집성, 권리와 이야기 적합성으로 평가합니다.",
     summary: [
       "이 글은 영상 제작자가 AI 음악 도구를 선택할 때 비교해야 할 실질적인 기준을 정리합니다.",
@@ -150,6 +188,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["영상 편집에 적합한 음악 구조", "감정과 사운드 공간의 균형", "상업 이용 조건과 기록"],
   },
   "repeatable-ai-video-workflow": {
+    title: "반복 가능한 AI 영상 제작 흐름",
+    category: "제작 과정",
     subtitle: "아이디어를 일관된 영상 결과로 연결하는 반복 가능한 AI 제작 흐름을 소개합니다.",
     summary: [
       "이 글은 기획, 레퍼런스, 장면 생성, 검토, 편집과 공개까지 이어지는 AI 영상 제작의 전체 구조를 설명합니다.",
@@ -159,6 +199,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["기획부터 공개까지의 제작 단계", "단계별 승인과 결과 검토", "파일과 제작 결정의 체계적 관리"],
   },
   "image-to-video-prompts": {
+    title: "이미지 투 비디오 움직임 지시 가이드",
+    category: "영상 지시",
     subtitle: "정지 이미지의 정체성을 지키면서 자연스러운 움직임을 만드는 지시 원칙을 설명합니다.",
     summary: [
       "이 글은 이미지 투 비디오 작업에서 움직임의 시작 상태, 핵심 행동과 카메라 변화를 명확히 전달하는 방법을 다룹니다.",
@@ -168,6 +210,8 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["시작 상태와 핵심 행동 정의", "카메라 지시의 단순화", "안정적인 종료 구간 확인"],
   },
   "reframing-16-9-guide": {
+    title: "16:9 영상을 세로형으로 재구성하는 방법",
+    category: "소셜 영상",
     subtitle: "가로형 AI 영상을 세로형 콘텐츠로 바꿀 때 이야기와 캐릭터를 지키는 방법입니다.",
     summary: [
       "이 글은 16:9 마스터 영상을 Shorts, Reels와 같은 9:16 화면으로 재구성하는 과정을 설명합니다.",
@@ -177,10 +221,12 @@ export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
     topics: ["가로 영상의 세로형 재구성", "장면별 크롭과 보완 방식 선택", "자막·인터페이스 안전 영역"],
   },
   "kling-vs-veo": {
+    title: "Kling과 Veo 제작 관점 비교",
+    category: "도구 비교",
     subtitle: "Kling과 Veo를 움직임, 제어력과 제작 속도 기준으로 비교합니다.",
     summary: [
       "이 글은 Kling과 Veo를 장면 유형별로 비교하며 각 도구가 보여주는 움직임과 카메라 표현의 차이를 살펴봅니다.",
-      "하나의 인상적인 결과보다 캐릭터 연속성, 지시 반영 정도와 편집 가능한 성공률을 중심으로 판단합니다.",
+      "하나의 인상적인 결과보다 캐릭터 연속성, 지시 반영 정도와 편집에 실제로 사용할 수 있는 구간을 중심으로 판단합니다.",
       "프로젝트의 장면 목적과 일정에 따라 어떤 도구를 먼저 테스트할지 결정하는 실용적인 관점을 제공합니다.",
     ],
     topics: ["장면별 움직임과 카메라 비교", "연속성과 지시 반영 평가", "제작 목적에 맞는 도구 선택"],

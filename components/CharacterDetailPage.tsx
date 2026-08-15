@@ -4,6 +4,7 @@ import MusicPlayer from "@/app/music/MusicPlayer";
 import { shorts } from "@/data/shorts";
 import type { CharacterDetail } from "@/lib/characterDetails";
 import { characterDetails } from "@/lib/characterDetails";
+import { getProductionRecordInsights } from "@/lib/insights";
 import { musicTracks } from "@/lib/music";
 
 function Heading({ eyebrow, title }: { eyebrow: string; title: string }) {
@@ -14,6 +15,7 @@ export default function CharacterDetailPage({ character }: { character: Characte
   const related = characterDetails.filter((item) => item.slug !== character.slug).slice(0, 3);
   const featuredMusic = musicTracks.filter((track) => track.character === character.name && track.featured);
   const featuredShorts = shorts.filter((short) => short.characters?.includes(character.name)).slice(0, 4);
+  const productionRecords = getProductionRecordInsights().filter((article) => article.characters?.includes(character.name));
   const image = character.gallery[0]?.image;
   const schema = { "@context": "https://schema.org", "@type": "Person", name: character.name, description: character.tagline, url: `https://fourfeetz.com/characters/${character.slug}`, ...(image ? { image } : {}) };
   return <main>
@@ -51,5 +53,6 @@ export default function CharacterDetailPage({ character }: { character: Characte
         </div>
       </section>
     ) : null}
+    {productionRecords.length ? <section className="border-t border-[#eadfce] bg-[#fffdf8] px-6 py-20"><div className="mx-auto max-w-7xl"><Heading eyebrow="Production Records" title={`${character.name} Production Notes`} /><div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{productionRecords.map((article) => <Link key={article.slug} href={article.href} className="rounded-3xl border border-[#eadfce] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"><p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">Production Record</p><h3 className="mt-3 text-2xl font-black text-[#2b2119]">{article.title}</h3><p className="mt-3 leading-7 text-[#76685d]">{article.description}</p><span className="mt-6 inline-flex font-black text-[#6f4e37]">Read the production record →</span></Link>)}</div></div></section> : null}
   </main>;
 }

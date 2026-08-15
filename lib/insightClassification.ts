@@ -1,4 +1,4 @@
-export type InsightContentType = "production-record" | "production-guide" | "studio-analysis";
+export type InsightContentType = "production-record" | "production-guide" | "studio-analysis" | "tool-update";
 
 const productionRecordSlugs = new Set([
   "animal-character-short-publishing-checklist",
@@ -23,6 +23,13 @@ const studioAnalysisSlugs = new Set([
   "veo3-complete-review",
 ]);
 
+const toolUpdateSlugs = new Set([
+  "adobe-firefly-agentic-studio",
+  "elevenlabs-music-v2-references",
+  "luma-ray-3-2-production-control",
+  "runway-dev-ai-media-platform",
+]);
+
 export function isProductionRecordSlug(slug: string) {
   return productionRecordSlugs.has(slug);
 }
@@ -30,7 +37,12 @@ export function isProductionRecordSlug(slug: string) {
 export function classifyInsight(slug: string, group: "guides" | "news"): InsightContentType {
   if (isProductionRecordSlug(slug)) return "production-record";
   if (studioAnalysisSlugs.has(slug)) return "studio-analysis";
+  if (toolUpdateSlugs.has(slug)) return "tool-update";
   return group === "news" ? "studio-analysis" : "production-guide";
+}
+
+export function isAnalysisContentType(contentType: InsightContentType) {
+  return contentType === "studio-analysis" || contentType === "tool-update";
 }
 
 export const insightContentTypeLabels = {
@@ -43,7 +55,11 @@ export const insightContentTypeLabels = {
     ko: "제작 가이드",
   },
   "studio-analysis": {
-    en: "Studio Analysis / Tool Update",
-    ko: "스튜디오 분석 / 도구 업데이트",
+    en: "Studio Analysis",
+    ko: "스튜디오 분석",
+  },
+  "tool-update": {
+    en: "Tool Update",
+    ko: "도구 업데이트",
   },
 } as const;

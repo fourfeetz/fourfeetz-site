@@ -18,6 +18,7 @@ export type ExperienceProductionGuideSlug = (typeof experienceProductionGuideSlu
 type Language = "en" | "ko";
 type ExperienceProductionGuide = ProductionInsight & {
   heroAlt: string;
+  heroCaption?: string;
   heroFit?: "cover" | "contain";
   heroPosition?: string;
 };
@@ -52,8 +53,10 @@ export const experienceProductionGuides: Record<
       shortTitle: "Why Every Animal Short Starts With a First Shot",
       description:
         "A production account of how FourFeetz uses a native 9:16 First Shot to hold character appearance, lighting and composition together before animal-character motion begins.",
-      hero: "/images/insights/production-guides/ai-shorts-9-16-wide.webp",
-      heroAlt: "FourFeetz animal characters composed for a vertical-first short production workflow",
+      hero: "/images/shorts/ruru/ruru-tries-to-be-scary-cover.png",
+      heroAlt: "RURU peeking from behind a tree in the native vertical cover frame for a published FourFeetz short",
+      heroCaption: "The published RURU short cover demonstrates a native vertical composition with the face, paws, tree edge and movement space available for First Shot review.",
+      heroFit: "contain",
       heroPosition: "50% 50%",
       readTime: "10 min read",
       verdict:
@@ -67,7 +70,6 @@ export const experienceProductionGuides: Record<
       ],
       tools: ["AI Image", "AI Video"],
       characters: ["HARU", "RURU", "MILO"],
-      popularity: 100,
       sections: [
         {
           id: "what-we-tested",
@@ -153,8 +155,10 @@ export const experienceProductionGuides: Record<
       shortTitle: "동물 캐릭터 쇼츠를 First Shot으로 시작하는 이유",
       description:
         "FourFeetz가 동물 캐릭터 영상의 움직임을 만들기 전에 9:16 First Shot으로 외형, 조명과 구도를 함께 고정하는 실제 제작 방식을 정리합니다.",
-      hero: "/images/insights/production-guides/ai-shorts-9-16-wide.webp",
-      heroAlt: "세로형 쇼츠 제작 구도에 배치된 FourFeetz 동물 캐릭터",
+      hero: "/images/shorts/ruru/ruru-tries-to-be-scary-cover.png",
+      heroAlt: "공개된 FourFeetz 쇼츠의 세로형 커버 프레임에서 나무 뒤를 바라보는 RURU",
+      heroCaption: "공개된 RURU 쇼츠 커버는 얼굴, 발, 나무 가장자리와 움직임 공간을 함께 확인할 수 있는 네이티브 세로 구도를 보여줍니다.",
+      heroFit: "contain",
       heroPosition: "50% 50%",
       readTime: "약 10분",
       verdict:
@@ -163,7 +167,6 @@ export const experienceProductionGuides: Record<
       keywords: ["동물 캐릭터 First Shot", "9:16 AI 쇼츠 제작", "세로 영상 캐릭터 일관성", "FourFeetz 제작"],
       tools: ["AI 이미지", "AI 영상"],
       characters: ["HARU", "RURU", "MILO"],
-      popularity: 100,
       sections: [
         {
           id: "what-we-tested",
@@ -260,7 +263,6 @@ export const experienceProductionGuides: Record<
       keywords: ["OLI swimming scene", "AI animal motion", "otter animation", "AI video body deformation"],
       tools: ["AI Video", "Video Editing"],
       characters: ["OLI"],
-      popularity: 99,
       sections: [
         {
           id: "what-we-tested",
@@ -370,7 +372,6 @@ export const experienceProductionGuides: Record<
       keywords: ["OLI 수영 장면", "AI 동물 움직임", "수달 애니메이션", "AI 영상 신체 변형"],
       tools: ["AI 영상", "영상 편집"],
       characters: ["OLI"],
-      popularity: 99,
       sections: [
         {
           id: "what-we-tested",
@@ -472,8 +473,9 @@ export const experienceProductionGuides: Record<
       shortTitle: "One Clear Action per 8-Second Google Flow Scene",
       description:
         "How FourFeetz plans one readable action for the first eight seconds, holds the camera steady and uses Extend only after the final pose can support the next beat.",
-      hero: "/images/insights/production/google-flow-studio-haru.png",
-      heroAlt: "HARU in a FourFeetz Google Flow production workspace illustration",
+      hero: "/images/works/haru-first-journey/gallery/first-step.png",
+      heroAlt: "HARU placing one paw outside an open car in a published First Journey film frame",
+      heroCaption: "A published HARU production frame isolates one readable action—the first step from the car—so body mechanics, direction and the next edit beat can be reviewed together.",
       heroPosition: "50% 50%",
       readTime: "12 min read",
       verdict:
@@ -482,7 +484,6 @@ export const experienceProductionGuides: Record<
       keywords: ["Google Flow workflow", "8 second AI video", "Google Flow Extend", "one action video prompt"],
       tools: ["Google Flow", "CapCut"],
       characters: ["HARU", "RURU", "OLI"],
-      popularity: 100,
       sections: [
         {
           id: "what-we-tested",
@@ -567,8 +568,9 @@ export const experienceProductionGuides: Record<
       shortTitle: "Google Flow 8초 장면에는 한 가지 행동만",
       description:
         "FourFeetz가 첫 8초에 하나의 행동을 집중시키고 카메라를 안정적으로 유지한 뒤, 마지막 자세가 준비됐을 때 Extend로 이어가는 제작 방식을 설명합니다.",
-      hero: "/images/insights/production/google-flow-studio-haru.png",
-      heroAlt: "FourFeetz Google Flow 제작 공간에 있는 HARU",
+      hero: "/images/works/haru-first-journey/gallery/first-step.png",
+      heroAlt: "공개된 First Journey 필름 프레임에서 자동차 밖으로 한 발을 내딛는 HARU",
+      heroCaption: "공개된 HARU 제작 프레임은 자동차에서 내딛는 한 가지 행동을 분명히 보여 주어 신체 움직임, 방향과 다음 편집 장면을 함께 검토할 수 있습니다.",
       heroPosition: "50% 50%",
       readTime: "약 12분",
       verdict:
@@ -577,7 +579,6 @@ export const experienceProductionGuides: Record<
       keywords: ["Google Flow 제작 방식", "8초 AI 영상", "Google Flow Extend", "한 가지 행동 영상"],
       tools: ["Google Flow", "CapCut"],
       characters: ["HARU", "RURU", "OLI"],
-      popularity: 100,
       sections: [
         {
           id: "what-we-tested",
@@ -673,7 +674,6 @@ export const experienceProductionGuides: Record<
       keywords: ["HARU relaxing video", "AI video breathing loop", "CapCut seamless loop", "calm animal animation"],
       tools: ["Google Flow", "CapCut"],
       characters: ["HARU"],
-      popularity: 99,
       sections: [
         {
           id: "what-we-tested",
@@ -767,7 +767,6 @@ export const experienceProductionGuides: Record<
       keywords: ["HARU 릴렉스 영상", "AI 영상 호흡 루프", "CapCut 자연스러운 루프", "차분한 동물 애니메이션"],
       tools: ["Google Flow", "CapCut"],
       characters: ["HARU"],
-      popularity: 99,
       sections: [
         {
           id: "what-we-tested",
@@ -864,7 +863,6 @@ export const experienceProductionGuides: Record<
       keywords: ["HARU RURU MILO consistency", "AI animal character consistency", "reference image workflow", "consistent AI characters"],
       tools: ["AI Image", "AI Video", "Video Editing"],
       characters: ["HARU", "RURU", "MILO"],
-      popularity: 100,
       sections: [
         {
           id: "what-we-tested",
@@ -966,7 +964,6 @@ export const experienceProductionGuides: Record<
       keywords: ["HARU RURU MILO 일관성", "AI 동물 캐릭터 일관성", "기준 이미지 제작", "일관된 AI 캐릭터"],
       tools: ["AI 이미지", "AI 영상", "영상 편집"],
       characters: ["HARU", "RURU", "MILO"],
-      popularity: 100,
       sections: [
         {
           id: "what-we-tested",

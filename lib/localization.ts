@@ -13,9 +13,9 @@ const koreanPrefixes = new Set([
   "videos",
 ]);
 
-const englishOnlyInsightPaths = new Set([
-  "/insights/runway-gen-4-review",
-  "/insights/veo3-complete-review",
+const koreanInsightFallbacks = new Map([
+  ["/insights/runway-gen-4-review", "/ko/insights/runway-gen45-review"],
+  ["/insights/veo3-complete-review", "/ko/insights"],
 ]);
 
 export function getSiteLanguage(pathname: string): SiteLanguage {
@@ -25,7 +25,7 @@ export function getSiteLanguage(pathname: string): SiteLanguage {
 export function toKoreanPath(pathname: string) {
   if (pathname === "/ko" || pathname.startsWith("/ko/")) return pathname;
   if (pathname === "/") return "/ko";
-  if (englishOnlyInsightPaths.has(pathname)) return "/ko/insights";
+  if (koreanInsightFallbacks.has(pathname)) return koreanInsightFallbacks.get(pathname)!;
 
   const segments = pathname.split("/").filter(Boolean);
   const [section, ...rest] = segments;

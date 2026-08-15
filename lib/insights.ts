@@ -1,6 +1,6 @@
 import { howHaruInsight } from "@/lib/howHaruInsight";
 import type { InsightGroup } from "@/lib/insightGroups";
-import { classifyInsight, type InsightContentType } from "@/lib/insightClassification";
+import { classifyInsight, isAnalysisContentType, type InsightContentType } from "@/lib/insightClassification";
 import { magicLightInsight } from "@/lib/magicLightInsight";
 import { newProductionGuides } from "@/lib/newProductionGuides";
 import { productionInsights, type ProductionInsight } from "@/lib/productionInsights";
@@ -50,7 +50,7 @@ function fromProductionInsight(
     readTime: article.readTime,
     href: `/insights/${article.slug}`,
     image: article.hero,
-    imageAlt,
+    imageAlt: imageAlt ?? (article.heroAlt ? { en: article.heroAlt } : undefined),
     imageFit: article.heroFit,
     imagePosition: article.heroPosition,
     tags: article.tags,
@@ -68,7 +68,7 @@ export const insightArticles: InsightArticle[] = [
   ...Object.values(toolNewsInsights).map((article) => ({
     slug: article.slug,
     group: "news" as const,
-    contentType: "studio-analysis" as const,
+    contentType: classifyInsight(article.slug, "news"),
     hasPublishedWork: false,
     category: article.category,
     title: article.shortTitle,
@@ -155,5 +155,7 @@ export function getProductionRecordInsights(now = new Date()) {
 }
 
 export function getPublishedInsightsByGroup(group: InsightGroup, now = new Date()) {
-  return getPublishedInsightArticles(now).filter((article) => article.contentType === (group === "guides" ? "production-guide" : "studio-analysis"));
+  return getPublishedInsightArticles(now).filter((article) =>
+    group === "guides" ? article.contentType === "production-guide" : isAnalysisContentType(article.contentType),
+  );
 }

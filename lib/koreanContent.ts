@@ -60,6 +60,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     relatedContent: [
       { label: "필름", title: "HARU — First Journey", description: "HARU가 새로운 집을 향해 첫 여행을 시작하는 대표 시네마틱 필름입니다.", href: "/ko/films/haru-first-journey" },
       { label: "쇼츠", title: "Morning with HARU", description: "아침 햇살 속 HARU의 평온한 표정과 움직임을 담은 세로형 영상입니다.", href: "/ko/shorts/morning-with-haru" },
+      { label: "실제 제작 기록", title: "비 오는 창가의 HARU와 LUNA 제작기", description: "공개 쇼츠의 기준 이미지, 작은 움직임과 편집 연결을 검토한 실제 제작 기록입니다.", href: "/ko/insights/haru-luna-rainy-window-ai-pet-video" },
       { label: "음악", title: "HARU Main Theme", description: "HARU의 따뜻함과 조용한 모험심을 표현한 공식 메인 테마입니다.", href: "/ko/music/haru-main-theme" },
     ],
     relatedCharacters: ["pori", "hugo"],
@@ -92,6 +93,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     personality: ["차분함", "우아함", "관찰력", "독립성", "신비로움"],
     relatedContent: [
       { label: "쇼츠", title: "LUNA Shorts EP.01", description: "잠든 HARU 곁에서 창밖을 바라보던 LUNA가 호기심을 따라 움직이는 순간입니다.", href: "/ko/shorts/luna-shorts-ep01" },
+      { label: "실제 제작 기록", title: "비 오는 창가의 HARU와 LUNA 제작기", description: "공개 쇼츠에서 두 캐릭터의 외형, 작은 움직임과 장면 연결을 검토한 기록입니다.", href: "/ko/insights/haru-luna-rainy-window-ai-pet-video" },
       { label: "음악", title: "Window Cat Paws", description: "창가에서 세상을 관찰하는 LUNA의 차분한 호기심을 따라가는 사운드트랙입니다.", href: "/ko/music/window-cat-paws" },
     ],
     relatedCharacters: ["haru", "ruru"],

@@ -19,7 +19,12 @@ export const animals = [
     image: "/images/works/haru-first-journey/hero.png",
     desc: "The first original character from FourFeetz Studios.",
   },
-  { name: "PORI", href: "/characters/pori", image: "", desc: "Coming soon" },
+  {
+    name: "PORI",
+    href: "/characters/pori",
+    image: "/images/characters/pori/portrait.png",
+    desc: "Published with HARU in A Golden Evening Together.",
+  },
   { name: "Turtle", href: "/characters", image: "", desc: "Future character in preparation." },
   { name: "Fish", href: "/characters", image: "", desc: "Future story in preparation." },
 ];

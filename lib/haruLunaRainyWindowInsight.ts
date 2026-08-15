@@ -32,7 +32,6 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
     keywords: ["AI pet video", "custom pet film", "Google Flow", "character consistency", "image to video"],
     tools: ["Google Flow", "AI Image", "AI Video"],
     characters: ["HARU", "LUNA"],
-    popularity: 100,
     sections: [
       {
         id: "separating-atmosphere-identity",
@@ -176,7 +175,6 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
     keywords: ["AI 반려동물 영상", "반려동물 추억 영상", "Google Flow", "캐릭터 일관성", "이미지 투 비디오"],
     tools: ["Google Flow", "AI 이미지", "AI 영상"],
     characters: ["HARU", "LUNA"],
-    popularity: 100,
     sections: [
       {
         id: "separating-atmosphere-identity",
