@@ -200,6 +200,23 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
         <HeroIllustrationCard src="/images/works-hero-v2.png" alt={labels.heroAlt} priority />
       </section>
 
+      {isKorean ? (
+        <section className="border-y border-[#eadfce] bg-white px-6 py-12">
+          <div className="mx-auto grid max-w-7xl gap-7 overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffaf4] p-6 md:grid-cols-[220px_1fr] md:items-center md:p-8">
+            <Link href="/ko/services/grooming-hotel" className="relative mx-auto block aspect-[9/16] w-full max-w-[180px] overflow-hidden rounded-[24px] bg-[#f2e8dc] shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+              <Image src="/images/services/pet-grooming-hotel-cover.webp" alt="애견미용실·호텔 AI 홍보영상 포스터" fill sizes="180px" className="object-cover" />
+              <span className="absolute inset-0 grid place-items-center bg-[#2b2119]/15"><span className="grid size-14 place-items-center rounded-full bg-white/95 text-2xl text-[#6f4e37] shadow-md" aria-hidden="true">▶</span></span>
+            </Link>
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">Pet Business Portfolio</p>
+              <h2 className="mt-3 text-3xl font-black leading-tight text-[#2b2119] md:text-5xl">애견미용실·호텔 홍보영상 사례</h2>
+              <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">반려동물 업체 대상 AI 홍보영상 서비스의 실제 9:16 포트폴리오 샘플을 확인하세요. 자동 재생 없이 포스터에서 직접 재생할 수 있습니다.</p>
+              <Link href="/ko/services/grooming-hotel" className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2">영상 사례와 서비스 보기</Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className="border-y border-[#eadfce] bg-white px-6 py-16 md:py-20">
         <div className="mx-auto max-w-7xl">
           <nav aria-label={isKorean ? "영상 분류" : "Video filters"} className="flex max-w-full gap-2 overflow-x-auto pb-2">

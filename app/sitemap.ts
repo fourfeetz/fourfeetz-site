@@ -6,6 +6,7 @@ import { characterDetails } from "@/lib/characterDetails";
 import { getPublishedInsightArticles } from "@/lib/insights";
 import { resourceDetails } from "@/lib/resourceDetails";
 import { practicalResources } from "@/lib/practicalResources";
+import { petServiceSlugs } from "@/lib/petBusinessServices";
 
 const baseUrl = "https://fourfeetz.com";
 
@@ -141,5 +142,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  return [...staticPages, ...filmPages, ...shortPages, ...musicPages, ...koreanPages];
+  const koreanOnlyServicePages = petServiceSlugs.map((slug) => ({
+    url: `${baseUrl}/ko/services/${slug}`,
+    lastModified: "2026-08-17",
+    changeFrequency: "monthly" as const,
+    priority: slug === "pet-video" ? 0.8 : 0.7,
+  }));
+
+  return [...staticPages, ...filmPages, ...shortPages, ...musicPages, ...koreanPages, ...koreanOnlyServicePages];
 }

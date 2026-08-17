@@ -18,6 +18,14 @@ const koreanInsightFallbacks = new Map([
   ["/insights/veo3-complete-review", "/ko/insights"],
 ]);
 
+const koreanOnlyServiceSlugs = new Set([
+  "pet-video",
+  "grooming-hotel",
+  "pet-products",
+  "veterinary",
+  "pet-funeral",
+]);
+
 export function getSiteLanguage(pathname: string): SiteLanguage {
   return pathname === "/ko" || pathname.startsWith("/ko/") ? "ko" : "en";
 }
@@ -58,6 +66,10 @@ export function toEnglishPath(pathname: string) {
 
   if (section === "shorts") {
     return rest.length ? `/shorts/${rest.join("/")}` : "/videos?type=shorts";
+  }
+
+  if (section === "services" && rest.length === 1 && koreanOnlyServiceSlugs.has(rest[0])) {
+    return "/services";
   }
 
   if (section && koreanPrefixes.has(section)) {
