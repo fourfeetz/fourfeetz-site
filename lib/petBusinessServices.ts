@@ -9,6 +9,27 @@ export const petServiceSlugs = [
 export type PetServiceSlug = (typeof petServiceSlugs)[number];
 export type PetIndustrySlug = Exclude<PetServiceSlug, "pet-video">;
 
+export const videoPricingPackages = [
+  {
+    name: "STANDARD",
+    price: "99,000원",
+    rootFeatures: ["AI 맞춤 영상 1장면", "1장면 중심의 최대 15초 영상", "16:9 또는 9:16 중 한 가지", "배경음악", "간단한 문구", "Full HD", "제공 개수 1개", "작업일 4일", "수정 1회"],
+    detailFeatures: ["1장면", "최대 15초", "9:16 또는 16:9 중 한 가지", "배경음악·간단한 문구", "수정 1회", "작업일 4일"],
+  },
+  {
+    name: "DELUXE",
+    price: "199,000원",
+    rootFeatures: ["AI 스토리 영상 2장면", "2장면 구성의 최대 30초 영상", "16:9 또는 9:16 중 한 가지", "배경음악", "간단한 문구", "Full HD", "제공 개수 1개", "작업일 7일", "수정 2회"],
+    detailFeatures: ["2장면", "최대 30초", "9:16 또는 16:9 중 한 가지", "배경음악·간단한 문구", "수정 2회", "작업일 7일"],
+  },
+  {
+    name: "PREMIUM",
+    price: "299,000원",
+    rootFeatures: ["AI 스토리 영상 3장면 이상", "3장면 이상의 최대 45초 영상", "16:9 또는 9:16 중 한 가지", "배경음악", "간단한 문구", "Full HD", "제공 개수 1개", "작업일 10일", "수정 3회"],
+    detailFeatures: ["3장면 이상", "최대 45초", "9:16 또는 16:9 중 한 가지", "배경음악·간단한 문구", "수정 3회", "작업일 10일"],
+  },
+] as const;
+
 export type PetIndustryService = {
   slug: PetIndustrySlug;
   cardTitle: string;

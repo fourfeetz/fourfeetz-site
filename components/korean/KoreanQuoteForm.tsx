@@ -182,9 +182,9 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
         {errors.message ? <span id="message-error" role="alert" className="text-sm font-semibold text-[#a13f2f]">{errors.message}</span> : null}
       </label>
       <div className="md:col-span-2">
-        <button type="submit" className={buttonClassName}>견적 문의하기</button>
+        <button type="submit" className={buttonClassName}>무료 제작 상담받기</button>
         <p className="mt-3 text-sm leading-6 text-[#9a8775]">
-          견적 문의하기를 누르면 이메일 작성 창이 열립니다. 직접 문의는{" "}
+          무료 제작 상담받기를 누르면 이메일 작성 창이 열립니다. 직접 문의는{" "}
           <a href={`mailto:${inquiryEmail}`} className="font-bold text-[#6f4e37] underline underline-offset-4">
             {inquiryEmail}
           </a>
