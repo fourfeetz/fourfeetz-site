@@ -3,7 +3,7 @@ import { shorts } from "@/data/shorts";
 import { films } from "@/lib/films";
 import { musicTracks } from "@/lib/music";
 import { characterDetails } from "@/lib/characterDetails";
-import { getPublishedInsightArticles } from "@/lib/insights";
+import { getPublishedInsightArticles, hasKoreanInsightGroupContent } from "@/lib/insights";
 import { resourceDetails } from "@/lib/resourceDetails";
 import { practicalResources } from "@/lib/practicalResources";
 import { petServiceSlugs } from "@/lib/petBusinessServices";
@@ -86,7 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["/music", "/ko/music"],
     ["/insights", "/ko/insights"],
     ["/insights/guides", "/ko/insights/guides"],
-    ["/insights/news", "/ko/insights/news"],
+    ...(hasKoreanInsightGroupContent("news") ? [["/insights/news", "/ko/insights/news"]] as const : []),
     ["/resources", "/ko/resources"],
     ["/services", "/ko/services"],
     ["/tools", "/ko/tools"],

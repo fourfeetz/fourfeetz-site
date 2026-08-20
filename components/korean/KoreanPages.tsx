@@ -24,7 +24,7 @@ import { characterDetails, getCharacter } from "@/lib/characterDetails";
 import { films, getFilm } from "@/lib/films";
 import { insightContentTypeLabels, isAnalysisContentType } from "@/lib/insightClassification";
 import { localizeInsightArticle } from "@/lib/insightLocalization";
-import { getProductionRecordInsights, getPublishedInsightArticles } from "@/lib/insights";
+import { getProductionRecordInsights, getPublishedInsightArticles, hasKoreanInsightGroupContent } from "@/lib/insights";
 import { getKoreanInsightPath } from "@/lib/koreanInsightAvailability";
 import {
   koreanCharacters,
@@ -311,7 +311,7 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
   const listing = item.contentType === "production-record"
     ? { href: "/ko/insights?group=records", label: "실제 제작 기록" }
     : isAnalysisContentType(item.contentType)
-      ? { href: "/ko/insights/news", label: contentTypeLabel }
+      ? { href: hasKoreanInsightGroupContent("news") ? "/ko/insights/news" : "/ko/insights", label: contentTypeLabel }
       : { href: "/ko/insights/guides", label: "제작 가이드" };
   const related = getPublishedInsightArticles()
     .filter((entry) => entry.contentType === item.contentType && entry.slug !== item.slug)

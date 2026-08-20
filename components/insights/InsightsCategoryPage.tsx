@@ -2,8 +2,7 @@ import Link from "next/link";
 import InsightCard from "@/components/insights/InsightCard";
 import { insightGroups, type InsightGroup, type InsightLanguage } from "@/lib/insightGroups";
 import { localizeInsightArticles } from "@/lib/insightLocalization";
-import { getPublishedInsightsByGroup } from "@/lib/insights";
-import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
+import { getKoreanInsightsByGroup, getPublishedInsightsByGroup, hasKoreanInsightGroupContent } from "@/lib/insights";
 
 const siteUrl = "https://fourfeetz.com";
 
@@ -16,14 +15,14 @@ export default function InsightsCategoryPage({
 }) {
   const content = insightGroups[group][language];
   const otherGroup: InsightGroup = group === "guides" ? "news" : "guides";
-  const sourceArticles = getPublishedInsightsByGroup(group);
   const articles = localizeInsightArticles(
-    language === "ko" ? sourceArticles.filter((article) => !isKoreanInsightRedirect(article.slug)) : sourceArticles,
+    language === "ko" ? getKoreanInsightsByGroup(group) : getPublishedInsightsByGroup(group),
     language,
   );
   const path = language === "ko" ? `/ko/insights/${group}` : `/insights/${group}`;
   const hubPath = language === "ko" ? "/ko/insights" : "/insights";
   const otherPath = language === "ko" ? `/ko/insights/${otherGroup}` : `/insights/${otherGroup}`;
+  const hasOtherGroup = language === "en" || hasKoreanInsightGroupContent(otherGroup);
   const homePath = language === "ko" ? "/ko" : "/";
   const collectionSchema = {
     "@context": "https://schema.org",
@@ -74,9 +73,11 @@ export default function InsightsCategoryPage({
           <Link href={hubPath} className="rounded-full bg-[#6f4e37] px-6 py-3 font-black text-white">
             {language === "ko" ? "전체 인사이트" : "All Insights"}
           </Link>
-          <Link href={otherPath} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37]">
-            {insightGroups[otherGroup][language].label}
-          </Link>
+          {hasOtherGroup ? (
+            <Link href={otherPath} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37]">
+              {insightGroups[otherGroup][language].label}
+            </Link>
+          ) : null}
         </div>
       </section>
       <section className="border-y border-[#eadfce] bg-white px-6 py-20">

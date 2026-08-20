@@ -5,7 +5,7 @@ import InsightsFilter from "@/components/insights/InsightsFilter";
 import { insightGroups, type InsightGroup, type InsightLanguage } from "@/lib/insightGroups";
 import { isAnalysisContentType } from "@/lib/insightClassification";
 import { localizeInsightArticles } from "@/lib/insightLocalization";
-import { getPublishedInsightArticles } from "@/lib/insights";
+import { getKoreanInsightArticles, getPublishedInsightArticles } from "@/lib/insights";
 import { getEnglishInsightPath, isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 
 const siteUrl = "https://fourfeetz.com";
@@ -14,9 +14,7 @@ const howHaruImage = "/images/insights/premium/how-haru-hero.png";
 export default function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {
   const isKorean = language === "ko";
   const publishedArticles = getPublishedInsightArticles();
-  const visibleArticles = isKorean
-    ? publishedArticles.filter((article) => !isKoreanInsightRedirect(article.slug))
-    : publishedArticles;
+  const visibleArticles = isKorean ? getKoreanInsightArticles() : publishedArticles;
   const articles = localizeInsightArticles(visibleArticles, language).sort(
     (a, b) => Number(b.contentType === "production-record") - Number(a.contentType === "production-record"),
   );
@@ -28,6 +26,14 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
     ? "공개된 FourFeetz 작품의 실제 제작 기록을 먼저 살펴보고, 그 경험에서 일반화한 제작 가이드와 도구 분석을 함께 확인할 수 있습니다."
     : "Start with records from published FourFeetz projects, then explore production guides and clearly separated studio analysis of AI video tools.";
   const categoryOrder: InsightGroup[] = ["guides", "news"];
+  const visibleCategories = categoryOrder
+    .map((group) => ({
+      group,
+      count: visibleArticles.filter((article) =>
+        group === "news" ? isAnalysisContentType(article.contentType) : article.contentType === "production-guide",
+      ).length,
+    }))
+    .filter(({ count }) => count > 0);
   const featured = articles.find((article) => article.slug === "how-haru-was-created");
   const collectionSchema = {
     "@context": "https://schema.org",
@@ -42,7 +48,7 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
         name: isKorean ? "실제 제작 기록" : "Real Production Notes",
         url: `${siteUrl}${hubPath}?group=records`,
       },
-      ...categoryOrder.map((group) => ({
+      ...visibleCategories.map(({ group }) => ({
         "@type": "CollectionPage",
         name: group === "news"
           ? (isKorean ? "스튜디오 분석 / 도구 업데이트" : "Studio Analysis / Tool Updates")
@@ -110,10 +116,9 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
                   : `Explore ${articles.filter((article) => article.contentType === "production-record").length} records →`}
               </p>
             </Link>
-            {categoryOrder.map((group, index) => {
+            {visibleCategories.map(({ group, count }, index) => {
               const content = insightGroups[group][language];
               const isAnalysis = group === "news";
-              const count = articles.filter((article) => isAnalysis ? isAnalysisContentType(article.contentType) : article.contentType === "production-guide").length;
               const label = isAnalysis
                 ? (isKorean ? "스튜디오 분석 / 도구 업데이트" : "Studio Analysis / Tool Updates")
                 : content.label;

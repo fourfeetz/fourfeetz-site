@@ -6,6 +6,7 @@ import { newProductionGuides } from "@/lib/newProductionGuides";
 import { productionInsights, type ProductionInsight } from "@/lib/productionInsights";
 import { isPublishedContent, sortByFreshness, type PublishStatus } from "@/lib/publishing";
 import { toolNewsInsights } from "@/lib/toolNewsInsights";
+import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 
 export type InsightArticle = {
   slug: string;
@@ -158,4 +159,18 @@ export function getPublishedInsightsByGroup(group: InsightGroup, now = new Date(
   return getPublishedInsightArticles(now).filter((article) =>
     group === "guides" ? article.contentType === "production-guide" : isAnalysisContentType(article.contentType),
   );
+}
+
+export function getKoreanInsightArticles(now = new Date()) {
+  return getPublishedInsightArticles(now).filter((article) => !isKoreanInsightRedirect(article.slug));
+}
+
+export function getKoreanInsightsByGroup(group: InsightGroup, now = new Date()) {
+  return getKoreanInsightArticles(now).filter((article) =>
+    group === "guides" ? article.contentType === "production-guide" : isAnalysisContentType(article.contentType),
+  );
+}
+
+export function hasKoreanInsightGroupContent(group: InsightGroup, now = new Date()) {
+  return getKoreanInsightsByGroup(group, now).length > 0;
 }

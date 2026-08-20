@@ -2,13 +2,16 @@ import type { Metadata } from "next";
 import InsightsCategoryPage from "@/components/insights/InsightsCategoryPage";
 import { insightGroups } from "@/lib/insightGroups";
 import { englishLanguageAlternates } from "@/lib/localization";
+import { hasKoreanInsightGroupContent } from "@/lib/insights";
 
 const content = insightGroups.news.en;
 
 export const metadata: Metadata = {
   title: { absolute: content.title },
   description: content.description,
-  alternates: englishLanguageAlternates("/insights/news", "/ko/insights/news"),
+  alternates: hasKoreanInsightGroupContent("news")
+    ? englishLanguageAlternates("/insights/news", "/ko/insights/news")
+    : { canonical: "/insights/news" },
   openGraph: {
     type: "website",
     siteName: "FourFeetz Studios",
