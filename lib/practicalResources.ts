@@ -114,7 +114,7 @@ export const practicalResources: PracticalResource[] = [
         "한 샷에 독립적인 행동이 여러 개라면 행을 나누는 편이 좋습니다.",
         "승인된 변경 사항을 기록해 최종 편집본과 샷 리스트가 어긋나지 않게 관리하세요.",
       ],
-      relatedGuide: { title: "AI 스토리보드 제작 가이드", href: "/ko/insights/ai-storyboarding-guide" },
+      relatedGuide: { title: "AI 스토리보드 제작 가이드 (영문)", href: "/insights/ai-storyboarding-guide" },
     },
   },
   {
@@ -270,7 +270,7 @@ export const practicalResources: PracticalResource[] = [
         "한 문장으로 요약하기 어려운 장면이라면 나누는 것을 검토하세요.",
         "비공개 캐릭터 기준과 내부 제작 지시는 공유용 워크시트에 기록하지 마세요.",
       ],
-      relatedGuide: { title: "이미지 투 비디오 프롬프트 실전 가이드", href: "/ko/insights/image-to-video-prompts" },
+      relatedGuide: { title: "이미지 투 비디오 프롬프트 실전 가이드 (영문)", href: "/insights/image-to-video-prompts" },
     },
   },
   {
@@ -674,7 +674,7 @@ export const practicalResources: PracticalResource[] = [
         "승인된 파일을 덮어쓰지 말고 새 버전을 만드세요.",
         "개인 컴퓨터 경로 없이도 팀원이 이해할 수 있는 중립적인 용어로 체계를 기록하세요.",
       ],
-      relatedGuide: { title: "반복 가능한 AI 영상 제작 워크플로", href: "/ko/insights/repeatable-ai-video-workflow" },
+      relatedGuide: { title: "반복 가능한 AI 영상 제작 워크플로 (영문)", href: "/insights/repeatable-ai-video-workflow" },
     },
   },
 ];

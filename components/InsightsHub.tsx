@@ -6,15 +6,23 @@ import { insightGroups, type InsightGroup, type InsightLanguage } from "@/lib/in
 import { isAnalysisContentType } from "@/lib/insightClassification";
 import { localizeInsightArticles } from "@/lib/insightLocalization";
 import { getPublishedInsightArticles } from "@/lib/insights";
+import { getEnglishInsightPath, isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 
 const siteUrl = "https://fourfeetz.com";
 const howHaruImage = "/images/insights/premium/how-haru-hero.png";
 
 export default function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {
-  const articles = localizeInsightArticles(getPublishedInsightArticles(), language).sort(
+  const isKorean = language === "ko";
+  const publishedArticles = getPublishedInsightArticles();
+  const visibleArticles = isKorean
+    ? publishedArticles.filter((article) => !isKoreanInsightRedirect(article.slug))
+    : publishedArticles;
+  const articles = localizeInsightArticles(visibleArticles, language).sort(
     (a, b) => Number(b.contentType === "production-record") - Number(a.contentType === "production-record"),
   );
-  const isKorean = language === "ko";
+  const englishOnlyArticles = isKorean
+    ? publishedArticles.filter((article) => isKoreanInsightRedirect(article.slug)).slice(0, 6)
+    : [];
   const hubPath = isKorean ? "/ko/insights" : "/insights";
   const intro = isKorean
     ? "공개된 FourFeetz 작품의 실제 제작 기록을 먼저 살펴보고, 그 경험에서 일반화한 제작 가이드와 도구 분석을 함께 확인할 수 있습니다."
@@ -166,6 +174,24 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
       ) : null}
 
       <InsightsFilter articles={articles} language={language} />
+      {isKorean && englishOnlyArticles.length ? (
+        <section className="border-t border-[#eadfce] bg-[#fffaf4] px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">English Articles</p>
+            <h2 className="mt-3 text-3xl font-black text-[#2b2119] md:text-5xl">영문으로 제공되는 제작 가이드</h2>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-[#76685d]">다음 글은 현재 영문 전체 본문으로 제공됩니다.</p>
+            <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {englishOnlyArticles.map((article) => (
+                <Link key={article.slug} href={getEnglishInsightPath(article.slug)} hrefLang="en" className="rounded-3xl border border-[#eadfce] bg-white p-6 shadow-sm transition hover:-translate-y-[3px] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37]">
+                  <span className="inline-flex rounded-full bg-[#2b2119] px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white">EN · 영문</span>
+                  <h3 className="mt-4 text-xl font-black leading-tight text-[#2b2119]">{article.title}</h3>
+                  <span className="mt-5 inline-flex font-black text-[#6f4e37]">영문 원문 읽기 →</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }

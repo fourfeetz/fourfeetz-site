@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { englishLanguageAlternates } from "@/lib/localization";
 
 export type ToolNewsInsightSlug =
   | "runway-dev-ai-media-platform"
@@ -418,7 +417,7 @@ export function createToolNewsMetadata(slug: ToolNewsInsightSlug): Metadata {
     title: `${article.shortTitle} | FourFeetz Studios`,
     description: article.description,
     keywords: article.keywords,
-    alternates: englishLanguageAlternates(canonical, `/ko/insights/${article.slug}`),
+    alternates: { canonical },
     openGraph: {
       type: "article",
       title: article.title,

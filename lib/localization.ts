@@ -1,3 +1,5 @@
+import { getKoreanInsightPath, isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
+
 export type SiteLanguage = "en" | "ko";
 
 const koreanPrefixes = new Set([
@@ -14,7 +16,7 @@ const koreanPrefixes = new Set([
 ]);
 
 const koreanInsightFallbacks = new Map([
-  ["/insights/runway-gen-4-review", "/ko/insights/runway-gen45-review"],
+  ["/insights/runway-gen-4-review", "/insights/runway-gen45-review"],
   ["/insights/veo3-complete-review", "/ko/insights"],
 ]);
 
@@ -70,6 +72,10 @@ export function toEnglishPath(pathname: string) {
 
   if (section === "services" && rest.length === 1 && koreanOnlyServiceSlugs.has(rest[0])) {
     return "/services";
+  }
+
+  if (section === "insights" && rest.length === 1 && isKoreanInsightRedirect(rest[0])) {
+    return getKoreanInsightPath(rest[0]);
   }
 
   if (section && koreanPrefixes.has(section)) {

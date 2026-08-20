@@ -157,6 +157,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title = `${koreanResourceTitles[slug] ?? item.title} | FourFeetz 리소스`; description = koreanResourceDescriptions[slug]; englishPath = `/resources/${slug}`; image = item.image;
   } else return {};
 
+  if (section === "insights") {
+    return {
+      title: { absolute: title },
+      description,
+      robots: { index: false, follow: true },
+      alternates: { canonical: koreanPath },
+      openGraph: { type: "article", siteName: "FourFeetz Studios", title, description, url: koreanPath, locale: "ko_KR", images: [{ url: image, alt: title }] },
+      twitter: { card: "summary_large_image", title, description, images: [image] },
+    };
+  }
+
   return {
     title: { absolute: title },
     description,

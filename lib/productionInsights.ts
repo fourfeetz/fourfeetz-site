@@ -1,6 +1,5 @@
 ﻿import type { Metadata } from "next";
 
-import { englishLanguageAlternates } from "@/lib/localization";
 
 export type ProductionInsightSlug =
   | "google-flow-complete-guide"
@@ -120,6 +119,92 @@ type GuideSeed = {
 };
 
 function makeGuide(seed: GuideSeed): ProductionInsight {
+  const articleType = ["runway-gen45-review", "kling-ai-complete-review", "best-ai-music-tools"].includes(seed.slug)
+    ? "FourFeetz Studio Analysis"
+    : "FourFeetz Production Guide";
+
+  if (articleType) {
+    return {
+      slug: seed.slug,
+      title: seed.title,
+      shortTitle: seed.shortTitle,
+      description: seed.description,
+      eyebrow: articleType,
+      hero: seed.hero,
+      heroAlt: seed.heroAlt ?? `${seed.characters.join(" and ")} image for ${seed.shortTitle}`,
+      heroCaption: seed.heroCaption,
+      heroFit: seed.heroFit,
+      heroPosition: seed.heroPosition,
+      published: "2026-07-19",
+      updated: seed.updated ?? "2026-08-20",
+      readTime: seed.readTime ?? "8 min read",
+      verdict: `Use ${seed.shortTitle} only when it answers this production question: ${seed.productionGoal}. The public method is ${seed.method}.`,
+      category: seed.category,
+      tags: seed.tags,
+      keywords: seed.keywords,
+      tools: seed.tools,
+      characters: seed.characters,
+      sections: [
+        {
+          id: "question",
+          title: `${seed.shortTitle}: the decision this page can support`,
+          paragraphs: [
+            `This page asks one production question: can ${seed.topic} support a result where ${seed.productionGoal}? The hard part is ${seed.hardProblem}. It does not claim a universal winner, score, success rate or fixed production time.`,
+            `The review boundary is ${seed.reviewScope}. Anything beyond the files, frames and public project links shown here is a question for a future project, not a completed FourFeetz test.`,
+          ],
+        },
+        {
+          id: "visible-evidence",
+          title: `Visible evidence for ${seed.characters.join(" and ")}`,
+          paragraphs: [
+            `For ${seed.shortTitle}, the repository contains the featured ${seed.characters.join(" and ")} image and the character reference shown below. They support a discussion of composition, identity and review criteria; they do not by themselves prove hidden settings, generation counts or a tool-wide benchmark.`,
+            `The comparison anchor is ${seed.anchor}. This keeps the page tied to observable material instead of borrowing evidence from an unrelated character article.`,
+          ],
+          images: [
+            { src: seed.hero, alt: `${seed.characters.join(" and ")} image used for ${seed.shortTitle}`, caption: `The public image associated with this ${seed.shortTitle} article.` },
+            { src: seed.characterReference, alt: `${seed.characters.join(" and ")} character reference`, caption: "A repository character image used only for visible identity and composition review." },
+          ],
+        },
+        {
+          id: "failure-boundary",
+          title: `Where the ${seed.topic} approach can break`,
+          paragraphs: [
+            `The material is most vulnerable when ${seed.failure}. A polished frame is not enough if it cannot preserve the intended character, action or edit relationship.`,
+            `The appropriate response is ${seed.resolution}. This is a review decision, not a claim that every model or project will behave the same way.`,
+          ],
+          note: `Current limitation: ${seed.budgetNote}`,
+        },
+        ...(seed.featureSections ?? []),
+        {
+          id: "public-method",
+          title: `A bounded method for ${seed.shortTitle}`,
+          paragraphs: [
+            `The public method is ${seed.method}. The useful controls are ${seed.recommendedSettings.join(", ")}. They are planning prompts rather than private presets or guaranteed settings.`,
+            `The ${seed.shortTitle} example below demonstrates instruction order only. It deliberately omits master prompts, character-bible details, weighting logic and private production configuration.`,
+          ],
+          prompt: seed.promptExample,
+          table: { title: `${seed.shortTitle}: options and limits`, headers: ["Option", "Useful for", "Limit"], rows: seed.comparison },
+        },
+        {
+          id: "scope-and-next-step",
+          title: `What this ${seed.shortTitle} analysis does not establish`,
+          paragraphs: [
+            `This ${seed.shortTitle} article does not establish a numerical rating, a winning tool, a repeatable success percentage or a fixed budget. Tool access, model behavior, credits and terms can change, so those facts must be checked in the live service before production.`,
+            `A future test should keep ${seed.anchor} fixed, change one relevant variable and record whether the result can enter the intended edit. The page remains useful only while its claims stay inside that evidence boundary.`,
+          ],
+        },
+      ],
+      faqs: [
+        { question: `Is ${seed.shortTitle} a scored review?`, answer: `No. ${seed.shortTitle} is a bounded production guide or studio analysis based on the visible repository evidence and stated limitations.` },
+        { question: `Does this ${seed.shortTitle} page publish FourFeetz master prompts?`, answer: `No. The ${seed.shortTitle} page shares review questions and a safe instruction example, not private character or workflow settings.` },
+      ],
+      related: [
+        { label: "Production workflow", title: "A Repeatable AI Video Workflow", href: "/insights/repeatable-ai-video-workflow" },
+        { label: "Character review", title: "Character Consistency Guide", href: "/insights/character-consistency-guide" },
+      ],
+    };
+  }
+
   const sharedContext = `At FourFeetz Studios, ${seed.topic} is never treated as an isolated trick. It sits inside the same production chain that shaped HARU: story intention, approved character evidence, shot planning, controlled tests, editorial review, sound, finishing and publishing. Our goal is ${seed.productionGoal}. That goal is more useful than a fashionable setting because it tells the team what a successful result must do inside the finished film.`;
   const reviewContext = `We review the work against ${seed.anchor}. A result can be attractive and still fail. The recurring production risk is ${seed.failure}. We therefore compare small families of variations, change one important variable at a time and write the rejection reason in physical language. This article shares the educational layer of that practice; our master prompts, weighting logic and complete continuity system remain private.`;
 
@@ -480,7 +565,7 @@ export function createProductionInsightMetadata(source: ProductionInsightSlug | 
     title: `${article.shortTitle} | FourFeetz Studios`,
     description: article.description,
     keywords: article.keywords,
-    alternates: englishLanguageAlternates(canonical, `/ko/insights/${article.slug}`),
+    alternates: { canonical },
     openGraph: {
       type: "article",
       title: article.title,

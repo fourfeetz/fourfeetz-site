@@ -7,6 +7,7 @@ import { getPublishedInsightArticles } from "@/lib/insights";
 import { resourceDetails } from "@/lib/resourceDetails";
 import { practicalResources } from "@/lib/practicalResources";
 import { petServiceSlugs } from "@/lib/petBusinessServices";
+import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 
 const baseUrl = "https://fourfeetz.com";
 
@@ -93,7 +94,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...shorts.map((item) => [`/shorts/${item.slug}`, `/ko/shorts/${item.slug}`] as const),
     ...characterDetails.map((item) => [`/characters/${item.slug}`, `/ko/characters/${item.slug}`] as const),
     ...musicTracks.map((item) => [`/music/${item.slug}`, `/ko/music/${item.slug}`] as const),
-    ...getPublishedInsightArticles().map((item) => [item.href, `/ko/insights/${item.slug}`] as const),
+    ...getPublishedInsightArticles()
+      .filter((item) => !isKoreanInsightRedirect(item.slug))
+      .map((item) => [item.href, `/ko/insights/${item.slug}`] as const),
     ...resourceDetails.map((item) => [`/resources/${item.slug}`, `/ko/resources/${item.slug}`] as const),
     ...practicalResources.map((item) => [`/resources/${item.slug}`, `/ko/resources/${item.slug}`] as const),
   ]);

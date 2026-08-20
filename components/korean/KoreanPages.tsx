@@ -25,6 +25,7 @@ import { films, getFilm } from "@/lib/films";
 import { insightContentTypeLabels, isAnalysisContentType } from "@/lib/insightClassification";
 import { localizeInsightArticle } from "@/lib/insightLocalization";
 import { getProductionRecordInsights, getPublishedInsightArticles } from "@/lib/insights";
+import { getKoreanInsightPath } from "@/lib/koreanInsightAvailability";
 import {
   koreanCharacters,
   koreanFilmDescriptions,
@@ -87,7 +88,7 @@ export function KoreanHomePage() {
       <div className="relative aspect-[4/3] overflow-hidden rounded-[36px] border border-[#d8c3ad] bg-[#f2e8dc] shadow-2xl shadow-[#6f4e37]/15"><Image src="/images/studio-hero-v2.png" alt="FourFeetz 캐릭터와 AI 애니메이션 스튜디오" fill priority sizes="(min-width:768px)44vw,100vw" className="object-cover" /></div>
     </section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><SectionHeading eyebrow="Published FourFeetz Work" title="대표 작품" description="FourFeetz 오리지널 캐릭터와 스튜디오가 직접 기획·편집해 공개한 필름과 쇼츠입니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 xl:grid-cols-4">{featuredFilms.map((item) => <MediaCard key={item.slug} href={`/ko/films/${item.slug}`} image={item.thumbnail} title={item.koreanTitle ?? item.title} category={item.category} description={koreanFilmDescriptions[item.slug]} fullyClickable />)}{featuredShorts.map((item) => <MediaCard key={item.slug} href={`/ko/shorts/${item.slug}`} image={item.poster!} title={koreanShortTitles[item.slug] ?? item.title} category={item.category} description={koreanShortDescriptions[item.slug]} fullyClickable />)}</div></section>
-    <section className="px-6 py-20"><SectionHeading eyebrow="Real Production Notes" title="완성 작품에서 배운 실제 제작 기록" description="공개 영상, 실제 프로젝트 프레임, 제작 중 발생한 문제와 수정·거절·채택 판단이 함께 있는 기록만 모았습니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 xl:grid-cols-3">{productionRecords.map((article) => { if (!article) return null; const localized = localizeInsightArticle(article, "ko"); return <MediaCard key={article.slug} href={`/ko/insights/${article.slug}`} image={article.image} imageAlt={article.imageAlt?.ko} title={localized.title} category="실제 제작 기록" description={localized.description} fullyClickable />; })}</div></section>
+    <section className="px-6 py-20"><SectionHeading eyebrow="Real Production Notes" title="완성 작품에서 배운 실제 제작 기록" description="공개 영상, 실제 프로젝트 프레임, 제작 중 발생한 문제와 수정·거절·채택 판단이 함께 있는 기록만 모았습니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-6 md:grid-cols-2 xl:grid-cols-3">{productionRecords.map((article) => { if (!article) return null; const localized = localizeInsightArticle(article, "ko"); return <MediaCard key={article.slug} href={getKoreanInsightPath(article.slug)} image={article.image} imageAlt={article.imageAlt?.ko} title={localized.title} category="실제 제작 기록" description={localized.description} fullyClickable />; })}</div></section>
     <section className="px-6 py-20"><SectionHeading eyebrow="Character Universe" title="오리지널 캐릭터" description="FourFeetz가 직접 만들고 관리하며 필름, 쇼츠, 음악과 제작 기록으로 확장하는 동물 캐릭터입니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-3">{characterDetails.map((item) => <MediaCard key={item.slug} href={`/ko/characters/${item.slug}`} image={item.gallery[0]?.image} imageAlt={koreanCharacters[item.slug].imageAlt} title={koreanCharacters[item.slug].displayName ?? item.name} category={koreanCharacters[item.slug].species} description={koreanCharacters[item.slug].tagline} portrait fullyClickable />)}</div></section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-16"><div className="mx-auto grid max-w-7xl gap-8 rounded-[40px] bg-[#6f4e37] p-8 text-white md:grid-cols-[1.15fr_0.85fr] md:items-center md:p-12"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#e5c9a8]">Studio Services</p><h2 className="mt-3 text-4xl font-black md:text-5xl">작품과 제작 방식을 확인하셨나요?</h2><p className="mt-5 max-w-3xl text-lg leading-8 text-[#f4e8da]">FourFeetz의 공개 작품과 실제 제작 기록을 살펴본 뒤 프로젝트에 맞는 동물 캐릭터 영상 제작을 문의할 수 있습니다.</p></div><div className="flex flex-wrap gap-3 md:justify-end"><Link href="/ko/services" className="rounded-full bg-white px-7 py-4 font-black text-[#6f4e37]">서비스 보기</Link><Link href="/ko/services#contact" className="rounded-full border border-white/40 px-7 py-4 font-black text-white">무료 제작 상담받기</Link></div></div></section>
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><SectionHeading eyebrow="Public Resources" title="공개 제작 자료와 도구 기록" description="실제 제작 경험에서 정리한 웹 가이드와 워크시트입니다. 비공개 캐릭터 프롬프트·바이블·핵심 설정은 포함하지 않습니다." /><div className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-4">{featuredResources.map((item) => <Link key={item.slug} href={`/ko/resources/${item.slug}`} className={`${cardClass} p-7`}><p className="text-sm font-black text-[#a67c52]">공개 웹 자료</p><h3 className="mt-3 text-2xl font-black text-[#2b2119]">{koreanResourceTitles[item.slug] ?? item.title}</h3><p className="mt-4 leading-7 text-[#76685d]">{koreanResourceDescriptions[item.slug]}</p><span className="mt-6 inline-flex font-black text-[#6f4e37]">브라우저에서 읽기 →</span></Link>)}</div><div className="mx-auto mt-8 flex max-w-7xl flex-wrap gap-3"><Link href="/ko/resources" className={primaryButton}>전체 자료 보기</Link><Link href="/ko/tools" className={secondaryButton}>제작 도구와 한계 보기</Link></div></section>
@@ -143,8 +144,8 @@ export function KoreanResourcesPage() {
 export function KoreanToolsPage() {
   const tools = [
     { name: "Google Flow / Google AI Pro", role: "승인된 이미지를 바탕으로 한 영상 생성, 장면 연장과 절제된 움직임 테스트에 사용합니다.", limit: "First Shot 검토가 필요하며, 행동을 많이 넣으면 얼굴·발·방 구조가 달라질 수 있습니다.", href: "/ko/insights/turning-short-scene-into-relaxing-video", evidence: "HARU 릴렉싱 영상 제작 기록" },
-    { name: "Runway", role: "초기 HARU 제작에서 이미지 투 비디오, Multi-Shot과 장면 연결 테스트에 사용했습니다.", limit: "좋은 단일 클립도 승인된 기준 이미지와 편집 연속성 비교를 대신하지 않습니다.", href: "/ko/insights/how-haru-was-created", evidence: "HARU 캐릭터 제작 기록" },
-    { name: "Kling AI", role: "End Frame, Continue, 클립 연장과 특정 장면 수정 범위에서 사용했습니다.", limit: "시작과 끝 상태가 분명할 때 유용하며 불안정한 원본 프레임 자체를 고치지는 못합니다.", href: "/ko/insights/how-haru-was-created", evidence: "HARU 캐릭터 제작 기록" },
+    { name: "Runway", role: "초기 HARU 제작에서 이미지 투 비디오, Multi-Shot과 장면 연결 테스트에 사용했습니다.", limit: "좋은 단일 클립도 승인된 기준 이미지와 편집 연속성 비교를 대신하지 않습니다.", href: "/insights/how-haru-was-created", evidence: "HARU 캐릭터 제작 기록 (영문)" },
+    { name: "Kling AI", role: "End Frame, Continue, 클립 연장과 특정 장면 수정 범위에서 사용했습니다.", limit: "시작과 끝 상태가 분명할 때 유용하며 불안정한 원본 프레임 자체를 고치지는 못합니다.", href: "/insights/how-haru-was-created", evidence: "HARU 캐릭터 제작 기록 (영문)" },
     { name: "ChatGPT", role: "이야기 구조, 샷 카드, 제작 노트 정리, 공개 글과 웹사이트 작업에 사용합니다.", limit: "작성 결과는 실제 이미지, 영상과 프로젝트 기록에 맞춰 확인한 뒤 공개합니다.", href: "/ko/insights/what-we-keep-private-character-production", evidence: "FourFeetz 제작 공유 원칙" },
     { name: "Suno", role: "FourFeetz 영상의 오리지널 배경 음악과 감정 큐를 탐색하는 데 사용합니다.", limit: "생성 후에도 장면에 맞는 선별, 타이밍과 앰비언스를 위한 믹스가 필요합니다.", href: "/ko/insights/calming-dog-music-puppy-kitten-fireplace-rain", evidence: "Relax Moments 음악 제작 기록" },
     { name: "CapCut", role: "장면 배열, 자르기, 짧은 디졸브, 사운드 균형, 화면 비율과 최종 출력에 사용합니다.", limit: "달라진 얼굴, 사라진 발이나 깨진 배경처럼 구조적인 생성 실패는 고칠 수 없습니다.", href: "/ko/insights/turning-short-scene-into-relaxing-video", evidence: "HARU 릴렉싱 영상 제작 기록" },
@@ -403,9 +404,9 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
           <p className="mt-3 leading-8 text-[#66584d]">{detail.caution}</p>
         </aside>
         <div className="mt-6 rounded-[28px] border border-[#eadfce] bg-white p-8">
-          <h2 className="text-2xl font-black text-[#2b2119]">한국어 요약 안내</h2>
+          <h2 className="text-2xl font-black text-[#2b2119]">한국어 안내</h2>
           <p className="mt-4 leading-8 text-[#76685d]">
-            이 글은 현재 한국어 요약과 영문 전체 글로 제공됩니다. 자세한 제작 과정과 전체 내용은 아래 버튼을 통해 영문 원문에서 확인할 수 있습니다.
+            현재 페이지는 핵심 범위를 한국어로 소개하며 검색 색인 대상에서 제외됩니다. 근거와 한계를 포함한 전체 내용은 영문 원문에서 확인하세요.
           </p>
           <Link href={item.href} hrefLang="en" className={`${primaryButton} mt-6`}>영문 원문 읽기</Link>
         </div>
@@ -430,14 +431,14 @@ export function KoreanInsightDetail({ slug }: { slug: string }) {
 }
 
 const legacyResourceGuideLinks: Record<string, { href: string; title: string }> = {
-  "character-consistency-prompt-pack": { href: "/ko/insights/character-consistency-guide", title: "AI 캐릭터 일관성 제작 가이드" },
-  "image-to-video-prompt-framework": { href: "/ko/insights/image-to-video-prompts", title: "이미지 투 비디오 지시 구성 가이드" },
-  "ai-short-film-workflow": { href: "/ko/insights/repeatable-ai-video-workflow", title: "반복 가능한 AI 영상 제작 흐름" },
-  "storyboard-planning-template": { href: "/ko/insights/ai-storyboarding-guide", title: "AI 영상 스토리보드 기획 가이드" },
-  "character-production-checklist": { href: "/ko/insights/character-consistency-guide", title: "AI 캐릭터 일관성 제작 가이드" },
-  "ai-music-prompt-starter-pack": { href: "/ko/insights/best-ai-music-tools", title: "AI 음악 도구와 제작 활용 가이드" },
-  "vertical-video-reframing-guide": { href: "/ko/insights/reframing-16-9-guide", title: "16:9 영상을 세로형으로 재구성하는 방법" },
-  "production-notes-template": { href: "/ko/insights/repeatable-ai-video-workflow", title: "반복 가능한 AI 영상 제작 흐름" },
+  "character-consistency-prompt-pack": { href: "/insights/character-consistency-guide", title: "AI 캐릭터 일관성 제작 가이드 (영문)" },
+  "image-to-video-prompt-framework": { href: "/insights/image-to-video-prompts", title: "이미지 투 비디오 지시 구성 가이드 (영문)" },
+  "ai-short-film-workflow": { href: "/insights/repeatable-ai-video-workflow", title: "반복 가능한 AI 영상 제작 흐름 (영문)" },
+  "storyboard-planning-template": { href: "/insights/ai-storyboarding-guide", title: "AI 영상 스토리보드 기획 가이드 (영문)" },
+  "character-production-checklist": { href: "/insights/character-consistency-guide", title: "AI 캐릭터 일관성 제작 가이드 (영문)" },
+  "ai-music-prompt-starter-pack": { href: "/insights/best-ai-music-tools", title: "AI 음악 도구와 제작 활용 가이드 (영문)" },
+  "vertical-video-reframing-guide": { href: "/insights/reframing-16-9-guide", title: "16:9 영상을 세로형으로 재구성하는 방법 (영문)" },
+  "production-notes-template": { href: "/insights/repeatable-ai-video-workflow", title: "반복 가능한 AI 영상 제작 흐름 (영문)" },
 };
 
 export function KoreanResourceDetail({ slug }: { slug: string }) {

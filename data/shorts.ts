@@ -142,7 +142,7 @@ export const shorts: Short[] = [
     type: "episode",
     episode: "EP.01",
     title: "RURU Tries to Be Scary… But He’s Too Cute!",
-    description: "RURU peeks around a forest tree and tries his very best to look scary, but this shy baby red panda is simply too cute.",
+    description: "RURU peeks around a forest tree and tries his very best to look scary, but this shy red panda is simply too cute.",
     category: "RURU Shorts",
     duration: "25 sec",
     tools: [],

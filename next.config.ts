@@ -1,8 +1,10 @@
 import type { NextConfig } from "next";
+import { koreanInsightRedirects } from "./lib/koreanInsightAvailability";
 
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      ...koreanInsightRedirects,
       { source: "/ai-studio", destination: "/about", statusCode: 301 },
       { source: "/animals", destination: "/characters", statusCode: 301 },
       { source: "/animals/haru", destination: "/characters/haru", statusCode: 301 },
@@ -20,7 +22,7 @@ const nextConfig: NextConfig = {
       { source: "/insights/ai-video-workflow", destination: "/insights/repeatable-ai-video-workflow", statusCode: 301 },
       { source: "/insights/vertical-video-reframing", destination: "/insights/reframing-16-9-guide", statusCode: 301 },
       { source: "/insights/runway-gen-4-review", destination: "/insights/runway-gen45-review", permanent: true },
-      { source: "/ko/insights/runway-gen-4-review", destination: "/ko/insights/runway-gen45-review", permanent: true },
+      { source: "/ko/insights/runway-gen-4-review", destination: "/insights/runway-gen45-review", permanent: true },
       { source: "/resources/ai-video-workflow", destination: "/resources/ai-short-film-workflow", statusCode: 301 },
       { source: "/resources/character-consistency-guide", destination: "/resources/character-consistency-prompt-pack", statusCode: 301 },
       { source: "/resources/prompt-library", destination: "/resources/image-to-video-prompt-framework", statusCode: 301 },

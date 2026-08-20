@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { InsightLanguage } from "@/lib/insightGroups";
 import { insightContentTypeLabels } from "@/lib/insightClassification";
 import type { InsightArticle } from "@/lib/insights";
+import { getKoreanInsightPath } from "@/lib/koreanInsightAvailability";
 
 export default function InsightCard({
   article,
@@ -11,7 +12,7 @@ export default function InsightCard({
   article: InsightArticle;
   language: InsightLanguage;
 }) {
-  const href = language === "ko" ? `/ko/insights/${article.slug}` : article.href;
+  const href = language === "ko" ? getKoreanInsightPath(article.slug) : article.href;
   const contentType = insightContentTypeLabels[article.contentType][language];
   const hasPortraitThumbnail = article.imageFit === "contain";
   const imageAlt =

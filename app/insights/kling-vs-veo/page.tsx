@@ -1,7 +1,6 @@
 ﻿import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { englishLanguageAlternates } from "@/lib/localization";
 
 const heroImage = "/images/insights/kling-vs-veo.png";
 
@@ -9,7 +8,7 @@ export const metadata: Metadata = {
   title: "Kling vs Veo: AI Video Comparison | FourFeetz Studios",
   description:
     "A production-planning comparison of the questions creators should verify when choosing Kling or Veo for motion, continuity, camera control, and editing.",
-  alternates: englishLanguageAlternates("/insights/kling-vs-veo", "/ko/insights/kling-vs-veo"),
+  alternates: { canonical: "/insights/kling-vs-veo" },
   openGraph: {
     title: "Kling vs Veo: AI Video Comparison | FourFeetz Studios",
     description:

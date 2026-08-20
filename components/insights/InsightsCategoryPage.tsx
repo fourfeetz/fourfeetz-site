@@ -3,6 +3,7 @@ import InsightCard from "@/components/insights/InsightCard";
 import { insightGroups, type InsightGroup, type InsightLanguage } from "@/lib/insightGroups";
 import { localizeInsightArticles } from "@/lib/insightLocalization";
 import { getPublishedInsightsByGroup } from "@/lib/insights";
+import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 
 const siteUrl = "https://fourfeetz.com";
 
@@ -15,7 +16,11 @@ export default function InsightsCategoryPage({
 }) {
   const content = insightGroups[group][language];
   const otherGroup: InsightGroup = group === "guides" ? "news" : "guides";
-  const articles = localizeInsightArticles(getPublishedInsightsByGroup(group), language);
+  const sourceArticles = getPublishedInsightsByGroup(group);
+  const articles = localizeInsightArticles(
+    language === "ko" ? sourceArticles.filter((article) => !isKoreanInsightRedirect(article.slug)) : sourceArticles,
+    language,
+  );
   const path = language === "ko" ? `/ko/insights/${group}` : `/insights/${group}`;
   const hubPath = language === "ko" ? "/ko/insights" : "/insights";
   const otherPath = language === "ko" ? `/ko/insights/${otherGroup}` : `/insights/${otherGroup}`;
