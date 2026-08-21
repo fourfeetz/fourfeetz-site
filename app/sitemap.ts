@@ -39,6 +39,7 @@ const routes = [
   "/insights/google-flow-complete-guide",
   "/insights/google-flow-one-action-eight-second-scenes",
   "/insights/haru-luna-rainy-window-ai-pet-video",
+  "/insights/haru-pori-two-character-scene",
   "/insights/haru-relaxing-videos-calm-natural",
   "/insights/how-haru-was-created",
   "/insights/image-to-video-prompts",

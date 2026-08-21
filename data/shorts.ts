@@ -149,7 +149,7 @@ export const shorts: Short[] = [
     characters: ["RURU"],
     productionNotes: [
       { label: "Story", value: "RURU gathers his courage behind a tree and practices a scary entrance, only for his curious and gentle personality to shine through." },
-      { label: "Character", value: "The short preserves RURU's baby red panda proportions, russet fur, brown collar, and gold RURU name tag." },
+      { label: "Character", value: "The short preserves RURU's compact red panda proportions, russet fur, brown collar, and gold RURU name tag." },
       { label: "Format", value: "A 25-second vertical character film composed for a 9:16 canvas." },
       { label: "Music", value: "RURU Theme, the official FourFeetz character theme inspired by RURU's curious and shy personality." },
     ],
@@ -312,6 +312,7 @@ export const shorts: Short[] = [
       { name: "HARU", href: "/characters/haru" },
       { name: "PORI", href: "/characters/pori" },
     ],
+    insight: { title: "Read the Two-Character Production Record", href: "/insights/haru-pori-two-character-scene" },
     publishedAt: "2026-07-16",
     updatedAt: "2026-07-22",
     featured: true,

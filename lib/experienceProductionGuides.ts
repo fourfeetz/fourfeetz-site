@@ -2,6 +2,7 @@ import type { ProductionInsight } from "@/lib/productionInsights";
 import { haruLunaRainyWindowGuide } from "@/lib/haruLunaRainyWindowInsight";
 import { cozyRetrieverKittenInsight } from "@/lib/cozyRetrieverKittenInsight";
 import { calmingFireplaceRainInsight } from "@/lib/calmingFireplaceRainInsight";
+import { haruPoriTwoCharacterInsight } from "@/lib/haruPoriTwoCharacterInsight";
 
 export const experienceProductionGuideSlugs = [
   "calming-dog-music-puppy-kitten-fireplace-rain",
@@ -12,6 +13,7 @@ export const experienceProductionGuideSlugs = [
   "google-flow-one-action-eight-second-scenes",
   "haru-relaxing-videos-calm-natural",
   "character-consistency-haru-ruru-milo",
+  "haru-pori-two-character-scene",
 ] as const;
 
 export type ExperienceProductionGuideSlug = (typeof experienceProductionGuideSlugs)[number];
@@ -44,6 +46,7 @@ export const experienceProductionGuides: Record<
   "calming-dog-music-puppy-kitten-fireplace-rain": calmingFireplaceRainInsight,
   "cozy-retriever-kitten-sleep-short": cozyRetrieverKittenInsight,
   "haru-luna-rainy-window-ai-pet-video": haruLunaRainyWindowGuide,
+  "haru-pori-two-character-scene": haruPoriTwoCharacterInsight,
   "why-fourfeetz-starts-animal-shorts-first-shot": {
     en: {
       ...shared,

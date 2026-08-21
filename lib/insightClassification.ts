@@ -6,6 +6,7 @@ const productionRecordSlugs = new Set([
   "cozy-retriever-kitten-sleep-short",
   "from-first-image-to-final-short",
   "haru-luna-rainy-window-ai-pet-video",
+  "haru-pori-two-character-scene",
   "haru-relaxing-videos-calm-natural",
   "how-haru-was-created",
   "magiclight-seedance-2-real-production-test",
