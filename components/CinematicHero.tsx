@@ -10,13 +10,38 @@ const haruVideoSrc = "/images/works/haru-first-journey/haru.mp4";
 const haruPosterSrc = "/images/works/haru-first-journey/hero.png";
 const mutePreferenceKey = "fourfeetz-hero-muted";
 
-function HeroVideoCard() {
+type HeroVideoLocale = "en" | "ko";
+
+function HeroVideoCard({ locale }: { locale: HeroVideoLocale }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [mounted, setMounted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [videoFailed, setVideoFailed] = useState(false);
   const displayMuted = mounted ? isMuted : true;
+  const labels = locale === "ko"
+    ? {
+        video: "HARU 대표 필름 영상",
+        poster: "FourFeetz 오리지널 캐릭터 HARU",
+        mute: "HARU 필름 음소거",
+        unmute: "HARU 필름 소리 켜기",
+        play: "HARU 필름 재생",
+        pause: "HARU 필름 일시정지",
+        soundTooltip: "소리",
+        playTooltip: "재생",
+        pauseTooltip: "일시정지",
+      }
+    : {
+        video: "HARU featured film video",
+        poster: "HARU featured original character",
+        mute: "Mute HARU film",
+        unmute: "Unmute HARU film",
+        play: "Play HARU film",
+        pause: "Pause HARU film",
+        soundTooltip: "Sound",
+        playTooltip: "Play",
+        pauseTooltip: "Pause",
+      };
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -56,7 +81,7 @@ function HeroVideoCard() {
       {videoFailed ? (
         <Image
           src={haruPosterSrc}
-          alt="HARU featured original character"
+          alt={labels.poster}
           fill
           priority
           sizes="(min-width: 768px) 50vw, 100vw"
@@ -73,7 +98,7 @@ function HeroVideoCard() {
           loop
           playsInline
           preload="auto"
-          aria-label="HARU featured film video"
+          aria-label={labels.video}
           onError={() => setVideoFailed(true)}
           onPlay={() => setIsPaused(false)}
           onPause={() => setIsPaused(true)}
@@ -85,7 +110,7 @@ function HeroVideoCard() {
           <div className="group relative">
             <button
               type="button"
-              aria-label={displayMuted ? "Unmute HARU film" : "Mute HARU film"}
+              aria-label={displayMuted ? labels.unmute : labels.mute}
               onClick={toggleMute}
               className="grid size-[34px] place-items-center rounded-full border border-[#6f4e37]/30 bg-white/75 text-[#6f4e37] shadow-[0_2px_8px_rgba(43,33,25,0.10)] backdrop-blur-md transition-transform duration-200 hover:scale-[1.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c3ad] md:size-10"
             >
@@ -99,13 +124,13 @@ function HeroVideoCard() {
               role="tooltip"
               className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md bg-[#2b2119]/90 px-2 py-1 text-xs font-semibold text-white opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
             >
-              Sound
+              {labels.soundTooltip}
             </span>
           </div>
           <div className="group relative">
             <button
               type="button"
-              aria-label={isPaused ? "Play HARU film" : "Pause HARU film"}
+              aria-label={isPaused ? labels.play : labels.pause}
               onClick={togglePlayback}
               className="grid size-[34px] place-items-center rounded-full border border-[#6f4e37]/30 bg-white/75 text-[#6f4e37] shadow-[0_2px_8px_rgba(43,33,25,0.10)] backdrop-blur-md transition-transform duration-200 hover:scale-[1.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c3ad] md:size-10"
             >
@@ -115,11 +140,24 @@ function HeroVideoCard() {
               role="tooltip"
               className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded-md bg-[#2b2119]/90 px-2 py-1 text-xs font-semibold text-white opacity-0 shadow-sm transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100"
             >
-              Pause
+              {isPaused ? labels.playTooltip : labels.pauseTooltip}
             </span>
           </div>
         </div>
       ) : null}
+    </div>
+  );
+}
+
+export function HeroVideoPanel({ locale = "en" }: { locale?: HeroVideoLocale }) {
+  return (
+    <div className="rounded-[46px] border border-[#e6d8c8] bg-white p-4 shadow-2xl shadow-[#6f4e37]/15">
+      <HeroVideoCard locale={locale} />
+      <div className="px-3 py-3">
+        <p className="text-sm font-black uppercase tracking-[0.25em] text-[#a67c52]">FEATURED FILM</p>
+        <h2 className="mt-2 text-3xl font-black text-[#2b2119]">HARU — First Journey</h2>
+        <p className="mt-2 text-[#76685d]">{locale === "ko" ? "FourFeetz Studios가 공개한 오리지널 캐릭터 필름입니다." : "Published original character film by FourFeetz Studios."}</p>
+      </div>
     </div>
   );
 }
@@ -149,14 +187,7 @@ export default function CinematicHero() {
         </div>
       </div>
 
-      <div className="rounded-[46px] border border-[#e6d8c8] bg-white p-4 shadow-2xl shadow-[#6f4e37]/15">
-        <HeroVideoCard />
-        <div className="px-3 py-3">
-          <p className="text-sm font-black uppercase tracking-[0.25em] text-[#a67c52]">FEATURED FILM</p>
-          <h2 className="mt-2 text-3xl font-black text-[#2b2119]">HARU — First Journey</h2>
-          <p className="mt-2 text-[#76685d]">Published original character film by FourFeetz Studios.</p>
-        </div>
-      </div>
+      <HeroVideoPanel />
     </section>
   );
 }
