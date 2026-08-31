@@ -14,6 +14,7 @@ import type { PetIndustryService } from "@/lib/petBusinessServices";
 import { petIndustryServices, videoPricingPackages } from "@/lib/petBusinessServices";
 import { HeroVideoPanel } from "@/components/CinematicHero";
 import { koreanHeroVideos } from "@/lib/heroVideos";
+import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 
 const primaryButton =
   "inline-flex min-h-12 items-center justify-center rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
@@ -75,7 +76,7 @@ export function PetIndustryCards({ compact = false }: { compact?: boolean }) {
 
 export function PetVideoLandingPage() {
   return (
-    <main>
+    <main className={koreanPageTypographyClass}>
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">Pet Business Video</p>
@@ -192,7 +193,7 @@ function ServiceVisual({ service }: { service: PetIndustryService }) {
 
 export function PetIndustryServicePage({ service }: { service: PetIndustryService }) {
   return (
-    <main>
+    <main className={koreanPageTypographyClass}>
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[1fr_0.85fr] md:items-center md:py-20">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{service.eyebrow}</p>

@@ -5,6 +5,7 @@ import { films } from "@/lib/films";
 import { shorts } from "@/data/shorts";
 import { HeroVideoPanel } from "@/components/CinematicHero";
 import { koreanHeroVideos } from "@/lib/heroVideos";
+import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 
 const primary = "inline-flex min-h-12 items-center justify-center rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
 const secondary = "inline-flex min-h-12 items-center justify-center rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
@@ -19,7 +20,7 @@ export default function KoreanSalesHome() {
     { title: "애견미용실·호텔 홍보영상", image: "/images/services/pet-grooming-hotel-cover.webp", href: "/ko/services/grooming-hotel", label: "업체용 공개 포트폴리오 · 9:16" },
   ].filter(Boolean) as { title: string; image?: string; href: string; label: string }[];
 
-  return <main>
+  return <main className={koreanPageTypographyClass}>
     <section className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-[1fr_.88fr] md:items-center md:py-20">
       <div><p className="text-sm font-black uppercase tracking-[.25em] text-[#a67c52]">FourFeetz Creative Studio</p><h1 className="mt-4 text-5xl font-black leading-[1.12] tracking-tight text-[#2b2119] md:text-7xl">사진 속 우리 아이를<br />특별한 이야기로 만들어드립니다</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d] md:text-xl">반려동물 맞춤 영상과 디지털 작품부터 반려동물 업체를 위한 감성 홍보 콘텐츠까지, FourFeetz가 사진과 이야기를 기억에 남는 장면으로 완성합니다.</p><div className="mt-8 flex flex-wrap gap-3"><Link href="/ko/services/personal-pet-video" aria-label="My Pet Story 상담하기" className={primary}>My Pet Story</Link><Link href="/ko/services/pet-video" className={secondary}>업체 홍보 콘텐츠 알아보기</Link><Link href="/ko/videos" className={secondary}>제작 사례 보기</Link></div></div>
       <HeroVideoPanel locale="ko" video={koreanHeroVideos.home} />
