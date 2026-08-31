@@ -1,0 +1,40 @@
+import type { HeroVideoConfig } from "@/components/CinematicHero";
+
+export const koreanHeroVideos = {
+  home: {
+    src: "/images/works/haru-first-journey/haru.mp4",
+    poster: "/images/works/haru-first-journey/hero.png",
+    accessibleLabel: "HARU의 첫 여정을 담은 FourFeetz 공개 필름",
+    posterAlt: "FourFeetz 오리지널 캐릭터 HARU의 첫 여정",
+    badge: "FourFeetz 공개 제작 사례",
+    title: "HARU — First Journey",
+    description: "FourFeetz Studios가 공개한 오리지널 캐릭터 필름입니다.",
+    ratio: "landscape",
+    objectFit: "contain",
+    preload: "auto",
+  },
+  myPetStory: {
+    src: "/videos/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2.mp4",
+    poster: "/images/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2-poster.webp",
+    accessibleLabel: "비 오는 저녁을 함께 보내는 HARU와 LUNA의 공개 세로형 영상",
+    posterAlt: "비 오는 창가에서 함께 시간을 보내는 HARU와 LUNA",
+    badge: "FourFeetz 공개 제작 사례",
+    title: "HARU & LUNA — Rainy Evening",
+    description: "함께한 일상의 감정을 담은 FourFeetz 오리지널 캐릭터 공개 쇼츠입니다.",
+    ratio: "portrait",
+    objectFit: "contain",
+    preload: "metadata",
+  },
+  petBusiness: {
+    src: "/videos/services/pet-grooming-hotel-promo.mp4",
+    poster: "/images/services/pet-grooming-hotel-cover.webp",
+    accessibleLabel: "애견미용실과 반려동물 호텔을 위한 FourFeetz 세로형 홍보 콘셉트 영상",
+    posterAlt: "밝은 애견미용실에서 편안하게 쉬는 푸들",
+    badge: "서비스 콘셉트 영상",
+    title: "애견미용실·호텔 홍보영상",
+    description: "특정 고객 의뢰가 아닌 FourFeetz의 공개 업체용 제작 사례입니다.",
+    ratio: "portrait",
+    objectFit: "contain",
+    preload: "metadata",
+  },
+} satisfies Record<string, HeroVideoConfig>;

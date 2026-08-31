@@ -48,10 +48,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   if (slug === "personal-pet-video") {
     return pageMetadata(
-      "반려동물 맞춤 영상·디지털 작품 | FourFeetz",
-      "반려동물 사진과 이야기를 바탕으로 감성 영상, 기념·추모 영상과 디지털 작품을 만드는 개인 고객용 서비스입니다.",
+      "My Pet Story | 반려동물 맞춤 영상·디지털 작품 | FourFeetz",
+      "My Pet Story는 반려동물 사진과 이야기를 감성 영상, 기념·추모 이야기와 디지털 작품으로 완성하는 FourFeetz의 개인 고객 서비스입니다.",
       "/ko/services/personal-pet-video",
-      "/images/works/haru-relaxing-home/thumbnail.png",
+      "/images/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2-poster.webp",
     );
   }
 
@@ -67,7 +67,7 @@ export default async function Page({ params }: Props) {
   const currentTitle = slug === "pet-video"
     ? "반려동물 업체용 콘텐츠"
     : slug === "personal-pet-video"
-      ? "우리 아이 작품"
+      ? "My Pet Story"
       : service?.cardTitle;
   const breadcrumb = currentTitle ? {
     "@context": "https://schema.org",

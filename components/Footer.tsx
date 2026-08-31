@@ -6,6 +6,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 import { localizedHref } from "@/lib/localization";
 
 const footerLinks = [
+  { href: "/services", koreanHref: "/ko/services/personal-pet-video", label: "My Pet Story", koreanOnly: true },
   { href: "/videos", label: "Videos" },
   { href: "/characters", label: "Characters" },
   { href: "/insights", label: "Insights" },
@@ -31,6 +32,7 @@ export default function Footer() {
     Privacy: "개인정보 처리방침",
     Terms: "이용약관",
     Contact: "문의",
+    "My Pet Story": "My Pet Story",
   } as Record<string, string> : {};
 
   return (
@@ -51,8 +53,8 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-3 text-sm font-bold text-[#6f4e37] md:justify-end lg:flex-nowrap lg:gap-x-3">
-          {footerLinks.map((item) => (
-            <Link key={item.href} href={lang === "ko" && item.koreanHref ? item.koreanHref : localizedHref(item.href, lang)} className="whitespace-nowrap hover:text-[#2b2119]">
+          {footerLinks.filter((item) => lang === "ko" || !("koreanOnly" in item && item.koreanOnly)).map((item) => (
+            <Link key={`${item.href}-${item.label}`} href={lang === "ko" && item.koreanHref ? item.koreanHref : localizedHref(item.href, lang)} className="whitespace-nowrap hover:text-[#2b2119]">
               {labels[item.label] ?? item.label}
             </Link>
           ))}

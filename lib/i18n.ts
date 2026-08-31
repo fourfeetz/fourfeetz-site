@@ -150,7 +150,7 @@ export const dict = {
       insights: "인사이트",
       resources: "리소스",
       services: "제작 의뢰",
-      personal: "우리 아이 작품",
+      personal: "My Pet Story",
       business: "업체용 콘텐츠",
       contact: "문의하기",
       tools: "도구",

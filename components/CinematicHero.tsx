@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Pause, Volume2, VolumeX } from "lucide-react";
+import { Pause, Play, Volume2, VolumeX } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 
@@ -12,21 +12,48 @@ const mutePreferenceKey = "fourfeetz-hero-muted";
 
 type HeroVideoLocale = "en" | "ko";
 
-function HeroVideoCard({ locale }: { locale: HeroVideoLocale }) {
+export type HeroVideoConfig = {
+  src: string;
+  poster: string;
+  accessibleLabel: string;
+  posterAlt: string;
+  badge: string;
+  title: string;
+  description: string;
+  ratio?: "landscape" | "portrait";
+  objectFit?: "contain" | "cover";
+  preload?: "auto" | "metadata";
+};
+
+const defaultHeroVideo: HeroVideoConfig = {
+  src: haruVideoSrc,
+  poster: haruPosterSrc,
+  accessibleLabel: "HARU featured film video",
+  posterAlt: "HARU featured original character",
+  badge: "FEATURED FILM",
+  title: "HARU — First Journey",
+  description: "Published original character film by FourFeetz Studios.",
+  ratio: "landscape",
+  objectFit: "contain",
+  preload: "auto",
+};
+
+function HeroVideoCard({ locale, video }: { locale: HeroVideoLocale; video: HeroVideoConfig }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [mounted, setMounted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [videoFailed, setVideoFailed] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const displayMuted = mounted ? isMuted : true;
   const labels = locale === "ko"
     ? {
         video: "HARU 대표 필름 영상",
         poster: "FourFeetz 오리지널 캐릭터 HARU",
-        mute: "HARU 필름 음소거",
-        unmute: "HARU 필름 소리 켜기",
-        play: "HARU 필름 재생",
-        pause: "HARU 필름 일시정지",
+        mute: `${video.title} 음소거`,
+        unmute: `${video.title} 소리 켜기`,
+        play: `${video.title} 재생`,
+        pause: `${video.title} 일시정지`,
         soundTooltip: "소리",
         playTooltip: "재생",
         pauseTooltip: "일시정지",
@@ -49,10 +76,33 @@ function HeroVideoCard({ locale }: { locale: HeroVideoLocale }) {
       const nextMuted = saved === "false" ? false : true;
       setIsMuted(nextMuted);
       setMounted(true);
-      if (videoRef.current) videoRef.current.muted = nextMuted;
+      if (videoRef.current) {
+        const videoElement = videoRef.current;
+        videoElement.muted = nextMuted;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          videoElement.pause();
+          setIsPaused(true);
+        } else {
+          void videoElement.play().then(() => setIsPaused(false)).catch(() => setIsPaused(true));
+        }
+      }
     }, 0);
 
     return () => window.clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPreference = () => {
+      setReduceMotion(media.matches);
+      if (media.matches) {
+        videoRef.current?.pause();
+        setIsPaused(true);
+      }
+    };
+    syncPreference();
+    media.addEventListener("change", syncPreference);
+    return () => media.removeEventListener("change", syncPreference);
   }, []);
 
   function togglePlayback() {
@@ -77,31 +127,32 @@ function HeroVideoCard({ locale }: { locale: HeroVideoLocale }) {
   }
 
   return (
-    <div className="relative aspect-video overflow-hidden rounded-[34px] bg-black">
+    <div className={`relative overflow-hidden rounded-[34px] bg-black ${video.ratio === "portrait" ? "aspect-[4/3]" : "aspect-video"}`}>
       {videoFailed ? (
         <Image
-          src={haruPosterSrc}
-          alt={labels.poster}
+          src={video.poster}
+          alt={video.posterAlt || labels.poster}
           fill
           priority
           sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-contain"
+          className={video.objectFit === "cover" ? "object-cover" : "object-contain"}
         />
       ) : (
         <video
           ref={videoRef}
-          className="h-full w-full bg-black object-contain"
-          src={haruVideoSrc}
-          poster={haruPosterSrc}
+          className={`h-full w-full bg-black ${video.objectFit === "cover" ? "object-cover" : "object-contain"}`}
+          src={video.src}
+          poster={video.poster}
           autoPlay
           muted={displayMuted}
           loop
           playsInline
-          preload="auto"
-          aria-label={labels.video}
+          preload={video.preload ?? "metadata"}
+          aria-label={video.accessibleLabel || labels.video}
           onError={() => setVideoFailed(true)}
           onPlay={() => setIsPaused(false)}
           onPause={() => setIsPaused(true)}
+          onLoadedData={(event) => setIsPaused(event.currentTarget.paused)}
         />
       )}
 
@@ -134,7 +185,9 @@ function HeroVideoCard({ locale }: { locale: HeroVideoLocale }) {
               onClick={togglePlayback}
               className="grid size-[34px] place-items-center rounded-full border border-[#6f4e37]/30 bg-white/75 text-[#6f4e37] shadow-[0_2px_8px_rgba(43,33,25,0.10)] backdrop-blur-md transition-transform duration-200 hover:scale-[1.08] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#d8c3ad] md:size-10"
             >
-              <Pause aria-hidden="true" className="size-[17px] md:size-5" strokeWidth={2} />
+              {isPaused
+                ? <Play aria-hidden="true" className="size-[17px] md:size-5" strokeWidth={2} />
+                : <Pause aria-hidden="true" className="size-[17px] md:size-5" strokeWidth={2} />}
             </button>
             <span
               role="tooltip"
@@ -145,18 +198,19 @@ function HeroVideoCard({ locale }: { locale: HeroVideoLocale }) {
           </div>
         </div>
       ) : null}
+      {reduceMotion && !videoFailed ? <span className="sr-only">{locale === "ko" ? "동작 줄이기 설정에 따라 영상이 일시정지되었습니다." : "Video paused for reduced motion preference."}</span> : null}
     </div>
   );
 }
 
-export function HeroVideoPanel({ locale = "en" }: { locale?: HeroVideoLocale }) {
+export function HeroVideoPanel({ locale = "en", video = defaultHeroVideo }: { locale?: HeroVideoLocale; video?: HeroVideoConfig }) {
   return (
     <div className="rounded-[46px] border border-[#e6d8c8] bg-white p-4 shadow-2xl shadow-[#6f4e37]/15">
-      <HeroVideoCard locale={locale} />
+      <HeroVideoCard locale={locale} video={video} />
       <div className="px-3 py-3">
-        <p className="text-sm font-black uppercase tracking-[0.25em] text-[#a67c52]">FEATURED FILM</p>
-        <h2 className="mt-2 text-3xl font-black text-[#2b2119]">HARU — First Journey</h2>
-        <p className="mt-2 text-[#76685d]">{locale === "ko" ? "FourFeetz Studios가 공개한 오리지널 캐릭터 필름입니다." : "Published original character film by FourFeetz Studios."}</p>
+        <p className="text-sm font-black uppercase tracking-[0.25em] text-[#a67c52]">{video.badge}</p>
+        <h2 className="mt-2 text-3xl font-black text-[#2b2119]">{video.title}</h2>
+        <p className="mt-2 text-[#76685d]">{locale === "ko" && video === defaultHeroVideo ? "FourFeetz Studios가 공개한 오리지널 캐릭터 필름입니다." : video.description}</p>
       </div>
     </div>
   );

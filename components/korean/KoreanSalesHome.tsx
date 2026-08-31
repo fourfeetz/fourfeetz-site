@@ -4,6 +4,7 @@ import { BadgeCheck, Building2, Heart, PawPrint } from "lucide-react";
 import { films } from "@/lib/films";
 import { shorts } from "@/data/shorts";
 import { HeroVideoPanel } from "@/components/CinematicHero";
+import { koreanHeroVideos } from "@/lib/heroVideos";
 
 const primary = "inline-flex min-h-12 items-center justify-center rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
 const secondary = "inline-flex min-h-12 items-center justify-center rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
@@ -20,12 +21,12 @@ export default function KoreanSalesHome() {
 
   return <main>
     <section className="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-[1fr_.88fr] md:items-center md:py-20">
-      <div><p className="text-sm font-black uppercase tracking-[.25em] text-[#a67c52]">FourFeetz Creative Studio</p><h1 className="mt-4 text-5xl font-black leading-[1.12] tracking-tight text-[#2b2119] md:text-7xl">사진 속 우리 아이를<br />특별한 이야기로 만들어드립니다</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d] md:text-xl">반려동물 맞춤 영상과 디지털 작품부터 반려동물 업체를 위한 감성 홍보 콘텐츠까지, FourFeetz가 사진과 이야기를 기억에 남는 장면으로 완성합니다.</p><div className="mt-8 flex flex-wrap gap-3"><Link href="/ko/services/personal-pet-video" className={primary}>우리 아이 영상 만들기</Link><Link href="/ko/services/pet-video" className={secondary}>업체 홍보 콘텐츠 알아보기</Link><Link href="/ko/videos" className={secondary}>제작 사례 보기</Link></div></div>
-      <HeroVideoPanel locale="ko" />
+      <div><p className="text-sm font-black uppercase tracking-[.25em] text-[#a67c52]">FourFeetz Creative Studio</p><h1 className="mt-4 text-5xl font-black leading-[1.12] tracking-tight text-[#2b2119] md:text-7xl">사진 속 우리 아이를<br />특별한 이야기로 만들어드립니다</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d] md:text-xl">반려동물 맞춤 영상과 디지털 작품부터 반려동물 업체를 위한 감성 홍보 콘텐츠까지, FourFeetz가 사진과 이야기를 기억에 남는 장면으로 완성합니다.</p><div className="mt-8 flex flex-wrap gap-3"><Link href="/ko/services/personal-pet-video" aria-label="My Pet Story 상담하기" className={primary}>My Pet Story</Link><Link href="/ko/services/pet-video" className={secondary}>업체 홍보 콘텐츠 알아보기</Link><Link href="/ko/videos" className={secondary}>제작 사례 보기</Link></div></div>
+      <HeroVideoPanel locale="ko" video={koreanHeroVideos.home} />
     </section>
 
     <section className="border-y border-[#eadfce] bg-white px-6 py-16"><div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2">
-      <Link href="/ko/services/personal-pet-video" className={`${card} group`}><Heart className="text-[#a67c52]" /><p className="mt-6 text-sm font-black text-[#a67c52]">개인 고객</p><h2 className="mt-2 text-3xl font-black text-[#2b2119]">우리 아이의 사진과 기억을 작품으로</h2><p className="mt-4 leading-8 text-[#76685d]">생일·입양 기념, 일상의 추억과 추모를 위한 맞춤 영상·디지털 작품을 상담합니다.</p><span className="mt-6 inline-flex font-black text-[#6f4e37]">개인 상품 보기 →</span></Link>
+      <Link href="/ko/services/personal-pet-video" aria-label="My Pet Story 자세히 보기" className={`${card} group`}><Heart className="text-[#a67c52]" /><p className="mt-6 text-sm font-black text-[#a67c52]">개인 고객</p><h2 className="mt-2 text-3xl font-black text-[#2b2119]">My Pet Story</h2><p className="mt-4 leading-8 text-[#76685d]">생일·입양 기념, 일상의 추억과 추모를 위한 맞춤 영상·디지털 작품을 상담합니다.</p><span className="mt-6 inline-flex font-black text-[#6f4e37]">My Pet Story →</span></Link>
       <Link href="/ko/services/pet-video" className={`${card} group`}><Building2 className="text-[#a67c52]" /><p className="mt-6 text-sm font-black text-[#a67c52]">업체 고객</p><h2 className="mt-2 text-3xl font-black text-[#2b2119]">매장과 서비스의 강점을 짧은 콘텐츠로</h2><p className="mt-4 leading-8 text-[#76685d]">미용실·호텔, 용품, 동물병원, 장례식장에 맞춘 쇼츠·릴스 콘텐츠를 제작합니다.</p><span className="mt-6 inline-flex font-black text-[#6f4e37]">업체 서비스 보기 →</span></Link>
     </div></section>
 

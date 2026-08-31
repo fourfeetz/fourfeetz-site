@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import type { PetIndustryService } from "@/lib/petBusinessServices";
 import { petIndustryServices, videoPricingPackages } from "@/lib/petBusinessServices";
+import { HeroVideoPanel } from "@/components/CinematicHero";
+import { koreanHeroVideos } from "@/lib/heroVideos";
 
 const primaryButton =
   "inline-flex min-h-12 items-center justify-center rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
@@ -84,10 +86,7 @@ export function PetVideoLandingPage() {
             <Link href="/ko/services#contact" className={secondaryButton}>무료 제작 상담받기</Link>
           </div>
         </div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[36px] border border-[#d8c3ad] bg-[#f2e8dc] shadow-2xl shadow-[#6f4e37]/15">
-          <Image src="/images/services/pet-grooming-hotel-cover.webp" alt="밝은 애견미용실에서 편안하게 쉬는 푸들" fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
-          <span className="absolute bottom-4 left-4 rounded-full bg-white/95 px-4 py-2 text-sm font-black text-[#6f4e37] shadow-sm">실제 포트폴리오 영상 공개</span>
-        </div>
+        <HeroVideoPanel locale="ko" video={koreanHeroVideos.petBusiness} />
       </section>
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20">
@@ -205,13 +204,17 @@ export function PetIndustryServicePage({ service }: { service: PetIndustryServic
             <Link href="/ko/services/pet-video" className={secondaryButton}>전체 서비스 보기</Link>
           </div>
         </div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[36px] border border-[#d8c3ad] bg-[#f2e8dc] shadow-2xl shadow-[#6f4e37]/15">
-          <Image src={service.image} alt={service.imageAlt} fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
-          <span className={`absolute bottom-4 left-4 rounded-full px-4 py-2 text-sm font-black shadow-sm ${service.video ? "bg-[#6f4e37] text-white" : "border border-[#e6d8c8] bg-white/95 text-[#6f4e37]"}`}>{service.video ? "실제 영상 포스터" : service.imageLabel}</span>
-        </div>
+        {service.video ? (
+          <HeroVideoPanel locale="ko" video={koreanHeroVideos.petBusiness} />
+        ) : (
+          <div className="relative aspect-[4/3] overflow-hidden rounded-[36px] border border-[#d8c3ad] bg-[#f2e8dc] shadow-2xl shadow-[#6f4e37]/15">
+            <Image src={service.image} alt={service.imageAlt} fill priority sizes="(min-width: 768px) 45vw, 100vw" className="object-cover" />
+            <span className="absolute bottom-4 left-4 rounded-full border border-[#e6d8c8] bg-white/95 px-4 py-2 text-sm font-black text-[#6f4e37] shadow-sm">{service.imageLabel}</span>
+          </div>
+        )}
       </section>
 
-      <ServiceVisual service={service} />
+      {service.video ? null : <ServiceVisual service={service} />}
 
       <section className="px-6 py-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
