@@ -81,6 +81,8 @@ const routes = [
 export default function sitemap(): MetadataRoute.Sitemap {
   const pairedPaths = new Map<string, string>([
     ["/en", "/ko"],
+    ["/privacy", "/ko/privacy"],
+    ["/terms", "/ko/terms"],
     ["/services", "/ko/services"],
     ["/about", "/ko/about"],
     ["/videos", "/ko/videos"],

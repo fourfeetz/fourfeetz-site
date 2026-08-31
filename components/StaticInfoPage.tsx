@@ -14,6 +14,8 @@ type StaticInfoPageProps = {
   description: string;
   sections: ContentSection[];
   updated?: string;
+  updatedLabel?: string;
+  mainClassName?: string;
   cta?: {
     eyebrow: string;
     title: string;
@@ -23,13 +25,13 @@ type StaticInfoPageProps = {
   };
 };
 
-export default function StaticInfoPage({ eyebrow, title, description, sections, updated, cta }: StaticInfoPageProps) {
+export default function StaticInfoPage({ eyebrow, title, description, sections, updated, updatedLabel = "Last updated", mainClassName, cta }: StaticInfoPageProps) {
   return (
-    <main>
+    <main className={mainClassName}>
       <PageHero eyebrow={eyebrow} title={title} desc={description} />
       <section className="border-y border-[#eadfce] bg-white px-6 py-16 md:py-20">
         <div className="mx-auto max-w-4xl">
-          {updated ? <p className="mb-10 text-sm font-bold uppercase tracking-[0.18em] text-[#a67c52]">Last updated {updated}</p> : null}
+          {updated ? <p className="mb-10 text-sm font-bold tracking-[0.18em] text-[#a67c52]">{updatedLabel} {updated}</p> : null}
           <div className="space-y-5">
             {sections.map((section) => (
               <article key={section.title} className="rounded-3xl border border-[#eadfce] bg-[#fffdf8] p-7 shadow-sm md:p-9">

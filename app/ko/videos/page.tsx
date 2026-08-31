@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import VideosHub, { normalizeVideoFilter } from "@/components/VideosHub";
 import { languageAlternates } from "@/lib/localization";
+import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 
 const title = "AI 영상: 롱폼과 쇼츠 | FourFeetz";
 const description = "FourFeetz가 제작한 AI 롱폼 영상과 캐릭터 쇼츠를 한곳에서 만나보세요.";
@@ -33,5 +34,5 @@ export default async function Page({
   searchParams: Promise<{ type?: string | string[] }>;
 }) {
   const filter = normalizeVideoFilter((await searchParams).type);
-  return <VideosHub language="ko" activeFilter={filter} />;
+  return <div className={koreanPageTypographyClass}><VideosHub language="ko" activeFilter={filter} /></div>;
 }

@@ -127,7 +127,13 @@ function HeroVideoCard({ locale, video }: { locale: HeroVideoLocale; video: Hero
   }
 
   return (
-    <div className={`relative overflow-hidden rounded-[34px] bg-black ${video.ratio === "portrait" ? "aspect-[4/3]" : "aspect-video"}`}>
+    <div className={`relative overflow-hidden rounded-[34px] ${video.ratio === "portrait" ? "aspect-[4/3] bg-[#3d3028]" : "aspect-video bg-black"}`}>
+      {video.ratio === "portrait" ? (
+        <>
+          <Image src={video.poster} alt="" aria-hidden="true" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="scale-110 object-cover blur-xl" />
+          <span aria-hidden="true" className="absolute inset-0 bg-[#2b2119]/45" />
+        </>
+      ) : null}
       {videoFailed ? (
         <Image
           src={video.poster}
@@ -135,12 +141,12 @@ function HeroVideoCard({ locale, video }: { locale: HeroVideoLocale; video: Hero
           fill
           priority
           sizes="(min-width: 768px) 50vw, 100vw"
-          className={video.objectFit === "cover" ? "object-cover" : "object-contain"}
+          className={`relative ${video.objectFit === "cover" ? "object-cover" : "object-contain"}`}
         />
       ) : (
         <video
           ref={videoRef}
-          className={`h-full w-full bg-black ${video.objectFit === "cover" ? "object-cover" : "object-contain"}`}
+          className={`relative h-full w-full ${video.ratio === "portrait" ? "bg-transparent" : "bg-black"} ${video.objectFit === "cover" ? "object-cover" : "object-contain"}`}
           src={video.src}
           poster={video.poster}
           autoPlay
@@ -157,7 +163,7 @@ function HeroVideoCard({ locale, video }: { locale: HeroVideoLocale; video: Hero
       )}
 
       {!videoFailed ? (
-        <div className="absolute bottom-5 right-5 flex items-center gap-2">
+        <div className="absolute bottom-5 right-5 z-10 flex items-center gap-2">
           <div className="group relative">
             <button
               type="button"

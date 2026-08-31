@@ -7,6 +7,7 @@ import { localizedHref } from "@/lib/localization";
 
 const footerLinks = [
   { href: "/services", koreanHref: "/ko/services/personal-pet-video", label: "My Pet Story", koreanOnly: true },
+  { href: "/services", koreanHref: "/ko/services/pet-video", label: "Pet Business Content", koreanOnly: true },
   { href: "/videos", label: "Videos" },
   { href: "/characters", label: "Characters" },
   { href: "/insights", label: "Insights" },
@@ -15,7 +16,7 @@ const footerLinks = [
   { href: "/tools", label: "Production Tools" },
   { href: "/about", label: "About" },
   { href: "/privacy", koreanHref: "/ko/privacy", label: "Privacy" },
-  { href: "/terms", koreanHref: "/terms", label: "Terms" },
+  { href: "/terms", koreanHref: "/ko/terms", label: "Terms" },
   { href: "/contact", koreanHref: "/ko/services#contact", label: "Contact" },
 ];
 
@@ -33,6 +34,7 @@ export default function Footer() {
     Terms: "이용약관",
     Contact: "문의",
     "My Pet Story": "My Pet Story",
+    "Pet Business Content": "업체용 콘텐츠",
   } as Record<string, string> : {};
 
   return (
@@ -48,7 +50,7 @@ export default function Footer() {
           />
           <p className="mt-5 max-w-md text-[#76685d]">
             {lang === "ko"
-              ? "FourFeetz Studios는 자체 동물 캐릭터와 공개 영상을 제작·관리하고, 실제 프로젝트에서 선별한 제작 기록을 공유하는 독립 제작 스튜디오입니다."
+              ? "FourFeetz Studios는 반려동물의 사진과 이야기를 감성적인 영상과 디지털 작품으로 만들고, 반려동물 업체를 위한 홍보 콘텐츠를 제작하는 크리에이티브 스튜디오입니다. 자체 캐릭터와 공개 작품도 함께 소개합니다."
               : "FourFeetz Studios is an independent studio creating and managing original animal characters, published films, and selected records from real projects."}
           </p>
         </div>

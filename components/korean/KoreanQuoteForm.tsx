@@ -34,6 +34,7 @@ function readValue(formData: FormData, field: string) {
 
 export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: string }) {
   const [errors, setErrors] = useState<FormErrors>({});
+  const [copyStatus, setCopyStatus] = useState<"idle" | "success" | "error">("idle");
 
   function clearError(field: FieldName) {
     setErrors((current) => {
@@ -69,7 +70,7 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
     }
     if (!values.projectType) nextErrors.projectType = "프로젝트 종류를 선택해 주세요.";
     if (!values.message) nextErrors.message = "프로젝트 내용을 입력해 주세요.";
-    if (!values.privacy) nextErrors.privacy = "문의 내용을 이메일 작성창에 옮기는 데 동의해 주세요.";
+    if (!values.privacy) nextErrors.privacy = "개인정보 처리방침을 확인하고, 문의 내용을 이메일 작성창에 옮기는 데 동의해 주세요.";
 
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
@@ -94,6 +95,15 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
     ].join("\n");
 
     window.location.href = `mailto:${inquiryEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  async function copyEmailAddress() {
+    try {
+      await navigator.clipboard.writeText(inquiryEmail);
+      setCopyStatus("success");
+    } catch {
+      setCopyStatus("error");
+    }
   }
 
   return (
@@ -181,19 +191,25 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
         />
         {errors.message ? <span id="message-error" role="alert" className="text-sm font-semibold text-[#a13f2f]">{errors.message}</span> : null}
       </label>
-      <label className="flex items-start gap-3 md:col-span-2 text-sm leading-6 text-[#76685d]">
-        <input type="checkbox" name="privacy" value="yes" onChange={() => clearError("privacy")} aria-invalid={Boolean(errors.privacy)} aria-describedby={errors.privacy ? "privacy-error" : undefined} className="mt-1 size-5 shrink-0 accent-[#6f4e37]" />
+      <div className="md:col-span-2">
+      <label htmlFor="privacy-consent" className="flex items-start gap-3 text-sm leading-6 text-[#76685d]">
+        <input id="privacy-consent" type="checkbox" name="privacy" value="yes" required onChange={() => clearError("privacy")} aria-invalid={Boolean(errors.privacy)} aria-describedby={errors.privacy ? "privacy-error" : undefined} className="mt-1 size-5 shrink-0 accent-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2" />
         <span>입력한 이름, 이메일과 문의 내용을 이메일 작성창에 옮기는 데 동의합니다. 실제 발송은 사용하는 이메일 앱에서 직접 확인해야 합니다. <Link href="/ko/privacy" className="font-bold text-[#6f4e37] underline underline-offset-4">개인정보 처리방침</Link></span>
       </label>
-      {errors.privacy ? <span id="privacy-error" role="alert" className="text-sm font-semibold text-[#a13f2f] md:col-span-2">{errors.privacy}</span> : null}
+      {errors.privacy ? <p id="privacy-error" role="alert" className="mt-2 text-sm font-semibold text-[#a13f2f]">{errors.privacy}</p> : null}
+      </div>
       <div className="md:col-span-2">
         <button type="submit" className={buttonClassName}>무료 제작 상담받기</button>
         <p className="mt-3 text-sm leading-6 text-[#9a8775]">
-          무료 제작 상담받기를 누르면 이메일 작성 창이 열립니다. 직접 문의는{" "}
+          상담 버튼을 누르면 입력한 내용을 포함한 이메일 작성창이 열립니다. 최종 발송은 이메일 앱에서 직접 확인해 주세요. 직접 문의는{" "}
           <a href={`mailto:${inquiryEmail}`} className="font-bold text-[#6f4e37] underline underline-offset-4">
             {inquiryEmail}
           </a>
           으로 보내주세요.
+        </p>
+        <button type="button" onClick={copyEmailAddress} className="mt-3 rounded-full border border-[#d8c3ad] bg-[#fffdf8] px-5 py-2.5 text-sm font-black text-[#6f4e37] transition hover:border-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2">이메일 주소 복사</button>
+        <p aria-live="polite" className="mt-2 min-h-6 text-sm font-semibold text-[#6f4e37]">
+          {copyStatus === "success" ? "이메일 주소를 복사했습니다. 이메일 앱에 붙여넣어 주세요." : copyStatus === "error" ? `복사하지 못했습니다. ${inquiryEmail}을 직접 복사해 주세요.` : ""}
         </p>
       </div>
     </form>

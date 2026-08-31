@@ -8,7 +8,7 @@ const description = "반려동물 사진과 이야기를 감성적인 맞춤 영
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: languageAlternates("/", "/ko"),
+  alternates: languageAlternates("/en", "/ko"),
   openGraph: {
     type: "website",
     siteName: "FourFeetz Studios",

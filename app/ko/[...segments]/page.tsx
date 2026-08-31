@@ -36,6 +36,7 @@ import {
   koreanShortTitles,
 } from "@/lib/koreanContent";
 import { languageAlternates } from "@/lib/localization";
+import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 import { getMusicTrack, musicTracks } from "@/lib/music";
 import {
   createNewProductionGuideMetadata,
@@ -185,11 +186,11 @@ export default async function Page({ params }: Props) {
     if (section === "about") return <KoreanAboutPage />;
     if (section === "films") return <KoreanFilmsPage />;
     if (section === "shorts") return <KoreanShortsPage />;
-    if (section === "characters") return <KoreanCharactersPage />;
+    if (section === "characters") return <div className={koreanPageTypographyClass}><KoreanCharactersPage /></div>;
     if (section === "music") return <KoreanMusicPage />;
-    if (section === "insights") return <KoreanInsightsPage />;
+    if (section === "insights") return <div className={koreanPageTypographyClass}><KoreanInsightsPage /></div>;
     if (section === "resources") return <KoreanResourcesPage />;
-    if (section === "services") return <KoreanServicesPage />;
+    if (section === "services") return <div className={koreanPageTypographyClass}><KoreanServicesPage /></div>;
     if (section === "tools") return <KoreanToolsPage />;
     notFound();
   }
