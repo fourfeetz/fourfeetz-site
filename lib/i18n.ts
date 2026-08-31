@@ -13,6 +13,9 @@ export const dict = {
       insights: "Insights",
       resources: "Resources",
       services: "Services",
+      personal: "Personal Pet Art",
+      business: "Business Content",
+      contact: "Contact",
       tools: "Tools",
       studio: "Studio",
       social: "Social",
@@ -147,6 +150,9 @@ export const dict = {
       insights: "인사이트",
       resources: "리소스",
       services: "제작 의뢰",
+      personal: "우리 아이 작품",
+      business: "업체용 콘텐츠",
+      contact: "문의하기",
       tools: "도구",
       studio: "스튜디오",
       social: "소셜",
@@ -285,13 +291,12 @@ export const navItems = [
 
 export const koreanNavItems = [
   { href: "/ko", key: "home" },
-  { href: "/ko/about", key: "about" },
+  { href: "/ko/services/personal-pet-video", key: "personal" },
+  { href: "/ko/services/pet-video", key: "business" },
   { href: "/ko/videos", key: "videos" },
   { href: "/ko/characters", key: "characters" },
-  { href: "/ko/music", key: "music" },
   { href: "/ko/insights", key: "insights" },
-  { href: "/ko/resources", key: "resources" },
-  { href: "/ko/services", key: "services" },
+  { href: "/ko/services#contact", key: "contact" },
 ] as const;
 
 export const todaysUpdates = [

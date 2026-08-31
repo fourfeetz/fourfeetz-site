@@ -31,7 +31,7 @@ export default function Header() {
   }
 
   const activeNavItems = lang === "ko" ? koreanNavItems : navItems;
-  const homeHref = lang === "ko" ? "/ko" : "/";
+  const homeHref = lang === "ko" ? "/ko" : "/en";
   const englishHref = toEnglishPath(pathname);
   const koreanHref = toKoreanPath(pathname);
 

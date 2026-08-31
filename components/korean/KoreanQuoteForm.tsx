@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 
 const inquiryEmail = "fourfeetzstudio@gmail.com";
 
@@ -8,6 +9,9 @@ const projectTypes = [
   "SNS 쇼츠",
   "캐릭터 애니메이션",
   "반려동물 영상",
+  "반려동물 디지털 동화·이미지",
+  "생일·입양 기념 작품",
+  "추억·추모 작품",
   "브랜드 또는 제품 영상",
   "힐링 영상",
   "기타",
@@ -21,7 +25,7 @@ const budgetOptions = [
   "아직 정하지 않음",
 ];
 
-type FieldName = "name" | "email" | "projectType" | "length" | "message";
+type FieldName = "name" | "email" | "projectType" | "message" | "privacy";
 type FormErrors = Partial<Record<FieldName, string>>;
 
 function readValue(formData: FormData, field: string) {
@@ -53,6 +57,7 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
       length: readValue(formData, "length"),
       budget: readValue(formData, "budget"),
       message: readValue(formData, "message"),
+      privacy: formData.get("privacy") === "yes",
     };
     const nextErrors: FormErrors = {};
 
@@ -63,8 +68,8 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
       nextErrors.email = "올바른 이메일 주소를 입력해 주세요.";
     }
     if (!values.projectType) nextErrors.projectType = "프로젝트 종류를 선택해 주세요.";
-    if (!values.length) nextErrors.length = "원하는 영상 길이를 입력해 주세요.";
     if (!values.message) nextErrors.message = "프로젝트 내용을 입력해 주세요.";
+    if (!values.privacy) nextErrors.privacy = "문의 내용을 이메일 작성창에 옮기는 데 동의해 주세요.";
 
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
@@ -81,7 +86,7 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
       `이메일: ${values.email}`,
       `회사명 또는 채널명: ${values.company || "미입력"}`,
       `프로젝트 종류: ${values.projectType}`,
-      `원하는 영상 길이: ${values.length}`,
+      `원하는 영상 길이 또는 작품 형태: ${values.length || "상담 후 결정"}`,
       `예상 예산: ${values.budget || "미입력"}`,
       "",
       "프로젝트 내용:",
@@ -144,18 +149,13 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
         {errors.projectType ? <span id="project-type-error" role="alert" className="text-sm font-semibold text-[#a13f2f]">{errors.projectType}</span> : null}
       </label>
       <label className="grid gap-2 text-sm font-black text-[#2b2119]">
-        원하는 영상 길이
+        원하는 영상 길이 또는 작품 형태 <span className="font-medium text-[#76685d]">(선택)</span>
         <input
           type="text"
           name="length"
-          required
-          placeholder="예: 30초"
-          aria-invalid={Boolean(errors.length)}
-          aria-describedby={errors.length ? "length-error" : undefined}
-          onChange={() => clearError("length")}
+          placeholder="예: 30초 영상, 이미지 작품, 상담 후 결정"
           className="rounded-2xl border border-[#d8c3ad] bg-[#fffdf8] px-4 py-3.5"
         />
-        {errors.length ? <span id="length-error" role="alert" className="text-sm font-semibold text-[#a13f2f]">{errors.length}</span> : null}
       </label>
       <label className="grid gap-2 text-sm font-black text-[#2b2119]">
         예상 예산 <span className="font-medium text-[#76685d]">(선택)</span>
@@ -181,6 +181,11 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
         />
         {errors.message ? <span id="message-error" role="alert" className="text-sm font-semibold text-[#a13f2f]">{errors.message}</span> : null}
       </label>
+      <label className="flex items-start gap-3 md:col-span-2 text-sm leading-6 text-[#76685d]">
+        <input type="checkbox" name="privacy" value="yes" onChange={() => clearError("privacy")} aria-invalid={Boolean(errors.privacy)} aria-describedby={errors.privacy ? "privacy-error" : undefined} className="mt-1 size-5 shrink-0 accent-[#6f4e37]" />
+        <span>입력한 이름, 이메일과 문의 내용을 이메일 작성창에 옮기는 데 동의합니다. 실제 발송은 사용하는 이메일 앱에서 직접 확인해야 합니다. <Link href="/ko/privacy" className="font-bold text-[#6f4e37] underline underline-offset-4">개인정보 처리방침</Link></span>
+      </label>
+      {errors.privacy ? <span id="privacy-error" role="alert" className="text-sm font-semibold text-[#a13f2f] md:col-span-2">{errors.privacy}</span> : null}
       <div className="md:col-span-2">
         <button type="submit" className={buttonClassName}>무료 제작 상담받기</button>
         <p className="mt-3 text-sm leading-6 text-[#9a8775]">

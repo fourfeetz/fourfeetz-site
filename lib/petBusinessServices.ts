@@ -1,4 +1,5 @@
 export const petServiceSlugs = [
+  "personal-pet-video",
   "pet-video",
   "grooming-hotel",
   "pet-products",
@@ -7,7 +8,7 @@ export const petServiceSlugs = [
 ] as const;
 
 export type PetServiceSlug = (typeof petServiceSlugs)[number];
-export type PetIndustrySlug = Exclude<PetServiceSlug, "pet-video">;
+export type PetIndustrySlug = Exclude<PetServiceSlug, "pet-video" | "personal-pet-video">;
 
 export const videoPricingPackages = [
   {

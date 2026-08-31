@@ -21,6 +21,7 @@ const koreanInsightFallbacks = new Map([
 ]);
 
 const koreanOnlyServiceSlugs = new Set([
+  "personal-pet-video",
   "pet-video",
   "grooming-hotel",
   "pet-products",
@@ -34,7 +35,7 @@ export function getSiteLanguage(pathname: string): SiteLanguage {
 
 export function toKoreanPath(pathname: string) {
   if (pathname === "/ko" || pathname.startsWith("/ko/")) return pathname;
-  if (pathname === "/") return "/ko";
+  if (pathname === "/" || pathname === "/en") return "/ko";
   if (koreanInsightFallbacks.has(pathname)) return koreanInsightFallbacks.get(pathname)!;
 
   const segments = pathname.split("/").filter(Boolean);
@@ -56,7 +57,7 @@ export function toKoreanPath(pathname: string) {
 }
 
 export function toEnglishPath(pathname: string) {
-  if (pathname === "/ko") return "/";
+  if (pathname === "/ko") return "/en";
   if (!pathname.startsWith("/ko/")) return pathname;
 
   const segments = pathname.slice(4).split("/").filter(Boolean);
@@ -99,7 +100,7 @@ export function languageAlternates(englishPath: string, koreanPath = toKoreanPat
     languages: {
       en: englishPath,
       ko: koreanPath,
-      "x-default": englishPath,
+      "x-default": "/ko",
     },
   };
 }
@@ -110,7 +111,7 @@ export function englishLanguageAlternates(englishPath: string, koreanPath = toKo
     languages: {
       en: englishPath,
       ko: koreanPath,
-      "x-default": englishPath,
+      "x-default": "/ko",
     },
   };
 }

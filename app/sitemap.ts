@@ -12,7 +12,7 @@ import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 const baseUrl = "https://fourfeetz.com";
 
 const routes = [
-  "",
+  "/en",
   "/about",
   "/characters",
   ...characterDetails.map((character) => `/characters/${character.slug}`),
@@ -80,7 +80,8 @@ const routes = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pairedPaths = new Map<string, string>([
-    ["", "/ko"],
+    ["/en", "/ko"],
+    ["/services", "/ko/services"],
     ["/about", "/ko/about"],
     ["/videos", "/ko/videos"],
     ["/characters", "/ko/characters"],
@@ -105,13 +106,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const alternateLanguages = (englishPath: string, koreanPath: string) => ({
     en: `${baseUrl}${englishPath}`,
     ko: `${baseUrl}${koreanPath}`,
-    "x-default": `${baseUrl}${englishPath}`,
+    "x-default": `${baseUrl}/ko`,
   });
 
   const staticPages = routes.map((route) => ({
     url: `${baseUrl}${route}`,
-    changeFrequency: route === "" ? ("weekly" as const) : ("monthly" as const),
-    priority: route === "" ? 1 : route.split("/").filter(Boolean).length === 1 ? 0.8 : 0.7,
+    changeFrequency: route === "/en" ? ("weekly" as const) : ("monthly" as const),
+    priority: route === "/en" ? 0.9 : route.split("/").filter(Boolean).length === 1 ? 0.8 : 0.7,
     ...(pairedPaths.has(route) ? { alternates: { languages: alternateLanguages(route, pairedPaths.get(route)!) } } : {}),
   }));
 

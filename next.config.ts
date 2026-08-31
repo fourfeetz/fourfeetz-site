@@ -4,13 +4,13 @@ import { koreanInsightRedirects } from "./lib/koreanInsightAvailability";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      { source: "/", destination: "/ko", permanent: true },
       ...koreanInsightRedirects,
       { source: "/ai-studio", destination: "/about", statusCode: 301 },
       { source: "/animals", destination: "/characters", statusCode: 301 },
       { source: "/animals/haru", destination: "/characters/haru", statusCode: 301 },
       { source: "/blog", destination: "/insights", statusCode: 301 },
       { source: "/camping", destination: "/videos?type=long-form", statusCode: 301 },
-      { source: "/en", destination: "/", statusCode: 301 },
       { source: "/films", destination: "/videos?type=long-form", statusCode: 301 },
       { source: "/notes", destination: "/insights", statusCode: 301 },
       { source: "/shorts", destination: "/videos?type=shorts", statusCode: 301 },

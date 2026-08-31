@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PetIndustryServicePage, PetVideoLandingPage } from "@/components/korean/PetBusinessServicePages";
+import PersonalPetServicePage from "@/components/korean/PersonalPetServicePage";
 import {
   getPetIndustryService,
   petServiceSlugs,
@@ -45,6 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       petVideoLandingMetadata.image,
     );
   }
+  if (slug === "personal-pet-video") {
+    return pageMetadata(
+      "반려동물 맞춤 영상·디지털 작품 | FourFeetz",
+      "반려동물 사진과 이야기를 바탕으로 감성 영상, 기념·추모 영상과 디지털 작품을 만드는 개인 고객용 서비스입니다.",
+      "/ko/services/personal-pet-video",
+      "/images/works/haru-relaxing-home/thumbnail.png",
+    );
+  }
 
   const service = getPetIndustryService(slug);
   if (!service) return {};
@@ -54,9 +63,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { service: slug } = await params;
-  if (slug === "pet-video") return <PetVideoLandingPage />;
-
   const service = getPetIndustryService(slug);
+  const currentTitle = slug === "pet-video"
+    ? "반려동물 업체용 콘텐츠"
+    : slug === "personal-pet-video"
+      ? "우리 아이 작품"
+      : service?.cardTitle;
+  const breadcrumb = currentTitle ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "홈", item: `${baseUrl}/ko` },
+      { "@type": "ListItem", position: 2, name: "서비스", item: `${baseUrl}/ko/services` },
+      { "@type": "ListItem", position: 3, name: currentTitle, item: `${baseUrl}/ko/services/${slug}` },
+    ],
+  } : null;
+  const breadcrumbScript = breadcrumb ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb).replace(/</g, "\\u003c") }} /> : null;
+
+  if (slug === "pet-video") return <>{breadcrumbScript}<PetVideoLandingPage /></>;
+  if (slug === "personal-pet-video") return <>{breadcrumbScript}<PersonalPetServicePage /></>;
+
   if (!service) notFound();
 
   const videoObject = service.video
@@ -74,6 +100,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
+      {breadcrumbScript}
       {videoObject ? (
         <script
           type="application/ld+json"

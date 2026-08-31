@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { KoreanHomePage } from "@/components/korean/KoreanPages";
+import KoreanSalesHome from "@/components/korean/KoreanSalesHome";
 import { languageAlternates } from "@/lib/localization";
 
-const title = "FourFeetz | 오리지널 동물 캐릭터 스튜디오";
-const description = "FourFeetz는 자체 동물 캐릭터로 필름, 쇼츠, 릴렉싱 영상과 음악을 제작하고 실제 프로젝트 제작 기록을 공유하는 독립 스튜디오입니다.";
+const title = "FourFeetz | 반려동물 맞춤 영상·콘텐츠 제작 스튜디오";
+const description = "반려동물 사진과 이야기를 감성적인 맞춤 영상과 디지털 작품으로 만들고, 반려동물 업체용 홍보 콘텐츠를 제작하는 FourFeetz Studios입니다.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -23,5 +23,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <KoreanHomePage />;
+  return <KoreanSalesHome />;
 }
