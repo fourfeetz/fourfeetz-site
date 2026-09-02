@@ -59,16 +59,16 @@ export default function PersonalPetServicePage() {
     </section>
 
     <section className="px-6 py-20">
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-6xl">
         <p className="text-sm font-black uppercase tracking-[.25em] text-[#a67c52]">Scene Gallery</p>
         <h2 className="mt-3 text-4xl font-black text-[#2b2119] md:text-6xl">장면으로 보는 My Pet Story</h2>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">사진의 분위기와 아이의 특징에 맞춰 여행, 따뜻한 일상과 포근한 휴식처럼 서로 다른 이야기 장면을 구성합니다.</p>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { src: "/images/works/haru-first-journey/gallery/car-ride.png", alt: "차 안에서 창밖을 바라보는 HARU의 여행 장면", title: "여행과 드라이브", className: "md:col-span-1" },
+            { src: "/images/works/haru-first-journey/gallery/car-ride.png", alt: "차 안에서 창밖을 바라보는 HARU의 여행 장면", title: "여행과 드라이브" },
             { src: "/images/insights/production/ai-storyboarding-haru-pori.png", alt: "HARU와 PORI가 함께하는 따뜻한 이야기 장면", title: "친구와 따뜻한 일상", className: "md:col-span-1" },
-            { src: "/images/works/haru-first-journey/gallery/window-scene.png", alt: "따뜻한 실내에서 창밖을 바라보는 HARU의 포근한 장면", title: "햇살과 포근한 휴식", className: "md:col-span-2" },
-          ].map((scene) => <figure key={scene.title} className={`${scene.className} overflow-hidden rounded-[32px] border border-[#eadfce] bg-white shadow-sm`}><div className="relative aspect-[4/3] overflow-hidden bg-[#f2e8dc]"><Image src={scene.src} alt={scene.alt} fill sizes={scene.className === "md:col-span-2" ? "(min-width:768px)100vw,100vw" : "(min-width:768px)50vw,100vw"} className="object-cover transition duration-300 hover:scale-[1.02]" /></div><figcaption className="p-5 text-xl font-black text-[#2b2119]">{scene.title}</figcaption></figure>)}
+            { src: "/images/works/haru-first-journey/gallery/window-scene.png", alt: "따뜻한 실내에서 창밖을 바라보는 HARU의 포근한 장면", title: "햇살과 포근한 휴식" },
+          ].map((scene) => <figure key={scene.title} className="overflow-hidden rounded-[28px] border border-[#eadfce] bg-white shadow-sm"><div className="relative aspect-[4/3] overflow-hidden bg-[#f2e8dc]"><Image src={scene.src} alt={scene.alt} fill sizes="(min-width:1024px)33vw,(min-width:640px)50vw,100vw" className="object-cover transition duration-300 hover:scale-[1.02]" /></div><figcaption className="p-4 text-lg font-black text-[#2b2119]">{scene.title}</figcaption></figure>)}
         </div>
       </div>
     </section>
