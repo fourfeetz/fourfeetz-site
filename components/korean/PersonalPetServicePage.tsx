@@ -43,7 +43,7 @@ export default function PersonalPetServicePage() {
           <Link href="/ko/services#contact" aria-label="무료 상담받기" className={button}>무료 상담받기</Link>
           <Link href="/ko/videos" aria-label="My Pet Story 제작 사례 보기" className={secondaryButton}>제작 사례 보기</Link>
         </div>
-        <p className="mt-5 font-bold text-[#6f4e37]">결제 전 사진과 원하는 분위기를 먼저 상담해 주세요.</p>
+        <p className="mt-5 font-bold text-[#6f4e37]">가격은 사진과 원하는 작품 구성을 확인한 후 안내해 드립니다. 결제 전 사진과 원하는 분위기를 먼저 상담해 주세요.</p>
       </div>
       <HeroVideoPanel locale="ko" video={koreanHeroVideos.myPetStory} />
     </section>
