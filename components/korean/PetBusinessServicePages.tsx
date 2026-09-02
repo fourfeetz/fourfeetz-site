@@ -109,15 +109,15 @@ export function PetVideoLandingPage() {
 
       <section className="px-6 py-20">
         <SectionHeading eyebrow="What We Create" title="목적에 맞는 반려동물 숏폼 영상" description="크몽 서비스에서 안내하는 제작 범위를 홈페이지에서도 한눈에 비교할 수 있도록 정리했습니다. 개인의 추억부터 매장과 제품 홍보까지 사용 목적에 따라 구성과 필요한 자료가 달라집니다." />
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2">
+        <div className="mx-auto mt-10 grid max-w-7xl gap-6">
           {[
             { title: "반려동물 감성·기념 영상", description: "사진 속 반려동물을 주인공으로 생일, 입양 기념과 소중한 일상을 따뜻한 이야기로 구성합니다.", image: "/images/works/haru-first-journey/gallery/window-scene.png", alt: "따뜻한 창가에서 이야기를 시작하는 HARU" },
             { title: "SNS 세로형 영상", description: "유튜브 쇼츠, 인스타그램 릴스, 틱톡과 네이버 클립에 맞는 9:16 화면으로 제작합니다.", image: "/images/shorts/haru/short-002-v2.jpg", alt: "세로형 숏폼 영상 속 HARU 장면" },
             { title: "동물 캐릭터 영상", description: "브랜드의 분위기와 메시지에 맞는 동물 캐릭터 장면을 기획하고 짧은 스토리로 연결합니다.", image: "/images/characters-hero-v2.png", alt: "FourFeetz 동물 캐릭터들이 함께 있는 장면" },
             { title: "반려동물 제품·매장 홍보", description: "제품의 쓰임과 매장의 강점을 고객이 빠르게 이해하도록 자막, 음악과 행동 유도를 구성합니다.", image: "/images/services/pet-grooming-hotel-cover.webp", alt: "반려동물 미용실과 호텔 홍보영상 예시 장면" },
           ].map((item, index) => (
-            <article key={item.title} className={`${cardClass} grid overflow-hidden sm:grid-cols-[minmax(150px,0.8fr)_1.2fr]`}>
-              <div className="relative min-h-44 overflow-hidden bg-[#f2e8dc] sm:h-full"><Image src={item.image} alt={item.alt} fill sizes="(min-width:768px)25vw,100vw" className="object-contain p-2" /></div>
+            <article key={item.title} className={`${cardClass} grid overflow-hidden md:grid-cols-[minmax(320px,0.9fr)_1.1fr] md:items-stretch`}>
+              <div className="relative min-h-64 overflow-hidden bg-[#f2e8dc] md:min-h-[360px]"><Image src={item.image} alt={item.alt} fill sizes="(min-width:768px)45vw,100vw" className="object-contain p-2" /></div>
               <div className="p-6 md:p-7">
                 <h3 className="flex items-center gap-3 text-2xl font-black text-[#2b2119]"><span className="inline-grid size-8 shrink-0 place-items-center rounded-full bg-[#6f4e37] text-xs font-black text-white">0{index + 1}</span>{item.title}</h3>
                 <p className="mt-4 leading-8 text-[#76685d]">{item.description}</p>
