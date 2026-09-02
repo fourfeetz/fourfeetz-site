@@ -107,6 +107,56 @@ export function PetVideoLandingPage() {
         </div>
       </section>
 
+      <section className="px-6 py-20">
+        <SectionHeading eyebrow="What We Create" title="목적에 맞는 반려동물 숏폼 영상" description="크몽 서비스에서 안내하는 제작 범위를 홈페이지에서도 한눈에 비교할 수 있도록 정리했습니다. 개인의 추억부터 매장과 제품 홍보까지 사용 목적에 따라 구성과 필요한 자료가 달라집니다." />
+        <div className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2">
+          {[
+            ["반려동물 감성·기념 영상", "사진 속 반려동물을 주인공으로 생일, 입양 기념과 소중한 일상을 따뜻한 이야기로 구성합니다."],
+            ["SNS 세로형 영상", "유튜브 쇼츠, 인스타그램 릴스, 틱톡과 네이버 클립에 맞는 9:16 화면으로 제작합니다."],
+            ["동물 캐릭터 영상", "브랜드의 분위기와 메시지에 맞는 동물 캐릭터 장면을 기획하고 짧은 스토리로 연결합니다."],
+            ["반려동물 제품·매장 홍보", "제품의 쓰임과 매장의 강점을 고객이 빠르게 이해하도록 자막, 음악과 행동 유도를 구성합니다."],
+          ].map(([title, description], index) => (
+            <article key={title} className={`${cardClass} p-7 md:p-8`}>
+              <span className="grid size-11 place-items-center rounded-full bg-[#6f4e37] font-black text-white">0{index + 1}</span>
+              <h3 className="mt-5 text-2xl font-black text-[#2b2119]">{title}</h3>
+              <p className="mt-3 leading-8 text-[#76685d]">{description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-[#eadfce] bg-white px-6 py-20">
+        <SectionHeading eyebrow="Work Process" title="상담부터 완성까지" description="사진과 요청 사항을 확인한 뒤 콘셉트, 제작 범위와 수정 기준을 먼저 맞추고 진행합니다." />
+        <ol className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-5">
+          {[
+            ["자료와 목적 확인", "사진, 로고, 용도, 분위기와 희망 일정을 확인합니다."],
+            ["콘셉트·장면 구성", "핵심 메시지와 배경, 행동 방향을 설계합니다."],
+            ["AI 이미지·영상 제작", "브랜드와 반려동물의 특징을 살린 결과를 선별합니다."],
+            ["음악·색감·자막 편집", "게시 채널에 맞춰 완성도 있게 마무리합니다."],
+            ["검수 후 최종 전달", "협의한 수정 범위를 반영하고 최종 파일을 전달합니다."],
+          ].map(([title, description], index) => (
+            <li key={title} className={`${cardClass} p-6`}>
+              <span className="text-sm font-black uppercase tracking-[0.18em] text-[#a67c52]">Step {index + 1}</span>
+              <h3 className="mt-4 text-xl font-black text-[#2b2119]">{title}</h3>
+              <p className="mt-3 leading-7 text-[#76685d]">{description}</p>
+            </li>
+          ))}
+        </ol>
+        <div className="mx-auto mt-8 grid max-w-7xl gap-5 lg:grid-cols-[1.15fr_.85fr]">
+          <div className={`${cardClass} p-8`}>
+            <h3 className="text-3xl font-black text-[#2b2119]">의뢰 전 준비자료</h3>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+              {["선명한 사진 또는 실제 영상", "원하는 분위기와 참고 방향", "게시 채널과 화면 비율", "상호·로고·필수 문구", "희망 길이와 일정", "제품·서비스의 사실 정보"].map((item) => <li key={item} className="flex gap-3 font-bold leading-7 text-[#6f4e37]"><BadgeCheck className="mt-0.5 size-5 shrink-0 text-[#a67c52]" aria-hidden="true" />{item}</li>)}
+            </ul>
+          </div>
+          <div className="rounded-[32px] bg-[#6f4e37] p-8 text-white shadow-xl shadow-[#6f4e37]/20">
+            <h3 className="text-3xl font-black">결제 전 먼저 상담해 주세요</h3>
+            <p className="mt-5 text-lg leading-8 text-[#f4e8da]">보유 자료와 원하는 분위기를 확인하면 구현 가능 여부, 적합한 상품과 필요한 추가 자료를 안내해 드립니다.</p>
+            <Link href="/ko/services#contact" className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37]">무료 상담받기</Link>
+          </div>
+        </div>
+      </section>
+
       <section id="industries" className="scroll-mt-24 px-6 py-20">
         <SectionHeading eyebrow="Industry Services" title="업종별 홍보영상 제작 안내" description="애견미용실·호텔 페이지에서는 실제 제작한 세로형 포트폴리오 영상을 확인할 수 있습니다. 나머지 업종은 기존 FourFeetz 자산을 활용한 서비스 예시 이미지와 함께 구체적인 구성, 신뢰 요소와 제작 절차를 안내합니다." />
         <div className="mx-auto mt-10 max-w-7xl"><PetIndustryCards /></div>
