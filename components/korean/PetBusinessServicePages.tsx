@@ -84,7 +84,7 @@ export function PetVideoLandingPage() {
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d] md:text-xl">매장, 제품과 서비스의 강점을 릴스·쇼츠·네이버 클립에 어울리는 짧은 영상으로 전합니다. 업종마다 고객이 확인하는 정보와 정서가 다른 만큼 같은 틀을 반복하지 않고 목적에 맞는 흐름을 설계합니다.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#industries" className={primaryButton}>업종별 서비스 보기</a>
-            <Link href="/ko/services#contact" className={secondaryButton}>무료 제작 상담받기</Link>
+            <Link href="/ko/services#contact" className={secondaryButton}>무료 상담받기</Link>
           </div>
         </div>
         <HeroVideoPanel locale="ko" video={koreanHeroVideos.petBusiness} />
@@ -125,7 +125,7 @@ export function PetVideoLandingPage() {
             <Building2 className="size-9 text-[#e5c9a8]" aria-hidden="true" />
             <h3 className="mt-6 text-3xl font-black">업체별 맞춤 견적</h3>
             <p className="mt-5 text-lg leading-8 text-[#f4e8da]">영상 길이, 제공 자료, 장면 수, 수정 범위와 추가 규격에 따라 필요한 작업이 달라집니다. 상담에서 실제 목적을 확인한 뒤 구성과 견적을 안내합니다.</p>
-            <Link href="/ko/services#contact" className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#6f4e37]">무료 제작 상담받기</Link>
+            <Link href="/ko/services#contact" className="mt-7 inline-flex min-h-12 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#6f4e37]">무료 상담받기</Link>
           </div>
         </div>
       </section>
@@ -133,7 +133,7 @@ export function PetVideoLandingPage() {
       <section className="px-6 py-20">
         <div className="mx-auto flex max-w-7xl flex-col gap-7 rounded-[40px] bg-[#6f4e37] p-8 text-white shadow-xl shadow-[#6f4e37]/20 md:flex-row md:items-center md:justify-between md:p-12">
           <div><h2 className="text-4xl font-black tracking-tight md:text-5xl">우리 업체의 첫 홍보영상을 시작해 보세요.</h2><p className="mt-4 max-w-3xl text-lg leading-8 text-[#f4e8da]">업종, 보유 자료와 게시 채널을 알려주시면 적합한 구성부터 함께 상담합니다.</p></div>
-          <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 제작 상담받기</Link>
+          <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 상담받기</Link>
         </div>
       </section>
     </main>
@@ -201,7 +201,7 @@ export function PetIndustryServicePage({ service }: { service: PetIndustryServic
           <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl">{service.description}</p>
           {service.slug === "grooming-hotel" ? <p className="mt-5 text-lg font-black text-[#6f4e37]">제작 가격 99,000원부터</p> : null}
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/ko/services#contact" className={primaryButton}>무료 제작 상담받기</Link>
+            <Link href="/ko/services#contact" className={primaryButton}>무료 상담받기</Link>
             <Link href="/ko/services/pet-video" className={secondaryButton}>전체 서비스 보기</Link>
           </div>
         </div>
@@ -272,14 +272,14 @@ export function PetIndustryServicePage({ service }: { service: PetIndustryServic
           </div>
           <div className="mx-auto mt-8 flex max-w-7xl flex-col gap-5 rounded-[28px] bg-[#6f4e37] p-6 text-white sm:flex-row sm:items-center sm:justify-between md:p-8">
             <p className="text-lg font-black">대표 가격 99,000원부터</p>
-            <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 제작 상담받기</Link>
+            <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 상담받기</Link>
           </div>
         </section>
       ) : (
         <section className="border-y border-[#eadfce] bg-[#6f4e37] px-6 py-16 text-white">
           <div className="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">
             <div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#e5c9a8]">Custom Quote</p><h2 className="mt-3 text-4xl font-black md:text-5xl">업체별 맞춤 견적</h2><p className="mt-4 max-w-3xl text-lg leading-8 text-[#f4e8da]">업체별 구성과 영상 길이에 따라 맞춤 견적을 안내드립니다.</p></div>
-            <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 제작 상담받기</Link>
+            <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 상담받기</Link>
           </div>
         </section>
       )}
@@ -294,7 +294,7 @@ export function PetIndustryServicePage({ service }: { service: PetIndustryServic
       <section className="px-6 py-20">
         <div className="mx-auto flex max-w-7xl flex-col gap-7 rounded-[40px] bg-[#6f4e37] p-8 text-white shadow-xl shadow-[#6f4e37]/20 md:flex-row md:items-center md:justify-between md:p-12">
           <div><h2 className="text-4xl font-black tracking-tight md:text-5xl">{service.finalTitle}</h2><p className="mt-4 max-w-3xl text-lg leading-8 text-[#f4e8da]">{service.finalDescription}</p></div>
-          <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 제작 상담받기</Link>
+          <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 상담받기</Link>
         </div>
       </section>
     </main>

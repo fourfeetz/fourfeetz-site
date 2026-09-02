@@ -50,7 +50,7 @@ export default function KoreanTermsPage() {
           { title: "제3자 서비스", paragraphs: ["링크와 임베디드 서비스는 제3자 웹사이트로 연결될 수 있습니다. FourFeetz Studios는 해당 서비스의 이용 가능성, 보안, 콘텐츠 또는 약관을 통제하지 않으며, 제3자 서비스 이용으로 발생한 손실에 책임을 지지 않습니다."] },
           { title: "면책 및 변경", paragraphs: ["웹사이트는 이용 가능한 상태를 기준으로 제공되며 중단 없는 접속이나 오류 없는 콘텐츠를 보장하지 않습니다. 스튜디오 운영 변화에 따라 이 약관을 업데이트할 수 있습니다. 콘텐츠 이용 허가 또는 약관 관련 문의는 fourfeetzstudio@gmail.com으로 보낼 수 있습니다."] },
         ]}
-        cta={{ eyebrow: "이용 문의", title: "FourFeetz 콘텐츠 이용을 계획하고 있나요?", description: "보호되는 자료를 라이선스, 게시, 각색 또는 상업적으로 이용하기 전에 스튜디오에 문의해 주세요.", href: "/ko/services#contact", label: "문의 방법 확인하기" }}
+        cta={{ eyebrow: "이용 문의", title: "FourFeetz 콘텐츠 이용을 계획하고 있나요?", description: "보호되는 자료를 라이선스, 게시, 각색 또는 상업적으로 이용하기 전에 스튜디오에 문의해 주세요.", href: "/ko/services#contact", label: "무료 상담받기" }}
       />
     </>
   );

@@ -199,7 +199,7 @@ export default function KoreanQuoteForm({ buttonClassName }: { buttonClassName: 
       {errors.privacy ? <p id="privacy-error" role="alert" className="mt-2 text-sm font-semibold text-[#a13f2f]">{errors.privacy}</p> : null}
       </div>
       <div className="md:col-span-2">
-        <button type="submit" className={buttonClassName}>무료 제작 상담받기</button>
+        <button type="submit" className={buttonClassName}>무료 상담받기</button>
         <p className="mt-3 text-sm leading-6 text-[#9a8775]">
           상담 버튼을 누르면 입력한 내용을 포함한 이메일 작성창이 열립니다. 최종 발송은 이메일 앱에서 직접 확인해 주세요. 직접 문의는{" "}
           <a href={`mailto:${inquiryEmail}`} className="font-bold text-[#6f4e37] underline underline-offset-4">
