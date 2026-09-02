@@ -116,12 +116,11 @@ export function PetVideoLandingPage() {
             { title: "동물 캐릭터 영상", description: "브랜드의 분위기와 메시지에 맞는 동물 캐릭터 장면을 기획하고 짧은 스토리로 연결합니다.", image: "/images/characters-hero-v2.png", alt: "FourFeetz 동물 캐릭터들이 함께 있는 장면" },
             { title: "반려동물 제품·매장 홍보", description: "제품의 쓰임과 매장의 강점을 고객이 빠르게 이해하도록 자막, 음악과 행동 유도를 구성합니다.", image: "/images/services/pet-grooming-hotel-cover.webp", alt: "반려동물 미용실과 호텔 홍보영상 예시 장면" },
           ].map((item, index) => (
-            <article key={item.title} className={`${cardClass} overflow-hidden`}>
-              <div className="relative h-44 overflow-hidden bg-[#f2e8dc] sm:h-52"><Image src={item.image} alt={item.alt} fill sizes="(min-width:768px)50vw,100vw" className="object-cover transition duration-300 hover:scale-[1.02]" /></div>
-              <div className="p-7 md:p-8">
-                <span className="grid size-11 place-items-center rounded-full bg-[#6f4e37] font-black text-white">0{index + 1}</span>
-                <h3 className="mt-5 text-2xl font-black text-[#2b2119]">{item.title}</h3>
-                <p className="mt-3 leading-8 text-[#76685d]">{item.description}</p>
+            <article key={item.title} className={`${cardClass} grid overflow-hidden sm:grid-cols-[minmax(150px,0.8fr)_1.2fr]`}>
+              <div className="relative min-h-44 overflow-hidden bg-[#f2e8dc] sm:h-full"><Image src={item.image} alt={item.alt} fill sizes="(min-width:768px)25vw,100vw" className="object-contain p-2" /></div>
+              <div className="p-6 md:p-7">
+                <h3 className="flex items-center gap-3 text-2xl font-black text-[#2b2119]"><span className="inline-grid size-8 shrink-0 place-items-center rounded-full bg-[#6f4e37] text-xs font-black text-white">0{index + 1}</span>{item.title}</h3>
+                <p className="mt-4 leading-8 text-[#76685d]">{item.description}</p>
               </div>
             </article>
           ))}
