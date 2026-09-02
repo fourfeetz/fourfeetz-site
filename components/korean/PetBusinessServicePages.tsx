@@ -117,9 +117,8 @@ export function PetVideoLandingPage() {
             { title: "반려동물 제품·매장 홍보", description: "제품의 쓰임과 매장의 강점을 고객이 빠르게 이해하도록 자막, 음악과 행동 유도를 구성합니다.", image: "/images/services/pet-grooming-hotel-cover.webp", alt: "반려동물 미용실과 호텔 홍보영상 예시 장면" },
           ].map((item, index) => (
             <article key={item.title} className={`${cardClass} grid overflow-hidden sm:grid-cols-[40%_1fr] sm:items-stretch`}>
-              <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#eee3d6] sm:aspect-auto sm:min-h-[176px]">
-                <Image src={item.image} alt="" fill sizes="(min-width: 1024px) 20vw, (min-width: 640px) 40vw, 100vw" className="scale-110 object-cover opacity-30 blur-xl" aria-hidden="true" />
-                <Image src={item.image} alt={item.alt} fill sizes="(min-width: 1024px) 20vw, (min-width: 640px) 40vw, 100vw" className="object-contain p-2" />
+              <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#eee3d6] sm:aspect-auto sm:min-h-[190px]">
+                <Image src={item.image} alt={item.alt} fill sizes="(min-width: 1024px) 20vw, (min-width: 640px) 40vw, 100vw" className="object-cover" />
               </div>
               <div className="flex flex-col justify-center p-6 md:p-7">
                 <h3 className="flex items-center gap-3 text-xl font-black leading-tight text-[#2b2119] md:text-2xl"><span className="inline-grid size-8 shrink-0 place-items-center rounded-full bg-[#6f4e37] text-xs font-black text-white">0{index + 1}</span>{item.title}</h3>
