@@ -112,7 +112,7 @@ export function PetVideoLandingPage() {
         <div className="mx-auto mt-10 grid max-w-7xl gap-6 lg:grid-cols-2">
           {[
             { title: "반려동물 감성·기념 영상", description: "사진 속 반려동물을 주인공으로 생일, 입양 기념과 소중한 일상을 따뜻한 이야기로 구성합니다.", image: "/images/works/haru-first-journey/gallery/window-scene.png", alt: "따뜻한 창가에서 이야기를 시작하는 HARU" },
-            { title: "SNS 세로형 영상", description: "유튜브 쇼츠, 인스타그램 릴스, 틱톡과 네이버 클립에 맞는 9:16 화면으로 제작합니다.", image: "/images/shorts/haru/short-002-v2.jpg", alt: "세로형 숏폼 영상 속 HARU 장면" },
+            { title: "SNS 세로형 영상", description: "유튜브 쇼츠, 인스타그램 릴스, 틱톡과 네이버 클립에 맞는 9:16 화면으로 제작합니다.", image: "/images/services/sns-vertical-video-card.svg", alt: "따뜻한 햇살 속에서 반려견과 교감하는 세로형 영상 장면" },
             { title: "동물 캐릭터 영상", description: "브랜드의 분위기와 메시지에 맞는 동물 캐릭터 장면을 기획하고 짧은 스토리로 연결합니다.", image: "/images/characters-hero-v2.png", alt: "FourFeetz 동물 캐릭터들이 함께 있는 장면" },
             { title: "반려동물 제품·매장 홍보", description: "제품의 쓰임과 매장의 강점을 고객이 빠르게 이해하도록 자막, 음악과 행동 유도를 구성합니다.", image: "/images/services/pet-grooming-hotel-cover.webp", alt: "반려동물 미용실과 호텔 홍보영상 예시 장면" },
           ].map((item, index) => (
