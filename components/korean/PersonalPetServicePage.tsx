@@ -59,7 +59,7 @@ export default function PersonalPetServicePage() {
     </section>
 
     <section className="px-6 py-20">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <p className="text-sm font-black uppercase tracking-[.25em] text-[#a67c52]">Scene Gallery</p>
         <h2 className="mt-3 text-4xl font-black text-[#2b2119] md:text-6xl">장면으로 보는 My Pet Story</h2>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">사진의 분위기와 아이의 특징에 맞춰 여행, 따뜻한 일상과 포근한 휴식처럼 서로 다른 이야기 장면을 구성합니다.</p>
