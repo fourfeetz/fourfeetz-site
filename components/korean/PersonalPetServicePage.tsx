@@ -66,7 +66,7 @@ export default function PersonalPetServicePage() {
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {[
             { src: "/images/works/haru-first-journey/gallery/car-ride.png", alt: "차 안에서 창밖을 바라보는 HARU의 여행 장면", title: "여행과 드라이브" },
-            { src: "/images/insights/production/ai-storyboarding-haru-pori.png", alt: "HARU와 PORI가 함께하는 따뜻한 이야기 장면", title: "친구와 따뜻한 일상", className: "md:col-span-1" },
+            { src: "/images/services/my-pet-story-haru-pori-garden.webp", alt: "HARU와 PORI가 함께하는 따뜻한 이야기 장면", title: "친구와 따뜻한 일상", className: "md:col-span-1" },
             { src: "/images/works/haru-first-journey/gallery/window-scene.png", alt: "따뜻한 실내에서 창밖을 바라보는 HARU의 포근한 장면", title: "햇살과 포근한 휴식" },
           ].map((scene) => <figure key={scene.title} className="overflow-hidden rounded-[28px] border border-[#eadfce] bg-white shadow-sm"><div className="relative aspect-[4/3] overflow-hidden bg-[#f2e8dc]"><Image src={scene.src} alt={scene.alt} fill sizes="(min-width:1024px)33vw,(min-width:640px)50vw,100vw" className="object-cover transition duration-300 hover:scale-[1.02]" /></div><figcaption className="p-4 text-lg font-black text-[#2b2119]">{scene.title}</figcaption></figure>)}
         </div>
