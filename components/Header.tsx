@@ -37,7 +37,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#e6d8c8] bg-[#fbf7f0]/90 backdrop-blur-xl print:hidden">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-6 py-4">
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between gap-8 px-6 py-4">
         <Link href={homeHref} className="shrink-0">
           <Image
             src="/images/ui/logos/fourfeetz-logo.png"
@@ -49,19 +49,20 @@ export default function Header() {
           />
         </Link>
 
-        <div className="flex items-center gap-2 lg:gap-3">
-          <nav aria-label="Primary navigation" className="hidden items-center justify-end gap-4 lg:flex xl:gap-6">
-            {activeNavItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={isActive(item.href) ? "page" : undefined}
-                className={`relative whitespace-nowrap py-2 text-sm font-semibold transition after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:bg-[#6f4e37] after:transition-transform hover:text-[#2b2119] ${isActive(item.href) ? "text-[#2b2119] after:scale-x-100" : "text-[#6f4e37] after:scale-x-0 hover:after:scale-x-100"}`}
-              >
-                {t.nav[item.key]}
-              </Link>
-            ))}
-          </nav>
+        <nav aria-label="Primary navigation" className="absolute left-1/2 hidden -translate-x-1/2 items-center justify-center gap-6 lg:flex xl:gap-8">
+          {activeNavItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={`relative whitespace-nowrap py-2 text-sm font-semibold transition after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:bg-[#6f4e37] after:transition-transform hover:text-[#2b2119] ${isActive(item.href) ? "text-[#2b2119] after:scale-x-100" : "text-[#6f4e37] after:scale-x-0 hover:after:scale-x-100"}`}
+            >
+              {t.nav[item.key]}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="ml-auto flex items-center gap-2 lg:gap-3">
           <div className="hidden items-center rounded-full border border-[#d9c7b4] bg-white p-1 text-[11px] font-black lg:flex" aria-label={lang === "ko" ? "언어 선택" : "Language selector"}>
             <Link href={englishHref} hrefLang="en" lang="en" aria-current={lang === "en" ? "page" : undefined} className={`rounded-full px-2.5 py-2 transition ${lang === "en" ? "bg-[#6f4e37] text-white" : "text-[#9a8775] hover:text-[#2b2119]"}`}>EN</Link>
             <span className="text-[#d8c3ad]" aria-hidden="true">|</span>
