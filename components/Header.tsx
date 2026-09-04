@@ -63,10 +63,15 @@ export default function Header() {
         </nav>
 
         <div className="ml-auto flex items-center gap-2 lg:gap-3">
-          <div className="hidden items-center rounded-full border border-[#d9c7b4] bg-white p-1 text-[11px] font-black lg:flex" aria-label={lang === "ko" ? "언어 선택" : "Language selector"}>
-            <Link href={englishHref} hrefLang="en" lang="en" aria-current={lang === "en" ? "page" : undefined} className={`rounded-full px-2.5 py-2 transition ${lang === "en" ? "bg-[#6f4e37] text-white" : "text-[#9a8775] hover:text-[#2b2119]"}`}>EN</Link>
-            <span className="text-[#d8c3ad]" aria-hidden="true">|</span>
-            <Link href={koreanHref} hrefLang="ko" lang="ko" aria-current={lang === "ko" ? "page" : undefined} className={`rounded-full px-2.5 py-2 transition ${lang === "ko" ? "bg-[#6f4e37] text-white" : "text-[#9a8775] hover:text-[#2b2119]"}`}>KO</Link>
+          <div className="hidden items-center gap-1 rounded-full border border-[#d9c7b4] bg-white p-1 lg:flex" aria-label={lang === "ko" ? "언어 선택" : "Language selector"}>
+            <Link href={englishHref} hrefLang="en" lang="en" aria-label="English" title="English" aria-current={lang === "en" ? "page" : undefined} className={`rounded-full p-1.5 transition ${lang === "en" ? "bg-[#6f4e37]" : "hover:bg-[#f6eee4]"}`}>
+              <Image src="/images/ui/flags/us.svg" alt="" width={24} height={16} className="h-4 w-6 rounded-[2px] object-cover" aria-hidden="true" />
+              <span className="sr-only">English</span>
+            </Link>
+            <Link href={koreanHref} hrefLang="ko" lang="ko" aria-label="한국어" title="한국어" aria-current={lang === "ko" ? "page" : undefined} className={`rounded-full p-1.5 transition ${lang === "ko" ? "bg-[#6f4e37]" : "hover:bg-[#f6eee4]"}`}>
+              <Image src="/images/ui/flags/kr.svg" alt="" width={24} height={16} className="h-4 w-6 rounded-[2px] border border-black/10 object-cover" aria-hidden="true" />
+              <span className="sr-only">한국어</span>
+            </Link>
           </div>
           <button type="button" onClick={() => setSearchOpen(true)} aria-label="Search FourFeetz" aria-haspopup="dialog" aria-expanded={searchOpen} className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-[#d9c7b4] bg-white text-[#6f4e37] transition duration-200 hover:border-[#6f4e37] hover:bg-[#f6eee4] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
             <SearchIcon size={20} strokeWidth={2.2} aria-hidden="true" />
@@ -80,9 +85,15 @@ export default function Header() {
       </div>
       <div id="mobile-navigation" className={`overflow-hidden border-t border-[#e6d8c8] bg-[#fbf7f0] transition-[max-height,opacity] duration-300 lg:hidden ${mobileOpen ? "max-h-[520px] opacity-100" : "max-h-0 border-t-transparent opacity-0"}`}>
         <nav aria-label="Mobile navigation" className="mx-auto grid max-w-7xl gap-1 px-6 py-4">
-          <div className="mb-2 flex items-center gap-2 rounded-xl border border-[#e6d8c8] bg-white p-2 text-xs font-black">
-            <Link href={englishHref} hrefLang="en" lang="en" tabIndex={mobileOpen ? 0 : -1} className={`flex-1 rounded-lg px-4 py-2 text-center ${lang === "en" ? "bg-[#6f4e37] text-white" : "text-[#6f4e37]"}`}>EN</Link>
-            <Link href={koreanHref} hrefLang="ko" lang="ko" tabIndex={mobileOpen ? 0 : -1} className={`flex-1 rounded-lg px-4 py-2 text-center ${lang === "ko" ? "bg-[#6f4e37] text-white" : "text-[#6f4e37]"}`}>KO</Link>
+          <div className="mb-2 flex items-center gap-2 rounded-xl border border-[#e6d8c8] bg-white p-2">
+            <Link href={englishHref} hrefLang="en" lang="en" aria-label="English" title="English" tabIndex={mobileOpen ? 0 : -1} className={`flex flex-1 justify-center rounded-lg px-4 py-2.5 ${lang === "en" ? "bg-[#6f4e37]" : "hover:bg-[#f6eee4]"}`}>
+              <Image src="/images/ui/flags/us.svg" alt="" width={30} height={20} className="h-5 w-[30px] rounded-[2px] object-cover" aria-hidden="true" />
+              <span className="sr-only">English</span>
+            </Link>
+            <Link href={koreanHref} hrefLang="ko" lang="ko" aria-label="한국어" title="한국어" tabIndex={mobileOpen ? 0 : -1} className={`flex flex-1 justify-center rounded-lg px-4 py-2.5 ${lang === "ko" ? "bg-[#6f4e37]" : "hover:bg-[#f6eee4]"}`}>
+              <Image src="/images/ui/flags/kr.svg" alt="" width={30} height={20} className="h-5 w-[30px] rounded-[2px] border border-black/10 object-cover" aria-hidden="true" />
+              <span className="sr-only">한국어</span>
+            </Link>
           </div>
           {activeNavItems.map((item) => (
             <Link key={item.href} href={item.href} aria-current={isActive(item.href) ? "page" : undefined} tabIndex={mobileOpen ? 0 : -1} className={`rounded-xl px-4 py-3 text-sm font-bold transition ${isActive(item.href) ? "bg-white text-[#2b2119] shadow-sm" : "text-[#6f4e37] hover:bg-white/70 hover:text-[#2b2119]"}`}>
