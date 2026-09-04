@@ -48,11 +48,6 @@ export default function Footer() {
             height={180}
             className="h-auto w-[260px]"
           />
-          <p className="mt-5 max-w-md text-[#76685d]">
-            {lang === "ko"
-              ? "FourFeetz Studios는 반려동물의 사진과 이야기를 감성적인 영상과 디지털 작품으로 만들고, 반려동물 업체를 위한 홍보 콘텐츠를 제작하는 크리에이티브 스튜디오입니다. 자체 캐릭터와 공개 작품도 함께 소개합니다."
-              : "FourFeetz Studios is an independent studio creating and managing original animal characters, published films, and selected records from real projects."}
-          </p>
         </div>
         <div className="flex flex-wrap gap-x-4 gap-y-3 text-sm font-bold text-[#6f4e37] md:justify-end lg:flex-nowrap lg:gap-x-3">
           {footerLinks.filter((item) => lang === "ko" || !("koreanOnly" in item && item.koreanOnly)).map((item) => (
