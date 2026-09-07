@@ -13,6 +13,9 @@ const productionRecordSlugs = new Set([
   "oli-swimming-scene-lessons",
   "turning-short-scene-into-relaxing-video",
   "why-fourfeetz-starts-animal-shorts-first-shot",
+  "dog-cat-comedy-short-production-notes",
+  "pet-hotel-promo-video-production-notes",
+  "protoface-real-production-experience",
 ]);
 
 const studioAnalysisSlugs = new Set([
