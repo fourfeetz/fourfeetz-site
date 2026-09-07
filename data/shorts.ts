@@ -53,6 +53,33 @@ export type Short = {
 
 export const shorts: Short[] = [
   {
+    id: "short-011",
+    slug: "puppy-cat-playtime-chaos",
+    type: "episode",
+    title: "The Puppy Wants to Play… But the Cat Says No!",
+    description: "A playful golden retriever puppy keeps trying to win over a very unimpressed cat, turning a quiet living room into a lighthearted comedy short.",
+    category: "Animal Comedy Shorts",
+    duration: "20 sec",
+    tools: ["Google Flow", "CapCut"],
+    aspectRatio: "9:16",
+    spokenLanguage: "English",
+    koreanSpokenLanguage: "영어",
+    moods: ["Funny", "Playful", "Dog & Cat"],
+    koreanMoods: ["코믹", "장난스러움", "강아지와 고양이"],
+    productionNotes: [
+      { label: "Story", value: "An eager puppy repeatedly tries to start a game while the cat answers with calm, unmistakable disapproval." },
+      { label: "Format", value: "A 20-second vertical comedy short presented in its original 1080 × 1920, 9:16 composition." },
+      { label: "Language", value: "The finished version includes English dialogue and on-screen English captions for international short-form audiences." },
+      { label: "Production", value: "Created as a compact dog-and-cat character comedy and finished for mobile viewing by FourFeetz Studio." },
+    ],
+    video: "/videos/shorts/dog-and-cat/dog-and-cat-0907-eng.mp4",
+    poster: "/images/shorts/dog-and-cat/dog-and-cat-0907-eng-poster.jpg",
+    publishedAt: "2026-09-07",
+    updatedAt: "2026-09-07",
+    featured: true,
+    publishStatus: "published",
+  },
+  {
     id: "short-010",
     slug: "oli-peaceful-swim",
     type: "episode",
