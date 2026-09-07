@@ -305,6 +305,24 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <section className="px-6 py-20 md:py-24" aria-labelledby="pet-hotel-work-heading">
+        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(280px,380px)_1fr] lg:items-center">
+          <video controls playsInline preload="metadata" poster="/images/services/pet-hotel-promo-0907-poster.webp" className="mx-auto aspect-[9/16] h-auto w-full max-w-[380px] rounded-[32px] bg-black object-contain shadow-2xl shadow-[#2b2119]/20" aria-label="Pet hotel social media promotional video">
+            <source src="/videos/services/pet-hotel-promo-0907.mp4" type="video/mp4" />
+            Your browser does not support MP4 video.
+          </video>
+          <div>
+            <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">Pet Business Portfolio</p>
+            <h2 id="pet-hotel-work-heading" className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">Pet Hotel Promotional Video</h2>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">A vertical AI portfolio sample created to present a pet hotel&apos;s warm, comfortable and caring atmosphere in a concise social-media format.</p>
+            <dl className="mt-8 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-2xl border border-[#eadfce] bg-[#fffaf4] p-5"><dt className="text-sm font-black text-[#a67c52]">Format</dt><dd className="mt-2 font-black text-[#2b2119]">9:16 Vertical</dd></div>
+              <div className="rounded-2xl border border-[#eadfce] bg-[#fffaf4] p-5"><dt className="text-sm font-black text-[#a67c52]">Duration</dt><dd className="mt-2 font-black text-[#2b2119]">24.87 seconds</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
       <section className="px-6 py-20 md:py-24">
         <div className="mx-auto max-w-7xl">
           <SectionHeading eyebrow="Production Process" title="Clear from brief to delivery." />

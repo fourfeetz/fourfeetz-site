@@ -196,32 +196,30 @@ export function PetVideoLandingPage() {
 
 function ServiceVisual({ service }: { service: PetIndustryService }) {
   if (service.video) {
+    const portfolioVideos = [service.video, ...(service.additionalVideos ?? [])];
     return (
       <section className="border-y border-[#eadfce] bg-white px-6 py-20" aria-labelledby="video-example-heading">
-        <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(280px,380px)_1fr] lg:items-center lg:justify-center">
-          <div className="mx-auto w-full max-w-[380px]">
-            <video
-              controls
-              playsInline
-              preload="metadata"
-              poster={service.video.poster}
-              className="aspect-[9/16] h-auto w-full rounded-[32px] bg-black object-contain shadow-2xl shadow-[#2b2119]/20"
-              aria-label={service.video.label}
-            >
-              <source src={service.video.src} type="video/mp4" />
-              브라우저가 MP4 영상을 지원하지 않습니다.
-            </video>
-          </div>
+        <div className="mx-auto max-w-7xl">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">Portfolio Sample</p>
             <h2 id="video-example-heading" className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl">영상 사례</h2>
-            <p className="mt-6 text-2xl font-black text-[#6f4e37]">{service.video.label}</p>
-            <p className="mt-4 max-w-2xl text-lg leading-8 text-[#76685d]">{service.video.note}</p>
             <p className="mt-5 max-w-2xl rounded-2xl border border-[#d8c3ad] bg-[#fffaf4] px-5 py-4 font-black leading-7 text-[#6f4e37]">현재 영상과 같은 2장면·약 30초 구성은 DELUXE 상품에 해당합니다.</p>
-            <dl className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-[#eadfce] bg-[#fffaf4] p-5"><dt className="text-sm font-black text-[#a67c52]">화면 비율</dt><dd className="mt-2 font-black text-[#2b2119]">9:16 세로형</dd></div>
-              <div className="rounded-2xl border border-[#eadfce] bg-[#fffaf4] p-5"><dt className="text-sm font-black text-[#a67c52]">영상 길이</dt><dd className="mt-2 font-black text-[#2b2119]">{service.video.durationLabel}</dd></div>
-            </dl>
+          </div>
+          <div className="mt-10 grid gap-8 md:grid-cols-2">
+            {portfolioVideos.map((video) => (
+              <article key={video.src} className={`${cardClass} overflow-hidden p-5 md:p-7`}>
+                <video controls playsInline preload="metadata" poster={video.poster} className="mx-auto aspect-[9/16] h-auto w-full max-w-[360px] rounded-[28px] bg-black object-contain shadow-xl shadow-[#2b2119]/15" aria-label={video.label}>
+                  <source src={video.src} type="video/mp4" />
+                  브라우저가 MP4 영상을 지원하지 않습니다.
+                </video>
+                <h3 className="mt-6 text-2xl font-black text-[#6f4e37]">{video.label}</h3>
+                <p className="mt-3 leading-7 text-[#76685d]">{video.note}</p>
+                <dl className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl bg-[#fffaf4] p-4"><dt className="text-sm font-black text-[#a67c52]">화면 비율</dt><dd className="mt-1 font-black text-[#2b2119]">9:16 세로형</dd></div>
+                  <div className="rounded-2xl bg-[#fffaf4] p-4"><dt className="text-sm font-black text-[#a67c52]">영상 길이</dt><dd className="mt-1 font-black text-[#2b2119]">{video.durationLabel}</dd></div>
+                </dl>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -269,7 +267,7 @@ export function PetIndustryServicePage({ service }: { service: PetIndustryServic
         )}
       </section>
 
-      {service.video ? null : <ServiceVisual service={service} />}
+      <ServiceVisual service={service} />
 
       <section className="px-6 py-20">
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">

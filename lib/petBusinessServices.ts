@@ -63,6 +63,15 @@ export type PetIndustryService = {
     durationLabel: string;
     uploadDate: string;
   };
+  additionalVideos?: {
+    src: string;
+    poster: string;
+    label: string;
+    note: string;
+    duration: string;
+    durationLabel: string;
+    uploadDate: string;
+  }[];
 };
 
 export const petIndustryServices: PetIndustryService[] = [
@@ -118,6 +127,17 @@ export const petIndustryServices: PetIndustryService[] = [
       durationLabel: "24.45초",
       uploadDate: "2026-08-17",
     },
+    additionalVideos: [
+      {
+        src: "/videos/services/pet-hotel-promo-0907.mp4",
+        poster: "/images/services/pet-hotel-promo-0907-poster.webp",
+        label: "펫호텔 SNS 홍보영상",
+        note: "따뜻하고 편안한 돌봄 분위기를 세로형 숏폼으로 구성한 AI 포트폴리오 샘플입니다.",
+        duration: "PT24.87S",
+        durationLabel: "24.87초",
+        uploadDate: "2026-09-07",
+      },
+    ],
   },
   {
     slug: "pet-products",
