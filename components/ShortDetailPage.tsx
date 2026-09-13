@@ -64,6 +64,24 @@ export default function ShortDetailPage({ short }: { short: Short }) {
         </div>
       </section>
 
+      {short.affiliate ? (
+        <section className="px-6 pb-20">
+          <div className="mx-auto max-w-7xl rounded-[32px] border border-[#d9c09f] bg-[#6f4e37] p-7 text-white shadow-xl shadow-[#6f4e37]/15 md:flex md:items-center md:justify-between md:gap-10 md:p-10">
+            <div>
+              <p className="text-sm font-black uppercase tracking-[0.28em] text-[#ead3b5]">Affiliate Partner</p>
+              <h2 className="mt-3 text-3xl font-black md:text-4xl">Try {short.affiliate.provider}</h2>
+              <p className="mt-4 text-lg font-bold text-[#fff8ef]">Get {short.affiliate.offer}</p>
+              <p className="mt-3 text-sm leading-6 text-[#eadfd2]">Affiliate disclosure: FourFeetz may receive a referral benefit if you sign up through this link. Offer terms may change; confirm them at sign-up.</p>
+            </div>
+            <div className="mt-7 shrink-0 md:mt-0 md:text-right">
+              <p className="text-sm font-bold text-[#ead3b5]">Coupon code</p>
+              <p className="mt-1 text-3xl font-black tracking-[0.12em]">{short.affiliate.code}</p>
+              <a href={short.affiliate.href} target="_blank" rel="sponsored noreferrer" className="mt-5 inline-flex rounded-full bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:bg-[#fff4e8]">Open Protoface Studio →</a>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       <section className="border-y border-[#eadfce] bg-white px-6 py-20 md:py-24">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-2">
           <article className="rounded-[32px] border border-[#eadfce] bg-[#fffaf4] p-7 shadow-sm md:p-9">

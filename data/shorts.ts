@@ -23,6 +23,7 @@ export type Short = {
   moods?: string[];
   koreanMoods?: string[];
   productionNotes: ShortProductionNote[];
+  koreanProductionNotes?: ShortProductionNote[];
   video: string;
   poster?: string;
   endFrame?: string;
@@ -45,6 +46,12 @@ export type Short = {
     title: string;
     href: string;
   };
+  affiliate?: {
+    provider: string;
+    href: string;
+    code: string;
+    offer: string;
+  };
   publishedAt?: string;
   updatedAt?: string;
   featured?: boolean;
@@ -52,6 +59,49 @@ export type Short = {
 };
 
 export const shorts: Short[] = [
+  {
+    id: "short-012",
+    slug: "haru-luna-teddy-bear-chase",
+    type: "episode",
+    title: "HARU & LUNA: The Teddy Bear Chase",
+    description: "HARU steals LUNA's teddy bear and races into the backyard. LUNA gives chase, leaps in for a slow-motion recovery, and escapes with the toy—leaving HARU to become the pursuer.",
+    category: "HARU & LUNA Shorts",
+    duration: "28.5 sec",
+    tools: ["Protoface Studio", "Seedance 2.0", "CapCut"],
+    characters: ["HARU", "LUNA"],
+    aspectRatio: "9:16",
+    moods: ["Animal Comedy", "Cinematic Chase", "Slow Motion"],
+    koreanMoods: ["동물 코미디", "시네마틱 추격", "슬로모션"],
+    productionNotes: [
+      { label: "First Frame", value: "The chase scenes were generated in Protoface Studio with Seedance 2.0 from a First Frame image, then reviewed for motion and character interaction." },
+      { label: "Motion Test", value: "The production tested a fast backyard chase, direction changes, two-animal interaction, LUNA's leap, the teddy-bear recovery, slow motion, and cinematic camera angles." },
+      { label: "Prompt Finding", value: "Visual roles such as ‘golden retriever puppy’ and ‘tabby cat’ expressed the chase relationship more clearly than character names alone. Goal-led actions such as ‘puppy runs away / cat chases after the puppy’ were more effective than stacking many motion restrictions." },
+      { label: "Generation & Edit", value: "The test used 480p generation; each 15-second generation used 135 credits. FourFeetz selected the strongest results from multiple generations and completed the 28.5-second vertical short in CapCut." },
+    ],
+    koreanProductionNotes: [
+      { label: "First Frame", value: "First Frame 이미지를 기준으로 Protoface Studio의 Seedance 2.0에서 추격 장면을 생성하고, 움직임과 두 동물의 상호작용을 확인했습니다." },
+      { label: "동작 테스트", value: "마당을 가로지르는 빠른 추격, 방향 전환, 두 동물의 상호작용, LUNA의 도약과 곰인형 탈환, 슬로모션 및 영화적인 카메라 앵글을 테스트했습니다." },
+      { label: "프롬프트에서 확인한 점", value: "캐릭터 이름만 쓰는 것보다 ‘golden retriever puppy’, ‘tabby cat’처럼 시각적 역할을 지정했을 때 추격 관계가 더 분명했습니다. 동작 제한을 많이 쌓기보다 ‘puppy runs away / cat chases after the puppy’처럼 행동 목적을 설명하는 방식이 효과적이었습니다." },
+      { label: "생성과 편집", value: "480p로 테스트했으며 15초 생성 1회에 135 credits가 사용됐습니다. 여러 생성 결과에서 좋은 장면을 선택하고 CapCut에서 28.5초 세로형 쇼츠로 완성했습니다." },
+    ],
+    video: "/videos/shorts/haru-luna/haru-luna-teddy-bear-chase.mp4",
+    poster: "/images/shorts/haru-luna/haru-luna-teddy-bear-chase-poster.webp",
+    characterLinks: [
+      { name: "HARU", href: "/characters/haru" },
+      { name: "LUNA", href: "/characters/luna" },
+    ],
+    insight: { title: "Read the Protoface Production Experience", href: "/insights/protoface-real-production-experience" },
+    affiliate: {
+      provider: "Protoface Studio",
+      href: "https://protoface.com/studio?fpr=fourfeetz",
+      code: "FOURFEETZ",
+      offer: "$10 in FREE EXTRA CREDITS with Studio Unlimited",
+    },
+    publishedAt: "2026-09-11",
+    updatedAt: "2026-09-11",
+    featured: true,
+    publishStatus: "published",
+  },
   {
     id: "short-011",
     slug: "puppy-cat-playtime-chaos",

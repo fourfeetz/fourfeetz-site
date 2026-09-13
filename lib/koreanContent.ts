@@ -6,6 +6,7 @@ export const koreanFilmDescriptions: Record<string, string> = {
 };
 
 export const koreanShortDescriptions: Record<string, string> = {
+  "haru-luna-teddy-bear-chase": "HARU가 LUNA의 곰인형을 훔쳐 마당으로 달아납니다. LUNA가 추격 끝에 도약해 곰인형을 되찾고 달아나자, 이번에는 HARU가 뒤쫓는 유쾌한 역할 반전 추격전입니다.",
   "puppy-cat-playtime-chaos": "놀고 싶은 골든리트리버 강아지가 시큰둥한 고양이에게 계속 다가가면서 조용한 거실이 유쾌한 소동으로 바뀌는 코믹 쇼츠입니다.",
   "oli-peaceful-swim": "아기 수달 OLI가 물 위를 부드럽게 떠다니며 여유로운 수영을 즐깁니다. 편안하게 감상할 수 있는 FourFeetz 쇼츠입니다.",
   "cozy-retriever-kitten-sleep-short": "따뜻한 오후 햇살 속에서 어린 리트리버가 천천히 잠듭니다. 잠시 후 아기 치즈태비 고양이가 다가와 앞다리에 기대어 누우며 포근한 낮잠을 함께합니다.",
@@ -27,6 +28,7 @@ type KoreanCharacterLink = {
 };
 
 export const koreanShortTitles: Record<string, string> = {
+  "haru-luna-teddy-bear-chase": "곰인형을 훔친 하루, 루나의 역습",
   "puppy-cat-playtime-chaos": "놀고 싶은 강아지, 단호한 고양이",
   "oli-peaceful-swim": "올리의 평화로운 수영 시간",
   "cozy-retriever-kitten-sleep-short": "리트리버가 잠들자 아기 고양이가 다가왔어요",
@@ -60,6 +62,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     metaDescription: "FourFeetz의 첫 오리지널 캐릭터 HARU를 소개합니다. 진돗개 HARU의 특징과 First Journey, 쇼츠, 공식 테마 음악을 확인해 보세요.",
     personality: ["다정함", "호기심", "용기", "충직함", "친근함"],
     relatedContent: [
+      { label: "신규 쇼츠", title: "곰인형을 훔친 하루, 루나의 역습", description: "곰인형을 사이에 두고 HARU와 LUNA의 역할이 뒤바뀌는 시네마틱 코믹 추격전입니다.", href: "/ko/shorts/haru-luna-teddy-bear-chase" },
       { label: "필름", title: "HARU — First Journey", description: "HARU가 새로운 집을 향해 첫 여행을 시작하는 대표 시네마틱 필름입니다.", href: "/ko/films/haru-first-journey" },
       { label: "쇼츠", title: "Morning with HARU", description: "아침 햇살 속 HARU의 평온한 표정과 움직임을 담은 세로형 영상입니다.", href: "/ko/shorts/morning-with-haru" },
       { label: "실제 제작 기록", title: "비 오는 창가의 HARU와 LUNA 제작기", description: "공개 쇼츠의 기준 이미지, 작은 움직임과 편집 연결을 검토한 실제 제작 기록입니다.", href: "/ko/insights/haru-luna-rainy-window-ai-pet-video" },
@@ -94,6 +97,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
     metaDescription: "차분한 FourFeetz 캐릭터 LUNA를 소개합니다. 은회색 고양이 LUNA의 특징과 공식 쇼츠, 오리지널 음악을 확인해 보세요.",
     personality: ["차분함", "우아함", "관찰력", "독립성", "신비로움"],
     relatedContent: [
+      { label: "신규 쇼츠", title: "곰인형을 훔친 하루, 루나의 역습", description: "LUNA가 도약해 곰인형을 되찾고 HARU의 추격을 받는 시네마틱 코믹 쇼츠입니다.", href: "/ko/shorts/haru-luna-teddy-bear-chase" },
       { label: "쇼츠", title: "LUNA Shorts EP.01", description: "잠든 HARU 곁에서 창밖을 바라보던 LUNA가 호기심을 따라 움직이는 순간입니다.", href: "/ko/shorts/luna-shorts-ep01" },
       { label: "실제 제작 기록", title: "비 오는 창가의 HARU와 LUNA 제작기", description: "공개 쇼츠에서 두 캐릭터의 외형, 작은 움직임과 장면 연결을 검토한 기록입니다.", href: "/ko/insights/haru-luna-rainy-window-ai-pet-video" },
       { label: "음악", title: "Window Cat Paws", description: "창가에서 세상을 관찰하는 LUNA의 차분한 호기심을 따라가는 사운드트랙입니다.", href: "/ko/music/window-cat-paws" },
