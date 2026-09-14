@@ -12,95 +12,27 @@ import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 const baseUrl = "https://fourfeetz.com";
 
 const routes = [
-  "/en",
-  "/about",
-  "/characters",
+  "/en", "/about", "/characters",
   ...characterDetails.map((character) => `/characters/${character.slug}`),
-  "/contact",
-  "/videos",
-  "/insights",
-  "/insights/guides",
-  "/insights/news",
-  "/insights/adobe-firefly-agentic-studio",
-  "/insights/ai-lighting-guide",
-  "/insights/ai-storyboarding-guide",
-  "/insights/ai-thumbnail-design-guide",
-  "/insights/best-ai-music-tools",
-  "/insights/camera-movement-guide",
-  "/insights/calming-dog-music-puppy-kitten-fireplace-rain",
-  "/insights/character-consistency-guide",
-  "/insights/character-consistency-haru-ruru-milo",
-  "/insights/common-ai-video-generation-failures",
-  "/insights/cozy-retriever-kitten-sleep-short",
-  "/insights/create-ai-shorts-9-16-from-start",
-  "/insights/elevenlabs-music-v2-references",
-  "/insights/extend-ai-video-scenes-google-flow",
-  "/insights/flux-image-guide",
-  "/insights/google-flow-complete-guide",
-  "/insights/google-flow-one-action-eight-second-scenes",
-  "/insights/haru-luna-rainy-window-ai-pet-video",
-  "/insights/haru-pori-two-character-scene",
-  "/insights/haru-relaxing-videos-calm-natural",
-  "/insights/how-haru-was-created",
-  "/insights/image-to-video-prompts",
-  "/insights/kling-vs-veo",
-  "/insights/kling-ai-complete-review",
-  "/insights/luma-ray-3-2-production-control",
-  "/insights/magiclight-seedance-2-real-production-test",
-  "/insights/oli-swimming-scene-lessons",
-  "/insights/reframing-16-9-guide",
-  "/insights/reduce-character-inconsistency-ai-video",
-  "/insights/repeatable-ai-video-workflow",
-  "/insights/runway-dev-ai-media-platform",
-  "/insights/runway-gen45-review",
-  "/insights/seamless-loops-relaxing-ai-videos",
-  "/insights/why-fourfeetz-starts-animal-shorts-first-shot",
-  "/insights/from-first-image-to-final-short",
-  "/insights/animal-character-short-publishing-checklist",
-  "/insights/why-we-keep-animal-motions-simple",
-  "/insights/turning-short-scene-into-relaxing-video",
-  "/insights/what-we-keep-private-character-production",
-  "/music",
-  "/privacy",
-  "/resources",
-  "/resources/ai-music-prompt-starter-pack",
-  "/resources/ai-short-film-workflow",
-  "/resources/character-consistency-prompt-pack",
-  "/resources/character-production-checklist",
-  "/resources/image-to-video-prompt-framework",
-  "/resources/production-notes-template",
-  "/resources/storyboard-planning-template",
-  "/resources/vertical-video-reframing-guide",
-  "/social",
-  "/services",
-  "/terms",
-  "/tools",
+  "/contact", "/videos", "/insights", "/insights/guides", "/insights/news",
+  "/music", "/privacy", "/resources", "/social", "/services", "/terms", "/tools",
   ...practicalResources.map((resource) => `/resources/${resource.slug}`),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const publishedInsights = getPublishedInsightArticles();
   const pairedPaths = new Map<string, string>([
-    ["/en", "/ko"],
-    ["/privacy", "/ko/privacy"],
-    ["/terms", "/ko/terms"],
-    ["/services", "/ko/services"],
-    ["/about", "/ko/about"],
-    ["/videos", "/ko/videos"],
-    ["/characters", "/ko/characters"],
-    ["/music", "/ko/music"],
-    ["/insights", "/ko/insights"],
+    ["/en", "/ko"], ["/privacy", "/ko/privacy"], ["/terms", "/ko/terms"],
+    ["/services", "/ko/services"], ["/about", "/ko/about"], ["/videos", "/ko/videos"],
+    ["/characters", "/ko/characters"], ["/music", "/ko/music"], ["/insights", "/ko/insights"],
     ["/insights/guides", "/ko/insights/guides"],
     ...(hasKoreanInsightGroupContent("news") ? [["/insights/news", "/ko/insights/news"]] as const : []),
-    ["/resources", "/ko/resources"],
-    ["/services", "/ko/services"],
-    ["/tools", "/ko/tools"],
+    ["/resources", "/ko/resources"], ["/tools", "/ko/tools"],
     ...films.map((item) => [`/works/${item.slug}`, `/ko/films/${item.slug}`] as const),
     ...shorts.map((item) => [`/shorts/${item.slug}`, `/ko/shorts/${item.slug}`] as const),
     ...characterDetails.map((item) => [`/characters/${item.slug}`, `/ko/characters/${item.slug}`] as const),
     ...musicTracks.map((item) => [`/music/${item.slug}`, `/ko/music/${item.slug}`] as const),
-    ...getPublishedInsightArticles()
-      .filter((item) => !isKoreanInsightRedirect(item.slug))
-      .map((item) => [item.href, `/ko/insights/${item.slug}`] as const),
+    ...publishedInsights.filter((item) => !isKoreanInsightRedirect(item.slug)).map((item) => [item.href, `/ko/insights/${item.slug}`] as const),
     ...resourceDetails.map((item) => [`/resources/${item.slug}`, `/ko/resources/${item.slug}`] as const),
     ...practicalResources.map((item) => [`/resources/${item.slug}`, `/ko/resources/${item.slug}`] as const),
   ]);
@@ -116,6 +48,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: route === "/en" ? ("weekly" as const) : ("monthly" as const),
     priority: route === "/en" ? 0.9 : route.split("/").filter(Boolean).length === 1 ? 0.8 : 0.7,
     ...(pairedPaths.has(route) ? { alternates: { languages: alternateLanguages(route, pairedPaths.get(route)!) } } : {}),
+  }));
+
+  const insightPages = publishedInsights.map((article) => ({
+    url: `${baseUrl}${article.href}`,
+    lastModified: article.updatedAt ?? article.publishedAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+    ...(!isKoreanInsightRedirect(article.slug)
+      ? { alternates: { languages: alternateLanguages(article.href, `/ko/insights/${article.slug}`) } }
+      : {}),
   }));
 
   const musicPages = musicTracks.map((track) => ({
@@ -141,10 +83,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const koreanPages = [...new Set(pairedPaths.values())].map((koreanPath) => {
     const englishPath = [...pairedPaths.entries()].find(([, value]) => value === koreanPath)?.[0] ?? "";
+    const insight = koreanPath.startsWith("/ko/insights/")
+      ? publishedInsights.find((item) => `/ko/insights/${item.slug}` === koreanPath)
+      : undefined;
     return {
       url: `${baseUrl}${koreanPath}`,
+      ...(insight?.updatedAt || insight?.publishedAt ? { lastModified: insight.updatedAt ?? insight.publishedAt } : {}),
       changeFrequency: koreanPath === "/ko" ? ("weekly" as const) : ("monthly" as const),
-      priority: koreanPath === "/ko" ? 1 : koreanPath.split("/").filter(Boolean).length === 2 ? 0.8 : 0.7,
+      priority: koreanPath === "/ko" ? 1 : koreanPath.startsWith("/ko/insights/") ? 0.8 : koreanPath.split("/").filter(Boolean).length === 2 ? 0.8 : 0.7,
       alternates: { languages: alternateLanguages(englishPath, koreanPath) },
     };
   });
@@ -156,5 +102,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: slug === "pet-video" ? 0.8 : 0.7,
   }));
 
-  return [...staticPages, ...filmPages, ...shortPages, ...musicPages, ...koreanPages, ...koreanOnlyServicePages];
+  return [...staticPages, ...insightPages, ...filmPages, ...shortPages, ...musicPages, ...koreanPages, ...koreanOnlyServicePages];
 }
