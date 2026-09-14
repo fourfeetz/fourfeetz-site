@@ -4,6 +4,7 @@ import { classifyInsight, isAnalysisContentType, type InsightContentType } from 
 import { magicLightInsight } from "@/lib/magicLightInsight";
 import { newProductionGuides } from "@/lib/newProductionGuides";
 import { productionInsights, type ProductionInsight } from "@/lib/productionInsights";
+import { searchFocusedInsights } from "@/lib/searchFocusedInsights";
 import { isPublishedContent, sortByFreshness, type PublishStatus } from "@/lib/publishing";
 import { toolNewsInsights } from "@/lib/toolNewsInsights";
 import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
@@ -34,10 +35,7 @@ export type InsightArticle = {
 };
 
 function fromProductionInsight(
-  article: ProductionInsight & {
-    heroFit?: "cover" | "contain";
-    heroPosition?: string;
-  },
+  article: ProductionInsight & { heroFit?: "cover" | "contain"; heroPosition?: string },
   imageAlt?: InsightArticle["imageAlt"],
 ): InsightArticle {
   return {
@@ -87,10 +85,10 @@ export const insightArticles: InsightArticle[] = [
   fromProductionInsight(magicLightInsight),
   fromProductionInsight(howHaruInsight),
   ...Object.values(newProductionGuides).map((article) =>
-    fromProductionInsight(article.en, {
-      en: article.en.heroAlt,
-      ko: article.ko.heroAlt,
-    }),
+    fromProductionInsight(article.en, { en: article.en.heroAlt, ko: article.ko.heroAlt }),
+  ),
+  ...Object.values(searchFocusedInsights).map((article) =>
+    fromProductionInsight(article.en, { en: article.en.heroAlt, ko: article.ko.heroAlt }),
   ),
   ...Object.values(productionInsights).map((article) => fromProductionInsight(article)),
   {
@@ -146,9 +144,7 @@ export const insightArticles: InsightArticle[] = [
 ];
 
 export function getPublishedInsightArticles(now = new Date()) {
-  return sortByFreshness(
-    insightArticles.filter((article) => article.listed !== false && isPublishedContent(article, now)),
-  );
+  return sortByFreshness(insightArticles.filter((article) => article.listed !== false && isPublishedContent(article, now)));
 }
 
 export function getProductionRecordInsights(now = new Date()) {
