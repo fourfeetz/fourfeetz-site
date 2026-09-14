@@ -1,32 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 const coverSrc = "/images/services/pet-memorial-0914-cover.jpg";
 const videoSrc = "/videos/services/pet-memorial-0914.mp4";
 
 export default function PetMemorialMedia() {
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    Promise.all([
-      fetch(coverSrc, { method: "HEAD", cache: "no-store" }),
-      fetch(videoSrc, { method: "HEAD", cache: "no-store" }),
-    ])
-      .then(([cover, video]) => {
-        if (!cancelled && cover.ok && video.ok) setReady(true);
-      })
-      .catch(() => undefined);
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  if (!ready) return null;
-
   return (
     <section className="border-y border-[#eadfce] bg-[#f6eee4] px-6 py-20">
       <div className="mx-auto max-w-5xl">
