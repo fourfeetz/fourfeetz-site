@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
+  Camera,
   ChevronRight,
   Heart,
+  Home,
   Image as ImageIcon,
   Infinity as InfinityIcon,
   Mail,
   PawPrint,
+  Sparkles,
   Users,
 } from "lucide-react";
 
@@ -17,7 +20,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ko/services/pet-memorial-video" },
 };
 
-const coverSrc = "/images/services/pet-memorial-0914-cover.jpg";
+const videoPosterSrc = "/images/services/pet-memorial-0914-cover.jpg";
+const storyImageSrc = "/images/services/my-pet-story-haru-pori-garden.webp";
 const videoSrc = "/videos/services/pet-memorial-0914.mp4";
 
 const features = [
@@ -43,150 +47,199 @@ const features = [
   },
 ];
 
+const services = [
+  {
+    icon: Camera,
+    title: "강아지·고양이 추모영상",
+    desc: "사진과 추억을 바탕으로 크고 따뜻한 감성 영상을 제작합니다.",
+  },
+  {
+    icon: Sparkles,
+    title: "생일·입양일 기념 영상",
+    desc: "함께했던 특별한 날을 더 특별하게 기록해 드립니다.",
+  },
+  {
+    icon: Home,
+    title: "무지개다리 추억 영상",
+    desc: "따뜻한 빛과 자연스러운 장면으로 소중한 기억을 되살립니다.",
+  },
+  {
+    icon: Heart,
+    title: "가족 공유용 추억 영상",
+    desc: "가족이 함께 간직하고 공유하기 좋은 구성으로 완성합니다.",
+  },
+];
+
 export default function Page() {
   return (
-    <main className="overflow-hidden bg-[#fbf7f2] text-[#2f2924]">
-      <section className="relative border-b border-[#eadfd4] bg-[radial-gradient(circle_at_75%_15%,rgba(235,197,155,.28),transparent_28%),linear-gradient(180deg,#fffdf9_0%,#fbf7f2_100%)]">
-        <PawPrint className="pointer-events-none absolute right-[3%] top-28 h-28 w-28 rotate-[-16deg] text-[#8f6948]/8" />
-        <PawPrint className="pointer-events-none absolute left-[31%] top-[62%] h-12 w-12 rotate-[14deg] text-[#8f6948]/8" />
+    <main className="overflow-hidden bg-[#fbf8f3] text-[#2d2925]">
+      <section className="relative border-b border-[#eee4da] bg-[radial-gradient(circle_at_78%_24%,rgba(236,203,167,.28),transparent_27%),linear-gradient(180deg,#fffdfa_0%,#fbf8f3_100%)]">
+        <PawPrint className="pointer-events-none absolute right-[4%] top-24 h-24 w-24 rotate-[-12deg] text-[#8d6747]/10" />
+        <PawPrint className="pointer-events-none absolute left-[31%] top-[58%] h-10 w-10 rotate-[15deg] text-[#8d6747]/10" />
 
-        <div className="mx-auto max-w-[1440px] px-6 py-10 md:px-10 lg:px-14 lg:py-14">
-          <div className="grid items-center gap-10 lg:grid-cols-[0.78fr_1.32fr] lg:gap-14">
-            <div className="max-w-xl">
-              <p className="font-serif text-2xl italic tracking-wide text-[#9c7556] md:text-3xl">
+        <div className="mx-auto max-w-[1380px] px-6 py-12 md:px-10 lg:px-14 lg:py-16">
+          <div className="grid items-center gap-12 lg:grid-cols-[1fr_430px_.62fr] xl:grid-cols-[1fr_450px_.7fr]">
+            <div className="max-w-[520px]">
+              <p className="font-serif text-2xl italic tracking-wide text-[#9b7355] md:text-3xl">
                 Forever in Our Hearts
               </p>
 
-              <h1 className="mt-7 font-serif text-4xl font-semibold leading-tight tracking-[-0.04em] text-[#2b2927] md:text-5xl lg:text-6xl">
-                반려동물 추모영상 제작
+              <h1 className="mt-7 font-serif text-5xl font-semibold leading-[1.08] tracking-[-0.045em] text-[#22201e] md:text-6xl">
+                반려동물
+                <br />
+                추모영상 제작
               </h1>
 
-              <p className="mt-6 font-serif text-2xl leading-relaxed text-[#5f5a55] md:text-3xl">
-                함께했던 순간은 언제나 우리 곁에 있습니다.
+              <p className="mt-7 font-serif text-2xl leading-relaxed text-[#5f5953] md:text-3xl">
+                함께했던 순간은
+                <br /> 언제나 우리 곁에 있습니다.
               </p>
 
-              <div className="mt-7 h-px w-16 bg-[#a17b5c]" />
+              <div className="mt-7 h-px w-14 bg-[#a37c5c]" />
 
-              <p className="mt-7 text-lg leading-9 text-[#716b65] md:text-xl">
+              <p className="mt-7 text-lg leading-9 text-[#706963] md:text-xl">
                 사랑하는 아이와의 소중한 추억을
-                <br className="hidden sm:block" /> 아름다운 영상으로 기록해 보세요.
-                <br className="hidden sm:block" /> 사진 한 장에도, 함께한 모든 순간에도
-                <br className="hidden sm:block" /> 잊지 못할 사랑이 담겨 있습니다.
+                <br /> 아름다운 영상으로 기록해 보세요.
+                <br /> 사진 한 장에도, 함께한 모든 순간에도
+                <br /> 잊지 못할 사랑이 담겨 있습니다.
               </p>
 
               <Link
                 href="/ko/services#contact"
-                className="mt-9 inline-flex min-w-[260px] items-center justify-center gap-4 rounded-2xl bg-[#9d7654] px-7 py-4 text-lg font-bold text-white shadow-[0_12px_30px_rgba(116,81,49,.16)] transition hover:-translate-y-0.5 hover:bg-[#8d6849]"
+                className="mt-9 inline-flex min-w-[260px] items-center justify-center gap-4 rounded-2xl bg-[#926b4b] px-7 py-4 text-lg font-bold text-white shadow-[0_14px_32px_rgba(112,77,48,.16)] transition hover:-translate-y-0.5 hover:bg-[#825f43]"
               >
                 <Mail className="h-6 w-6" strokeWidth={1.8} />
                 무료 상담받기
                 <ChevronRight className="h-5 w-5" />
               </Link>
 
-              <p className="mt-4 text-sm text-[#8a827b]">
+              <p className="mt-4 text-sm text-[#8a8179]">
                 지금, 소중한 추억을 영상으로 남겨보세요.
               </p>
             </div>
 
-            <div>
-              <div className="overflow-hidden rounded-[24px] border border-white/80 bg-black shadow-[0_20px_60px_rgba(98,71,47,.16)]">
+            <div className="mx-auto w-full max-w-[390px] lg:max-w-none">
+              <div className="overflow-hidden rounded-[28px] border border-white/90 bg-black shadow-[0_24px_65px_rgba(91,62,38,.20)]">
                 <video
-                  className="aspect-video w-full object-cover"
+                  className="aspect-[9/16] w-full object-cover"
                   controls
                   playsInline
                   preload="metadata"
-                  poster={coverSrc}
+                  poster={videoPosterSrc}
                 >
                   <source src={videoSrc} type="video/mp4" />
                   브라우저에서 영상을 재생할 수 없습니다.
                 </video>
               </div>
-              <p className="mt-3 text-center text-sm tracking-wide text-[#7d756e]">
+              <p className="mt-3 text-center text-xs tracking-[.08em] text-[#8a8179]">
                 FourFeetz | Pet Memorial Video
               </p>
             </div>
+
+            <div className="hidden min-h-[390px] flex-col items-center justify-center lg:flex">
+              <p className="rotate-[-5deg] text-center font-serif text-3xl italic leading-relaxed text-[#9a775b] xl:text-4xl">
+                언제나,
+                <br /> 사랑해 ♡
+              </p>
+              <p className="mt-10 text-xs font-semibold tracking-[.35em] text-[#a98a70]">
+                ALWAYS
+                <br /> IN OUR HEARTS
+              </p>
+              <PawPrint className="mt-5 h-8 w-8 text-[#9a775b]" strokeWidth={1.6} />
+            </div>
           </div>
 
-          <div className="mt-14 grid gap-4 border-t border-[#e5ddd5] pt-7 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-16 grid gap-4 border-t border-[#e7ddd3] pt-8 sm:grid-cols-2 lg:grid-cols-5">
             {features.map(({ icon: Icon, text }, index) => (
               <div
                 key={index}
-                className="flex min-h-[82px] items-center gap-4 px-3 lg:border-r lg:border-[#ded5cc] lg:last:border-r-0"
+                className="flex min-h-[78px] items-center gap-4 px-3 lg:border-r lg:border-[#dfd6cd] lg:last:border-r-0"
               >
-                <Icon className="h-10 w-10 shrink-0 text-[#765237]" strokeWidth={1.7} />
-                <p className="text-base leading-7 text-[#4d4944]">{text}</p>
+                <Icon className="h-9 w-9 shrink-0 text-[#765139]" strokeWidth={1.65} />
+                <p className="text-[15px] leading-7 text-[#4e4944]">{text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="px-6 py-14 md:px-10 lg:px-14 lg:py-20">
-        <div className="mx-auto grid max-w-[1440px] overflow-hidden rounded-[28px] bg-[#f6f0e8] shadow-[0_10px_40px_rgba(92,67,44,.06)] lg:grid-cols-2">
-          <div className="min-h-[420px] overflow-hidden">
+      <section className="px-6 py-16 md:px-10 lg:px-14 lg:py-24">
+        <div className="mx-auto grid max-w-[1320px] overflow-hidden rounded-[30px] bg-[#f7f0e8] shadow-[0_12px_42px_rgba(91,65,43,.07)] lg:grid-cols-[1.02fr_.98fr]">
+          <div className="min-h-[480px] overflow-hidden lg:min-h-[620px]">
             <img
-              src={coverSrc}
-              alt="반려동물과 함께했던 따뜻한 추억을 담은 추모영상 이미지"
-              className="h-full min-h-[420px] w-full object-cover"
+              src={storyImageSrc}
+              alt="반려동물과 함께한 따뜻한 일상을 담은 추억 이미지"
+              className="h-full min-h-[480px] w-full object-cover lg:min-h-[620px]"
             />
           </div>
 
-          <div className="flex items-center px-8 py-12 md:px-12 lg:px-16">
-            <div>
-              <p className="text-sm font-bold tracking-[.18em] text-[#a07a5d]">
-                A SPECIAL GIFT
-              </p>
-              <h2 className="mt-5 font-serif text-4xl font-semibold leading-tight tracking-[-0.03em] md:text-5xl">
+          <div className="relative flex items-center px-8 py-14 md:px-14 lg:px-16">
+            <PawPrint className="pointer-events-none absolute bottom-12 right-10 h-16 w-16 rotate-12 text-[#a27f63]/10" />
+            <div className="max-w-xl">
+              <p className="text-sm font-bold tracking-[.2em] text-[#a17859]">A SPECIAL GIFT</p>
+              <h2 className="mt-5 font-serif text-4xl font-semibold leading-tight tracking-[-0.035em] md:text-5xl">
                 사랑은 영원히 기억됩니다.
               </h2>
-              <p className="mt-6 text-lg leading-9 text-[#716b65]">
+              <p className="mt-7 text-lg leading-9 text-[#706963]">
                 반려동물은 우리에게 단순한 반려동물이 아니라,
                 <br className="hidden md:block" /> 소중한 가족이자 평생 잊지 못할 친구입니다.
               </p>
-              <p className="mt-5 text-lg leading-9 text-[#716b65]">
+              <p className="mt-5 text-lg leading-9 text-[#706963]">
                 사진과 이야기를 바탕으로 아이의 표정, 함께했던 계절,
                 <br className="hidden md:block" /> 기억하고 싶은 순간을 하나의 따뜻한 이야기로 연결합니다.
+              </p>
+              <p className="mt-10 rotate-[-4deg] font-serif text-2xl italic text-[#9d785d]">
+                고마워, 함께해줘서 ♡
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-white px-6 py-16 md:px-10 lg:px-14 lg:py-20">
-        <div className="mx-auto max-w-[1180px] text-center">
-          <p className="text-sm font-bold tracking-[.18em] text-[#a07a5d]">MEMORIAL STORY</p>
-          <h2 className="mt-4 font-serif text-3xl font-semibold md:text-5xl">사진 속 기억을 소중하게 담습니다</h2>
+      <section className="border-t border-[#eee5dd] bg-white px-6 py-20 md:px-10 lg:px-14 lg:py-24">
+        <div className="mx-auto max-w-[1260px] text-center">
+          <p className="text-sm font-bold tracking-[.2em] text-[#a17859]">MEMORIAL STORY</p>
+          <h2 className="mt-4 font-serif text-4xl font-semibold tracking-[-0.03em] md:text-5xl">
+            사진 속 기억을 소중하게 담습니다
+          </h2>
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-9 text-[#746d67]">
-            함께했던 산책, 휴식, 햇살과 정원처럼 기억하고 싶은 분위기를 중심으로 차분하게 구성합니다.
-            자동 생성으로 끝내지 않고 장면과 편집 결과를 직접 확인해 완성합니다.
+            함께했던 산책, 휴식, 햇살과 잠꼬대까지.
+            <br className="hidden sm:block" /> 잊지 못할 순간들을 감성적인 영상으로 재현해 드립니다.
           </p>
 
-          <div className="mt-12 grid gap-5 text-left md:grid-cols-2">
-            {[
-              ["강아지·고양이 추모영상", "사진과 추억을 바탕으로 짧고 따뜻한 감성 영상을 구성합니다."],
-              ["무지개다리 추억 영상", "따뜻한 빛과 자연스러운 장면으로 소중한 기억을 표현합니다."],
-              ["생일·입양일 기념 영상", "함께했던 특별한 날짜와 행복했던 시간을 영상으로 남깁니다."],
-              ["가족 공유용 추억 영상", "가족이 함께 간직하고 공유하기 좋은 구성으로 완성합니다."],
-            ].map(([title, desc]) => (
-              <article key={title} className="rounded-[24px] border border-[#ece3da] bg-[#fcfaf7] p-7">
-                <h3 className="font-serif text-2xl font-semibold">{title}</h3>
-                <p className="mt-3 text-base leading-8 text-[#746d67]">{desc}</p>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map(({ icon: Icon, title, desc }) => (
+              <article
+                key={title}
+                className="rounded-[26px] border border-[#ece3da] bg-[#fdfbf8] px-6 py-8 text-center shadow-[0_8px_24px_rgba(80,57,37,.035)]"
+              >
+                <Icon className="mx-auto h-10 w-10 text-[#7b573d]" strokeWidth={1.6} />
+                <h3 className="mt-5 font-serif text-xl font-semibold">{title}</h3>
+                <p className="mt-4 text-[15px] leading-7 text-[#756e68]">{desc}</p>
               </article>
             ))}
           </div>
 
-          <div className="mt-12 rounded-[28px] bg-[#7d5b40] px-8 py-10 text-white md:px-12">
-            <h2 className="font-serif text-3xl font-semibold md:text-4xl">사진과 이야기를 먼저 보내주세요.</h2>
-            <p className="mt-4 text-lg leading-8 text-[#f3e9df]">
-              사진 상태와 원하는 분위기를 확인한 뒤 구현 가능한 구성을 안내해 드립니다.
+          <div className="relative mt-14 overflow-hidden rounded-[30px] bg-[#8b6548] px-8 py-11 text-white md:px-12">
+            <PawPrint className="pointer-events-none absolute bottom-[-18px] left-6 h-28 w-28 rotate-[-18deg] text-white/10" />
+            <p className="pointer-events-none absolute right-12 top-1/2 hidden -translate-y-1/2 rotate-[-7deg] font-serif text-3xl italic text-white/55 md:block">
+              Always
+              <br /> with you ♡
             </p>
-            <Link
-              href="/ko/services#contact"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-bold text-[#765237] transition hover:-translate-y-0.5"
-            >
-              무료 상담받기
-              <ChevronRight className="h-5 w-5" />
-            </Link>
+            <div className="relative z-10 mx-auto max-w-2xl">
+              <h2 className="font-serif text-3xl font-semibold md:text-4xl">사진과 이야기를 먼저 보내주세요.</h2>
+              <p className="mt-4 text-lg leading-8 text-[#f5eade]">
+                사진 상태와 원하는 분위기를 확인한 뒤 제작 가능한 구성을 안내해 드립니다.
+              </p>
+              <Link
+                href="/ko/services#contact"
+                className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-bold text-[#765237] transition hover:-translate-y-0.5"
+              >
+                <Mail className="h-5 w-5" />
+                무료 상담받기
+                <ChevronRight className="h-5 w-5" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
