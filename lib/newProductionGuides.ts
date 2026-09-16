@@ -13,6 +13,7 @@ import {
   recentProductionExperienceSlugs,
 } from "@/lib/recentProductionExperiences";
 import { englishLanguageAlternates, languageAlternates } from "@/lib/localization";
+import { petMemoryProductionExperiences, petMemoryProductionExperienceSlugs } from "@/lib/petMemoryProductionExperiences";
 
 export const newProductionGuideSlugs = [
   "extend-ai-video-scenes-google-flow",
@@ -23,6 +24,7 @@ export const newProductionGuideSlugs = [
   ...experienceProductionGuideSlugs,
   ...studioWorkflowInsightSlugs,
   ...recentProductionExperienceSlugs,
+  ...petMemoryProductionExperienceSlugs,
 ] as const;
 
 export type NewProductionGuideSlug = (typeof newProductionGuideSlugs)[number];
@@ -1192,6 +1194,7 @@ export const newProductionGuides = {
   ...experienceProductionGuides,
   ...studioWorkflowInsights,
   ...recentProductionExperiences,
+  ...petMemoryProductionExperiences,
 } as Record<NewProductionGuideSlug, Record<NewProductionGuideLanguage, NewProductionGuide>>;
 
 export function isNewProductionGuideSlug(slug: string): slug is NewProductionGuideSlug {

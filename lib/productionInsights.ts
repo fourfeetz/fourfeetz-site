@@ -71,6 +71,8 @@ export type ProductionInsight = {
   keywords: string[];
   tools: string[];
   characters: string[];
+  recordBasis?: string;
+  serviceCta?: { href: string; protofaceAffiliate?: boolean };
   featuredVideo?: {
     name: string;
     description: string;

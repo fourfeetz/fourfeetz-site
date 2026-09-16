@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ProductionInsight, ProductionInsightSection } from "@/lib/productionInsights";
 import { classifyInsight, isProductionRecordSlug } from "@/lib/insightClassification";
+import PetVideoArticleCta from "@/components/insights/PetVideoArticleCta";
 
 const siteUrl = "https://fourfeetz.com";
 type ArticleLanguage = "en" | "ko";
@@ -308,7 +309,7 @@ export default function ProductionInsightArticle({
               <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">{labels.record}</p>
               <div className="mt-3 md:mt-0">
                 <Link href={isKorean ? "/ko/about" : "/about"} className="font-black text-[#2b2119] underline decoration-[#d8c3ad] underline-offset-4">FourFeetz Studios</Link>
-                <p className="mt-2 leading-7 text-[#76685d]">{labels.recordBasis}</p>
+                <p className="mt-2 leading-7 text-[#76685d]">{article.recordBasis ?? labels.recordBasis}</p>
               </div>
             </div>
           ) : <p className="mt-7 inline-flex rounded-full border border-[#d8c3ad] bg-white px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-[#6f4e37]">{listingLabel}</p>}
@@ -328,6 +329,7 @@ export default function ProductionInsightArticle({
         </div>
 
         <section className="border-t border-[#eadfce] bg-[#f2e8dc]/65 px-6 py-16"><div className="mx-auto max-w-6xl"><div className="flex flex-wrap items-end justify-between gap-4"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{labels.continue}</p><Link href={listingPath} className="font-black text-[#6f4e37]">{isProductionRecord ? `${labels.record} →` : isStudioAnalysis ? labels.allAnalysis : labels.allGuides}</Link></div><div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <Link key={item.href} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span><strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong></Link>)}</div></div></section>
+        {article.serviceCta ? <PetVideoArticleCta cta={article.serviceCta} language={language} /> : null}
       </article>
     </main>
   );

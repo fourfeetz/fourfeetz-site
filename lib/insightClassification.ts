@@ -16,6 +16,9 @@ const productionRecordSlugs = new Set([
   "dog-cat-comedy-short-production-notes",
   "pet-hotel-promo-video-production-notes",
   "protoface-real-production-experience",
+  "seedance-2-pet-human-reference-test",
+  "ai-pet-memorial-memory-film",
+  "protoface-seedance-2-real-production-test",
 ]);
 
 const studioAnalysisSlugs = new Set([
