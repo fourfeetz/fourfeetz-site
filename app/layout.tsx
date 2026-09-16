@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   description: "Original animal characters, published films, relaxing videos, music, and selected production records by FourFeetz Studios.",
   metadataBase: new URL("https://fourfeetz.com"),
   other: {
+    "google-adsense-account": "ca-pub-8793962309929245",
     "naver-site-verification": "114f76443087cc8fa294d3c654d19d4b271a7666",
   },
   alternates: englishLanguageAlternates("/", "/ko"),

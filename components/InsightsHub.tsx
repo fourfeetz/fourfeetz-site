@@ -9,7 +9,6 @@ import { getKoreanInsightArticles, getPublishedInsightArticles } from "@/lib/ins
 import { getEnglishInsightPath, isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 
 const siteUrl = "https://fourfeetz.com";
-const howHaruImage = "/images/insights/premium/how-haru-hero.png";
 
 export default function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {
   const isKorean = language === "ko";
@@ -34,7 +33,8 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
       ).length,
     }))
     .filter(({ count }) => count > 0);
-  const featured = articles.find((article) => article.slug === "how-haru-was-created");
+  const featured = articles.find((article) => article.slug === "how-haru-was-created")
+    ?? articles.find((article) => article.contentType === "production-record");
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -166,18 +166,28 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
             </div>
             <div className="relative aspect-[16/10] overflow-hidden rounded-[28px] border border-[#d8c3ad] bg-[#f2e8dc] shadow-lg shadow-[#6f4e37]/10 md:h-full md:min-h-[260px] md:max-h-[320px] md:aspect-auto">
               <Image
-                src={howHaruImage}
-                alt={isKorean ? "FourFeetz AI 애니메이션 스튜디오의 HARU 제작 과정" : "HARU in the FourFeetz AI animation studio"}
+                src={featured.image}
+                alt={featured.imageAlt?.[language] ?? featured.title}
                 fill
                 sizes="(min-width:1280px)36vw,(min-width:768px)40vw,100vw"
-                className="object-cover"
-                style={{ objectPosition: "50% 48%" }}
+                className={featured.imageFit === "contain" ? "object-contain" : "object-cover"}
+                style={{ objectPosition: featured.imagePosition ?? "50% 50%" }}
               />
             </div>
           </Link>
         </section>
       ) : null}
 
+      <section className="px-6 pb-12">
+        <div className="mx-auto max-w-7xl rounded-3xl border border-[#eadfce] bg-white p-7">
+          <h2 className="text-xl font-black text-[#2b2119]">{isKorean ? "제작 경험과 일반 가이드를 구분해 읽어주세요" : "How to read these records and guides"}</h2>
+          <p className="mt-4 max-w-4xl leading-8 text-[#76685d]">{isKorean ? "제작 기록에서는 연결된 완성 작품과 공개 프레임을 먼저 확인해 주세요. 작업지는 그 기록을 내 프로젝트에 적용하기 위한 교육용 자료이며 원본 제작 로그가 아닙니다. 도구 분석과 업데이트는 직접 검증한 제작 경험과 구분해서 제공합니다." : "Start with the linked finished work and public frames in each production record. Worksheets are educational tools for applying a method to your own project, not original production logs. Tool analysis and updates are presented separately from first-hand production records."}</p>
+          <div className="mt-5 flex flex-wrap gap-5 font-bold text-[#6f4e37]">
+            <Link className="underline underline-offset-4" href={isKorean ? "/ko/about" : "/about"}>{isKorean ? "제작·운영 주체 확인" : "About the studio"}</Link>
+            <Link className="underline underline-offset-4" href={isKorean ? "/ko/contact" : "/contact"}>{isKorean ? "콘텐츠 오류 정정 요청" : "Request a content correction"}</Link>
+          </div>
+        </div>
+      </section>
       <InsightsFilter articles={articles} language={language} />
       {isKorean && englishOnlyArticles.length ? (
         <section className="border-t border-[#eadfce] bg-[#fffaf4] px-6 py-16 md:py-20">

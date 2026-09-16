@@ -4,14 +4,17 @@ export type SiteLanguage = "en" | "ko";
 
 const koreanPrefixes = new Set([
   "about",
+  "contact",
   "characters",
   "films",
   "insights",
   "music",
+  "privacy",
   "resources",
   "services",
   "shorts",
   "tools",
+  "terms",
   "videos",
 ]);
 
@@ -27,6 +30,7 @@ const koreanOnlyServiceSlugs = new Set([
   "pet-products",
   "veterinary",
   "pet-funeral",
+  "pet-memorial-video",
 ]);
 
 export function getSiteLanguage(pathname: string): SiteLanguage {
@@ -37,6 +41,9 @@ export function toKoreanPath(pathname: string) {
   if (pathname === "/ko" || pathname.startsWith("/ko/")) return pathname;
   if (pathname === "/" || pathname === "/en") return "/ko";
   if (koreanInsightFallbacks.has(pathname)) return koreanInsightFallbacks.get(pathname)!;
+  if (pathname.startsWith("/insights/") && isKoreanInsightRedirect(pathname.slice("/insights/".length))) {
+    return pathname;
+  }
 
   const segments = pathname.split("/").filter(Boolean);
   const [section, ...rest] = segments;
@@ -89,9 +96,10 @@ export function toEnglishPath(pathname: string) {
 export function localizedHref(href: string, language: SiteLanguage) {
   if (language === "en" || !href.startsWith("/") || href.startsWith("//")) return href;
 
-  const [pathname, hash] = href.split("#");
-  const localized = toKoreanPath(pathname || "/");
-  return hash ? `${localized}#${hash}` : localized;
+  const url = new URL(href, "https://fourfeetz.com");
+  const localized = new URL(toKoreanPath(url.pathname), url.origin);
+  url.searchParams.forEach((value, key) => localized.searchParams.set(key, value));
+  return `${localized.pathname}${localized.search}${url.hash}`;
 }
 
 export function languageAlternates(englishPath: string, koreanPath = toKoreanPath(englishPath)) {
@@ -100,18 +108,22 @@ export function languageAlternates(englishPath: string, koreanPath = toKoreanPat
     languages: {
       en: englishPath,
       ko: koreanPath,
-      "x-default": "/ko",
+      "x-default": koreanPath,
     },
   };
 }
 
 export function englishLanguageAlternates(englishPath: string, koreanPath = toKoreanPath(englishPath)) {
+  // Do not advertise a translated version when that URL redirects to the original.
+  if (englishPath === koreanPath || (koreanPath.startsWith("/ko/insights/") && isKoreanInsightRedirect(koreanPath.slice("/ko/insights/".length)))) {
+    return { canonical: englishPath };
+  }
   return {
     canonical: englishPath,
     languages: {
       en: englishPath,
       ko: koreanPath,
-      "x-default": "/ko",
+      "x-default": koreanPath,
     },
   };
 }

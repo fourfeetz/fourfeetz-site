@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import ResourceWorkedExample from "@/components/resources/ResourceWorkedExample";
+import { koreanResourcePreviews } from "@/lib/koreanResourcePreviews";
 import { notFound } from "next/navigation";
 import {
   ArrowUpRight,
@@ -468,7 +470,7 @@ export function KoreanResourceDetail({ slug }: { slug: string }) {
           <SectionHeading eyebrow="Resource Overview" title="자료 안내" />
           <p className="mt-6 text-lg leading-8 text-[#76685d]">{detail.overview}</p>
           <ul className="mt-8 grid gap-4 md:grid-cols-2">
-            {item.preview.map((entry) => <li key={entry} className="rounded-2xl border border-[#eadfce] bg-[#fffdf8] p-5 font-bold text-[#6f4e37]">{entry}</li>)}
+            {(koreanResourcePreviews[slug] ?? item.preview).map((entry) => <li key={entry} className="rounded-2xl border border-[#eadfce] bg-[#fffdf8] p-5 font-bold text-[#6f4e37]">{entry}</li>)}
           </ul>
         </div>
       </section>
@@ -485,6 +487,7 @@ export function KoreanResourceDetail({ slug }: { slug: string }) {
           </ol>
         </div>
       </section>
+      <ResourceWorkedExample slug={slug} language="ko" />
       <section className="border-y border-[#eadfce] bg-white px-6 py-20">
         <div className="mx-auto max-w-5xl">
           <SectionHeading eyebrow="Final Review" title="최종 체크리스트" />

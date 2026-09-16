@@ -17,7 +17,7 @@ const footerLinks = [
   { href: "/about", label: "About" },
   { href: "/privacy", koreanHref: "/ko/privacy", label: "Privacy" },
   { href: "/terms", koreanHref: "/ko/terms", label: "Terms" },
-  { href: "/contact", koreanHref: "/ko/services#contact", label: "Contact" },
+  { href: "/contact", koreanHref: "/ko/contact", label: "Contact" },
 ];
 
 export default function Footer() {
@@ -49,7 +49,7 @@ export default function Footer() {
             className="h-auto w-[260px]"
           />
         </div>
-        <div className="flex flex-wrap gap-x-4 gap-y-3 text-sm font-bold text-[#6f4e37] md:justify-end lg:flex-nowrap lg:gap-x-3">
+        <div className="flex flex-wrap gap-x-4 gap-y-3 text-sm font-bold text-[#6f4e37] md:justify-end lg:gap-x-3">
           {footerLinks.filter((item) => lang === "ko" || !("koreanOnly" in item && item.koreanOnly)).map((item) => (
             <Link key={`${item.href}-${item.label}`} href={lang === "ko" && item.koreanHref ? item.koreanHref : localizedHref(item.href, lang)} className="whitespace-nowrap hover:text-[#2b2119]">
               {labels[item.label] ?? item.label}

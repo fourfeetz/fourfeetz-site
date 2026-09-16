@@ -6,12 +6,22 @@ import { shorts } from "@/data/shorts";
 import { HeroVideoPanel } from "@/components/CinematicHero";
 import { koreanHeroVideos } from "@/lib/heroVideos";
 import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
+import { getKoreanInsightArticles } from "@/lib/insights";
+import { localizeInsightArticles } from "@/lib/insightLocalization";
 
 const primary = "inline-flex min-h-12 items-center justify-center rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
 const secondary = "inline-flex min-h-12 items-center justify-center rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
 const card = "rounded-[30px] border border-[#eadfce] bg-white p-7 shadow-sm";
 
 export default function KoreanSalesHome() {
+  const productionRecords = localizeInsightArticles(
+    getKoreanInsightArticles().filter((article) => [
+      "from-first-image-to-final-short",
+      "haru-pori-two-character-scene",
+      "pet-hotel-promo-video-production-notes",
+    ].includes(article.slug)),
+    "ko",
+  );
   const work = films[0];
   const short = shorts.find((item) => item.poster);
   const cases = [
@@ -34,6 +44,26 @@ export default function KoreanSalesHome() {
     <section className="px-6 py-20"><div className="mx-auto max-w-7xl"><p className="text-sm font-black uppercase tracking-[.25em] text-[#a67c52]">Published Work</p><h2 className="mt-3 text-4xl font-black text-[#2b2119] md:text-6xl">실제로 공개된 제작 사례</h2><p className="mt-4 max-w-2xl text-lg leading-8 text-[#76685d]">FourFeetz가 공개한 작품과 서비스 포트폴리오만 소개합니다.</p><div className="mt-10 grid gap-6 md:grid-cols-3">{cases.map((item) => <Link key={item.href} href={item.href} className="overflow-hidden rounded-[30px] border border-[#eadfce] bg-white shadow-sm"><div className="relative aspect-video bg-[#f2e8dc]">{item.image ? <Image src={item.image} alt={item.title} fill sizes="(min-width:768px)33vw,100vw" className="object-cover" /> : null}</div><div className="p-6"><p className="text-sm font-black text-[#a67c52]">{item.label}</p><h3 className="mt-2 text-2xl font-black text-[#2b2119]">{item.title}</h3><span className="mt-5 inline-flex font-black text-[#6f4e37]">사례 보기 →</span></div></Link>)}</div></div></section>
 
     <section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto max-w-7xl"><p className="text-sm font-black uppercase tracking-[.25em] text-[#a67c52]">What We Make</p><h2 className="mt-3 text-4xl font-black text-[#2b2119] md:text-6xl">두 가지 목적, 한결같은 제작 기준</h2><div className="mt-10 grid gap-6 md:grid-cols-2"><div className={card}><PawPrint className="text-[#a67c52]" /><h3 className="mt-5 text-2xl font-black">개인 맞춤 작품</h3><ul className="mt-5 space-y-3 text-[#76685d]">{["우리 아이 감성 영상", "생일·입양 기념 영상", "추억·추모 영상", "디지털 동화 또는 이미지 작품"].map(x=><li key={x} className="flex gap-2"><BadgeCheck className="mt-1 size-5 shrink-0 text-[#a67c52]" />{x}</li>)}</ul><Link href="/ko/services/personal-pet-video" className={`${primary} mt-7`}>자세히 보기</Link></div><div className={card}><Building2 className="text-[#a67c52]" /><h3 className="mt-5 text-2xl font-black">업체용 홍보 콘텐츠</h3><ul className="mt-5 space-y-3 text-[#76685d]">{["미용실·호텔 홍보영상", "동물병원·용품 콘텐츠", "장례식장 안내영상", "업체명·로고·문구를 반영한 쇼츠·릴스"].map(x=><li key={x} className="flex gap-2"><BadgeCheck className="mt-1 size-5 shrink-0 text-[#a67c52]" />{x}</li>)}</ul><Link href="/ko/services/pet-video" className={`${primary} mt-7`}>업종별 서비스 보기</Link></div></div></div></section>
+
+    <section className="px-6 py-20">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-sm font-black uppercase tracking-[.25em] text-[#a67c52]">Inside the Production</p>
+        <h2 className="mt-3 text-4xl font-black text-[#2b2119] md:text-5xl">완성 영상 뒤의 판단과 시행착오</h2>
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">기준 이미지를 고르는 방법, 두 캐릭터의 움직임을 나누는 이유, 홍보영상에서 자막을 배치하는 순서를 실제 프로젝트로 설명합니다. 제작 기록에서 공개 프레임과 완성 영상을 함께 확인해 보세요.</p>
+        <div className="mt-9 grid gap-6 md:grid-cols-3">
+          {productionRecords.map((article) => <Link key={article.slug} href={`/ko/insights/${article.slug}`} className={`${card} transition hover:border-[#a67c52] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]`}>
+            <p className="text-sm font-black text-[#a67c52]">실제 제작 기록</p>
+            <h3 className="mt-3 text-2xl font-black text-[#2b2119]">{article.title}</h3>
+            <p className="mt-4 leading-8 text-[#76685d]">{article.description}</p>
+            <span className="mt-6 inline-flex font-black text-[#6f4e37]">제작 과정과 결과 보기 →</span>
+          </Link>)}
+        </div>
+        <div className="mt-8 flex flex-wrap gap-5 font-bold text-[#6f4e37]">
+          <Link href="/ko/insights?group=records" className="underline underline-offset-4">전체 제작 기록</Link>
+          <Link href="/ko/resources" className="underline underline-offset-4">직접 써보는 제작 체크리스트와 작업지</Link>
+        </div>
+      </div>
+    </section>
 
     <section className="px-6 py-20"><div className="mx-auto max-w-7xl"><h2 className="text-4xl font-black text-[#2b2119] md:text-5xl">제작은 이렇게 진행됩니다</h2><ol className="mt-8 grid gap-5 md:grid-cols-4">{[["자료 확인","사진, 이름, 특징, 분위기와 사용 목적을 확인합니다."],["구성 안내","공개 가능한 범위와 원하는 결과물을 바탕으로 구성을 안내합니다."],["제작·검토","AI를 활용해 제작하고 합의된 기준에 따라 결과를 검토합니다."],["수정·전달","확정된 수정 범위를 반영해 최종 파일을 전달합니다."]].map(([t,d],i)=><li key={t} className={card}><span className="font-black text-[#a67c52]">0{i+1}</span><h3 className="mt-4 text-xl font-black">{t}</h3><p className="mt-3 leading-7 text-[#76685d]">{d}</p></li>)}</ol></div></section>
 
