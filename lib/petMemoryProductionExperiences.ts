@@ -17,13 +17,13 @@ export const petMemoryProductionExperiences = {
       "shortTitle": "Seedance 2.0: Pet and Human References vs Text-to-Video",
       "description": "Our Protoface Studio test of Seedance 2.0: realistic-person reference restrictions, convincing pet-human contact in Text-to-Video, and unexpected dog placement.",
       "eyebrow": "FourFeetz Production Experience",
-      "hero": "/images/tools-hero-v2.png",
-      "heroAlt": "FourFeetz editorial illustration of AI video production and editing tools",
-      "heroCaption": "An existing editorial illustration of production tools, not a result from the cafe test or a screenshot of Protoface Studio.",
+      "hero": "/images/insights/pet-memory-experiences/garden-reference.png",
+      "heroAlt": "AI backyard environment reference without characters",
+      "heroCaption": "Environment reference from a separate pet project; distinct from the café test discussed here.",
       "heroFit": "contain",
       "published": "2026-09-16",
-      "updated": "2026-09-16",
-      "readTime": "3 min read",
+      "updated": "2026-09-17",
+      "readTime": "5 min read",
       "verdict": "Our production environment restricted photorealistic human references. Text-to-Video produced convincing interaction, but the dog appeared in the wrong position. Input availability and scene control needed separate checks.",
       "category": "Production Record",
       "tags": [
@@ -97,6 +97,38 @@ export const petMemoryProductionExperiences = {
             "It is also important to distinguish between a model's general capabilities and the input workflows currently available through the platform being used.",
             "At FourFeetz Studios, we will continue documenting both successful results and practical limitations discovered during real AI pet-video production."
           ]
+        },
+        {
+          "id": "production-image-notes",
+          "title": "Reading the reference material and scene blocking",
+          "paragraphs": [
+            "The supplied Haru and Luna board separates individual character references, a shared first frame, and a backyard environment. This makes appearance and setting independently readable. These are AI production images from a separate pet project, not inputs or output frames from the café test described above.",
+            "In the garden composition, Luna sits on the sofa while Haru looks up from the steps. Their starting positions and eyelines are more specific than “the two meet.” Applied to our café placement problem, the next review criterion is to specify the surface beneath the paws and the relative height of each subject before asking for movement.",
+            "The grooming concept makes the hand, brush, and fur contact point visible in a still. A video review would need to check that contact across subsequent frames. A polished still alone cannot establish motion quality or whether a platform accepts human references."
+          ],
+          "images": [
+            {
+              "src": "/images/insights/pet-memory-experiences/character-board.png",
+              "alt": "AI reference board separating Haru, Luna and the backyard",
+              "caption": "Separate character references, an environment reference, and a shared first frame.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/garden-interaction.png",
+              "alt": "A puppy on steps looking up at a cat on an outdoor sofa",
+              "caption": "The steps and sofa make the subjects’ relative heights and eyelines explicit.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-grooming.png",
+              "alt": "AI hotel concept showing a hand brushing a puppy",
+              "caption": "A separate hotel concept illustrating the contact point, not a café video result.",
+              "fit": "contain",
+              "presentation": "portrait"
+            }
+          ]
         }
       ],
       "faqs": [
@@ -128,13 +160,13 @@ export const petMemoryProductionExperiences = {
       "shortTitle": "Seedance 2.0: 사람·반려동물 이미지 참조와 Text-to-Video",
       "description": "Protoface Studio에서 Seedance 2.0으로 사람과 반려동물 영상을 제작하며 겪은 실사 인물 참조 제한, Text-to-Video의 자연스러운 접촉과 동선 오류를 기록합니다.",
       "eyebrow": "FourFeetz 실제 제작 경험",
-      "hero": "/images/tools-hero-v2.png",
-      "heroAlt": "AI 영상 제작 도구와 편집 작업을 표현한 FourFeetz 대표 일러스트",
-      "heroCaption": "제작 도구를 표현한 기존 대표 일러스트입니다. 본문의 카페 테스트 결과나 Protoface 화면 캡처가 아닙니다.",
+      "hero": "/images/insights/pet-memory-experiences/garden-reference.png",
+      "heroAlt": "캐릭터 없이 공간을 확인하는 AI 뒷마당 참조 이미지",
+      "heroCaption": "별도 반려동물 프로젝트의 공간 참조 이미지. 본문의 카페 테스트 결과와는 구분된다.",
       "heroFit": "contain",
       "published": "2026-09-16",
-      "updated": "2026-09-16",
-      "readTime": "약 3분",
+      "updated": "2026-09-17",
+      "readTime": "5분 읽기",
       "verdict": "이번 제작 환경에서는 실사 인물 이미지 참조에 제한을 겪었습니다. Text-to-Video의 교감 표현은 자연스러웠지만 강아지의 위치는 의도와 달랐습니다. 입력 허용 범위와 장면 제어는 따로 검토해야 했습니다.",
       "category": "실제 제작 기록",
       "tags": [
@@ -208,6 +240,38 @@ export const petMemoryProductionExperiences = {
             "또한 모델 자체가 지원하는 기능과 실제로 사용하는 플랫폼에서 허용되는 입력 방식에는 차이가 있을 수 있다는 점도 제작 전에 확인할 필요가 있습니다.",
             "FourFeetz Studios는 앞으로도 AI 영상 모델을 실제 반려동물 콘텐츠 제작에 적용하면서 성공한 결과뿐 아니라 제작 과정에서 확인한 한계와 해결 방법도 공유할 예정입니다."
           ]
+        },
+        {
+          "id": "production-image-notes",
+          "title": "작업 이미지로 정리하는 참조와 장면 배치",
+          "paragraphs": [
+            "함께 제공한 하루·루나 보드에는 두 캐릭터의 개별 모습, 함께 달리는 첫 프레임, 뒷마당 환경이 분리되어 있다. 캐릭터 외형과 공간을 따로 확인할 수 있다는 점이 이 자료의 핵심이다. 이 보드는 별도 반려동물 프로젝트의 AI 제작 이미지이며, 앞서 설명한 카페 테스트의 입력 화면이나 결과 프레임은 아니다.",
+            "정원 장면에서는 루나가 소파 위에 있고 하루는 계단에 서서 올려다본다. 단순히 “둘이 만난다”는 설명보다 시작 위치와 시선이 구체적이다. 카페 테스트에서 강아지가 바닥 대신 테이블 위에 나온 경험을 다음 작업에 적용한다면, 움직임을 요청하기 전에 발이 닿는 면과 서로의 높이부터 명시하는 것이 확인 항목이 된다.",
+            "브러싱 이미지에서는 손·브러시·털이 맞닿는 지점을 정지 상태로 살펴볼 수 있다. 영상 검수에서는 이 접점이 다음 프레임에서도 이어지는지 별도로 확인해야 한다. 정지 이미지의 완성도만으로 영상의 접촉 동작이나 플랫폼의 인물 참조 지원 여부를 판단할 수는 없다."
+          ],
+          "images": [
+            {
+              "src": "/images/insights/pet-memory-experiences/character-board.png",
+              "alt": "하루·루나와 뒷마당을 분리한 AI 참조 보드",
+              "caption": "캐릭터 두 장, 공간 한 장, 함께 등장하는 첫 프레임을 나눠 살펴보는 참조 보드.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/garden-interaction.png",
+              "alt": "소파 위 고양이를 계단에서 올려다보는 강아지",
+              "caption": "계단과 소파가 캐릭터의 높이와 시선을 명확하게 만든다.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-grooming.png",
+              "alt": "강아지 털을 빗는 손과 브러시의 AI 콘셉트 이미지",
+              "caption": "별도 호텔 콘셉트의 접촉 장면. 카페 영상 결과가 아닌, 손과 털의 접점을 설명하는 자료.",
+              "fit": "contain",
+              "presentation": "portrait"
+            }
+          ]
         }
       ],
       "faqs": [
@@ -241,13 +305,13 @@ export const petMemoryProductionExperiences = {
       "shortTitle": "An AI Pet Memorial Film Built Around Happy Memories",
       "description": "How FourFeetz shaped an AI pet memorial film around home, outdoor memories and a shared sunset, preserving companionship instead of depicting a goodbye.",
       "eyebrow": "FourFeetz Production Experience",
-      "hero": "/images/services/pet-memorial-0914-cover.jpg",
-      "heroAlt": "FourFeetz pet memorial film cover showing a person and dog watching the sunset together",
-      "heroCaption": "The cover published with the FourFeetz pet memorial service, including the closing message about shared memories.",
+      "hero": "/images/insights/pet-memory-experiences/memorial-closing.png",
+      "heroAlt": "AI memorial closing image of a person and dog watching the sunset",
+      "heroCaption": "Supplied memorial closing artwork, pairing a shared sunset with a message about lasting memories.",
       "heroFit": "contain",
       "published": "2026-09-16",
-      "updated": "2026-09-16",
-      "readTime": "3 min read",
+      "updated": "2026-09-17",
+      "readTime": "5 min read",
       "verdict": "We chose not to recreate a departure. An ordinary peaceful moment, happy outdoor memories and a final shot together gave this memorial film its emotional direction.",
       "category": "Production Record",
       "tags": [
@@ -334,6 +398,24 @@ export const petMemoryProductionExperiences = {
               "presentation": "portrait"
             }
           ]
+        },
+        {
+          "id": "production-image-notes",
+          "title": "Reading the order of memories in the storyboard",
+          "paragraphs": [
+            "The supplied memorial board moves through indoor rest and an embrace, outdoor running, and a shared sunset. Small everyday moments lead into a closing composition about the relationship. These are AI production images, not archival photographs of a real pet or a documented client case.",
+            "The board can be read as three scene roles: rest, activity, and being together. A toy and blanket communicate familiar comfort; grass and sunlight distinguish the active moments. The closing frame does not need another action: the person and dog looking in the same direction already carry its emotional purpose.",
+            "The closing image places its message in the sky rather than over the faces. Long text quickly consumes the available space in a vertical frame. Separating the English and Korean lines supports reading, while the final video text should still be checked in the editing stage."
+          ],
+          "images": [
+            {
+              "src": "/images/insights/pet-memory-experiences/memory-storyboard.png",
+              "alt": "AI memorial storyboard linking daily life, outdoor activity and a sunset ending",
+              "caption": "The supplied production board connects happy everyday moments to a final scene of togetherness.",
+              "fit": "contain",
+              "aspect": "landscape"
+            }
+          ]
         }
       ],
       "faqs": [
@@ -365,13 +447,13 @@ export const petMemoryProductionExperiences = {
       "shortTitle": "반려동물 추모영상: 이별보다 행복했던 기억",
       "description": "FourFeetz의 AI 반려동물 추모영상 제작 경험. 떠나는 장면 대신 집, 산책, 잔디밭과 함께 보는 석양을 선택하고 추억 중심으로 감정을 구성한 이유를 설명합니다.",
       "eyebrow": "FourFeetz 실제 제작 경험",
-      "hero": "/images/services/pet-memorial-0914-cover.jpg",
-      "heroAlt": "반려동물과 보호자가 나란히 석양을 보는 FourFeetz 추모영상 표지",
-      "heroCaption": "FourFeetz 반려동물 추모영상 서비스에 공개된 표지입니다. 함께했던 순간을 기억하는 마무리 문구를 담았습니다.",
+      "hero": "/images/insights/pet-memory-experiences/memorial-closing.png",
+      "heroAlt": "보호자와 반려동물이 함께 노을을 보는 AI 추모영상 엔딩 이미지",
+      "heroCaption": "제공된 추모영상 엔딩 이미지: 함께했던 순간을 기억하는 문구와 노을 구도.",
       "heroFit": "contain",
       "published": "2026-09-16",
-      "updated": "2026-09-16",
-      "readTime": "약 3분",
+      "updated": "2026-09-17",
+      "readTime": "5분 읽기",
       "verdict": "이번 추모영상에서는 떠나는 모습을 재현하지 않았습니다. 평온한 일상, 행복했던 야외 기억, 마지막까지 함께 있는 장면으로 보호자와 반려동물의 관계를 표현했습니다.",
       "category": "실제 제작 기록",
       "tags": [
@@ -450,6 +532,24 @@ export const petMemoryProductionExperiences = {
               "presentation": "portrait"
             }
           ]
+        },
+        {
+          "id": "production-image-notes",
+          "title": "스토리보드에서 확인한 기억의 순서",
+          "paragraphs": [
+            "제공한 추모영상 보드는 실내에서 쉬는 모습과 보호자의 포옹, 야외에서 달리는 모습, 함께 노을을 보는 장면으로 이어진다. 앞의 작은 일상들이 쌓인 뒤 마지막에 관계를 보여주는 구성이다. 이 자료는 AI 제작 이미지이며 실제 반려동물의 생전 사진이나 고객 사례로 소개하지 않는다.",
+            "보드의 모든 컷을 같은 비중으로 넣기보다는 휴식·활동·함께 머무는 장면으로 역할을 나누어 읽을 수 있다. 장난감과 담요는 편안한 일상의 단서가 되고, 잔디와 햇빛은 활동 장면을 구분한다. 마지막 컷에서는 행동을 추가하는 대신 보호자와 반려동물이 같은 방향을 바라보는 구도 자체가 감정을 전달한다.",
+            "마지막 이미지의 문구는 얼굴 위를 가리지 않는 하늘 영역에 놓여 있다. 세로 화면에서는 문장이 길어지면 여백이 빠르게 줄어들므로 영문과 한글을 나누어 읽히게 하고, 실제 영상에서는 편집 단계의 텍스트로 다시 확인하는 것이 적절하다."
+          ],
+          "images": [
+            {
+              "src": "/images/insights/pet-memory-experiences/memory-storyboard.png",
+              "alt": "일상·야외 활동·노을 엔딩을 연결한 AI 추모영상 스토리보드",
+              "caption": "제공된 작업 보드: 행복했던 일상에서 함께 있는 마지막 장면으로 연결한다.",
+              "fit": "contain",
+              "aspect": "landscape"
+            }
+          ]
         }
       ],
       "faqs": [
@@ -483,13 +583,13 @@ export const petMemoryProductionExperiences = {
       "shortTitle": "Protoface + Seedance 2.0: A 15-Second Multi-Scene Test",
       "description": "What FourFeetz learned from a roughly 15-second pet-memory sequence in Protoface and Seedance 2.0: one action per scene, emotional boundaries and edited titles.",
       "eyebrow": "FourFeetz Production Experience",
-      "hero": "/images/resources/ai-short-film-workflow-detail.png",
-      "heroAlt": "Editorial illustration of a storyboard, film strip and editing timeline",
-      "heroCaption": "An existing workflow illustration showing scene planning and editing, not an output frame from this 15-second test.",
+      "hero": "/images/insights/pet-memory-experiences/memory-storyboard.png",
+      "heroAlt": "AI production storyboard connecting everyday and outdoor scenes to a sunset ending",
+      "heroCaption": "Supplied memory-scene storyboard. Still composition and continuity in the resulting video require separate review.",
       "heroFit": "contain",
       "published": "2026-09-16",
-      "updated": "2026-09-16",
-      "readTime": "3 min read",
+      "updated": "2026-09-17",
+      "readTime": "5 min read",
       "verdict": "For this 15-second test, one main action per scene was easier to manage than a longer prompt. We excluded imagery that conflicted with the emotional purpose and added important wording during final editing.",
       "category": "Production Record",
       "tags": [
@@ -567,6 +667,45 @@ export const petMemoryProductionExperiences = {
             "And for important titles or memorial messages, adding typography during final editing can be more reliable than asking the video model to generate the text itself.",
             "Through these experiments, FourFeetz Studios is focusing not only on AI generation quality, but on building a production workflow that can be used for real creative services."
           ]
+        },
+        {
+          "id": "production-image-notes",
+          "title": "One scene, one action: a separate hotel concept series",
+          "paragraphs": [
+            "The supplied hotel series presents arrival, resting awake, running on grass, and sleeping as four separate states. These are AI concept images from another project, not extracted frames from the approximately 15-second test discussed above. They provide concrete comparisons for the size of an action assigned to each shot.",
+            "In the arrival image, the threshold and lobby establish direction. In the running image, the puppy approaches the camera with paws visible against the grass. The bed and sleeping images depend more on posture and expression. Keeping those different roles avoids adding travel and camera motion to every shot.",
+            "The awake and sleeping images both include bedding and a toy, but that does not establish an identical room. Before joining such shots, compare the room layout and prop positions; mismatched images can work as separate memories instead. Logos and lettering visible in the stills also need a readability check in the final edit, since their stability in motion is not established by these images."
+          ],
+          "images": [
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-arrival.png",
+              "alt": "AI concept of a puppy entering a hotel lobby",
+              "caption": "Arrival: the threshold and lobby establish the direction of travel.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-bed.png",
+              "alt": "AI concept of a puppy resting awake beside bedding and a toy",
+              "caption": "Staying: posture and expression take priority over movement.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-play.png",
+              "alt": "AI concept of a puppy running toward the camera in a hotel garden",
+              "caption": "Activity: approach direction and paw placement are concrete review points.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-rest.png",
+              "alt": "AI concept of a puppy sleeping with a soft toy",
+              "caption": "Rest: a state suited to subtle breathing and a relaxed posture.",
+              "fit": "contain",
+              "presentation": "portrait"
+            }
+          ]
         }
       ],
       "faqs": [
@@ -598,13 +737,13 @@ export const petMemoryProductionExperiences = {
       "shortTitle": "Protoface + Seedance 2.0: 15초 다중 장면 제작기",
       "description": "Protoface Studio와 Seedance 2.0으로 약 15초 안에 반려동물의 여러 기억을 연결하며 배운 한 장면·한 행동, 감정 연출 제한과 후편집 텍스트 처리 경험입니다.",
       "eyebrow": "FourFeetz 실제 제작 경험",
-      "hero": "/images/resources/ai-short-film-workflow-detail.png",
-      "heroAlt": "장면 보드, 필름과 편집 타임라인으로 영상 제작 흐름을 표현한 일러스트",
-      "heroCaption": "여러 장면의 구성과 편집 흐름을 표현한 기존 리소스 일러스트입니다. 이번 15초 테스트의 실제 출력 프레임은 아닙니다.",
+      "hero": "/images/insights/pet-memory-experiences/memory-storyboard.png",
+      "heroAlt": "일상과 야외 장면을 노을 엔딩으로 연결한 AI 작업 스토리보드",
+      "heroCaption": "제공된 기억 장면 스토리보드. 정지 이미지의 장면 설계와 실제 영상의 연결 품질은 별도로 검수한다.",
       "heroFit": "contain",
       "published": "2026-09-16",
-      "updated": "2026-09-16",
-      "readTime": "약 3분",
+      "updated": "2026-09-17",
+      "readTime": "5분 읽기",
       "verdict": "이번 15초 테스트에서는 긴 프롬프트보다 장면마다 한 가지 행동을 정하는 방식이 흐름을 관리하기 쉬웠습니다. 감정과 맞지 않는 연출을 제외하고 중요한 문구는 최종 편집에서 추가했습니다.",
       "category": "실제 제작 기록",
       "tags": [
@@ -682,6 +821,45 @@ export const petMemoryProductionExperiences = {
           "paragraphs": [
             "그리고 AI가 생성한 영상 안에 중요한 문구를 직접 만들게 하기보다는 최종 편집 과정에서 텍스트를 추가하는 방식이 더 안정적이었습니다.",
             "FourFeetz Studios는 이러한 테스트를 통해 AI 영상 생성 자체보다 실제 서비스에 사용할 수 있는 제작 워크플로우를 만들어가고 있습니다."
+          ]
+        },
+        {
+          "id": "production-image-notes",
+          "title": "별도 호텔 콘셉트에서 살펴본 한 장면, 한 동작",
+          "paragraphs": [
+            "첨부한 호텔 시리즈는 입장, 침대에서 머무르기, 잔디에서 달리기, 잠들기의 네 상태를 각각 한 이미지로 보여준다. 이 자료는 앞서 설명한 약 15초 테스트의 영상 추출본이 아니라 별도 프로젝트의 AI 콘셉트 이미지다. 여러 장면을 설계할 때 한 컷에 담을 행동의 크기를 비교하는 자료로 배치했다.",
+            "입장 컷은 문턱과 안쪽 로비가 진행 방향을 보여준다. 달리기 컷은 카메라 쪽으로 다가오는 강아지와 잔디 위 발의 위치가 중심이다. 침대 컷과 수면 컷은 동작보다 표정과 자세가 중요하다. 이 차이를 유지해야 모든 컷에 이동과 카메라 움직임을 반복해서 넣지 않게 된다.",
+            "침대 컷과 수면 컷에는 공통으로 침구와 장난감이 보이지만, 같은 방의 연속 장면이라고 단정할 수는 없다. 연결 편집 전에는 배경 구조와 소품 위치를 대조하고, 일치하지 않는 컷은 별개의 기억 장면으로 사용하는 편이 자연스럽다. 이미지 속 로고와 글자도 영상에서 유지된다고 보장되지 않으므로 최종 편집에서 가독성을 확인할 항목으로 남긴다."
+          ],
+          "images": [
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-arrival.png",
+              "alt": "호텔 로비 문턱을 넘어가는 강아지의 AI 콘셉트",
+              "caption": "입장: 문턱과 로비가 이동 방향을 보여준다.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-bed.png",
+              "alt": "침구와 장난감 옆에 머무는 강아지의 AI 콘셉트",
+              "caption": "머무르기: 이동보다 자세와 표정을 중심으로 보는 컷.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-play.png",
+              "alt": "호텔 정원에서 카메라 쪽으로 달리는 강아지의 AI 콘셉트",
+              "caption": "활동: 접근 방향과 발의 위치를 검수할 수 있는 구도.",
+              "fit": "contain",
+              "presentation": "portrait"
+            },
+            {
+              "src": "/images/insights/pet-memory-experiences/hotel-rest.png",
+              "alt": "장난감을 안고 침대에서 잠든 강아지의 AI 콘셉트",
+              "caption": "휴식: 작은 호흡과 편안한 자세에 집중할 수 있는 상태.",
+              "fit": "contain",
+              "presentation": "portrait"
+            }
           ]
         }
       ],
