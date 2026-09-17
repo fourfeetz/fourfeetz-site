@@ -1,4 +1,5 @@
 export const koreanFilmDescriptions: Record<string, string> = {
+  "moonlit-lake-puppy-kitten": "달빛이 비치는 호숫가에서 강아지는 쿠션 위에 앉아 있고 고양이는 곁을 지킵니다. 따뜻한 모닥불과 두 곡의 ‘Moonlit Lake’ 음악을 함께 감상하는 FourFeetz Relax Moments 5편입니다.",
   "calming-dog-music-puppy-kitten-fireplace-rain": "창밖에는 잔잔한 비가 내리고, 따뜻한 벽난로 옆에서는 강아지와 아기 고양이가 편안하게 잠들어 있습니다. 부드러운 음악과 빗소리, 따뜻한 불빛이 반려동물과 보호자 모두에게 평온한 휴식의 순간을 전합니다.",
   "haru-snowy-hearth-nap": "눈 내리는 창가와 따뜻한 벽난로 곁에서 HARU가 곰 인형과 함께 잠드는 조용한 겨울 힐링 영상입니다.",
   "haru-first-journey": "새로운 집을 향해 첫 여행을 시작한 구조견 HARU의 호기심과 용기를 담은 따뜻한 시네마틱 이야기입니다.",
@@ -205,6 +206,8 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
 };
 
 export const koreanMusicDescriptions: Record<string, string> = {
+  "moonlit-lake-part-1": "달빛 호수 영상에 사용된 두 곡 가운데 첫 번째 음악입니다. 완성 영상과 별도로 원곡을 들을 수 있습니다.",
+  "moonlit-lake-part-2": "달빛 호수 영상에 사용된 두 곡 가운데 두 번째 음악입니다. 완성 영상과 별도로 원곡을 들을 수 있습니다.",
   "calming-fireplace-rain-for-dogs": "강아지와 반려동물의 휴식과 수면을 위해 잔잔한 빗소리와 따뜻한 벽난로의 분위기를 담은 편안한 오리지널 트랙입니다.",
   "rainy-window-with-haru-luna": "비 오는 창가에서 조용히 쉬는 HARU와 LUNA를 위해 제작한 따뜻한 피아노 기반의 오리지널 음악",
   "ruru-theme": "RURU의 호기심 많고 수줍은 성격에서 영감을 받은 장난스럽고 포근한 공식 테마입니다.",

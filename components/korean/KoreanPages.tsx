@@ -230,13 +230,13 @@ export function KoreanFilmDetail({ slug }: { slug: string }) {
   const item = getFilm(slug); if (!item) notFound();
   const title = item.koreanTitle ?? item.title;
   const insight = item.relatedInsights?.[0];
-  const music = item.musicSlugs?.[0];
+  const music = item.musicSlugs ?? [];
   return <main>
     <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center">
       <div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanFilmDescriptions[item.slug]}</p><div className="mt-7 flex flex-wrap gap-3">
         {item.characterSlugs?.map((characterSlug) => <Link key={characterSlug} href={`/ko/characters/${characterSlug}`} className={secondaryButton}>{item.character} 캐릭터</Link>)}
         {insight ? <Link href={`/ko${insight.href}`} className={secondaryButton}>제작기 보기</Link> : null}
-        {music ? <Link href={`/ko/music/${music}`} className={secondaryButton}>음악 듣기</Link> : null}
+        {music.map((musicSlug, index) => <Link key={musicSlug} href={`/ko/music/${musicSlug}`} className={secondaryButton}>{music.length > 1 ? `음악 ${index + 1} 듣기` : "음악 듣기"}</Link>)}
         <Link href="/ko/videos" className={secondaryButton}>관련 작품 보기</Link>
       </div></div>
       <div className="relative aspect-video overflow-hidden rounded-[32px] border border-[#eadfce] bg-white"><Image src={item.thumbnail} alt={`${title} 필름 장면`} fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" /></div>
