@@ -38,6 +38,7 @@ export type ToolNewsInsight = {
   notYetProven: string[];
   sections: ToolNewsSection[];
   checklist: string[];
+  related?: { label: string; title: string; href: string; description?: string }[];
 };
 
 export const toolNewsInsights: Record<ToolNewsInsightSlug, ToolNewsInsight> = {
@@ -315,7 +316,7 @@ export const toolNewsInsights: Record<ToolNewsInsightSlug, ToolNewsInsight> = {
   "luma-ray-3-2-production-control": {
     slug: "luma-ray-3-2-production-control",
     title: "Luma Ray3.2 Pushes AI Video Toward the Post Pipeline: What the Specs Really Change",
-    shortTitle: "Luma Ray3.2 Production Control",
+    shortTitle: "Luma Ray3.2 Multi-Keyframe, HDR & EXR",
     description:
       "Ray3.2 adds multi-keyframe direction, longer 1080p clips, HDR and EXR output, performance tracking and API access. Here is what those features could change—and what still requires a real production test.",
     category: "AI Video",
@@ -401,6 +402,11 @@ export const toolNewsInsights: Record<ToolNewsInsightSlug, ToolNewsInsight> = {
       "Inspect EXR channels, highlights and edges in the actual finishing software.",
       "Test a vertical reframe for story composition as well as pixel preservation.",
       "Measure accepted seconds, setup time and rejected generations against the current workflow.",
+    ],
+    related: [
+      { label: "Character Test Subject", title: "Meet RURU the Red Panda", href: "/characters/ruru" },
+      { label: "Related Production Guide", title: "Extend AI Video Scenes in Google Flow", href: "/insights/extend-ai-video-scenes-google-flow" },
+      { label: "Related Production Guide", title: "Reduce Character Inconsistency in AI Video", href: "/insights/reduce-character-inconsistency-ai-video" },
     ],
   },
 };

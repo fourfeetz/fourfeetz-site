@@ -47,7 +47,15 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
       { "@type": "ListItem", position: 4, name: article.shortTitle, item: canonical },
     ],
   };
-  const related = Object.values(toolNewsInsights).filter((item) => item.slug !== article.slug).slice(0, 3);
+  const related = article.related ?? Object.values(toolNewsInsights)
+    .filter((item) => item.slug !== article.slug)
+    .slice(0, 3)
+    .map((item) => ({
+      label: "AI Tool Update",
+      title: item.shortTitle,
+      href: `/insights/${item.slug}`,
+      description: item.description,
+    }));
 
   return (
     <main className="bg-[#fffdf8]">
@@ -159,10 +167,10 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
             </div>
             <div className="mt-7 grid gap-4 md:grid-cols-3">
               {related.map((item) => (
-                <Link key={item.slug} href={`/insights/${item.slug}`} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                  <span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">AI Tool Update</span>
-                  <strong className="mt-3 block text-lg text-[#2b2119]">{item.shortTitle}</strong>
-                  <span className="mt-3 block leading-7 text-[#76685d]">{item.description}</span>
+                <Link key={item.href} href={item.href} className="rounded-[24px] border border-[#dfcfbd] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                  <span className="text-xs font-black uppercase tracking-[0.16em] text-[#a67c52]">{item.label}</span>
+                  <strong className="mt-3 block text-lg text-[#2b2119]">{item.title}</strong>
+                  {item.description ? <span className="mt-3 block leading-7 text-[#76685d]">{item.description}</span> : null}
                 </Link>
               ))}
             </div>

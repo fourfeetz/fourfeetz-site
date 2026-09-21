@@ -6,7 +6,10 @@ import {
 
 const slug = "extend-ai-video-scenes-google-flow";
 
-export const metadata = createNewProductionGuideMetadata(slug, "en");
+export const metadata = {
+  ...createNewProductionGuideMetadata(slug, "en"),
+  title: { absolute: "Extend AI Video Scenes in Google Flow | FourFeetz" },
+};
 
 export default function Page() {
   return <ProductionInsightArticle article={newProductionGuides[slug].en} />;
