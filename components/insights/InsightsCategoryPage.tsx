@@ -23,7 +23,7 @@ export default function InsightsCategoryPage({
   const hubPath = language === "ko" ? "/ko/insights" : "/insights";
   const otherPath = language === "ko" ? `/ko/insights/${otherGroup}` : `/insights/${otherGroup}`;
   const hasOtherGroup = language === "en" || hasKoreanInsightGroupContent(otherGroup);
-  const homePath = language === "ko" ? "/ko" : "/";
+  const homePath = language === "ko" ? "/ko" : "/en";
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",

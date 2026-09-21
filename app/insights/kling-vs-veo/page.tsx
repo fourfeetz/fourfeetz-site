@@ -116,7 +116,7 @@ export default function Page() {
       <article>
         <header className="mx-auto max-w-4xl px-6 py-16 md:py-20">
           <nav aria-label="Breadcrumb" className="text-sm font-bold text-[#8a7768]">
-            <Link href="/">Home</Link><span className="px-2">/</span>
+            <Link href="/en">Home</Link><span className="px-2">/</span>
             <Link href="/insights">Insights</Link><span className="px-2">/</span>
             <Link href="/insights/news">Studio Analysis</Link>
           </nav>
@@ -281,4 +281,3 @@ export default function Page() {
     </main>
   );
 }
-

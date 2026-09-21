@@ -225,7 +225,7 @@ export default function ProductionInsightArticle({
   const contentType = classifyInsight(article.slug, "guides");
   const isStudioAnalysis = contentType === "studio-analysis";
   const labels = articleLabels[language];
-  const homePath = isKorean ? "/ko" : "/";
+  const homePath = isKorean ? "/ko" : "/en";
   const insightsPath = isKorean ? "/ko/insights" : "/insights";
   const guidesPath = `${insightsPath}?group=guides`;
   const analysisPath = `${insightsPath}?group=news`;
@@ -251,7 +251,7 @@ export default function ProductionInsightArticle({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: labels.home, item: isKorean ? `${siteUrl}/ko` : siteUrl },
+      { "@type": "ListItem", position: 1, name: labels.home, item: `${siteUrl}${homePath}` },
       { "@type": "ListItem", position: 2, name: labels.insights, item: `${siteUrl}${insightsPath}` },
       { "@type": "ListItem", position: 3, name: listingLabel, item: `${siteUrl}${listingPath}` },
       { "@type": "ListItem", position: 4, name: article.shortTitle, item: canonical },

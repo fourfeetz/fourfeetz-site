@@ -41,7 +41,7 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/en` },
       { "@type": "ListItem", position: 2, name: "Insights", item: `${siteUrl}/insights` },
       { "@type": "ListItem", position: 3, name: "Studio Analysis / Tool Updates", item: `${siteUrl}/insights/news` },
       { "@type": "ListItem", position: 4, name: article.shortTitle, item: canonical },
@@ -56,7 +56,7 @@ export default function ToolNewsInsightArticle({ article }: { article: ToolNewsI
       <article>
         <header className="mx-auto max-w-5xl px-6 pb-12 pt-16 md:pb-16 md:pt-24">
           <nav aria-label="Breadcrumb" className="text-sm font-bold text-[#8a7768]">
-            <Link href="/" className="hover:text-[#6f4e37]">Home</Link>
+            <Link href="/en" className="hover:text-[#6f4e37]">Home</Link>
             <span className="px-2">/</span>
             <Link href="/insights" className="hover:text-[#6f4e37]">Insights</Link>
             <span className="px-2">/</span>

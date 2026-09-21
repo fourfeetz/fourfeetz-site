@@ -117,7 +117,7 @@ const connectLinks: { label: string; href: string; icon: LucideIcon }[] = [
   { label: "YouTube", href: "/social#youtube", icon: MonitorPlay },
   { label: "TikTok", href: "/social#tiktok", icon: Clapperboard },
   { label: "Instagram", href: "/social#instagram", icon: Camera },
-  { label: "Website", href: "/", icon: Globe2 },
+  { label: "Website", href: "/en", icon: Globe2 },
   { label: "Contact", href: "/contact", icon: Mail },
 ];
 

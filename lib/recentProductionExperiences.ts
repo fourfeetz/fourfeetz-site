@@ -172,7 +172,7 @@ export const recentProductionExperiences: Record<
         { id: "workflow", title: "다시 사용한다면 이렇게 진행합니다", paragraphs: ["승인된 기준 이미지 하나와 짧은 연기로 먼저 테스트하겠습니다. 정체성과 출력 조건을 통과한 다음 Google Flow나 Seedance에서 도입, 반응 또는 전환 장면을 만들고 CapCut에서 전체 순서와 사운드를 완성하는 방식이 적합합니다.", "Protoface의 가장 적합한 역할은 모든 영상 제작을 대신하는 것이 아니라 이야기에 필요한 얼굴 중심 연기를 빠르게 확인하고 만드는 것입니다. 완성 결과가 FourFeetz의 전체 시각 세계 안에 남아 있을 때만 사용할 가치가 있습니다."], steps: ["현재 크레딧, 워터마크와 상업적 사용 조건을 확인합니다.", "승인된 기준 이미지 하나와 짧은 연기로 테스트합니다.", "전체 영상에서 얼굴, 귀, 주둥이와 감정적 성격을 검토합니다.", "주변 장면을 만들기 전에 사용할 출력본을 승인합니다.", "전체 편집에서 연속성, 사운드와 전달 형식을 마무리합니다."] },
       ],
       faqs: [{ question: "모든 반려동물 영상에 Protoface를 추천하나요?", answer: "아니요. 얼굴 중심 또는 대사 중심 연기가 필요한 경우에 적합합니다. 많은 반려동물 이야기는 일반적인 이미지 투 비디오 움직임과 편집이 더 자연스럽습니다." }, { question: "테스트 크레딧으로 장기간 무료 제작이 가능한가요?", answer: "아니요. 받은 크레딧은 초기 테스트를 위한 것이었습니다. 현재 크레딧, 추천 보상, 워터마크와 상업 이용 조건은 실제 서비스에서 확인해야 합니다." }],
-      related: [{ label: "완성 쇼츠", title: "곰인형을 훔친 하루, 루나의 역습", href: "/ko/shorts/haru-luna-teddy-bear-chase" }, { label: "관련 테스트", title: "MagicLight와 Seedance 실제 제작 테스트", href: "/ko/insights/magiclight-seedance-2-real-production-test" }, { label: "제작 공개 원칙", title: "캐릭터 제작에서 비공개로 관리하는 것", href: "/ko/insights/what-we-keep-private-character-production" }],
+      related: [{ label: "완성 쇼츠", title: "곰인형을 훔친 하루, 루나의 역습", href: "/ko/shorts/haru-luna-teddy-bear-chase" }, { label: "관련 영문 테스트", title: "MagicLight와 Seedance 실제 제작 테스트", href: "/insights/magiclight-seedance-2-real-production-test" }, { label: "제작 공개 원칙", title: "캐릭터 제작에서 비공개로 관리하는 것", href: "/ko/insights/what-we-keep-private-character-production" }],
     },
   },
 };

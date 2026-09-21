@@ -116,7 +116,7 @@ export const insightArticles: InsightArticle[] = [
     title: "Runway Gen-4 Review",
     description: "A practical review of image consistency, motion quality, camera control, and production workflow.",
     readTime: "6 min read",
-    href: "/insights/runway-gen-4-review",
+    href: "/insights/runway-gen45-review",
     image: "/images/insights/runway/09_og-image.png",
     tags: ["AI Video", "Tools", "Filmmaking"],
     keywords: ["Runway", "Gen-4", "character consistency", "camera control"],

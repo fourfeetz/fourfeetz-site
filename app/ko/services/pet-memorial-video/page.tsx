@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   Camera,
@@ -165,11 +166,13 @@ export default function Page() {
 
       <section className="px-6 py-16 md:px-10 lg:px-14 lg:py-24">
         <div className="mx-auto grid max-w-[1320px] overflow-hidden rounded-[30px] bg-[#f7f0e8] shadow-[0_12px_42px_rgba(91,65,43,.07)] lg:grid-cols-[1.02fr_.98fr]">
-          <div className="min-h-[480px] overflow-hidden lg:min-h-[620px]">
-            <img
+          <div className="relative min-h-[480px] overflow-hidden lg:min-h-[620px]">
+            <Image
               src={storyImageSrc}
               alt="반려동물과 함께한 따뜻한 일상을 담은 추억 이미지"
-              className="h-full min-h-[480px] w-full object-cover lg:min-h-[620px]"
+              fill
+              sizes="(min-width: 1024px) 51vw, 100vw"
+              className="object-cover"
             />
           </div>
 

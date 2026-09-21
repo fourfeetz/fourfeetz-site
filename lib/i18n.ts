@@ -278,7 +278,7 @@ export const dict = {
 };
 
 export const navItems = [
-  { href: "/", key: "home" },
+  { href: "/en", key: "home" },
   { href: "/about", key: "about" },
   { href: "/videos", key: "videos" },
   { href: "/characters", key: "characters" },
@@ -487,7 +487,6 @@ export const animals = characters.map((character) => ({
   descEn: character.desc,
   descKo: character.desc,
 }));
-
 
 
 

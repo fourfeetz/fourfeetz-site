@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const coverSrc = "/images/services/pet-memorial-0914-cover.jpg";
 const videoSrc = "/videos/services/pet-memorial-0914.mp4";
 
@@ -18,11 +20,13 @@ export default function PetMemorialMedia() {
 
         <div className="mt-10 grid items-start gap-8 lg:grid-cols-2">
           <figure className="overflow-hidden rounded-[32px] border border-[#eadfce] bg-white shadow-sm">
-            <img
+            <Image
               src={coverSrc}
               alt="반려동물 추모영상 대표 이미지 - 노을을 바라보는 보호자와 반려견"
+              width={1080}
+              height={1880}
+              sizes="(min-width: 1024px) 50vw, 100vw"
               className="aspect-[1080/1880] h-auto w-full object-cover"
-              loading="lazy"
             />
             <figcaption className="px-6 py-5 text-sm leading-6 text-[#76685d]">
               추모영상 커버 이미지

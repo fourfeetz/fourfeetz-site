@@ -51,6 +51,7 @@ type GuideSeed = {
   keywords: { en: string[]; ko: string[] };
   tools: string[];
   characters: string[];
+  updated?: string;
   en: LocalizedCopy;
   ko: LocalizedCopy;
 };
@@ -276,6 +277,7 @@ const guides: GuideSeed[] = [
   },
   {
     slug: "common-ai-video-generation-failures",
+    updated: "2026-09-21",
     hero: "/images/insights/production-guides/ai-video-generation-failures-wide.webp",
     heroAlt: {
       en: "HUGO grazing while HARU runs through a golden meadow in a 16:9 landscape scene",
@@ -295,7 +297,7 @@ const guides: GuideSeed[] = [
       shortTitle: "8 Common AI Video Generation Failures We Encountered",
       description:
         "Eight recurring AI video failures observed during FourFeetz production, with practical ways to identify the first broken layer before regenerating.",
-      readTime: "10 min read",
+      readTime: "12 min read",
       verdict:
         "The fastest repair begins with a precise rejection reason. We separate body, identity, object, environment, camera and action failures instead of treating every weak result as a prompt problem.",
       sections: [
@@ -306,6 +308,24 @@ const guides: GuideSeed[] = [
             "Failed generations are useful only when the rejection reason is specific. During FourFeetz production, notes such as “looks strange” did not help the next test. We began recording the first visible break: a paw changed shape, a face aged after re-entry, a prop switched sides, or the camera moved when the shot required stillness.",
             "The list below combines recurring observations across real production tests. It does not expose our private prompts or character bible. Its purpose is to help creators inspect generated clips in a repeatable order and decide whether to trim, edit, replace or regenerate a shot.",
           ],
+        },
+        {
+          id: "why-failures-cluster",
+          title: "Why These Failures Cluster Around the Same Moments",
+          paragraphs: [
+            "Our tests do not reveal a model's private internal reasoning, so we do not treat a visible defect as proof of one technical cause. What we can observe is where failures cluster: occlusion, re-entry, fast direction changes, physical contact and shots that ask the subject, camera and environment to change at the same time. In each case, the next frame has more competing visual relationships to preserve.",
+            "That distinction matters when troubleshooting. Instead of claiming that a model cannot understand a prompt, we identify the moment where the visible evidence becomes ambiguous or overloaded. We then keep the same reference and story goal while simplifying one demand: maintain the camera, keep the face visible, remove a secondary gesture or split a prop interaction into its own shot.",
+          ],
+          table: {
+            title: "Turn a vague failure into a testable question",
+            headers: ["Visible moment", "Question to test", "One-variable retry"],
+            rows: [
+              ["Body breaks during a turn", "Is the turn plus camera move too much for one shot?", "Lock the camera and keep the turn"],
+              ["Face changes after occlusion", "Does identity drift begin when key features disappear?", "Keep the face visible and preserve the action"],
+              ["Prop switches sides", "Are handoff and locomotion competing?", "Test the handoff as a separate shot"],
+              ["Quiet scene becomes windy", "Is background motion competing with the subject?", "Request a still environment and keep the subject action"],
+            ],
+          },
         },
         {
           id: "body-identity",
@@ -373,6 +393,21 @@ const guides: GuideSeed[] = [
             ],
           },
         },
+        {
+          id: "controlled-retry",
+          title: "A Reproducible Retry Test Instead of a Full Prompt Rewrite",
+          paragraphs: [
+            "For a rejected clip, we save the input reference, tool and model version, aspect ratio, duration, prompt, output and the timecode of the first visible failure. The next generation keeps those conditions and changes one relevant instruction or shot decision. This is a production comparison, not a universal benchmark: generation services can return different results from the same input.",
+            "We compare both clips at normal speed, then at reduced speed around the recorded timecode. A retry is accepted only when the targeted failure improves without creating a more important identity, anatomy or story problem elsewhere. Recording accepted seconds and rejected generations also gives a more honest cost signal than quoting the price of one generation that may not be usable.",
+          ],
+          steps: [
+            "Record the first broken frame and classify the failure layer.",
+            "Keep the reference, model, duration and story goal unchanged.",
+            "Change one instruction or divide one overloaded action.",
+            "Compare the original and retry at normal and reduced speed.",
+            "Log accepted seconds, new defects and the decision to keep or reject.",
+          ],
+        },
       ],
       faqs: [
         {
@@ -398,7 +433,7 @@ const guides: GuideSeed[] = [
       shortTitle: "FourFeetz 제작 중 실제로 겪은 AI 영상 생성 실패 사례 8가지",
       description:
         "FourFeetz의 실제 제작 테스트에서 반복적으로 발견한 신체, 외형, 소품, 환경, 카메라와 동작 오류를 점검 순서와 함께 정리합니다.",
-      readTime: "약 10분",
+      readTime: "약 12분",
       verdict:
         "실패를 빠르게 고치려면 먼저 거절 이유를 정확하게 적어야 합니다. 모든 문제를 프롬프트 문제로 묶지 않고 신체, 정체성, 소품, 환경, 카메라와 행동 중 어디서 처음 깨졌는지 구분합니다.",
       sections: [
@@ -409,6 +444,24 @@ const guides: GuideSeed[] = [
             "FourFeetz 제작 과정에서 ‘이상해 보인다’는 기록은 다음 테스트에 도움이 되지 않았습니다. 발 모양이 바뀌었는지, 화면 밖에서 돌아온 얼굴이 달라졌는지, 소품 위치가 이동했는지, 고정해야 할 카메라가 움직였는지처럼 처음 발생한 문제를 구체적으로 기록합니다.",
             "아래 내용은 실제 제작 테스트에서 반복적으로 확인한 사례를 정리한 것입니다. 비공개 프롬프트나 캐릭터 바이블을 공개하지 않으며, 생성된 영상을 일정한 순서로 검토하고 잘라낼지, 편집할지, 다시 만들지 판단하는 데 목적이 있습니다.",
           ],
+        },
+        {
+          id: "why-failures-cluster",
+          title: "왜 비슷한 순간에 오류가 몰리는가",
+          paragraphs: [
+            "실제 테스트만으로 모델 내부의 판단 과정을 알 수는 없으므로, 화면에 보이는 오류 하나를 특정 기술 원인의 증거라고 단정하지 않습니다. 다만 가림, 화면 재등장, 빠른 방향 전환, 신체와 소품의 접촉, 피사체·카메라·환경이 동시에 바뀌는 장면에서 오류가 반복되는지는 관찰할 수 있었습니다. 이런 순간에는 다음 프레임에서 유지해야 할 시각적 관계가 많아집니다.",
+            "문제를 고칠 때도 ‘모델이 프롬프트를 이해하지 못했다’고 추측하기보다 화면의 정보가 처음 모호해지거나 요구가 겹치는 지점을 찾습니다. 같은 기준 이미지와 이야기 목적은 유지하면서 카메라를 고정하거나, 얼굴을 계속 보이게 하거나, 보조 동작을 빼거나, 소품 상호작용을 별도 장면으로 나눠 한 가지 조건만 시험합니다.",
+          ],
+          table: {
+            title: "막연한 실패를 확인 가능한 질문으로 바꾸기",
+            headers: ["문제가 보이는 순간", "확인할 질문", "한 가지 조건만 바꾼 재시도"],
+            rows: [
+              ["몸을 돌릴 때 신체가 깨짐", "회전과 카메라 이동이 한 장면에 겹쳤는가?", "카메라를 고정하고 회전만 유지"],
+              ["가려진 뒤 얼굴이 달라짐", "주요 특징이 사라진 순간부터 변했는가?", "얼굴을 보이게 하고 행동은 유지"],
+              ["소품이 반대편으로 이동", "전달 동작과 이동이 경쟁하는가?", "소품 전달을 별도 장면으로 시험"],
+              ["고요한 장면에 강한 바람 발생", "배경 움직임이 주된 행동과 경쟁하는가?", "환경은 고정하고 주된 행동만 유지"],
+            ],
+          },
         },
         {
           id: "body-identity",
@@ -475,6 +528,21 @@ const guides: GuideSeed[] = [
               ["얼굴, 신체 또는 인물 중복", "해당 장면 재생성", "색 보정이나 업스케일에 기대기"],
             ],
           },
+        },
+        {
+          id: "controlled-retry",
+          title: "프롬프트 전체를 바꾸지 않는 재현 가능한 재시도",
+          paragraphs: [
+            "사용하지 못한 클립은 입력 기준 이미지, 도구와 모델 버전, 화면 비율, 길이, 프롬프트, 결과 파일과 처음 오류가 보인 시간 위치를 함께 기록합니다. 다음 생성에서는 이 조건을 유지하고 관련 지시나 장면 구성 하나만 바꿉니다. 생성 서비스는 같은 입력에서도 다른 결과를 낼 수 있으므로 보편적인 벤치마크가 아니라 해당 프로젝트 안의 제작 비교로 사용합니다.",
+            "두 결과는 정상 속도로 먼저 보고, 기록한 시간 주변을 느린 속도로 다시 확인합니다. 목표한 오류가 줄었더라도 더 중요한 정체성, 신체 또는 이야기 문제가 새로 생기면 채택하지 않습니다. 사용 가능한 초 수와 폐기한 생성 횟수도 함께 기록하면 한 번의 생성 가격만 보는 것보다 실제 제작비를 현실적으로 판단할 수 있습니다.",
+          ],
+          steps: [
+            "처음 깨진 프레임과 오류 범주를 기록합니다.",
+            "기준 이미지, 모델, 길이와 이야기 목적을 유지합니다.",
+            "관련 지시 하나만 바꾸거나 과도한 행동 하나를 분리합니다.",
+            "원본과 재시도를 정상 속도와 느린 속도로 비교합니다.",
+            "사용 가능한 초, 새 오류와 채택·폐기 결정을 기록합니다.",
+          ],
         },
       ],
       faqs: [
@@ -1170,7 +1238,7 @@ function createArticle(seed: GuideSeed, language: NewProductionGuideLanguage): N
     heroFit: seed.heroFit,
     heroPosition: seed.heroPosition,
     published,
-    updated: published,
+    updated: seed.updated ?? published,
     tags: seed.tags,
     keywords: seed.keywords[language],
     tools: seed.tools,
