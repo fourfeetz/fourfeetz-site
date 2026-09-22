@@ -7,6 +7,7 @@ type LocalizedInsight = ProductionInsight & {
 
 const slug = "calming-dog-music-puppy-kitten-fireplace-rain";
 const published = "2026-08-11";
+const updated = "2026-09-22";
 const uploadDate: VideoUploadDate = "2026-08-11T21:52:23+09:00";
 const poster = "/images/works/calming-fireplace-rain-puppy-kitten/puppy-kitten-fireplace-rain-poster.jpg";
 const firstShot = "/images/works/calming-fireplace-rain-puppy-kitten/puppy-kitten-fireplace-rain-first-shot.png";
@@ -17,7 +18,7 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
   en: {
     slug,
     published,
-    updated: published,
+    updated,
     eyebrow: "FourFeetz Production Notes",
     category: "Production Experience",
     title: "How We Created a Calming Fireplace and Rain Moment for Dogs",
@@ -26,7 +27,7 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
     hero: poster,
     heroAlt: "A puppy and ginger kitten sleeping together beside a fireplace and a rain-covered window",
     heroFit: "cover",
-    readTime: "7 min read",
+    readTime: "9 min read",
     verdict: "The scene feels restful because every element serves the same small idea: the animals settle without exaggerated action, the rain remains outside, the firelight holds the room together, and the music supports the pause instead of asking for attention.",
     tags: ["Relax Moments", "Calming Music", "Pets", "Rain", "Fireplace"],
     keywords: ["calming music for dogs", "puppy kitten fireplace rain", "pet relaxation video", "FourFeetz Relax Moments"],
@@ -79,6 +80,24 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
         }],
       },
       {
+        id: "production-evidence",
+        title: "From Short Motion Tests to the Published Master",
+        paragraphs: [
+          "The Episode 4 archive contains several separate opening-scene files, a clip named for the puppy struggling to stay awake, and two puppy-and-kitten sleeping results. The inspected source clips are 1280 × 720 H.264/AAC files: one opening scene runs 15 seconds, while the stay-awake and shared-sleep tests each run 8 seconds. The published web master is a separate 1920 × 1080 H.264/AAC export lasting 50.016 seconds.",
+          "Those retained files make the editorial choice concrete. The awake beat can establish the transition into rest, while the shared sleeping pose supplies the stable state that can be held longer. For the final selection, the animals’ bodies, window, rain area and fireplace needed to remain readable together; a clip that introduced more action but disturbed that balance was less useful for this quiet episode.",
+        ],
+        table: {
+          title: "Files checked for this update",
+          headers: ["Production asset", "Measured format", "Editorial role"],
+          rows: [
+            ["Opening scene", "15.000 sec · 1280 × 720", "Establish the room and the move toward rest."],
+            ["Stay-awake motion test", "8.000 sec · 1280 × 720", "Review one restrained puppy action."],
+            ["Shared sleeping test", "8.000 sec · 1280 × 720", "Review the stable two-animal resting state."],
+            ["Published web master", "50.016 sec · 1920 × 1080", "Present the approved 16:9 sequence with its final sound."],
+          ],
+        },
+      },
+      {
         id: "music-direction",
         title: "Keeping the Music Behind the Moment",
         paragraphs: [
@@ -114,7 +133,7 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
       { question: "What production tools were used?", answer: "The supplied files do not verify a production-tool list, so this article does not attribute the work to unconfirmed tools." },
     ],
     related: [
-      { label: "Watch the Film", title: "Open the Videos Library", href: "/videos?type=long-form" },
+      { label: "Watch the Finished Film", title: "Calming Music for Dogs — Fireplace and Rain", href: "/works/calming-dog-music-puppy-kitten-fireplace-rain" },
       { label: "Listen to the Track", title: "Calming Fireplace & Rain for Dogs", href: "/music/calming-fireplace-rain-for-dogs" },
       { label: "More Music", title: "Explore the FourFeetz Music Library", href: "/music" },
       { label: "Relax Moments", title: "HARU — Snowy Hearth Nap", href: "/works/haru-snowy-hearth-nap" },
@@ -123,7 +142,7 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
   ko: {
     slug,
     published,
-    updated: published,
+    updated,
     eyebrow: "FourFeetz 제작 노트",
     category: "제작 경험",
     title: "강아지를 위한 벽난로와 빗소리 영상 제작기",
@@ -132,7 +151,7 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
     hero: poster,
     heroAlt: "비 내리는 창가와 벽난로 옆에서 강아지와 아기 고양이가 함께 잠든 모습",
     heroFit: "cover",
-    readTime: "약 7분",
+    readTime: "약 9분",
     verdict: "동물의 움직임을 과장하지 않고, 비는 창밖에 머물게 하며, 불빛으로 실내의 온기를 묶고, 음악이 장면보다 앞서지 않도록 한 가지 평온한 방향을 유지한 것이 이 영상의 핵심입니다.",
     tags: ["Relax Moments", "편안한 음악", "반려동물", "비", "벽난로"],
     keywords: ["강아지를 위한 편안한 음악", "강아지 고양이 벽난로 빗소리", "반려동물 휴식 영상", "FourFeetz Relax Moments"],
@@ -185,6 +204,24 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
         }],
       },
       {
+        id: "production-evidence",
+        title: "짧은 동작 테스트에서 게시 최종본까지",
+        paragraphs: [
+          "에피소드 4 제작 폴더에는 여러 개의 시작 장면, 졸음을 참는 강아지 장면과 강아지·고양이가 함께 잠든 두 결과가 따로 남아 있습니다. 확인한 원본 클립은 1280×720 H.264/AAC 파일이며 시작 장면은 15초, 졸음을 참는 장면과 함께 잠든 장면은 각각 8초입니다. 사이트에 게시한 최종본은 별도로 내보낸 1920×1080 H.264/AAC 파일이며 길이는 50.016초입니다.",
+          "이 자료를 보면 편집 판단도 구체적으로 설명할 수 있습니다. 깨어 있는 짧은 동작은 휴식으로 넘어가는 시작을 만들고, 함께 잠든 자세는 더 오래 유지할 수 있는 안정 상태가 됩니다. 최종 결과는 두 동물의 몸, 창문과 빗물 영역, 벽난로가 한 화면에서 함께 읽혀야 했습니다. 동작이 더 많더라도 이 균형을 흐트러뜨리는 장면은 조용한 에피소드에 적합하지 않았습니다.",
+        ],
+        table: {
+          title: "이번 업데이트에서 확인한 파일",
+          headers: ["제작 자료", "확인된 형식", "편집에서의 역할"],
+          rows: [
+            ["시작 장면", "15.000초 · 1280×720", "공간과 휴식으로 들어가는 흐름을 보여줍니다."],
+            ["졸음을 참는 동작", "8.000초 · 1280×720", "절제된 강아지 행동 하나를 검토합니다."],
+            ["함께 잠든 장면", "8.000초 · 1280×720", "두 동물이 안정된 휴식 자세를 유지하는지 봅니다."],
+            ["게시 최종본", "50.016초 · 1920×1080", "승인한 16:9 장면과 최종 사운드를 제공합니다."],
+          ],
+        },
+      },
+      {
         id: "music-direction",
         title: "음악이 영상보다 튀지 않도록 유지한 점",
         paragraphs: [
@@ -220,7 +257,7 @@ export const calmingFireplaceRainInsight: Record<"en" | "ko", LocalizedInsight> 
       { question: "어떤 제작 도구를 사용했나요?", answer: "첨부 파일만으로 제작 도구를 확인할 수 없어 이 글에서는 확인되지 않은 도구나 제작 과정을 임의로 적지 않았습니다." },
     ],
     related: [
-      { label: "완성 영상", title: "Videos에서 롱폼 보기", href: "/ko/videos?type=long-form" },
+      { label: "완성 영상", title: "강아지를 위한 벽난로와 빗소리", href: "/ko/films/calming-dog-music-puppy-kitten-fireplace-rain" },
       { label: "음악 듣기", title: "강아지를 위한 편안한 벽난로와 빗소리", href: "/ko/music/calming-fireplace-rain-for-dogs" },
       { label: "더 많은 음악", title: "FourFeetz Music 둘러보기", href: "/ko/music" },
       { label: "Relax Moments", title: "HARU — Snowy Hearth Nap", href: "/ko/films/haru-snowy-hearth-nap" },

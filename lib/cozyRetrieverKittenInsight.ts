@@ -7,6 +7,7 @@ type LocalizedInsight = ProductionInsight & {
 
 const slug = "cozy-retriever-kitten-sleep-short";
 const published = "2026-08-09";
+const updated = "2026-09-22";
 const uploadDate: VideoUploadDate = "2026-08-09T22:15:03+09:00";
 const hero = "/images/shorts/cozy-retriever-kitten/cozy-retriever-kitten-poster.png";
 const video = "/videos/shorts/cozy-retriever-kitten/cozy-retriever-kitten-sleep-short.mp4";
@@ -17,7 +18,7 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
   en: {
     slug,
     published,
-    updated: published,
+    updated,
     eyebrow: "FourFeetz Production Notes",
     category: "Production Experience",
     title: "How We Made a Cozy Retriever and Kitten Sleep Short",
@@ -26,7 +27,7 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
     hero,
     heroAlt: "A young golden retriever and a tiny ginger tabby kitten sleeping together in warm afternoon sunlight",
     heroFit: "contain",
-    readTime: "8 min read",
+    readTime: "10 min read",
     verdict: "The warmest result came from making each action small and readable: the retriever grows sleepy, lies down, settles, and only then does the kitten approach and curl up beside him.",
     tags: ["AI Video Production", "Animal Short Film", "Storytelling", "Google Flow", "Veo"],
     keywords: ["cozy animal short", "retriever kitten video", "AI video production experience", "vertical animal story"],
@@ -116,6 +117,23 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
         },
       },
       {
+        id: "source-files-and-selection",
+        title: "What the Saved Generations Show",
+        paragraphs: [
+          "The production folder preserves the final 32.323-second 1080 × 1920 H.264/AAC master alongside a 15-second 720 × 1280 intermediate scene and an 8-second kitten-cuddling result. Other retained filenames describe the retriever blinking while seated and falling asleep on the rug. Together, these files confirm that the performance was built and reviewed as separate actions before the vertical master was exported.",
+          "The accepted sequence was not chosen only because the two animals looked appealing in a still. The dog needed to finish lowering its body before the kitten entered, the front leg needed to remain readable, and the kitten needed a clear path into the frame. The ending was kept only when both bodies could hold a quiet pose without a new large transformation.",
+        ],
+        table: {
+          title: "Evidence retained from this production",
+          headers: ["Material", "Measured format", "What it confirms"],
+          rows: [
+            ["Intermediate scene", "15.000 sec · 720 × 1280", "The vertical action was reviewed before the final assembly."],
+            ["Kitten contact shot", "8.000 sec · 720 × 1280", "The second character’s entrance and contact were tested as a separate beat."],
+            ["Published master", "32.323 sec · 1080 × 1920", "The final edit combines the approved beats in native 9:16."],
+          ],
+        },
+      },
+      {
         id: "lessons",
         title: "What I Learned From This Production",
         paragraphs: [
@@ -136,15 +154,16 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
       { question: "Does the separate music player add music to the video?", answer: "No. The finished video already contains its final soundtrack, and the separate player is a user-controlled way to hear the instrumental track on its own." },
     ],
     related: [
-      { label: "Watch the Short", title: "See It in the Videos Library", href: "/videos?type=shorts" },
+      { label: "Watch the Finished Short", title: "A Golden Retriever Fell Asleep… Then a Tiny Kitten Joined Him", href: "/shorts/cozy-retriever-kitten-sleep-short" },
       { label: "Meet the Cast", title: "Explore FourFeetz Characters", href: "/characters" },
+      { label: "Tool Workflow", title: "Google Flow Complete Production Guide", href: "/insights/google-flow-complete-guide" },
       { label: "Related Production Story", title: "HARU & LUNA by the Rainy Window", href: "/insights/haru-luna-rainy-window-ai-pet-video" },
     ],
   },
   ko: {
     slug,
     published,
-    updated: published,
+    updated,
     eyebrow: "FourFeetz 제작 노트",
     category: "제작 경험",
     title: "리트리버와 아기 고양이가 함께 잠드는 쇼츠 제작기",
@@ -153,7 +172,7 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
     hero,
     heroAlt: "따뜻한 오후 햇살 속에서 어린 골든리트리버와 아기 치즈태비 고양이가 함께 잠든 모습",
     heroFit: "contain",
-    readTime: "약 8분",
+    readTime: "약 10분",
     verdict: "리트리버가 졸고, 엎드리고, 자세를 잡은 다음에야 고양이가 다가와 기대도록 작은 행동을 차례로 나눈 것이 가장 따뜻하고 자연스러운 결과를 만들었습니다.",
     tags: ["AI 영상 제작", "동물 쇼츠", "스토리텔링", "Google Flow", "Veo"],
     keywords: ["동물 쇼츠 제작", "리트리버 고양이 영상", "AI 영상 제작 경험", "세로형 동물 이야기"],
@@ -243,6 +262,23 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
         },
       },
       {
+        id: "source-files-and-selection",
+        title: "보관된 생성 결과에서 확인한 제작 순서",
+        paragraphs: [
+          "제작 폴더에는 32.323초 길이의 1080×1920 H.264/AAC 최종본과 함께 15초 길이의 720×1280 중간 장면, 고양이가 기대는 8초 결과가 남아 있습니다. 다른 파일명에는 앉은 리트리버의 눈 깜빡임과 러그 위에서 잠드는 동작이 구분되어 있습니다. 이를 통해 완성본을 내보내기 전에 행동을 각각 만들고 검토한 작업 순서를 확인할 수 있습니다.",
+          "최종 장면은 두 동물이 한 프레임에서 예쁘게 보인다는 이유만으로 선택하지 않았습니다. 강아지가 몸을 낮추는 동작을 먼저 끝내야 했고, 앞다리가 분명하게 보여야 했으며, 고양이가 들어올 경로가 열려 있어야 했습니다. 마지막에는 두 몸이 다시 크게 변하지 않고 조용한 자세를 유지하는 결과만 남겼습니다.",
+        ],
+        table: {
+          title: "이번 제작에서 남은 근거 자료",
+          headers: ["자료", "확인된 형식", "확인할 수 있는 내용"],
+          rows: [
+            ["중간 장면", "15.000초 · 720×1280", "최종 조립 전에 세로형 동작을 따로 검토했습니다."],
+            ["고양이 접촉 장면", "8.000초 · 720×1280", "두 번째 캐릭터의 진입과 접촉을 별도 행동으로 시험했습니다."],
+            ["게시 최종본", "32.323초 · 1080×1920", "승인한 행동을 네이티브 9:16 편집으로 연결했습니다."],
+          ],
+        },
+      },
+      {
         id: "lessons",
         title: "이번 제작에서 얻은 교훈",
         paragraphs: [
@@ -263,8 +299,9 @@ export const cozyRetrieverKittenInsight: Record<"en" | "ko", LocalizedInsight> =
       { question: "별도 음악 플레이어가 영상에 음악을 다시 더하나요?", answer: "아닙니다. 완성 영상에는 최종 음악이 이미 포함되어 있으며, 별도 플레이어는 방문자가 연주곡만 직접 선택해 들을 수 있도록 제공합니다." },
     ],
     related: [
-      { label: "완성 쇼츠", title: "Videos에서 쇼츠 보기", href: "/ko/videos?type=shorts" },
+      { label: "완성 쇼츠", title: "리트리버가 잠들자 아기 고양이가 다가왔어요", href: "/ko/shorts/cozy-retriever-kitten-sleep-short" },
       { label: "등장 동물", title: "FourFeetz 캐릭터 둘러보기", href: "/ko/characters" },
+      { label: "도구 제작 가이드", title: "Google Flow 실제 제작 가이드", href: "/ko/insights/google-flow-complete-guide" },
       { label: "관련 제작기", title: "HARU와 LUNA의 비 오는 창가 제작기", href: "/ko/insights/haru-luna-rainy-window-ai-pet-video" },
     ],
   },

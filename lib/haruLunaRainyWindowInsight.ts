@@ -8,13 +8,15 @@ type LocalizedRainyWindowInsight = ProductionInsight & {
 
 const slug = "haru-luna-rainy-window-ai-pet-video";
 const published = "2026-08-06";
+const updated = "2026-09-22";
 const hero = "/images/insights/haru-luna-rainy-window-01-opening.webp";
+const video = "/videos/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2.mp4";
 
 export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowInsight> = {
   en: {
     slug,
-    title: "HARU and LUNA by the Rainy Window: Making a 23-Second AI Pet Film",
-    shortTitle: "Making HARU and LUNA’s 23-Second Rainy-Window Film",
+    title: "HARU and LUNA by the Rainy Window: Making a 32-Second AI Pet Film",
+    shortTitle: "Making HARU and LUNA’s 32-Second Rainy-Window Film",
     description:
       "A behind-the-scenes look at preserving real pet features while fixing ear deformation, synchronized movement, and an unexpected extra animal in a short AI pet film.",
     eyebrow: "FourFeetz Production Story",
@@ -23,8 +25,8 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
     heroFit: "cover",
     heroPosition: "50% 50%",
     published,
-    updated: published,
-    readTime: "8 min read",
+    updated,
+    readTime: "10 min read",
     verdict:
       "The most reliable result came from separating fixed identity traits from flexible atmosphere, giving HARU and LUNA different reaction timing, and replacing narrative cues with concrete on-screen constraints when unwanted elements appeared.",
     category: "Production Guide",
@@ -37,7 +39,7 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
         id: "separating-atmosphere-identity",
         title: "Separating Atmosphere From Identity",
         paragraphs: [
-          "This vertical 23-second film shows HARU and LUNA quietly watching the rain on a warm evening. The finished scene looks simple, but preserving the two pets’ recognizable features while giving them natural, independent movement required several rounds of revision.",
+          "This 31.58-second vertical film shows HARU and LUNA quietly watching the rain on a warm evening. The finished scene looks simple, but preserving the two pets’ recognizable features while giving them natural, independent movement required several rounds of revision.",
           "The first concept image had the mood we wanted: rain running down the glass, a cool blue exterior, and warm amber light inside. However, the animals did not look enough like the real HARU and LUNA. A later version followed the reference photos more closely but lost some of the cinematic atmosphere.",
           "We solved this by separating the requirements. The original image guided the lighting, composition, and color. The reference photos guided facial structure, fur markings, ear shape, collars, and body proportions. Both animals were made smaller within the room, especially LUNA, and the name tags received stronger size and contrast.",
           "The practical lesson was that ‘use the reference image’ is not precise enough. Stable features and flexible scene elements need to be identified separately.",
@@ -105,6 +107,20 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
         ],
       },
       {
+        id: "archive-to-final",
+        title: "What the Production Archive Confirms",
+        paragraphs: [
+          "The retained production files include separate tests for animals reacting to a faint sound, watching an entryway, watching the rain, and running toward food bowls, plus 15-second and 23-second intermediate scene files. The published master is a separate 1080 × 1920 H.264/AAC file with a measured duration of 31.58 seconds. This file trail supports the sequence of testing described here without turning every discarded result into a performance claim.",
+          "The final selection was based on what remained visible in the completed edit: only HARU and LUNA stay in frame, their responses do not begin together, the vertical composition remains stable, and the ending holds two different poses. A technically valid clip was rejected when it introduced another animal or changed a defining feature, even if its rain and lighting looked attractive.",
+        ],
+        bullets: [
+          "Check the exported master rather than relying on a working-file duration.",
+          "Reject an extra subject even when the rest of the atmosphere works.",
+          "Compare each character’s reaction start, movement range and final pose.",
+          "Keep the approved 9:16 frame readable from the opening through the ending.",
+        ],
+      },
+      {
         id: "practical-rules",
         title: "Practical Rules From This Production",
         paragraphs: [
@@ -121,7 +137,7 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
         ],
         videos: [
           {
-            src: "/videos/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2.mp4",
+            src: video,
             poster: "/images/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2-poster.webp",
             title: "A Quiet Rainy Evening with HARU and LUNA",
             caption: "The completed 9:16 short keeps the original sound and presents the final timing, restrained movement, and quiet ending described in this production story.",
@@ -148,16 +164,18 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
       },
     ],
     related: [
+      { label: "Watch the Finished Short", title: "A Quiet Rainy Evening with HARU and LUNA", href: "/shorts/haru-luna-quiet-rainy-evening" },
       { label: "Related Character", title: "Meet HARU", href: "/characters/haru" },
       { label: "Related Character", title: "Meet LUNA", href: "/characters/luna" },
+      { label: "Tool Workflow", title: "Google Flow Complete Production Guide", href: "/insights/google-flow-complete-guide" },
       { label: "Related Guide", title: "Common AI Video Generation Failures", href: "/insights/common-ai-video-generation-failures" },
       { label: "Related Guide", title: "Reduce Character Inconsistency in AI Video", href: "/insights/reduce-character-inconsistency-ai-video" },
     ],
   },
   ko: {
     slug,
-    title: "비 오는 창가에서 기다리는 HARU와 LUNA: 23초 AI 반려동물 영상 제작기",
-    shortTitle: "HARU와 LUNA의 23초 빗속 창가 영상 제작기",
+    title: "비 오는 창가에서 기다리는 HARU와 LUNA: 32초 AI 반려동물 영상 제작기",
+    shortTitle: "HARU와 LUNA의 32초 빗속 창가 영상 제작기",
     description:
       "실제 반려동물의 외형을 유지하면서 비 오는 저녁의 감성 영상을 만든 과정과, 귀 변형·동작 동기화·추가 동물 생성 오류를 줄인 방법을 정리했습니다.",
     eyebrow: "FourFeetz 제작 이야기",
@@ -166,8 +184,8 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
     heroFit: "cover",
     heroPosition: "50% 50%",
     published,
-    updated: published,
-    readTime: "약 8분",
+    updated,
+    readTime: "약 10분",
     verdict:
       "외형을 고정할 요소와 장면 분위기를 분리하고, HARU와 LUNA의 반응 타이밍을 다르게 설계했으며, 원치 않는 요소가 나타날 때는 서사 대신 화면 조건을 구체적으로 제한한 방식이 가장 안정적이었습니다.",
     category: "제작 가이드",
@@ -180,7 +198,7 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
         id: "separating-atmosphere-identity",
         title: "먼저 분위기와 외형의 우선순위를 나눴습니다",
         paragraphs: [
-          "이번 영상은 비 오는 저녁, 강아지 HARU와 고양이 LUNA가 창밖을 조용히 바라보는 23초짜리 세로 영상입니다. 완성된 장면은 단순해 보이지만, 두 반려동물의 얼굴과 체형을 유지하면서 자연스럽고 서로 다른 움직임을 만드는 데 여러 차례 수정이 필요했습니다.",
+          "이번 영상은 비 오는 저녁, 강아지 HARU와 고양이 LUNA가 창밖을 조용히 바라보는 31.58초짜리 세로 영상입니다. 완성된 장면은 단순해 보이지만, 두 반려동물의 얼굴과 체형을 유지하면서 자연스럽고 서로 다른 움직임을 만드는 데 여러 차례 수정이 필요했습니다.",
           "처음 만든 이미지는 빗물이 흐르는 창문, 차가운 푸른빛의 바깥 풍경, 따뜻한 실내 조명이 잘 어우러졌습니다. 그러나 HARU와 LUNA의 실제 얼굴과는 차이가 있었습니다. 반대로 기준 사진을 강하게 반영하자 외형은 가까워졌지만, 처음 이미지가 가진 영화 같은 분위기가 약해졌습니다.",
           "그래서 기준을 두 가지로 분리했습니다. 배경과 조명은 첫 이미지의 분위기를 유지했고, 얼굴·털 무늬·귀 모양·목걸이는 실제 기준 사진에 맞췄습니다. 두 동물이 공간에 비해 커 보이지 않도록 체형을 줄였고, 특히 LUNA는 더 작고 앳된 비율로 조정했습니다. 영상 중에도 이름을 알아볼 수 있도록 이름표의 크기와 대비도 높였습니다.",
           "이 과정에서 배운 점은 ‘참조 이미지를 사용한다’는 한 문장만으로는 부족하다는 것입니다. 얼굴, 귀, 털 무늬처럼 반드시 유지할 요소와 조명, 구도처럼 장면마다 바뀌어도 되는 요소를 따로 지정해야 결과가 안정적이었습니다.",
@@ -248,6 +266,20 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
         ],
       },
       {
+        id: "archive-to-final",
+        title: "제작 자료에서 확인한 테스트와 최종 선택 기준",
+        paragraphs: [
+          "남아 있는 제작 파일에는 작은 소리에 반응하는 동물, 현관을 바라보는 장면, 빗속을 보는 장면, 밥그릇 쪽으로 달리는 장면을 각각 시험한 결과와 15초·23초 중간 장면이 포함되어 있습니다. 사이트에 게시된 최종본은 별도의 1080×1920 H.264/AAC 파일이며 실제 길이는 31.58초입니다. 이 파일 기록은 제작 과정의 순서를 뒷받침하지만 폐기한 결과를 모델 전체의 성능으로 일반화하지는 않습니다.",
+          "최종 장면은 완성 편집에서 직접 확인되는 기준으로 골랐습니다. 화면에는 HARU와 LUNA만 남고, 두 캐릭터의 반응이 동시에 시작되지 않으며, 세로 구도가 흔들리지 않고, 마지막에는 서로 다른 자세를 유지해야 했습니다. 비와 조명이 보기 좋아도 새 동물이 등장하거나 특징적인 부위가 달라진 결과는 제외했습니다.",
+        ],
+        bullets: [
+          "작업 파일의 길이가 아니라 실제 내보낸 최종본을 확인합니다.",
+          "분위기가 좋아도 새로운 대상이 등장한 결과는 제외합니다.",
+          "각 캐릭터의 반응 시작, 움직임 범위와 마지막 자세를 비교합니다.",
+          "처음부터 끝까지 승인한 9:16 구도가 읽히는지 확인합니다.",
+        ],
+      },
+      {
         id: "practical-rules",
         title: "이번 제작에서 얻은 실전 기준",
         paragraphs: [
@@ -264,7 +296,7 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
         ],
         videos: [
           {
-            src: "/videos/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2.mp4",
+            src: video,
             poster: "/images/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2-poster.webp",
             title: "비 오는 창가, 하루와 루나의 조용한 저녁",
             caption: "완성된 9:16 쇼츠에서 이번 제작기에 기록한 서로 다른 반응 타이밍, 절제된 움직임과 조용한 마무리를 확인할 수 있습니다. 영상의 기존 오디오도 그대로 유지했습니다.",
@@ -291,8 +323,10 @@ export const haruLunaRainyWindowGuide: Record<"en" | "ko", LocalizedRainyWindowI
       },
     ],
     related: [
+      { label: "완성 쇼츠", title: "비 오는 창가, HARU와 LUNA의 조용한 저녁", href: "/ko/shorts/haru-luna-quiet-rainy-evening" },
       { label: "관련 캐릭터", title: "HARU 캐릭터 보기", href: "/ko/characters/haru" },
       { label: "관련 캐릭터", title: "LUNA 캐릭터 보기", href: "/ko/characters/luna" },
+      { label: "도구 제작 가이드", title: "Google Flow 실제 제작 가이드", href: "/ko/insights/google-flow-complete-guide" },
       { label: "관련 가이드", title: "AI 영상 생성에서 자주 생기는 문제", href: "/ko/insights/common-ai-video-generation-failures" },
       { label: "관련 가이드", title: "AI 영상 캐릭터 일관성 문제 줄이기", href: "/ko/insights/reduce-character-inconsistency-ai-video" },
     ],
