@@ -36,6 +36,15 @@ function compactDiagnostics(items = []) {
   }));
 }
 
+function compactDuplicateFindings(items = []) {
+  return items.slice(0, 20).map((item) => ({
+    category: item.category,
+    subject: String(item.subject ?? "").slice(0, 300),
+    reason: String(item.reason ?? "").slice(0, 500),
+    comparisonTarget: String(item.comparisonTarget ?? "").slice(0, 500),
+  }));
+}
+
 function qualityLog({ candidate, attempt, review, decision }) {
   log("quality_result", {
     source: candidate.url,
@@ -47,13 +56,16 @@ function qualityLog({ candidate, attempt, review, decision }) {
       maxExistingSimilarity: Number(decision.checks.maxSimilarity.toFixed(4)),
       sourceCopyRatio: Number(decision.checks.sourceCopyRatio.toFixed(4)),
       seoValid: decision.checks.seoValid,
+      editorialAnalysisValid: decision.checks.editorialAnalysisValid,
       claimsHaveIndependentEvidence: decision.checks.claimsHaveIndependentEvidence,
     },
     diagnostics: {
+      evidenceBasis: review.evidenceBasis ?? null,
       unsupportedFacts: (review.unsupportedFacts ?? []).slice(0, 20).map((value) => String(value).slice(0, 500)),
       failedClaims: compactDiagnostics(review.failedClaims),
       copyrightRisks: compactDiagnostics(review.copyrightRisks),
       duplicateReasons: compactDiagnostics(review.duplicateReasons),
+      duplicateFindings: compactDuplicateFindings(review.duplicateFindings),
       crossVerificationFailures: compactDiagnostics(review.crossVerificationFailures),
       revisionPossible: review.revisionPossible === true,
       revisionInstructions: (review.revisionInstructions ?? []).slice(0, 8).map((value) => String(value).slice(0, 500)),
@@ -181,9 +193,11 @@ async function main() {
   try {
     for (const candidate of eligible) {
       if (published >= remainingToday) break;
+      log("generation_started", { source: candidate.url, corroboratingSourceCount: candidate.corroboratingSources.length });
       const generated = fixturePath ? fixtureGeneration() : await generateArticle(candidate);
       latestLedger = await recordBudgetUsage({ store: budgetStore, month, runId, usage: generated.usage, costUsd: estimateCost(generated.usage) });
       if (budgetExposure(latestLedger) > budgetLimit) throw new Error("Budget exposure exceeded after generation; stopping before review");
+      log("generation_completed", { source: candidate.url, verifiedClaimCount: generated.value.verifiedClaims?.length ?? 0, hasEditorialAnalysis: Boolean(generated.value.editorialAnalysis) });
       const baseSlug = slugify(generated.value.title);
       const slug = existingArticles.some((article) => article.slug === baseSlug) ? `${baseSlug}-${sourceId(candidate.url).slice(0, 8)}` : baseSlug;
       const draft = {
@@ -206,6 +220,7 @@ async function main() {
           if (budgetExposure(latestLedger) > budgetLimit) throw new Error(`Budget exposure exceeded after ${phase}; stopping safely`);
         },
         onReview: async ({ attempt, review, decision }) => qualityLog({ candidate, attempt, review, decision }),
+        onRewrite: async (details) => log(details.event, { source: candidate.url, ...details }),
       });
       const { decision } = result;
       if (!decision.publish) continue;

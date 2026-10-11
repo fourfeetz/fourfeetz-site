@@ -182,6 +182,11 @@ export function deterministicChecks(article, candidate, existingArticles) {
     && article.description.length >= 70 && article.description.length <= 170
     && article.keywords.length >= 3 && article.keywords.length <= 8
     && article.sections.length >= 3;
+  const editorialAnalysisValid = [
+    article.editorialAnalysis?.fourfeetzAnalysis,
+    article.editorialAnalysis?.koreanIndustryImplications,
+    article.editorialAnalysis?.readerLimitations,
+  ].every((items) => Array.isArray(items) && items.length >= 2 && items.every((item) => typeof item === "string" && item.trim().length >= 10));
   const spamPattern = /(무조건|기적의|100%|지금 구매|수익 보장|완치|즉시 치료)/i;
   const unsafeMedicalPattern = /(약을 끊|복용량을 늘|수의사 대신|진단 없이 치료|반드시 투약)/i;
   const hardBlocks = [];
@@ -191,6 +196,7 @@ export function deterministicChecks(article, candidate, existingArticles) {
   if (spamPattern.test(joined)) hardBlocks.push("advertising_or_spam");
   if (unsafeMedicalPattern.test(joined)) hardBlocks.push("unsafe_medical_advice");
   if (article.sourceFacts.length < 2) hardBlocks.push("insufficient_source_facts");
+  if (!editorialAnalysisValid) hardBlocks.push("missing_editorial_analysis");
   const corroboratingSources = candidate.corroboratingSources ?? [];
   const distinctCorroboration = corroboratingSources.filter((source) => new URL(source.url).hostname.toLowerCase() !== sourceHost);
   const declaredUrls = new Set((article.corroboratingSources ?? []).map((source) => source.url));
@@ -203,7 +209,7 @@ export function deterministicChecks(article, candidate, existingArticles) {
     return evidenceUrls.length >= 2 && evidenceUrls.every((url) => allowedEvidenceUrls.has(url)) && hosts.size >= 2;
   });
   if (!claimsHaveIndependentEvidence) hardBlocks.push("claim_evidence_missing");
-  return { maxSimilarity, sourceCopyRatio, sourceValid, seoValid, claimsHaveIndependentEvidence, hardBlocks };
+  return { maxSimilarity, sourceCopyRatio, sourceValid, seoValid, editorialAnalysisValid, claimsHaveIndependentEvidence, hardBlocks };
 }
 
 export function scoreArticle(article, candidate, review, checks) {
