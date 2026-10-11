@@ -78,7 +78,9 @@ jobs:
           fi
 
       - name: Build the complete site before publishing
-        run: npm run build
+        # Avoid Next.js 16 Turbopack next/font/google import-map failures on GitHub runners.
+        # This changes only the pre-publication validation build, not Vercel production.
+        run: npx next build --webpack
 
       - name: Commit approved news only
         id: commit
