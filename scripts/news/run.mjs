@@ -172,7 +172,9 @@ async function main() {
   const primaries = selectCorroboratedPrimaries(corroborated);
   const hydrated = await hydrateCandidateGroups(primaries.slice(0, remainingToday * 6));
   const deduplicated = deduplicateCandidates(hydrated, existingArticles);
-  const eligible = deduplicated.slice(0, remainingToday);
+  // Evaluate additional verified candidates when earlier drafts fail editorial review.
+  // Publishing is still limited by remainingToday and the existing budget guards.
+  const eligible = deduplicated.slice(0, Math.min(remainingToday * 4, 8));
   log("candidate_selection_summary", {
     dateAccepted: relevantFresh.length,
     independentlyCorroborated: withIndependentSources.length,
