@@ -11,6 +11,7 @@ export const dict = {
       characters: "Characters",
       music: "Music",
       insights: "Insights",
+      news: "News",
       resources: "Resources",
       services: "Services",
       personal: "Personal Pet Art",
@@ -278,6 +279,9 @@ export const dict = {
   },
 };
 
+type NavKey = keyof typeof dict.en.nav & keyof typeof dict.ko.nav;
+type NavItem = Readonly<{ href: string; key: NavKey }>;
+
 export const navItems = [
   { href: "/en", key: "home" },
   { href: "/about", key: "about" },
@@ -288,7 +292,7 @@ export const navItems = [
   { href: "/resources", key: "resources" },
   { href: "/services", key: "services" },
   { href: "/tools", key: "tools" },
-] as const;
+] as const satisfies readonly NavItem[];
 
 export const koreanNavItems = [
   { href: "/ko", key: "home" },
@@ -299,7 +303,7 @@ export const koreanNavItems = [
   { href: "/ko/insights", key: "insights" },
   { href: "/ko/news", key: "news" },
   { href: "/ko/services#contact", key: "contact" },
-] as const;
+] as const satisfies readonly NavItem[];
 
 export const todaysUpdates = [
   { icon: "🎬", label: "New Short", title: "LUNA Shorts EP.01", desc: "LUNA watches the world outside while HARU sleeps nearby, until curiosity calls.", href: "/shorts/luna-shorts-ep01" },
