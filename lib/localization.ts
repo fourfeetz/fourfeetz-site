@@ -9,6 +9,7 @@ const koreanPrefixes = new Set([
   "films",
   "insights",
   "music",
+  "news",
   "privacy",
   "resources",
   "services",
@@ -80,6 +81,10 @@ export function toEnglishPath(pathname: string) {
 
   if (section === "services" && rest.length === 1 && koreanOnlyServiceSlugs.has(rest[0])) {
     return "/services";
+  }
+
+  if (section === "news") {
+    return "/insights/news";
   }
 
   if (section === "insights" && rest.length === 1 && isKoreanInsightRedirect(rest[0])) {

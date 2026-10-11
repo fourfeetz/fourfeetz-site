@@ -1,0 +1,125 @@
+name: FourFeetz Auto News
+
+on:
+  schedule:
+    # GitHub cron is UTC: 00:00/09:00 UTC = 09:00/18:00 KST.
+    - cron: "0 0,9 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Generate and validate without publishing"
+        required: true
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: fourfeetz-auto-news
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-5.4-mini' }}
+      MONTHLY_BUDGET_USD: ${{ vars.MONTHLY_BUDGET_USD || '10' }}
+      MAX_RUN_ESTIMATED_USD: ${{ vars.MAX_RUN_ESTIMATED_USD || '2' }}
+      AUTO_PUBLISH_ENABLED: ${{ vars.AUTO_PUBLISH_ENABLED || 'false' }}
+      NEWS_FEEDS_JSON: ${{ vars.NEWS_FEEDS_JSON }}
+      BUDGET_LEDGER_BACKEND: github-issue
+      GITHUB_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Check out the approved branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Resolve safe publication mode
+        id: mode
+        shell: bash
+        run: node scripts/news/resolve-mode.mjs "$GITHUB_EVENT_NAME" "${{ inputs.dry_run }}" "${{ vars.DRY_RUN }}" >> "$GITHUB_OUTPUT"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify news engine
+        run: npm run test:news
+
+      - name: Collect, generate, and evaluate
+        env:
+          DRY_RUN: ${{ steps.mode.outputs.dry_run }}
+        run: npm run news:dry-run
+
+      - name: Validate published data
+        run: npm run news:verify
+
+      - name: Protect existing site paths
+        shell: bash
+        run: |
+          changed="$(git status --porcelain --untracked-files=all | sed 's/^...//')"
+          forbidden="$(printf '%s\n' "$changed" | grep -Ev '^(content/news/|$)' || true)"
+          if [ -n "$forbidden" ]; then
+            echo "News engine changed forbidden paths:"
+            echo "$forbidden"
+            exit 1
+          fi
+
+      - name: Build the complete site before publishing
+        run: npm run build
+
+      - name: Commit approved news only
+        id: commit
+        if: steps.mode.outputs.dry_run == 'false' && env.AUTO_PUBLISH_ENABLED == 'true'
+        shell: bash
+        run: |
+          if [ -z "$(git status --porcelain --untracked-files=all -- content/news/ko)" ]; then
+            echo "created=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "fourfeetz-news-bot"
+          git config user.email "fourfeetz-news-bot@users.noreply.github.com"
+          git add -- content/news/ko
+          git commit -m "content(news): publish verified daily update"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          echo "created=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Verify Vercel deployment
+        if: steps.commit.outputs.created == 'true'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: node scripts/news/check-vercel-deployment.mjs "${{ steps.commit.outputs.sha }}"
+
+      - name: Roll back failed news deployment
+        if: failure() && steps.commit.outputs.created == 'true'
+        shell: bash
+        run: |
+          git pull --ff-only origin "${GITHUB_REF_NAME}"
+          git revert --no-edit "${{ steps.commit.outputs.sha }}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Save execution log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auto-news-${{ github.run_id }}
+          path: |
+            content/news/.state/
+          if-no-files-found: ignore
+          retention-days: 30
+

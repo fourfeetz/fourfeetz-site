@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local news-engine budget state; GitHub Actions uses the durable Issue ledger instead.
+/content/news/.state/usage-*.json
+/content/news/.state/budget-ledger.json

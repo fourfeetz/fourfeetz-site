@@ -1,0 +1,225 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+
+export const QUALITY_THRESHOLD = 90;
+export const MAX_DAILY_ARTICLES = 2;
+const NEWS_ROOT = path.resolve(process.cwd(), "content", "news");
+
+export function decodeXml(value = "") {
+  return value
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, "\"")
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function extractSourceText(html = "") {
+  return decodeXml(html
+    .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[\s\S]*?<\/style>/gi, " ")
+    .replace(/<noscript\b[\s\S]*?<\/noscript>/gi, " "))
+    .slice(0, 12_000);
+}
+
+function firstTag(block, names) {
+  for (const name of names) {
+    const match = block.match(new RegExp(`<${name}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${name}>`, "i"));
+    if (match) return decodeXml(match[1]);
+  }
+  return "";
+}
+
+function atomLink(block) {
+  const match = block.match(/<link\b[^>]*href=["']([^"']+)["'][^>]*>/i);
+  return match ? decodeXml(match[1]) : "";
+}
+
+export function parseFeed(xml, feed) {
+  const blocks = [...xml.matchAll(/<(item|entry)\b[^>]*>([\s\S]*?)<\/\1>/gi)].map((match) => match[2]);
+  return blocks.flatMap((block) => {
+    const title = firstTag(block, ["title"]);
+    const rawLink = firstTag(block, ["link", "guid", "id"]) || atomLink(block);
+    const summary = firstTag(block, ["description", "summary", "content:encoded", "content"]);
+    const dateValue = firstTag(block, ["pubDate", "published", "updated", "dc:date"]);
+    if (!title || !rawLink) return [];
+    try {
+      const url = new URL(rawLink);
+      if (!feed.allowedHosts.includes(url.hostname.toLowerCase())) return [];
+      url.hash = "";
+      ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => url.searchParams.delete(key));
+      if (Number.isNaN(Date.parse(dateValue))) return [];
+      const publishedAt = new Date(dateValue).toISOString();
+      return [{ title, url: url.toString(), summary, publishedAt, feed }];
+    } catch {
+      return [];
+    }
+  });
+}
+
+export function normalizeText(value) {
+  return value.toLowerCase().normalize("NFKC").replace(/[^\p{L}\p{N}\s]/gu, " ").replace(/\s+/g, " ").trim();
+}
+
+function tokens(value) {
+  return new Set(normalizeText(value).split(" ").filter((token) => token.length > 1));
+}
+
+const EVENT_STOPWORDS = new Set(["the", "and", "for", "with", "from", "that", "this", "new", "news", "pet", "pets", "animal", "animals", "대한", "관련", "새로운", "반려동물"]);
+
+function eventTokens(item) {
+  return new Set([...tokens(`${item.title} ${item.summary}`)].filter((token) => !EVENT_STOPWORDS.has(token) && token.length >= 3));
+}
+
+export function jaccardSimilarity(left, right) {
+  const a = tokens(left);
+  const b = tokens(right);
+  if (!a.size || !b.size) return 0;
+  const intersection = [...a].filter((token) => b.has(token)).length;
+  return intersection / (a.size + b.size - intersection);
+}
+
+export function attachCorroboratingSources(items) {
+  return items.map((item) => {
+    const primaryHost = new URL(item.url).hostname.toLowerCase();
+    const primaryTokens = eventTokens(item);
+    const corroboratingSources = items.filter((other) => {
+      if (other === item || new URL(other.url).hostname.toLowerCase() === primaryHost) return false;
+      if (Math.abs(Date.parse(other.publishedAt) - Date.parse(item.publishedAt)) > 3 * 86_400_000) return false;
+      const shared = [...primaryTokens].filter((token) => eventTokens(other).has(token)).length;
+      return shared >= 2 && jaccardSimilarity(`${item.title} ${item.summary}`, `${other.title} ${other.summary}`) >= 0.16;
+    }).slice(0, 3);
+    return { ...item, corroboratingSources };
+  });
+}
+
+export function selectCorroboratedPrimaries(items) {
+  return items.filter((item) => {
+    if (!item.corroboratingSources?.length) return false;
+    const ranked = [item, ...item.corroboratingSources].sort((left, right) => (right.feed.reliability ?? 0) - (left.feed.reliability ?? 0) || left.url.localeCompare(right.url));
+    return ranked[0].url === item.url;
+  });
+}
+
+export function isRelevant(item) {
+  const haystack = ` ${normalizeText(`${item.title} ${item.summary} ${item.sourceText ?? ""}`)} `;
+  const animalTerms = ["pet", "dog", "cat", "puppy", "kitten", "animal", "veterinary", "grooming", "petfood", "반려동물", "강아지", "고양이", "펫테크", "동물병원", "애견"];
+  const creativeTerms = ["video", "image", "creator", "film", "animation", "music", "editing", "content creation", "영상", "이미지", "콘텐츠", "애니메이션"];
+  const technologyTerms = [" ai ", "artificial intelligence", "generative", "model", "tool", "software", "인공지능", "생성형", "도구"];
+  const includes = (term) => haystack.includes(` ${normalizeText(term)} `) || haystack.includes(normalizeText(term));
+  return animalTerms.some(includes) || (creativeTerms.some(includes) && technologyTerms.some(includes));
+}
+
+export function isFresh(item, now = new Date()) {
+  const ageMs = now.getTime() - Date.parse(item.publishedAt);
+  return ageMs >= -86_400_000 && ageMs <= 7 * 86_400_000;
+}
+
+export function sourceId(url) {
+  return crypto.createHash("sha256").update(url).digest("hex");
+}
+
+export function slugify(value) {
+  const ascii = normalizeText(value).replace(/[^a-z0-9\s-]/g, " ").replace(/\s+/g, "-").replace(/-+/g, "-").slice(0, 72).replace(/^-|-$/g, "");
+  return ascii || `pet-news-${sourceId(value).slice(0, 12)}`;
+}
+
+export function deduplicateCandidates(items, existingArticles) {
+  const knownUrls = new Set(existingArticles.map((article) => article.source?.url).filter(Boolean));
+  const accepted = [];
+  for (const item of items.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt))) {
+    if (knownUrls.has(item.url)) continue;
+    const text = `${item.title} ${item.summary} ${item.sourceText ?? ""}`;
+    const duplicate = [...existingArticles, ...accepted].some((other) => {
+      const otherText = `${other.title} ${other.description ?? other.summary ?? ""}`;
+      return jaccardSimilarity(text, otherText) >= 0.72;
+    });
+    if (!duplicate) accepted.push(item);
+  }
+  return accepted;
+}
+
+export function deterministicChecks(article, candidate, existingArticles) {
+  const joined = `${article.title} ${article.description} ${article.sections.flatMap((section) => section.paragraphs).join(" ")}`;
+  const maxSimilarity = existingArticles.reduce((max, existing) => Math.max(max, jaccardSimilarity(joined, `${existing.title} ${existing.description} ${existing.sections?.flatMap((section) => section.paragraphs).join(" ") ?? ""}`)), 0);
+  const sourceHost = new URL(candidate.url).hostname.toLowerCase();
+  const sourceValid = candidate.feed.allowedHosts.includes(sourceHost) && article.source.url === candidate.url;
+  const seoValid = article.title.length >= 18 && article.title.length <= 70
+    && article.description.length >= 70 && article.description.length <= 170
+    && article.keywords.length >= 3 && article.keywords.length <= 8
+    && article.sections.length >= 3;
+  const spamPattern = /(무조건|기적의|100%|지금 구매|수익 보장|완치|즉시 치료)/i;
+  const unsafeMedicalPattern = /(약을 끊|복용량을 늘|수의사 대신|진단 없이 치료|반드시 투약)/i;
+  const hardBlocks = [];
+  if (!sourceValid) hardBlocks.push("unclear_source");
+  if (maxSimilarity >= 0.72) hardBlocks.push("duplicate_content");
+  if (spamPattern.test(joined)) hardBlocks.push("advertising_or_spam");
+  if (unsafeMedicalPattern.test(joined)) hardBlocks.push("unsafe_medical_advice");
+  if (article.sourceFacts.length < 2) hardBlocks.push("insufficient_source_facts");
+  const corroboratingSources = candidate.corroboratingSources ?? [];
+  const distinctCorroboration = corroboratingSources.filter((source) => new URL(source.url).hostname.toLowerCase() !== sourceHost);
+  const declaredUrls = new Set((article.corroboratingSources ?? []).map((source) => source.url));
+  if (distinctCorroboration.length === 0 || !distinctCorroboration.every((source) => declaredUrls.has(source.url))) hardBlocks.push("insufficient_independent_sources");
+  return { maxSimilarity, sourceValid, seoValid, hardBlocks };
+}
+
+export function scoreArticle(article, candidate, review, checks) {
+  const sourceReliability = checks.sourceValid ? Math.min(25, candidate.feed.reliability) : 0;
+  const originality = Math.max(0, Math.min(25, Math.round((review.originalityScore / 100) * 25 - checks.maxSimilarity * 25)));
+  const duplicateCheck = checks.maxSimilarity < 0.45 && review.duplicateFree ? 20 : checks.maxSimilarity < 0.6 ? 12 : 0;
+  const seo = checks.seoValid ? Math.min(15, review.seoScore) : Math.min(8, review.seoScore);
+  const safetyCopyright = review.safe && review.copyrightSafe && review.factsSupported ? Math.min(15, review.safetyScore) : 0;
+  return { sourceReliability, originality, duplicateCheck, seo, safetyCopyright, total: sourceReliability + originality + duplicateCheck + seo + safetyCopyright };
+}
+
+export function publicationDecision(article, candidate, review, existingArticles) {
+  const checks = deterministicChecks(article, candidate, existingArticles);
+  const hardBlocks = [...checks.hardBlocks];
+  if (!review.factsSupported) hardBlocks.push("unverified_facts");
+  if (!review.copyrightSafe) hardBlocks.push("copyright_risk");
+  if (!review.safe) hardBlocks.push("safety_risk");
+  if (!review.duplicateFree) hardBlocks.push("ai_duplicate_flag");
+  if (review.topicRelevant !== true) hardBlocks.push("off_topic");
+  if (review.independentlyCorroborated !== true || review.corroboratedFactCount < 2 || review.unsupportedFacts?.length) hardBlocks.push("cross_verification_failed");
+  const score = scoreArticle(article, candidate, review, checks);
+  return { publish: hardBlocks.length === 0 && score.total >= QUALITY_THRESHOLD, score, hardBlocks, checks };
+}
+
+export function articlesPublishedOn(articles, isoDate) {
+  const format = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit" });
+  return articles.filter((article) => format.format(new Date(article.publishedAt)) === isoDate).length;
+}
+
+export function assertNewsPath(target) {
+  const resolved = path.resolve(target);
+  if (resolved !== NEWS_ROOT && !resolved.startsWith(`${NEWS_ROOT}${path.sep}`)) throw new Error(`Refusing to write outside ${NEWS_ROOT}`);
+  return resolved;
+}
+
+export function writeJsonSafely(target, value) {
+  const resolved = assertNewsPath(target);
+  fs.mkdirSync(path.dirname(resolved), { recursive: true });
+  const temporary = `${resolved}.${process.pid}.tmp`;
+  fs.writeFileSync(temporary, `${JSON.stringify(value, null, 2)}\n`, { encoding: "utf8", flag: "wx" });
+  try {
+    fs.renameSync(temporary, resolved);
+  } catch (error) {
+    if (!fs.existsSync(resolved) || !["EEXIST", "EPERM"].includes(error.code)) throw error;
+    fs.copyFileSync(temporary, resolved);
+    fs.unlinkSync(temporary);
+  }
+}
+
+export function loadJsonFiles(directory) {
+  if (!fs.existsSync(directory)) return [];
+  return fs.readdirSync(directory).filter((name) => name.endsWith(".json")).flatMap((name) => {
+    try { return [JSON.parse(fs.readFileSync(path.join(directory, name), "utf8"))]; } catch { return []; }
+  });
+}
+

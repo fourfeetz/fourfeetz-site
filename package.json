@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:news": "node --test scripts/news/*.test.mjs",
+    "news:dry-run": "node scripts/news/run.mjs",
+    "news:verify": "node scripts/news/verify-content.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.10",

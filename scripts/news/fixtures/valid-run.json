@@ -1,0 +1,58 @@
+{
+  "candidates": [
+    {
+      "title": "New connected care tools help pet businesses coordinate daily records",
+      "url": "https://example.org/pet-tech-connected-care",
+      "summary": "A documented pilot introduced connected scheduling and care-record tools for pet service businesses. The announcement describes workflow features and does not make medical claims.",
+      "publishedAt": "2026-10-10T03:00:00.000Z",
+      "feed": {
+        "name": "Example Official Pet Tech",
+        "url": "https://example.org/feed.xml",
+        "allowedHosts": ["example.org"],
+        "reliability": 25,
+        "topics": ["pet tech", "pet business"]
+      }
+    },
+    {
+      "title": "Independent report confirms connected scheduling and care records for pet services",
+      "url": "https://example.net/connected-pet-service-records",
+      "summary": "An independent industry report confirms that the pilot connects scheduling with daily care records for pet service businesses and makes no medical-function claim.",
+      "publishedAt": "2026-10-10T05:00:00.000Z",
+      "feed": {
+        "name": "Independent Pet Business Report",
+        "url": "https://example.net/feed.xml",
+        "allowedHosts": ["example.net"],
+        "reliability": 23,
+        "topics": ["pet business", "pet tech"]
+      }
+    }
+  ],
+  "article": {
+    "title": "펫비즈니스 기록 업무를 잇는 커넥티드 케어 도구",
+    "description": "반려동물 서비스 사업자의 일정과 돌봄 기록을 연결하는 신규 시범 도구의 공개 내용을 살펴보고 현장에서 확인할 지점을 정리합니다.",
+    "category": "펫테크",
+    "keywords": ["펫테크", "펫비즈니스", "돌봄 기록", "업무 자동화"],
+    "sourceFacts": ["시범 프로그램이 공개됐다.", "일정과 돌봄 기록을 연결하는 기능이 소개됐다."],
+    "sections": [
+      { "heading": "무엇이 공개됐나", "paragraphs": ["공개 자료는 반려동물 서비스 사업자를 위한 시범 도구를 소개한다. 핵심 범위는 일정과 일상적인 돌봄 기록을 연결하는 업무 흐름이다.", "자료에 없는 성과 수치나 이용자 평가는 확인된 사실로 다루지 않았다."] },
+      { "heading": "현장에서 볼 지점", "paragraphs": ["기능의 가치는 기록이 실제 업무 순서와 맞는지에 달려 있다. 도입 전에는 권한 구분과 기록 수정 이력을 확인할 필요가 있다.", "이 내용은 의료 판단이나 진료 기록을 대신한다는 뜻이 아니다."] },
+      { "heading": "콘텐츠 운영에 주는 의미", "paragraphs": ["연결된 기록은 고객 안내 콘텐츠의 정확성을 높이는 데 활용할 수 있다. 다만 공개 범위와 개인정보 기준을 먼저 정해야 한다.", "FourFeetz는 실제 운영 결과가 추가로 공개되는지 살펴볼 예정이다."] }
+    ],
+    "takeaway": ["공개된 범위는 일정과 돌봄 기록 연결이다.", "의료 기능으로 해석해서는 안 된다.", "도입 전 권한과 개인정보 기준을 확인해야 한다."]
+  },
+  "review": {
+    "factsSupported": true,
+    "copyrightSafe": true,
+    "safe": true,
+    "duplicateFree": true,
+    "topicRelevant": true,
+    "independentlyCorroborated": true,
+    "corroboratedFactCount": 2,
+    "unsupportedFacts": [],
+    "originalityScore": 100,
+    "seoScore": 15,
+    "safetyScore": 15,
+    "reasons": ["출처 요약 범위 내에서 독립적으로 작성됨"]
+  }
+}
+
