@@ -4,7 +4,9 @@ export const MAX_REWRITE_ATTEMPTS = 1;
 
 export function canRewriteReview(review, decision) {
   if (decision.publish) return false;
-  if (!review.factsSupported || !review.safe || !review.copyrightSafe || !review.independentlyCorroborated || review.corroboratedFactCount < 2) return false;
+  const evidenceAccepted = (review.independentlyCorroborated && review.corroboratedFactCount >= 2)
+    || decision.checks.conditionalPrimaryEvidenceAccepted === true;
+  if (!review.factsSupported || !review.safe || !review.copyrightSafe || !evidenceAccepted) return false;
   if ((review.unsupportedFacts ?? []).length > 0 || (review.failedClaims ?? []).length > 0 || (review.copyrightRisks ?? []).length > 0 || (review.crossVerificationFailures ?? []).length > 0) return false;
   if (decision.checks.sourceCopyRatio >= 0.18 || decision.checks.maxSimilarity >= 0.72) return false;
   const findings = review.duplicateFindings ?? [];
