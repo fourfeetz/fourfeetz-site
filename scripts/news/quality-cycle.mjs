@@ -2,16 +2,17 @@ import { publicationDecision } from "./core.mjs";
 
 export const MAX_REWRITE_ATTEMPTS = 1;
 
-const REWRITEABLE_BLOCKS = new Set(["copyright_risk", "ai_duplicate_flag", "source_copy_risk", "duplicate_content"]);
-
 export function canRewriteReview(review, decision) {
-  if (decision.publish || review.revisionPossible !== true) return false;
-  if (!review.factsSupported || !review.safe || !review.independentlyCorroborated || review.corroboratedFactCount < 2) return false;
-  if ((review.unsupportedFacts ?? []).length > 0 || (review.failedClaims ?? []).length > 0 || (review.crossVerificationFailures ?? []).length > 0) return false;
-  return decision.hardBlocks.every((block) => REWRITEABLE_BLOCKS.has(block));
+  if (decision.publish) return false;
+  if (!review.factsSupported || !review.safe || !review.copyrightSafe || !review.independentlyCorroborated || review.corroboratedFactCount < 2) return false;
+  if ((review.unsupportedFacts ?? []).length > 0 || (review.failedClaims ?? []).length > 0 || (review.copyrightRisks ?? []).length > 0 || (review.crossVerificationFailures ?? []).length > 0) return false;
+  if (decision.checks.sourceCopyRatio >= 0.18 || decision.checks.maxSimilarity >= 0.72) return false;
+  const findings = review.duplicateFindings ?? [];
+  if (findings.length === 0 || findings.some(({ category }) => category !== "source_expression")) return false;
+  return decision.hardBlocks.length === 1 && decision.hardBlocks[0] === "ai_duplicate_flag";
 }
 
-export async function runQualityCycle({ draft, candidate, existingArticles, review, rewrite, onUsage, onReview }) {
+export async function runQualityCycle({ draft, candidate, existingArticles, review, rewrite, onUsage, onReview, onRewrite = async () => {} }) {
   let currentDraft = draft;
   let rewriteAttempts = 0;
 
@@ -26,9 +27,11 @@ export async function runQualityCycle({ draft, candidate, existingArticles, revi
   let assessment = await assess(0);
   if (rewriteAttempts < MAX_REWRITE_ATTEMPTS && canRewriteReview(assessment.reviewed.value, assessment.decision)) {
     rewriteAttempts += 1;
+    await onRewrite({ event: "rewrite_started", attempt: rewriteAttempts, categories: assessment.reviewed.value.duplicateFindings.map(({ category }) => category) });
     const rewritten = await rewrite(currentDraft, assessment.reviewed.value);
     await onUsage("rewrite", rewritten.usage);
     currentDraft = { ...currentDraft, ...rewritten.value };
+    await onRewrite({ event: "rewrite_completed", attempt: rewriteAttempts });
     assessment = await assess(rewriteAttempts);
   }
 

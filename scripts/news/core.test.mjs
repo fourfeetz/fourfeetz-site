@@ -11,6 +11,7 @@ function verifiedArticle(overrides = {}) {
     description: "서로 다른 두 출처에서 확인된 반려동물 돌봄 기록 서비스의 공개 범위와 적용 한계를 한국 독자가 이해하기 쉽게 정리하고 실제 도입 전에 살펴볼 검증 범위도 함께 설명합니다.",
     keywords: ["반려동물", "돌봄 기록", "펫테크"], sourceFacts: claims,
     verifiedClaims: claims.map((claim) => ({ claim, limitation: "공개 자료 범위", evidence: [{ sourceUrl: "https://example.org/a", evidenceSummary: "첫 보도" }, { sourceUrl: "https://example.net/b", evidenceSummary: "독립 보도" }] })),
+    editorialAnalysis: { fourfeetzAnalysis: ["기록 책임을 먼저 확인해야 합니다.", "도입 목적을 분명히 해야 합니다."], koreanIndustryImplications: ["국내 개인정보 기준을 확인해야 합니다.", "기존 업무 흐름과 연결성을 시험해야 합니다."], readerLimitations: ["실제 성과는 아직 확인되지 않았습니다.", "해외 결과를 국내에 일반화할 수 없습니다."] },
     sections: [{ heading: "공개 범위", paragraphs: ["두 자료에서 확인된 내용을 설명합니다.", "성과를 확대 해석하지 않습니다."] }, { heading: "업무 의미", paragraphs: ["한국 독자가 이해할 맥락을 제공합니다.", "확인된 사실과 분석을 구분합니다."] }, { heading: "확인할 점", paragraphs: ["시범 운영이라는 한계가 있습니다.", "추가 자료를 살펴봐야 합니다."] }],
     source: { url: "https://example.org/a" }, corroboratingSources: [{ url: "https://example.net/b" }],
     ...overrides,
@@ -154,6 +155,14 @@ test("blocks substantial verbatim source reuse even when AI review misses it", (
   const decision = publicationDecision(article, candidate, passingReview(), []);
   assert.ok(decision.checks.sourceCopyRatio >= 0.18);
   assert.ok(decision.hardBlocks.includes("source_copy_risk"));
+});
+
+test("requires FOURFEETZ analysis, Korean industry implications, and reader limitations", () => {
+  const candidate = { url: "https://example.org/a", feed, corroboratingSources: [{ url: "https://example.net/b" }] };
+  const article = verifiedArticle({ editorialAnalysis: { fourfeetzAnalysis: [], koreanIndustryImplications: [], readerLimitations: [] } });
+  const decision = publicationDecision(article, candidate, passingReview(), []);
+  assert.equal(decision.checks.editorialAnalysisValid, false);
+  assert.ok(decision.hardBlocks.includes("missing_editorial_analysis"));
 });
 
 test("rejects write targets outside content/news", () => {

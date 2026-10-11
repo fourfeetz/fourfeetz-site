@@ -41,6 +41,11 @@ export type NewsArticle = {
   sourceFacts: string[];
   verifiedClaims: VerifiedClaim[];
   evidenceScope: { sharedBasis: string; verificationBoundary: string; limitations: string[] };
+  editorialAnalysis: {
+    fourfeetzAnalysis: string[];
+    koreanIndustryImplications: string[];
+    readerLimitations: string[];
+  };
   sections: NewsSection[];
   takeaway: string[];
   relatedLinks: { label: string; href: string }[];
@@ -66,6 +71,12 @@ function isPublishedArticle(value: unknown): value is NewsArticle {
     && Array.isArray(article.verifiedClaims)
     && article.verifiedClaims.length >= 2
     && typeof article.evidenceScope?.verificationBoundary === "string"
+    && Array.isArray(article.editorialAnalysis?.fourfeetzAnalysis)
+    && article.editorialAnalysis.fourfeetzAnalysis.length >= 2
+    && Array.isArray(article.editorialAnalysis?.koreanIndustryImplications)
+    && article.editorialAnalysis.koreanIndustryImplications.length >= 2
+    && Array.isArray(article.editorialAnalysis?.readerLimitations)
+    && article.editorialAnalysis.readerLimitations.length >= 2
     && typeof article.quality?.total === "number"
     && article.quality.total >= 90;
 }
