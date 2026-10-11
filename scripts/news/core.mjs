@@ -16,6 +16,7 @@ export function decodeXml(value = "") {
     .replace(/&quot;/g, "\"")
     .replace(/&#39;|&apos;/g, "'")
     .replace(/&#(\d+);/g, (_, code) => String.fromCodePoint(Number(code)))
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -41,26 +42,33 @@ function atomLink(block) {
   return match ? decodeXml(match[1]) : "";
 }
 
-export function parseFeed(xml, feed) {
+export function parseFeedWithDiagnostics(xml, feed) {
   const blocks = [...xml.matchAll(/<(item|entry)\b[^>]*>([\s\S]*?)<\/\1>/gi)].map((match) => match[2]);
-  return blocks.flatMap((block) => {
+  const rejected = { missingRequiredFields: 0, invalidUrl: 0, disallowedHost: 0, invalidDate: 0 };
+  const items = blocks.flatMap((block) => {
     const title = firstTag(block, ["title"]);
     const rawLink = firstTag(block, ["link", "guid", "id"]) || atomLink(block);
     const summary = firstTag(block, ["description", "summary", "content:encoded", "content"]);
     const dateValue = firstTag(block, ["pubDate", "published", "updated", "dc:date"]);
-    if (!title || !rawLink) return [];
+    if (!title || !rawLink) { rejected.missingRequiredFields += 1; return []; }
     try {
       const url = new URL(rawLink);
-      if (!feed.allowedHosts.includes(url.hostname.toLowerCase())) return [];
+      if (!feed.allowedHosts.includes(url.hostname.toLowerCase())) { rejected.disallowedHost += 1; return []; }
       url.hash = "";
       ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"].forEach((key) => url.searchParams.delete(key));
-      if (Number.isNaN(Date.parse(dateValue))) return [];
+      if (Number.isNaN(Date.parse(dateValue))) { rejected.invalidDate += 1; return []; }
       const publishedAt = new Date(dateValue).toISOString();
       return [{ title, url: url.toString(), summary, publishedAt, feed }];
     } catch {
+      rejected.invalidUrl += 1;
       return [];
     }
   });
+  return { items, diagnostics: { entries: blocks.length, accepted: items.length, rejected } };
+}
+
+export function parseFeed(xml, feed) {
+  return parseFeedWithDiagnostics(xml, feed).items;
 }
 
 export function normalizeText(value) {
@@ -91,7 +99,7 @@ export function attachCorroboratingSources(items) {
     const primaryTokens = eventTokens(item);
     const corroboratingSources = items.filter((other) => {
       if (other === item || new URL(other.url).hostname.toLowerCase() === primaryHost) return false;
-      if (Math.abs(Date.parse(other.publishedAt) - Date.parse(item.publishedAt)) > 3 * 86_400_000) return false;
+      if (Math.abs(Date.parse(other.publishedAt) - Date.parse(item.publishedAt)) > 7 * 86_400_000) return false;
       const shared = [...primaryTokens].filter((token) => eventTokens(other).has(token)).length;
       return shared >= 2 && jaccardSimilarity(`${item.title} ${item.summary}`, `${other.title} ${other.summary}`) >= 0.16;
     }).slice(0, 3);
@@ -112,13 +120,20 @@ export function isRelevant(item) {
   const animalTerms = ["pet", "dog", "cat", "puppy", "kitten", "animal", "veterinary", "grooming", "petfood", "반려동물", "강아지", "고양이", "펫테크", "동물병원", "애견"];
   const creativeTerms = ["video", "image", "creator", "film", "animation", "music", "editing", "content creation", "영상", "이미지", "콘텐츠", "애니메이션"];
   const technologyTerms = [" ai ", "artificial intelligence", "generative", "model", "tool", "software", "인공지능", "생성형", "도구"];
-  const includes = (term) => haystack.includes(` ${normalizeText(term)} `) || haystack.includes(normalizeText(term));
+  const includes = (term) => haystack.includes(` ${normalizeText(term)} `);
   return animalTerms.some(includes) || (creativeTerms.some(includes) && technologyTerms.some(includes));
 }
 
 export function isFresh(item, now = new Date()) {
   const ageMs = now.getTime() - Date.parse(item.publishedAt);
-  return ageMs >= -86_400_000 && ageMs <= 7 * 86_400_000;
+  return ageMs >= -86_400_000 && ageMs <= 14 * 86_400_000;
+}
+
+export function freshnessReason(item, now = new Date()) {
+  const ageMs = now.getTime() - Date.parse(item.publishedAt);
+  if (ageMs < -86_400_000) return "future";
+  if (ageMs > 14 * 86_400_000) return "too_old";
+  return "fresh";
 }
 
 export function sourceId(url) {

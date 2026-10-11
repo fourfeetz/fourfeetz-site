@@ -44,6 +44,15 @@ Run **FourFeetz Auto News → Run workflow** with `dry_run=true`. Confirm:
 
 Repeat at several scheduled windows. GitHub cron may start late; freshness checks use item timestamps rather than assuming an exact start time.
 
+The collection step emits four structured diagnostics before any OpenAI request:
+
+- `collection_summary`: per-feed success/failure, parsed entries, invalid fields or dates, and disallowed source hosts;
+- `filter_summary`: keyword acceptance plus articles rejected as too old or future-dated;
+- `candidate_selection_summary`: independent-source matches, cross-verification rejections, duplicate rejections, and final API candidate count;
+- `api_candidates_ready`: candidate titles and the distinct publisher reports supporting each candidate.
+
+The default source set combines veterinary and pet-industry publishers (Petfood Industry, Veterinary Practice News, dvm360), animal research aggregators (ScienceDaily and Phys.org), and official or established AI/creator-technology publishers (Google AI, OpenAI, TechCrunch, and The Verge). The freshness window is 14 days to accommodate secondary reporting delays, while independent-source matching still requires a distinct hostname, at least two shared event terms, sufficient text similarity, and reporting dates within seven days. A candidate with no independent match remains blocked before the API call.
+
 For a network-only smoke test without an OpenAI call, run `NEWS_COLLECT_ONLY=true npm run news:dry-run` (PowerShell: `$env:NEWS_COLLECT_ONLY='true'; npm run news:dry-run`).
 
 ## Activation
