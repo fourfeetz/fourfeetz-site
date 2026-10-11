@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Restored and saved by GitHub Actions cache; never published with site content.
+/content/news/.state/usage-*.json
