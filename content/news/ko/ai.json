@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "slug": "ai",
+  "language": "ko",
+  "title": "수의계 AI 도입은 빠르게 확산, 그러나 운영 성숙도 격차가 성과를 가른다",
+  "description": "Digitail과 AAHA가 발표한 2026년 수의학 AI 조사에 따르면, 미국·캐나다 수의 전문가의 AI 사용률은 83.7%로 2024년 39.2%보다 높아졌지만, 전략·거버넌스·워크플로 재설계 여부에 따라 보고된 성과 격차가 컸다. 이 기사는 발표된 조사 수치와 한계를 바탕으로, 국내 반려동물 업계가",
+  "category": "산업/테크",
+  "keywords": [
+    "수의학",
+    "인공지능",
+    "병원 운영",
+    "디지털 전환",
+    "거버넌스",
+    "AAHA",
+    "Digitail"
+  ],
+  "sourceFacts": [
+    "Digitail과 American Animal Hospital Association(AAHA)가 2026년 수의학 AI 조사를 발표했다.",
+    "조사는 미국과 캐나다 수의 전문가 1,730명의 자기보고 응답을 바탕으로 했다.",
+    "AI 사용률은 2026년 83.7%였고, 2024년에는 39.2%였다.",
+    "AI 사용자의 88.3%가 AI를 매일 또는 매주 사용한다고 응답했다.",
+    "클리니컬 문서화가 가장 흔한 활용처였고, AI 사용자의 62.8%가 이를 사용한다고 답했다.",
+    "조사에서 평균 AI 성숙도 점수는 4점 만점에 2.67이었다.",
+    "가장 성숙한 단계의 진료소는 가장 낮은 단계보다 더 많은 긍정적 사업 성과를 보고했다.",
+    "응답자들은 데이터 보안·프라이버시, 정확성, 훈련 부족을 주요 우려로 꼽았다."
+  ],
+  "verifiedClaims": [
+    {
+      "claim": "Digitail과 AAHA가 2026년 미국·캐나다 수의 전문가 대상 AI 사용 실태 조사를 발표했다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.dvm360.com/view/artificial-intelligence-use-among-veterinary-professionals-more-than-doubles-in-2-years",
+          "evidenceSummary": "dvm360는 2026년 10월 6일 기사에서 Digitail과 AAHA의 2026년 Veterinary AI Study를 인용하며 미국과 캐나다 수의 전문가 조사를 소개했다."
+        },
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/ai-adoption-doubled-study-finds/",
+          "evidenceSummary": "Veterinary Practice News는 2026년 10월 1일 보도에서 Digitail과 AAHA가 2026년 Veterinary AI Study를 공개했다고 전했다."
+        }
+      ],
+      "limitation": "기사들은 발표 내용을 인용한 2차 보도이며, 원자료 전체 전문은 제공되지 않았다."
+    },
+    {
+      "claim": "조사 응답자는 1,730명의 수의 전문가였고, 응답은 자기보고 방식으로 수집됐다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.dvm360.com/view/artificial-intelligence-use-among-veterinary-professionals-more-than-doubles-in-2-years",
+          "evidenceSummary": "dvm360 기사 본문에 1,730건의 자기보고 응답이 미국과 캐나다에서 2026년 7월 27일부터 8월 12일까지 수집됐다고 적혀 있다."
+        },
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/ai-adoption-doubled-study-finds/",
+          "evidenceSummary": "Veterinary Practice News도 같은 조사 설계를 1,730건의 자기보고 응답으로 설명했다."
+        }
+      ],
+      "limitation": "표본의 대표성, 응답자 구성, 비응답 편향은 기사만으로 판단할 수 없다."
+    },
+    {
+      "claim": "2026년 AI 사용률은 83.7%였고, 2024년의 39.2%보다 높았다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.dvm360.com/view/artificial-intelligence-use-among-veterinary-professionals-more-than-doubles-in-2-years",
+          "evidenceSummary": "dvm360는 2026년 AI 사용률 83.7%와 2024년 39.2%를 함께 제시했다."
+        },
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/ai-adoption-doubled-study-finds/",
+          "evidenceSummary": "Veterinary Practice News도 같은 수치를 인용해 2024년 39.2%에서 2026년 83.7%로 증가했다고 전했다."
+        }
+      ],
+      "limitation": "두 시점의 조사 문항이 완전히 동일했는지 기사만으로는 확인할 수 없다."
+    },
+    {
+      "claim": "AI 사용자의 88.3%는 AI를 매일 또는 매주 사용한다고 응답했다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.dvm360.com/view/artificial-intelligence-use-among-veterinary-professionals-more-than-doubles-in-2-years",
+          "evidenceSummary": "dvm360 기사에 AI 사용자 중 88.3%가 매일 또는 매주 사용한다고 적혀 있다."
+        },
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/ai-adoption-doubled-study-finds/",
+          "evidenceSummary": "Veterinary Practice News도 동일한 비율을 보도했다."
+        }
+      ],
+      "limitation": "‘매일’과 ‘매주’의 세부 분포는 제공되지 않았다."
+    },
+    {
+      "claim": "클리니컬 문서화가 가장 흔한 AI 활용 분야였고, AI 사용자의 62.8%가 이를 사용했다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.dvm360.com/view/artificial-intelligence-use-among-veterinary-professionals-more-than-doubles-in-2-years",
+          "evidenceSummary": "dvm360는 AI 스크라이브와 SOAP 노트를 포함한 클리니컬 문서화가 가장 흔한 용도이며 62.8%가 사용했다고 전했다."
+        },
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/ai-adoption-doubled-study-finds/",
+          "evidenceSummary": "Veterinary Practice News도 클리니컬 문서화를 선도적 활용처로 보도했다."
+        }
+      ],
+      "limitation": "진단 보조 등 다른 활용 분야의 상대적 비중은 기사별 요약 수준에서만 확인된다."
+    },
+    {
+      "claim": "조사에서 평균 AI 성숙도 점수는 4점 만점에 2.67이었다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.dvm360.com/view/artificial-intelligence-use-among-veterinary-professionals-more-than-doubles-in-2-years",
+          "evidenceSummary": "dvm360는 Veterinary AI Maturity Index 평균이 4점 만점 2.67이라고 보도했다."
+        },
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/ai-adoption-doubled-study-finds/",
+          "evidenceSummary": "Veterinary Practice News도 같은 평균 점수를 제시했다."
+        }
+      ],
+      "limitation": "성숙도 점수 산식은 기사에서 개략적으로만 소개됐다."
+    }
+  ],
+  "evidenceScope": {
+    "sharedBasis": "두 2차 보도는 모두 Digitail과 AAHA가 발표한 2026년 Veterinary AI Study를 공통 기반으로 삼고 있다.",
+    "verificationBoundary": "현재 확인 가능한 범위는 두 매체가 공개 기사에서 반복한 조사 수치, 표본 규모, 조사 기간, 성숙도 개념, 응답자의 자기보고 진술까지다. 원설문지, 분석 코드, 전체 표본 구성은 검증되지 않았다.",
+    "independentVerificationAvailable": true,
+    "conditionalPublicationReason": "공개된 원자료가 아니라 보도 기사와 발표 요약에 기반하지만, 서로 다른 발행 주체의 기사 두 건이 동일한 핵심 수치를 교차 제시하고 있어 제한적으로 보도 가능하다.",
+    "limitations": [
+      "자기보고 응답이므로 실제 도입률이나 활용 강도를 직접 측정한 결과가 아니다.",
+      "미국·캐나다 표본이어서 한국 시장에 동일하게 적용할 수 없다.",
+      "응답자 구성, 병원 규모, 지역 분포가 공개 기사만으로는 충분히 확인되지 않는다.",
+      "성과 지표는 ‘보고된’ 사업 결과이며, 인과 관계로 해석할 수 없다.",
+      "원자료 전체가 아닌 보도 요약만으로는 세부 질문지와 통계 검증을 재현할 수 없다."
+    ]
+  },
+  "editorialAnalysis": {
+    "fourfeetzAnalysis": [
+      "이번 조사는 수의 현장에서 AI가 ‘시도 단계’를 넘어 ‘일상 도구’로 이동하고 있음을 보여주지만, 성과 차이는 도입 여부보다 운영 설계와 내부 통제 수준에 따라 달라질 수 있음을 시사한다.",
+      "FOURFEETZ 관점에서 핵심은 AI 자체의 확산이 아니라, 문서화·고객 응대·진단 보조 등 어떤 업무에 어떤 승인 절차와 책임자를 붙여 운영하느냐이다.",
+      "다만 이 수치는 미국·캐나다 자기보고 조사 결과이므로, 한국 병원의 인력 구조나 진료 흐름에 그대로 대응시킬 수는 없다."
+    ],
+    "koreanIndustryImplications": [
+      "국내 사업자는 AI 도입 전에 사용 목적, 책임자, 검토 절차, 금지 업무를 문서화했는지 확인할 필요가 있다.",
+      "AI 스크라이브나 상담 도구를 쓸 경우, 최종 검수 주체와 기록 보존 방식을 먼저 정해야 한다.",
+      "도입 후 성과를 보려면 ‘몇 명이 쓰는가’보다 ‘어느 업무를 얼마나 바꿨는가’를 점검하는 질문이 필요하다.",
+      "외부 솔루션 선택 시에는 정확성, 보안, 개인정보 처리, 직원 교육 체계를 계약 전 점검해야 한다."
+    ],
+    "readerLimitations": [
+      "응답은 자기보고 방식이어서 실제 사용량과 다를 수 있다.",
+      "미국·캐나다 데이터라서 한국 전체 시장의 평균으로 읽을 수 없다.",
+      "병원 규모, 지역, 진료과별 차이가 공개 기사만으로는 충분히 드러나지 않는다.",
+      "성과는 보고된 결과일 뿐, AI가 직접 매출이나 효율을 만들었다고 단정할 수 없다."
+    ]
+  },
+  "sections": [
+    {
+      "heading": "AI는 널리 쓰이지만, 성숙도는 아직 갈린다",
+      "paragraphs": [
+        "Digitail과 AAHA가 공개한 2026년 수의학 AI 조사에 따르면, 미국과 캐나다의 수의 전문가 1,730명 응답 가운데 83.7%가 AI를 사용한다고 답했다. 이 수치는 2024년의 39.2%보다 높았지만, 조사 주체가 밝힌 방식은 자기보고 응답이며, 한국 시장이나 다른 의료 직역에 그대로 대입할 수는 없다.",
+        "같은 조사에서 AI를 매일 또는 매주 쓴다는 응답은 88.3%였고, 가장 흔한 용도는 AI 스크라이브와 SOAP 노트를 포함한 클리니컬 문서화(62.8%)였다. 즉, 사용은 빠르게 늘었지만 적용 업무는 아직 문서화 중심에 머물러 있다."
+      ]
+    },
+    {
+      "heading": "성과는 도입률보다 운영 설계에 가까웠다",
+      "paragraphs": [
+        "조사팀은 AI 성숙도를 전략, 거버넌스, 공급사 평가, 워크플로 통합, 활용 깊이, 역량·준비도 등 6개 축으로 나눠 4점 척도로 평가했다. 평균은 2.67점이었고, 가장 높은 단계의 병원은 가장 낮은 단계보다 더 많은 긍정적 결과를 보고했다. 다만 이 결과는 성과를 ‘보고한’ 값이며, 인과를 입증하는 실험은 아니다.",
+        "보도 기사들이 공통으로 전한 해석은 단순했다. AI를 추가하는 것만으로는 충분하지 않고, 운영 방식과 책임 구조를 바꾼 기관이 더 좋은 결과를 보고했다는 점이다."
+      ]
+    },
+    {
+      "heading": "한국 병원이 먼저 확인할 실무 질문",
+      "paragraphs": [
+        "국내 반려동물 병원이라면 먼저 ‘어떤 업무에 AI를 쓸 것인가’, ‘최종 검토자는 누구인가’, ‘오류 발생 시 수정 책임은 어떻게 나눌 것인가’를 정리해야 한다. 둘째, 사용 범위와 금지 범위를 내부 지침으로 남겨야 한다. 셋째, 환자 정보와 민감 데이터가 외부 모델에 어떻게 처리되는지 계약 전에 확인해야 한다.",
+        "또한 도입 효과를 평가할 때는 단순 사용률보다 문서 시간, 상담 응답 방식, 직원 교육 비용, 재검토 빈도 같은 운영 지표를 따로 분리해 보는 편이 적절하다."
+      ]
+    }
+  ],
+  "takeaway": [
+    "이번 조사에서 확인되는 것은 AI 확산 속도와 운영 성숙도 차이다.",
+    "한국 업계가 가져올 교훈은 도입 여부보다 거버넌스와 워크플로 설계다.",
+    "다만 자료는 미국·캐나다 자기보고 조사이므로 국내 일반화는 금물이다."
+  ],
+  "publishedAt": "2026-10-11T13:23:40.911Z",
+  "source": {
+    "name": "dvm360",
+    "url": "https://www.dvm360.com/view/artificial-intelligence-use-among-veterinary-professionals-more-than-doubles-in-2-years",
+    "publishedAt": "2026-10-06T14:35:16.000Z",
+    "primaryEvidence": false,
+    "evidenceType": "publisher_report"
+  },
+  "corroboratingSources": [
+    {
+      "name": "Veterinary Practice News",
+      "url": "https://www.veterinarypracticenews.com/ai-adoption-doubled-study-finds/",
+      "publishedAt": "2026-10-01T18:49:33.000Z"
+    }
+  ],
+  "relatedLinks": [
+    {
+      "label": "FourFeetz 인사이트",
+      "href": "/ko/insights"
+    },
+    {
+      "label": "실전 리소스",
+      "href": "/ko/resources"
+    },
+    {
+      "label": "반려동물 콘텐츠 제작",
+      "href": "/ko/services"
+    }
+  ],
+  "quality": {
+    "sourceReliability": 22,
+    "originality": 20,
+    "duplicateCheck": 20,
+    "seo": 15,
+    "safetyCopyright": 15,
+    "total": 92,
+    "checkedAt": "2026-10-11T13:24:09.099Z"
+  }
+}
