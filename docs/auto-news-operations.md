@@ -8,19 +8,19 @@ The publishing gate combines deterministic checks with a separate AI review:
 
 | Category | Maximum | Evidence |
 | --- | ---: | --- |
-| Source reliability | 25 | Configured host allowlist and per-source rating |
+| Source reliability | 25 | Configured host allowlist, per-source rating, and a distinct corroborating publisher |
 | Originality | 25 | Pairwise similarity plus independent AI review |
 | Duplicate check | 20 | Exact source URL and Jaccard text similarity |
 | SEO | 15 | Title, description, keyword, and section rules plus AI review |
 | Safety/copyright | 15 | Prohibited-pattern checks plus independent AI review |
 
-Anything below 90 is rejected. Unclear sources, unsupported facts, duplicates, copyright risk, unsafe medical advice, and advertising/spam are hard blocks regardless of score. This is an editorial risk-control system, not a guarantee that AI output is error-free; review the first dry-run artifacts before activation.
+Anything below 90 is rejected. Unclear or single-source stories, fewer than two independently corroborated facts, unsupported facts, duplicates, copyright risk, unsafe medical advice, and advertising/spam are hard blocks regardless of score. The code first matches reports from distinct hostnames and then the independent AI review checks fact-level corroboration. This is an editorial risk-control system, not a guarantee that AI output is error-free; review the first dry-run artifacts before activation.
 
 ## Initial GitHub setup
 
 1. Review and merge `feature/auto-news-engine` manually. Do not enable auto-merge. GitHub scheduled workflows run from the repository default branch, so the schedule starts only after this workflow is approved and merged.
 2. In **Settings → Secrets and variables → Actions**, add the required secret `OPENAI_API_KEY`.
-3. For deployment verification and automatic content rollback, also add `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`. If omitted, Vercel verification is explicitly skipped; normal Vercel Git integration can still deploy the commit.
+3. Add `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID`. They are mandatory whenever a news commit is created; missing credentials fail the verification step and trigger rollback of that bot commit.
 4. Add repository variables:
    - `DRY_RUN=true`
    - `AUTO_PUBLISH_ENABLED=false`
@@ -54,7 +54,7 @@ Each successful content commit triggers Vercel through its Git integration. When
 
 ## Cost estimate
 
-The default model pricing variables correspond to the documented GPT-5.4 mini standard rates of USD 0.75 per million input tokens and USD 4.50 per million output tokens. At two runs a day and at most two articles per day, a practical text-only estimate is roughly USD 1–8/month depending on source size, rejection rate, and generated length. The hard repository budget defaults to USD 10/month and includes both generation and review calls recorded from API usage. OpenAI project-level billing limits should also be configured as the authoritative external cap.
+The default model pricing variables correspond to the documented GPT-5.4 mini standard rates of USD 0.75 per million input tokens and USD 4.50 per million output tokens. At two runs a day and at most two articles per day, a practical text-only estimate is roughly USD 1–8/month depending on source size, rejection rate, and generated length. The hard repository budget defaults to USD 10/month and includes both generation and review calls recorded exactly once from API usage. Every run reserves its maximum allowance under a file lock before calling the API; GitHub concurrency prevents overlapping workflow runs, and the Actions cache persists the ledger between runs. OpenAI project-level billing limits should also be configured as the authoritative external cap.
 
 ## Incident response
 

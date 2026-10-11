@@ -12,6 +12,19 @@
         "reliability": 25,
         "topics": ["pet tech", "pet business"]
       }
+    },
+    {
+      "title": "Independent report confirms connected scheduling and care records for pet services",
+      "url": "https://example.net/connected-pet-service-records",
+      "summary": "An independent industry report confirms that the pilot connects scheduling with daily care records for pet service businesses and makes no medical-function claim.",
+      "publishedAt": "2026-10-10T05:00:00.000Z",
+      "feed": {
+        "name": "Independent Pet Business Report",
+        "url": "https://example.net/feed.xml",
+        "allowedHosts": ["example.net"],
+        "reliability": 23,
+        "topics": ["pet business", "pet tech"]
+      }
     }
   ],
   "article": {
@@ -33,6 +46,9 @@
     "safe": true,
     "duplicateFree": true,
     "topicRelevant": true,
+    "independentlyCorroborated": true,
+    "corroboratedFactCount": 2,
+    "unsupportedFacts": [],
     "originalityScore": 100,
     "seoScore": 15,
     "safetyScore": 15,

@@ -41,8 +41,8 @@ export default async function NewsArticlePage({ params }: Props) {
     mainEntityOfPage: articleUrl,
     author: { "@type": "Organization", name: "FourFeetz Studios", url: "https://fourfeetz.com" },
     publisher: { "@type": "Organization", name: "FourFeetz Studios", url: "https://fourfeetz.com" },
-    citation: article.source.url,
-    isBasedOn: article.source.url,
+    citation: [article.source.url, ...article.corroboratingSources.map((source) => source.url)],
+    isBasedOn: [article.source.url, ...article.corroboratingSources.map((source) => source.url)],
   };
 
   return (
@@ -79,7 +79,11 @@ export default async function NewsArticlePage({ params }: Props) {
         <section className="mt-10 rounded-[28px] border border-[#eadfce] bg-white p-7">
           <h2 className="text-xl font-black text-[#2b2119]">출처와 검증 범위</h2>
           <p className="mt-3 leading-7 text-[#76685d]">이 글은 아래 원문에 명시된 사실만을 바탕으로 독립적으로 작성했습니다. 원문의 전체 맥락과 최신 정정 사항은 출처에서 확인해 주세요.</p>
-          <a href={article.source.url} rel="nofollow noopener noreferrer" target="_blank" className="mt-4 inline-flex break-all font-black text-[#6f4e37] underline">{article.source.name} 원문 보기 ↗</a>
+          <ul className="mt-4 space-y-3">
+            {[article.source, ...article.corroboratingSources].map((source) => (
+              <li key={source.url}><a href={source.url} rel="nofollow noopener noreferrer" target="_blank" className="break-all font-black text-[#6f4e37] underline">{source.name} 원문 보기 ↗</a></li>
+            ))}
+          </ul>
         </section>
 
         <section className="mt-12 border-t border-[#eadfce] pt-10">

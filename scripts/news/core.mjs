@@ -71,12 +71,40 @@ function tokens(value) {
   return new Set(normalizeText(value).split(" ").filter((token) => token.length > 1));
 }
 
+const EVENT_STOPWORDS = new Set(["the", "and", "for", "with", "from", "that", "this", "new", "news", "pet", "pets", "animal", "animals", "대한", "관련", "새로운", "반려동물"]);
+
+function eventTokens(item) {
+  return new Set([...tokens(`${item.title} ${item.summary}`)].filter((token) => !EVENT_STOPWORDS.has(token) && token.length >= 3));
+}
+
 export function jaccardSimilarity(left, right) {
   const a = tokens(left);
   const b = tokens(right);
   if (!a.size || !b.size) return 0;
   const intersection = [...a].filter((token) => b.has(token)).length;
   return intersection / (a.size + b.size - intersection);
+}
+
+export function attachCorroboratingSources(items) {
+  return items.map((item) => {
+    const primaryHost = new URL(item.url).hostname.toLowerCase();
+    const primaryTokens = eventTokens(item);
+    const corroboratingSources = items.filter((other) => {
+      if (other === item || new URL(other.url).hostname.toLowerCase() === primaryHost) return false;
+      if (Math.abs(Date.parse(other.publishedAt) - Date.parse(item.publishedAt)) > 3 * 86_400_000) return false;
+      const shared = [...primaryTokens].filter((token) => eventTokens(other).has(token)).length;
+      return shared >= 2 && jaccardSimilarity(`${item.title} ${item.summary}`, `${other.title} ${other.summary}`) >= 0.16;
+    }).slice(0, 3);
+    return { ...item, corroboratingSources };
+  });
+}
+
+export function selectCorroboratedPrimaries(items) {
+  return items.filter((item) => {
+    if (!item.corroboratingSources?.length) return false;
+    const ranked = [item, ...item.corroboratingSources].sort((left, right) => (right.feed.reliability ?? 0) - (left.feed.reliability ?? 0) || left.url.localeCompare(right.url));
+    return ranked[0].url === item.url;
+  });
 }
 
 export function isRelevant(item) {
@@ -134,6 +162,10 @@ export function deterministicChecks(article, candidate, existingArticles) {
   if (spamPattern.test(joined)) hardBlocks.push("advertising_or_spam");
   if (unsafeMedicalPattern.test(joined)) hardBlocks.push("unsafe_medical_advice");
   if (article.sourceFacts.length < 2) hardBlocks.push("insufficient_source_facts");
+  const corroboratingSources = candidate.corroboratingSources ?? [];
+  const distinctCorroboration = corroboratingSources.filter((source) => new URL(source.url).hostname.toLowerCase() !== sourceHost);
+  const declaredUrls = new Set((article.corroboratingSources ?? []).map((source) => source.url));
+  if (distinctCorroboration.length === 0 || !distinctCorroboration.every((source) => declaredUrls.has(source.url))) hardBlocks.push("insufficient_independent_sources");
   return { maxSimilarity, sourceValid, seoValid, hardBlocks };
 }
 
@@ -154,6 +186,7 @@ export function publicationDecision(article, candidate, review, existingArticles
   if (!review.safe) hardBlocks.push("safety_risk");
   if (!review.duplicateFree) hardBlocks.push("ai_duplicate_flag");
   if (review.topicRelevant !== true) hardBlocks.push("off_topic");
+  if (review.independentlyCorroborated !== true || review.corroboratedFactCount < 2 || review.unsupportedFacts?.length) hardBlocks.push("cross_verification_failed");
   const score = scoreArticle(article, candidate, review, checks);
   return { publish: hardBlocks.length === 0 && score.total >= QUALITY_THRESHOLD, score, hardBlocks, checks };
 }

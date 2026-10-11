@@ -32,6 +32,7 @@ export type NewsArticle = {
   publishedAt: string;
   updatedAt?: string;
   source: NewsSource;
+  corroboratingSources: NewsSource[];
   sourceFacts: string[];
   sections: NewsSection[];
   takeaway: string[];
@@ -53,6 +54,8 @@ function isPublishedArticle(value: unknown): value is NewsArticle {
     && Array.isArray(article.sections)
     && article.sections.length > 0
     && typeof article.source?.url === "string"
+    && Array.isArray(article.corroboratingSources)
+    && article.corroboratingSources.length > 0
     && typeof article.quality?.total === "number"
     && article.quality.total >= 90;
 }

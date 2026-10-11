@@ -1,11 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import {
-  MAX_DAILY_ARTICLES, articlesPublishedOn, deduplicateCandidates, isFresh, isRelevant,
-  extractSourceText, loadJsonFiles, parseFeed, publicationDecision, slugify, sourceId, writeJsonSafely,
+  MAX_DAILY_ARTICLES, articlesPublishedOn, attachCorroboratingSources, deduplicateCandidates, isFresh, isRelevant,
+  extractSourceText, loadJsonFiles, parseFeed, publicationDecision, selectCorroboratedPrimaries, slugify, sourceId, writeJsonSafely,
 } from "./core.mjs";
 import { loadFeeds } from "./config.mjs";
 import { estimateCost, generateArticle, reviewArticle } from "./openai.mjs";
+import { recordBudgetUsage, releaseBudget, reserveBudget } from "./budget.mjs";
 
 const root = process.cwd();
 const articleDirectory = path.join(root, "content", "news", "ko");
@@ -18,23 +20,10 @@ const koreanDate = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul", ye
 const month = koreanDate.slice(0, 7);
 const budgetLimit = Number(process.env.MONTHLY_BUDGET_USD || "10");
 const maxRunEstimate = Number(process.env.MAX_RUN_ESTIMATED_USD || "2");
+const runId = `${process.env.GITHUB_RUN_ID ?? "local"}-${process.env.GITHUB_RUN_ATTEMPT ?? crypto.randomUUID()}`;
 
 function log(event, details = {}) {
   process.stdout.write(`${JSON.stringify({ at: new Date().toISOString(), event, ...details })}\n`);
-}
-
-function readBudget() {
-  const target = path.join(stateDirectory, `usage-${month}.json`);
-  try { return JSON.parse(fs.readFileSync(target, "utf8")); } catch { return { month, spentUsd: 0, inputTokens: 0, outputTokens: 0, runs: 0 }; }
-}
-
-function recordUsage(ledger, usage) {
-  ledger.inputTokens += usage.input_tokens ?? 0;
-  ledger.outputTokens += usage.output_tokens ?? 0;
-  ledger.spentUsd += estimateCost(usage);
-  ledger.spentUsd = Number(ledger.spentUsd.toFixed(6));
-  ledger.updatedAt = new Date().toISOString();
-  writeJsonSafely(path.join(stateDirectory, `usage-${month}.json`), ledger);
 }
 
 async function collectCandidates() {
@@ -86,55 +75,57 @@ async function main() {
   const remainingToday = Math.max(0, MAX_DAILY_ARTICLES - articlesPublishedOn(existingArticles, koreanDate));
   if (remainingToday === 0) return log("daily_limit_reached", { date: koreanDate });
 
-  const ledger = readBudget();
-  if (ledger.spentUsd + maxRunEstimate > budgetLimit) return log("budget_guard_stopped", { spentUsd: ledger.spentUsd, budgetLimit, maxRunEstimate });
-
   const collected = await collectCandidates();
   const filtered = collected.filter((candidate) => isRelevant(candidate) && isFresh(candidate, now));
   const hydrated = await hydrateSources(filtered.slice(0, remainingToday * 6));
-  const eligible = deduplicateCandidates(hydrated, existingArticles).slice(0, remainingToday * 3);
+  const crossVerified = selectCorroboratedPrimaries(attachCorroboratingSources(hydrated));
+  const eligible = deduplicateCandidates(crossVerified, existingArticles).slice(0, remainingToday * 3);
   if (!eligible.length) return log("no_suitable_news", { collected: collected.length });
   if (process.env.NEWS_COLLECT_ONLY === "true") return log("collection_complete", { collected: collected.length, eligible: eligible.length, sources: eligible.map(({ url }) => url) });
 
-  let runCost = 0;
+  const reservation = await reserveBudget({ stateDirectory, month, runId, reserveUsd: maxRunEstimate, limitUsd: budgetLimit });
+  if (!reservation.reserved) return log("budget_guard_stopped", { spentUsd: reservation.ledger.spentUsd, budgetLimit, maxRunEstimate });
   let published = 0;
-  ledger.runs += 1;
-  for (const candidate of eligible) {
-    if (published >= remainingToday) break;
-    const generated = fixturePath ? fixtureGeneration() : await generateArticle(candidate);
-    recordUsage(ledger, generated.usage);
-    runCost += estimateCost(generated.usage);
-    if (ledger.spentUsd + runCost > budgetLimit) { log("budget_guard_stopped", { phase: "after_generation", spentUsd: ledger.spentUsd + runCost, budgetLimit }); break; }
-    const baseSlug = slugify(generated.value.title);
-    const slug = existingArticles.some((article) => article.slug === baseSlug) ? `${baseSlug}-${sourceId(candidate.url).slice(0, 8)}` : baseSlug;
-    const draft = {
-      schemaVersion: 1, slug, language: "ko", ...generated.value,
-      publishedAt: now.toISOString(),
-      source: { name: candidate.feed.name, url: candidate.url, publishedAt: candidate.publishedAt },
-      relatedLinks: [
-        { label: "FourFeetz 인사이트", href: "/ko/insights" },
-        { label: "실전 리소스", href: "/ko/resources" },
-        { label: "반려동물 콘텐츠 제작", href: "/ko/services" },
-      ],
-    };
-    const reviewed = fixturePath ? fixtureReview() : await reviewArticle(draft, candidate, existingArticles.map(({ title, description }) => ({ title, description })));
-    recordUsage(ledger, reviewed.usage);
-    runCost += estimateCost(reviewed.usage);
-    if (ledger.spentUsd + runCost > budgetLimit) { log("budget_guard_stopped", { phase: "after_review", spentUsd: ledger.spentUsd + runCost, budgetLimit }); break; }
-    const decision = publicationDecision(draft, candidate, reviewed.value, existingArticles);
-    log("quality_result", { source: candidate.url, score: decision.score.total, blocks: decision.hardBlocks });
-    if (!decision.publish) continue;
-    const article = { ...draft, quality: { ...decision.score, checkedAt: new Date().toISOString() } };
-    if (dryRun || !publishingEnabled) {
-      log("dry_run_candidate", { slug, score: decision.score.total, reason: dryRun ? "DRY_RUN" : "AUTO_PUBLISH_ENABLED is not true" });
-    } else {
-      writeJsonSafely(path.join(articleDirectory, `${slug}.json`), article);
-      existingArticles.push(article);
-      published += 1;
-      log("published", { slug, score: decision.score.total });
+  let latestLedger = reservation.ledger;
+  try {
+    for (const candidate of eligible) {
+      if (published >= remainingToday) break;
+      const generated = fixturePath ? fixtureGeneration() : await generateArticle(candidate);
+      latestLedger = await recordBudgetUsage({ stateDirectory, month, usage: generated.usage, costUsd: estimateCost(generated.usage) });
+      if (latestLedger.spentUsd > budgetLimit) { log("budget_guard_stopped", { phase: "after_generation", spentUsd: latestLedger.spentUsd, budgetLimit }); break; }
+      const baseSlug = slugify(generated.value.title);
+      const slug = existingArticles.some((article) => article.slug === baseSlug) ? `${baseSlug}-${sourceId(candidate.url).slice(0, 8)}` : baseSlug;
+      const draft = {
+        schemaVersion: 1, slug, language: "ko", ...generated.value,
+        publishedAt: now.toISOString(),
+        source: { name: candidate.feed.name, url: candidate.url, publishedAt: candidate.publishedAt },
+        corroboratingSources: candidate.corroboratingSources.map(({ feed, url, publishedAt }) => ({ name: feed.name, url, publishedAt })),
+        relatedLinks: [
+          { label: "FourFeetz 인사이트", href: "/ko/insights" },
+          { label: "실전 리소스", href: "/ko/resources" },
+          { label: "반려동물 콘텐츠 제작", href: "/ko/services" },
+        ],
+      };
+      const reviewed = fixturePath ? fixtureReview() : await reviewArticle(draft, candidate, existingArticles.map(({ title, description }) => ({ title, description })));
+      latestLedger = await recordBudgetUsage({ stateDirectory, month, usage: reviewed.usage, costUsd: estimateCost(reviewed.usage) });
+      if (latestLedger.spentUsd > budgetLimit) { log("budget_guard_stopped", { phase: "after_review", spentUsd: latestLedger.spentUsd, budgetLimit }); break; }
+      const decision = publicationDecision(draft, candidate, reviewed.value, existingArticles);
+      log("quality_result", { source: candidate.url, score: decision.score.total, blocks: decision.hardBlocks });
+      if (!decision.publish) continue;
+      const article = { ...draft, quality: { ...decision.score, checkedAt: new Date().toISOString() } };
+      if (dryRun || !publishingEnabled) {
+        log("dry_run_candidate", { slug, score: decision.score.total, reason: dryRun ? "DRY_RUN" : "AUTO_PUBLISH_ENABLED is not true" });
+      } else {
+        writeJsonSafely(path.join(articleDirectory, `${slug}.json`), article);
+        existingArticles.push(article);
+        published += 1;
+        log("published", { slug, score: decision.score.total });
+      }
     }
+  } finally {
+    latestLedger = await releaseBudget({ stateDirectory, month, runId });
   }
-  log("run_complete", { published, dryRun, publishingEnabled, evaluated: eligible.length, estimatedSpendUsd: ledger.spentUsd });
+  log("run_complete", { published, dryRun, publishingEnabled, evaluated: eligible.length, estimatedSpendUsd: latestLedger.spentUsd });
 }
 
 main().catch((error) => {

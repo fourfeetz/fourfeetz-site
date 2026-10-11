@@ -1,36 +1,32 @@
-const token = process.env.VERCEL_TOKEN;
-const projectId = process.env.VERCEL_PROJECT_ID;
-const teamId = process.env.VERCEL_ORG_ID;
-const sha = process.argv[2] || process.env.GITHUB_SHA;
+import { pathToFileURL } from "node:url";
 
-if (!token || !projectId || !sha) {
-  process.stdout.write("Vercel deployment verification skipped: VERCEL_TOKEN, VERCEL_PROJECT_ID, or SHA is missing.\n");
-  process.exit(0);
+export async function verifyVercelDeployment({ token, projectId, teamId, sha, fetchImpl = fetch, sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)), timeoutMs = 10 * 60_000, pollMs = 15_000 }) {
+  const missing = [!token && "VERCEL_TOKEN", !projectId && "VERCEL_PROJECT_ID", !teamId && "VERCEL_ORG_ID", !sha && "commit SHA"].filter(Boolean);
+  if (missing.length) throw new Error(`Vercel deployment verification requires: ${missing.join(", ")}`);
+  const deadline = Date.now() + timeoutMs;
+  const headers = { Authorization: `Bearer ${token}` };
+  while (Date.now() < deadline) {
+    const query = new URLSearchParams({ projectId, teamId, limit: "20" });
+    const response = await fetchImpl(`https://api.vercel.com/v6/deployments?${query}`, { headers, signal: AbortSignal.timeout(20_000) });
+    if (!response.ok) throw new Error(`Vercel API ${response.status}: ${(await response.text()).slice(0, 300)}`);
+    const deployments = (await response.json()).deployments ?? [];
+    const deployment = deployments.find((item) => item.meta?.githubCommitSha === sha);
+    if (!deployment) { await sleep(pollMs); continue; }
+    const state = deployment.readyState ?? deployment.state;
+    if (state === "READY") return { url: `https://${deployment.url}`, state };
+    if (["ERROR", "CANCELED"].includes(state)) throw new Error(`Vercel deployment failed with state ${state}`);
+    await sleep(pollMs);
+  }
+  throw new Error("Timed out waiting for the Vercel deployment");
 }
 
-const deadline = Date.now() + 10 * 60_000;
-const headers = { Authorization: `Bearer ${token}` };
-const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
-
-while (Date.now() < deadline) {
-  const query = new URLSearchParams({ projectId, limit: "20" });
-  if (teamId) query.set("teamId", teamId);
-  const response = await fetch(`https://api.vercel.com/v6/deployments?${query}`, { headers, signal: AbortSignal.timeout(20_000) });
-  if (!response.ok) throw new Error(`Vercel API ${response.status}: ${(await response.text()).slice(0, 300)}`);
-  const deployments = (await response.json()).deployments ?? [];
-  const deployment = deployments.find((item) => item.meta?.githubCommitSha === sha);
-  if (!deployment) { await wait(15_000); continue; }
-  if (deployment.state === "READY") {
-    process.stdout.write(`Vercel deployment ready: https://${deployment.url}\n`);
-    process.exit(0);
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  try {
+    const result = await verifyVercelDeployment({ token: process.env.VERCEL_TOKEN, projectId: process.env.VERCEL_PROJECT_ID, teamId: process.env.VERCEL_ORG_ID, sha: process.argv[2] || process.env.GITHUB_SHA });
+    process.stdout.write(`Vercel deployment ready: ${result.url}\n`);
+  } catch (error) {
+    process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
+    process.exitCode = 2;
   }
-  if (["ERROR", "CANCELED"].includes(deployment.state)) {
-    process.stderr.write(`Vercel deployment failed with state ${deployment.state}.\n`);
-    process.exit(2);
-  }
-  await wait(15_000);
 }
-
-process.stderr.write("Timed out waiting for the Vercel deployment.\n");
-process.exit(2);
 

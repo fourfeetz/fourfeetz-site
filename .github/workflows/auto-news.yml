@@ -29,7 +29,6 @@ jobs:
       MONTHLY_BUDGET_USD: ${{ vars.MONTHLY_BUDGET_USD || '10' }}
       MAX_RUN_ESTIMATED_USD: ${{ vars.MAX_RUN_ESTIMATED_USD || '2' }}
       AUTO_PUBLISH_ENABLED: ${{ vars.AUTO_PUBLISH_ENABLED || 'false' }}
-      DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || vars.DRY_RUN != 'false' }}
       NEWS_FEEDS_JSON: ${{ vars.NEWS_FEEDS_JSON }}
 
     steps:
@@ -44,6 +43,11 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      - name: Resolve safe publication mode
+        id: mode
+        shell: bash
+        run: node scripts/news/resolve-mode.mjs "$GITHUB_EVENT_NAME" "${{ inputs.dry_run }}" "${{ vars.DRY_RUN }}" >> "$GITHUB_OUTPUT"
 
       - name: Install dependencies
         run: npm ci
@@ -60,6 +64,8 @@ jobs:
         run: npm run test:news
 
       - name: Collect, generate, and evaluate
+        env:
+          DRY_RUN: ${{ steps.mode.outputs.dry_run }}
         run: npm run news:dry-run
 
       - name: Validate published data
@@ -81,7 +87,7 @@ jobs:
 
       - name: Commit approved news only
         id: commit
-        if: env.DRY_RUN == 'false' && env.AUTO_PUBLISH_ENABLED == 'true'
+        if: steps.mode.outputs.dry_run == 'false' && env.AUTO_PUBLISH_ENABLED == 'true'
         shell: bash
         run: |
           if [ -z "$(git status --porcelain --untracked-files=all -- content/news/ko)" ]; then
