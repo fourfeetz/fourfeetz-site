@@ -40,5 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Restored and saved by GitHub Actions cache; never published with site content.
+# Local news-engine budget state; GitHub Actions uses the durable Issue ledger instead.
 /content/news/.state/usage-*.json
+/content/news/.state/budget-ledger.json

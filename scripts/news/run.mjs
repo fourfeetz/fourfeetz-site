@@ -7,7 +7,7 @@ import {
 } from "./core.mjs";
 import { loadFeeds } from "./config.mjs";
 import { estimateCost, generateArticle, reviewArticle } from "./openai.mjs";
-import { recordBudgetUsage, releaseBudget, reserveBudget } from "./budget.mjs";
+import { budgetExposure, createBudgetStore, recordBudgetUsage, releaseBudget, reserveBudget } from "./budget.mjs";
 
 const root = process.cwd();
 const articleDirectory = path.join(root, "content", "news", "ko");
@@ -21,6 +21,7 @@ const month = koreanDate.slice(0, 7);
 const budgetLimit = Number(process.env.MONTHLY_BUDGET_USD || "10");
 const maxRunEstimate = Number(process.env.MAX_RUN_ESTIMATED_USD || "2");
 const runId = `${process.env.GITHUB_RUN_ID ?? "local"}-${process.env.GITHUB_RUN_ATTEMPT ?? crypto.randomUUID()}`;
+const budgetStore = createBudgetStore({ stateDirectory });
 
 function log(event, details = {}) {
   process.stdout.write(`${JSON.stringify({ at: new Date().toISOString(), event, ...details })}\n`);
@@ -71,6 +72,8 @@ function fixtureReview() {
 
 async function main() {
   if (!Number.isFinite(budgetLimit) || budgetLimit <= 0) throw new Error("MONTHLY_BUDGET_USD must be positive");
+  if (!Number.isFinite(maxRunEstimate) || maxRunEstimate <= 0) throw new Error("MAX_RUN_ESTIMATED_USD must be positive");
+  if (maxRunEstimate > budgetLimit) throw new Error("MAX_RUN_ESTIMATED_USD cannot exceed MONTHLY_BUDGET_USD");
   const existingArticles = loadJsonFiles(articleDirectory);
   const remainingToday = Math.max(0, MAX_DAILY_ARTICLES - articlesPublishedOn(existingArticles, koreanDate));
   if (remainingToday === 0) return log("daily_limit_reached", { date: koreanDate });
@@ -83,16 +86,17 @@ async function main() {
   if (!eligible.length) return log("no_suitable_news", { collected: collected.length });
   if (process.env.NEWS_COLLECT_ONLY === "true") return log("collection_complete", { collected: collected.length, eligible: eligible.length, sources: eligible.map(({ url }) => url) });
 
-  const reservation = await reserveBudget({ stateDirectory, month, runId, reserveUsd: maxRunEstimate, limitUsd: budgetLimit });
+  const reservation = await reserveBudget({ store: budgetStore, month, runId, reserveUsd: maxRunEstimate, limitUsd: budgetLimit });
   if (!reservation.reserved) return log("budget_guard_stopped", { spentUsd: reservation.ledger.spentUsd, budgetLimit, maxRunEstimate });
   let published = 0;
   let latestLedger = reservation.ledger;
+  let completed = false;
   try {
     for (const candidate of eligible) {
       if (published >= remainingToday) break;
       const generated = fixturePath ? fixtureGeneration() : await generateArticle(candidate);
-      latestLedger = await recordBudgetUsage({ stateDirectory, month, usage: generated.usage, costUsd: estimateCost(generated.usage) });
-      if (latestLedger.spentUsd > budgetLimit) { log("budget_guard_stopped", { phase: "after_generation", spentUsd: latestLedger.spentUsd, budgetLimit }); break; }
+      latestLedger = await recordBudgetUsage({ store: budgetStore, month, runId, usage: generated.usage, costUsd: estimateCost(generated.usage) });
+      if (budgetExposure(latestLedger) > budgetLimit) { log("budget_guard_stopped", { phase: "after_generation", exposureUsd: budgetExposure(latestLedger), budgetLimit }); break; }
       const baseSlug = slugify(generated.value.title);
       const slug = existingArticles.some((article) => article.slug === baseSlug) ? `${baseSlug}-${sourceId(candidate.url).slice(0, 8)}` : baseSlug;
       const draft = {
@@ -107,8 +111,8 @@ async function main() {
         ],
       };
       const reviewed = fixturePath ? fixtureReview() : await reviewArticle(draft, candidate, existingArticles.map(({ title, description }) => ({ title, description })));
-      latestLedger = await recordBudgetUsage({ stateDirectory, month, usage: reviewed.usage, costUsd: estimateCost(reviewed.usage) });
-      if (latestLedger.spentUsd > budgetLimit) { log("budget_guard_stopped", { phase: "after_review", spentUsd: latestLedger.spentUsd, budgetLimit }); break; }
+      latestLedger = await recordBudgetUsage({ store: budgetStore, month, runId, usage: reviewed.usage, costUsd: estimateCost(reviewed.usage) });
+      if (budgetExposure(latestLedger) > budgetLimit) { log("budget_guard_stopped", { phase: "after_review", exposureUsd: budgetExposure(latestLedger), budgetLimit }); break; }
       const decision = publicationDecision(draft, candidate, reviewed.value, existingArticles);
       log("quality_result", { source: candidate.url, score: decision.score.total, blocks: decision.hardBlocks });
       if (!decision.publish) continue;
@@ -122,8 +126,9 @@ async function main() {
         log("published", { slug, score: decision.score.total });
       }
     }
+    completed = true;
   } finally {
-    latestLedger = await releaseBudget({ stateDirectory, month, runId });
+    if (completed) latestLedger = await releaseBudget({ store: budgetStore, month, runId });
   }
   log("run_complete", { published, dryRun, publishingEnabled, evaluated: eligible.length, estimatedSpendUsd: latestLedger.spentUsd });
 }
