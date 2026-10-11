@@ -148,6 +148,7 @@ export const dict = {
       characters: "캐릭터",
       music: "음악",
       insights: "인사이트",
+      news: "뉴스",
       resources: "리소스",
       services: "제작 의뢰",
       personal: "My Pet Story",
@@ -296,6 +297,7 @@ export const koreanNavItems = [
   { href: "/ko/videos", key: "videos" },
   { href: "/ko/characters", key: "characters" },
   { href: "/ko/insights", key: "insights" },
+  { href: "/ko/news", key: "news" },
   { href: "/ko/services#contact", key: "contact" },
 ] as const;
 
