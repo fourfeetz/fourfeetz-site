@@ -57,6 +57,7 @@ function qualityLog({ candidate, attempt, review, decision }) {
       crossVerificationFailures: compactDiagnostics(review.crossVerificationFailures),
       revisionPossible: review.revisionPossible === true,
       revisionInstructions: (review.revisionInstructions ?? []).slice(0, 8).map((value) => String(value).slice(0, 500)),
+      reviewReasons: (review.reasons ?? []).slice(0, 8).map((value) => String(value).slice(0, 500)),
     },
   });
 }

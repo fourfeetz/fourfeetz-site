@@ -8,7 +8,7 @@ function verifiedArticle(overrides = {}) {
   const claims = ["두 출처가 같은 시범 운영을 보도했다.", "일정과 돌봄 기록을 연결하는 기능이 소개됐다."];
   return {
     title: "반려동물 돌봄 기록을 연결하는 새로운 시범 서비스 안내",
-    description: "서로 다른 두 출처에서 확인된 반려동물 돌봄 기록 서비스의 공개 범위와 적용 한계를 한국 독자가 이해하기 쉽게 정리합니다.",
+    description: "서로 다른 두 출처에서 확인된 반려동물 돌봄 기록 서비스의 공개 범위와 적용 한계를 한국 독자가 이해하기 쉽게 정리하고 실제 도입 전에 살펴볼 검증 범위도 함께 설명합니다.",
     keywords: ["반려동물", "돌봄 기록", "펫테크"], sourceFacts: claims,
     verifiedClaims: claims.map((claim) => ({ claim, limitation: "공개 자료 범위", evidence: [{ sourceUrl: "https://example.org/a", evidenceSummary: "첫 보도" }, { sourceUrl: "https://example.net/b", evidenceSummary: "독립 보도" }] })),
     sections: [{ heading: "공개 범위", paragraphs: ["두 자료에서 확인된 내용을 설명합니다.", "성과를 확대 해석하지 않습니다."] }, { heading: "업무 의미", paragraphs: ["한국 독자가 이해할 맥락을 제공합니다.", "확인된 사실과 분석을 구분합니다."] }, { heading: "확인할 점", paragraphs: ["시범 운영이라는 한계가 있습니다.", "추가 자료를 살펴봐야 합니다."] }],
@@ -128,6 +128,15 @@ test("reports each AI quality block independently", () => {
     const decision = publicationDecision(verifiedArticle(), candidate, passingReview(override), []);
     assert.ok(decision.hardBlocks.includes(expected));
   }
+});
+
+test("uses deterministic SEO and hard safety results instead of unexplained AI subscore deductions", () => {
+  const candidate = { url: "https://example.org/a", feed: { ...feed, reliability: 22 }, corroboratingSources: [{ url: "https://example.net/b" }] };
+  const decision = publicationDecision(verifiedArticle(), candidate, passingReview({ originalityScore: 84, seoScore: 7, safetyScore: 9, failedClaims: [], copyrightRisks: [] }), []);
+  assert.equal(decision.score.seo, 15);
+  assert.equal(decision.score.safetyCopyright, 15);
+  assert.equal(decision.score.total, 93);
+  assert.equal(decision.publish, true);
 });
 
 test("blocks a claim whose evidence does not include two allowed independent hosts", () => {

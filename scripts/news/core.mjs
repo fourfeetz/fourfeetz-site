@@ -210,8 +210,9 @@ export function scoreArticle(article, candidate, review, checks) {
   const sourceReliability = checks.sourceValid ? Math.min(25, candidate.feed.reliability) : 0;
   const originality = Math.max(0, Math.min(25, Math.round((review.originalityScore / 100) * 25 - checks.maxSimilarity * 25 - checks.sourceCopyRatio * 25)));
   const duplicateCheck = checks.maxSimilarity < 0.45 && review.duplicateFree ? 20 : checks.maxSimilarity < 0.6 ? 12 : 0;
-  const seo = checks.seoValid ? Math.min(15, review.seoScore) : Math.min(8, review.seoScore);
-  const safetyCopyright = review.safe && review.copyrightSafe && review.factsSupported ? Math.min(15, review.safetyScore) : 0;
+  const seo = checks.seoValid && review.topicRelevant ? 15 : Math.min(8, review.seoScore);
+  const safetyCopyright = review.safe && review.copyrightSafe && review.factsSupported
+    && (review.failedClaims ?? []).length === 0 && (review.copyrightRisks ?? []).length === 0 ? 15 : 0;
   return { sourceReliability, originality, duplicateCheck, seo, safetyCopyright, total: sourceReliability + originality + duplicateCheck + seo + safetyCopyright };
 }
 
