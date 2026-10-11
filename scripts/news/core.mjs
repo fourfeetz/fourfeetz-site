@@ -93,6 +93,17 @@ export function jaccardSimilarity(left, right) {
   return intersection / (a.size + b.size - intersection);
 }
 
+export function sourceOverlapRatio(articleText, sourceTexts, shingleSize = 8) {
+  const articleTokens = normalizeText(articleText).split(" ").filter(Boolean);
+  if (articleTokens.length < shingleSize) return 0;
+  const articleShingles = Array.from({ length: articleTokens.length - shingleSize + 1 }, (_, index) => articleTokens.slice(index, index + shingleSize).join(" "));
+  const sourceShingles = new Set(sourceTexts.flatMap((text) => {
+    const sourceTokens = normalizeText(text).split(" ").filter(Boolean);
+    return Array.from({ length: Math.max(0, sourceTokens.length - shingleSize + 1) }, (_, index) => sourceTokens.slice(index, index + shingleSize).join(" "));
+  }));
+  return articleShingles.filter((shingle) => sourceShingles.has(shingle)).length / articleShingles.length;
+}
+
 export function attachCorroboratingSources(items) {
   return items.map((item) => {
     const primaryHost = new URL(item.url).hostname.toLowerCase();
@@ -165,6 +176,8 @@ export function deterministicChecks(article, candidate, existingArticles) {
   const maxSimilarity = existingArticles.reduce((max, existing) => Math.max(max, jaccardSimilarity(joined, `${existing.title} ${existing.description} ${existing.sections?.flatMap((section) => section.paragraphs).join(" ") ?? ""}`)), 0);
   const sourceHost = new URL(candidate.url).hostname.toLowerCase();
   const sourceValid = candidate.feed.allowedHosts.includes(sourceHost) && article.source.url === candidate.url;
+  const sourceTexts = [candidate, ...(candidate.corroboratingSources ?? [])].map((source) => `${source.title ?? ""} ${source.summary ?? ""} ${source.sourceText ?? ""}`);
+  const sourceCopyRatio = sourceOverlapRatio(joined, sourceTexts);
   const seoValid = article.title.length >= 18 && article.title.length <= 70
     && article.description.length >= 70 && article.description.length <= 170
     && article.keywords.length >= 3 && article.keywords.length <= 8
@@ -174,6 +187,7 @@ export function deterministicChecks(article, candidate, existingArticles) {
   const hardBlocks = [];
   if (!sourceValid) hardBlocks.push("unclear_source");
   if (maxSimilarity >= 0.72) hardBlocks.push("duplicate_content");
+  if (sourceCopyRatio >= 0.18) hardBlocks.push("source_copy_risk");
   if (spamPattern.test(joined)) hardBlocks.push("advertising_or_spam");
   if (unsafeMedicalPattern.test(joined)) hardBlocks.push("unsafe_medical_advice");
   if (article.sourceFacts.length < 2) hardBlocks.push("insufficient_source_facts");
@@ -181,15 +195,24 @@ export function deterministicChecks(article, candidate, existingArticles) {
   const distinctCorroboration = corroboratingSources.filter((source) => new URL(source.url).hostname.toLowerCase() !== sourceHost);
   const declaredUrls = new Set((article.corroboratingSources ?? []).map((source) => source.url));
   if (distinctCorroboration.length === 0 || !distinctCorroboration.every((source) => declaredUrls.has(source.url))) hardBlocks.push("insufficient_independent_sources");
-  return { maxSimilarity, sourceValid, seoValid, hardBlocks };
+  const allowedEvidenceUrls = new Set([candidate.url, ...corroboratingSources.map((source) => source.url)]);
+  const verifiedClaims = Array.isArray(article.verifiedClaims) ? article.verifiedClaims : [];
+  const claimsHaveIndependentEvidence = verifiedClaims.length >= 2 && verifiedClaims.every((claim) => {
+    const evidenceUrls = [...new Set((claim.evidence ?? []).map((evidence) => evidence.sourceUrl))];
+    const hosts = new Set(evidenceUrls.filter((url) => allowedEvidenceUrls.has(url)).map((url) => new URL(url).hostname.toLowerCase()));
+    return evidenceUrls.length >= 2 && evidenceUrls.every((url) => allowedEvidenceUrls.has(url)) && hosts.size >= 2;
+  });
+  if (!claimsHaveIndependentEvidence) hardBlocks.push("claim_evidence_missing");
+  return { maxSimilarity, sourceCopyRatio, sourceValid, seoValid, claimsHaveIndependentEvidence, hardBlocks };
 }
 
 export function scoreArticle(article, candidate, review, checks) {
   const sourceReliability = checks.sourceValid ? Math.min(25, candidate.feed.reliability) : 0;
-  const originality = Math.max(0, Math.min(25, Math.round((review.originalityScore / 100) * 25 - checks.maxSimilarity * 25)));
+  const originality = Math.max(0, Math.min(25, Math.round((review.originalityScore / 100) * 25 - checks.maxSimilarity * 25 - checks.sourceCopyRatio * 25)));
   const duplicateCheck = checks.maxSimilarity < 0.45 && review.duplicateFree ? 20 : checks.maxSimilarity < 0.6 ? 12 : 0;
-  const seo = checks.seoValid ? Math.min(15, review.seoScore) : Math.min(8, review.seoScore);
-  const safetyCopyright = review.safe && review.copyrightSafe && review.factsSupported ? Math.min(15, review.safetyScore) : 0;
+  const seo = checks.seoValid && review.topicRelevant ? 15 : Math.min(8, review.seoScore);
+  const safetyCopyright = review.safe && review.copyrightSafe && review.factsSupported
+    && (review.failedClaims ?? []).length === 0 && (review.copyrightRisks ?? []).length === 0 ? 15 : 0;
   return { sourceReliability, originality, duplicateCheck, seo, safetyCopyright, total: sourceReliability + originality + duplicateCheck + seo + safetyCopyright };
 }
 

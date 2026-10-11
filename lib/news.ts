@@ -20,6 +20,11 @@ export type NewsQuality = {
 };
 
 export type NewsSection = { heading: string; paragraphs: string[] };
+export type VerifiedClaim = {
+  claim: string;
+  evidence: { sourceUrl: string; evidenceSummary: string }[];
+  limitation: string;
+};
 
 export type NewsArticle = {
   schemaVersion: 1;
@@ -34,6 +39,8 @@ export type NewsArticle = {
   source: NewsSource;
   corroboratingSources: NewsSource[];
   sourceFacts: string[];
+  verifiedClaims: VerifiedClaim[];
+  evidenceScope: { sharedBasis: string; verificationBoundary: string; limitations: string[] };
   sections: NewsSection[];
   takeaway: string[];
   relatedLinks: { label: string; href: string }[];
@@ -56,6 +63,9 @@ function isPublishedArticle(value: unknown): value is NewsArticle {
     && typeof article.source?.url === "string"
     && Array.isArray(article.corroboratingSources)
     && article.corroboratingSources.length > 0
+    && Array.isArray(article.verifiedClaims)
+    && article.verifiedClaims.length >= 2
+    && typeof article.evidenceScope?.verificationBoundary === "string"
     && typeof article.quality?.total === "number"
     && article.quality.total >= 90;
 }
