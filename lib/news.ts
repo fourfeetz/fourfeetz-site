@@ -40,6 +40,7 @@ export type NewsArticle = {
   corroboratingSources: NewsSource[];
   sourceFacts: string[];
   verifiedClaims: VerifiedClaim[];
+  evidenceScope: { sharedBasis: string; verificationBoundary: string; limitations: string[] };
   sections: NewsSection[];
   takeaway: string[];
   relatedLinks: { label: string; href: string }[];
@@ -64,6 +65,7 @@ function isPublishedArticle(value: unknown): value is NewsArticle {
     && article.corroboratingSources.length > 0
     && Array.isArray(article.verifiedClaims)
     && article.verifiedClaims.length >= 2
+    && typeof article.evidenceScope?.verificationBoundary === "string"
     && typeof article.quality?.total === "number"
     && article.quality.total >= 90;
 }

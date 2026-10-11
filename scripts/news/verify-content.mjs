@@ -14,6 +14,7 @@ for (const article of articles) {
   if ((article.quality?.total ?? 0) < QUALITY_THRESHOLD) throw new Error(`Below quality threshold: ${article.slug}`);
   if (!Array.isArray(article.corroboratingSources) || article.corroboratingSources.length === 0) throw new Error(`Missing independent source: ${article.slug}`);
   if (!Array.isArray(article.verifiedClaims) || article.verifiedClaims.length < 2) throw new Error(`Missing claim evidence: ${article.slug}`);
+  if (!article.evidenceScope?.verificationBoundary || !Array.isArray(article.evidenceScope?.limitations) || article.evidenceScope.limitations.length < 2) throw new Error(`Missing evidence scope: ${article.slug}`);
   const primaryHost = new URL(article.source.url).hostname;
   if (article.corroboratingSources.some((source) => new URL(source.url).hostname === primaryHost)) throw new Error(`Corroborating source is not independent: ${article.slug}`);
   if (!fs.existsSync(path.join(directory, `${article.slug}.json`))) throw new Error(`Filename/slug mismatch: ${article.slug}`);
