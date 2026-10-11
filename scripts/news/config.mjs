@@ -46,6 +46,8 @@ export const DEFAULT_FEEDS = [
     url: "https://blog.google/technology/ai/rss/",
     allowedHosts: ["blog.google"],
     reliability: 25,
+    primaryEvidence: true,
+    evidenceType: "official",
     topics: ["AI tools", "video creation"],
   },
   {
@@ -53,6 +55,8 @@ export const DEFAULT_FEEDS = [
     url: "https://openai.com/news/rss.xml",
     allowedHosts: ["openai.com", "www.openai.com"],
     reliability: 25,
+    primaryEvidence: true,
+    evidenceType: "official",
     topics: ["AI tools", "creator tools"],
   },
   {

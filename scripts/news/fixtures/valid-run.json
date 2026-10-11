@@ -54,6 +54,8 @@
     "evidenceScope": {
       "sharedBasis": "두 매체가 같은 시범 프로그램 공개 내용을 보도했다.",
       "verificationBoundary": "두 보도는 공개된 기능 범위를 확인하지만 실제 운영 성과를 독립 검증하지는 않았다.",
+      "independentVerificationAvailable": true,
+      "conditionalPublicationReason": "서로 다른 두 발행 주체가 동일한 공개 사실을 확인했다.",
       "limitations": ["시범 운영 단계다.", "성과 수치는 공개되지 않았다."]
     },
     "editorialAnalysis": {

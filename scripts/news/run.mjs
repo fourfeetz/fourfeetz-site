@@ -3,7 +3,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import {
   MAX_DAILY_ARTICLES, articlesPublishedOn, attachCorroboratingSources, deduplicateCandidates, isFresh, isRelevant,
-  extractSourceText, freshnessReason, loadJsonFiles, parseFeedWithDiagnostics, selectCorroboratedPrimaries, slugify, sourceId, writeJsonSafely,
+  extractSourceText, freshnessReason, isTrustedPrimaryEvidence, loadJsonFiles, parseFeedWithDiagnostics, selectApiCandidates, selectEvidencePrimaries, slugify, sourceId, writeJsonSafely,
 } from "./core.mjs";
 import { loadFeeds } from "./config.mjs";
 import { estimateCost, generateArticle, reviewArticle, rewriteArticle } from "./openai.mjs";
@@ -58,6 +58,8 @@ function qualityLog({ candidate, attempt, review, decision }) {
       seoValid: decision.checks.seoValid,
       editorialAnalysisValid: decision.checks.editorialAnalysisValid,
       claimsHaveIndependentEvidence: decision.checks.claimsHaveIndependentEvidence,
+      conditionalPrimaryEvidence: decision.checks.conditionalPrimaryEvidence,
+      conditionalPrimaryEvidenceAccepted: decision.checks.conditionalPrimaryEvidenceAccepted,
     },
     diagnostics: {
       evidenceBasis: review.evidenceBasis ?? null,
@@ -169,20 +171,24 @@ async function main() {
 
   const corroborated = attachCorroboratingSources(relevantFresh);
   const withIndependentSources = corroborated.filter((candidate) => candidate.corroboratingSources.length > 0);
-  const primaries = selectCorroboratedPrimaries(corroborated);
+  const withTrustedPrimaryEvidence = corroborated.filter((candidate) => candidate.corroboratingSources.length === 0 && isTrustedPrimaryEvidence(candidate));
+  const primaries = selectEvidencePrimaries(corroborated);
   const hydrated = await hydrateCandidateGroups(primaries.slice(0, remainingToday * 6));
   const deduplicated = deduplicateCandidates(hydrated, existingArticles);
-  const eligible = deduplicated.slice(0, remainingToday);
+  // Evaluate additional verified candidates when earlier drafts fail editorial review.
+  // Publishing is still limited by remainingToday and the existing budget guards.
+  const eligible = selectApiCandidates(deduplicated, remainingToday);
   log("candidate_selection_summary", {
     dateAccepted: relevantFresh.length,
     independentlyCorroborated: withIndependentSources.length,
-    crossVerificationRejected: relevantFresh.length - withIndependentSources.length,
+    conditionalPrimaryEvidence: withTrustedPrimaryEvidence.length,
+    crossVerificationRejected: relevantFresh.length - withIndependentSources.length - withTrustedPrimaryEvidence.length,
     primaryEvents: primaries.length,
     duplicateRejected: hydrated.length - deduplicated.length,
     apiCandidates: eligible.length,
   });
   if (!eligible.length) return log("no_suitable_news", { collected: collected.length, apiCandidates: 0 });
-  log("api_candidates_ready", { count: eligible.length, candidates: eligible.map((candidate) => ({ title: candidate.title, source: candidate.feed.name, corroboratingSources: candidate.corroboratingSources.map((source) => ({ title: source.title, source: source.feed.name })) })) });
+  log("api_candidates_ready", { count: eligible.length, candidates: eligible.map((candidate) => ({ title: candidate.title, source: candidate.feed.name, evidenceMode: candidate.corroboratingSources.length > 0 ? "independent_publishers" : "trusted_primary", corroboratingSources: candidate.corroboratingSources.map((source) => ({ title: source.title, source: source.feed.name })) })) });
   if (process.env.NEWS_COLLECT_ONLY === "true") return log("collection_complete", { collected: collected.length, eligible: eligible.length, sources: eligible.map(({ url }) => url) });
 
   const reservation = await reserveBudget({ store: budgetStore, month, runId, reserveUsd: maxRunEstimate, limitUsd: budgetLimit });
@@ -203,7 +209,7 @@ async function main() {
       const draft = {
         schemaVersion: 1, slug, language: "ko", ...generated.value,
         publishedAt: now.toISOString(),
-        source: { name: candidate.feed.name, url: candidate.url, publishedAt: candidate.publishedAt },
+        source: { name: candidate.feed.name, url: candidate.url, publishedAt: candidate.publishedAt, primaryEvidence: candidate.feed.primaryEvidence === true, evidenceType: candidate.feed.evidenceType ?? "publisher_report" },
         corroboratingSources: candidate.corroboratingSources.map(({ feed, url, publishedAt }) => ({ name: feed.name, url, publishedAt })),
         relatedLinks: [
           { label: "FourFeetz 인사이트", href: "/ko/insights" },

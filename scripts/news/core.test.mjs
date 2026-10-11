@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { assertNewsPath, attachCorroboratingSources, deduplicateCandidates, extractSourceText, freshnessReason, isFresh, isRelevant, jaccardSimilarity, parseFeed, parseFeedWithDiagnostics, publicationDecision, selectCorroboratedPrimaries } from "./core.mjs";
+import { assertNewsPath, attachCorroboratingSources, deduplicateCandidates, extractSourceText, freshnessReason, isFresh, isRelevant, jaccardSimilarity, parseFeed, parseFeedWithDiagnostics, publicationDecision, selectApiCandidates, selectCorroboratedPrimaries, selectEvidencePrimaries } from "./core.mjs";
 
 const feed = { name: "Official", url: "https://example.org/feed", allowedHosts: ["example.org"], reliability: 25, topics: ["pet tech"] };
 
@@ -12,6 +12,7 @@ function verifiedArticle(overrides = {}) {
     keywords: ["반려동물", "돌봄 기록", "펫테크"], sourceFacts: claims,
     verifiedClaims: claims.map((claim) => ({ claim, limitation: "공개 자료 범위", evidence: [{ sourceUrl: "https://example.org/a", evidenceSummary: "첫 보도" }, { sourceUrl: "https://example.net/b", evidenceSummary: "독립 보도" }] })),
     editorialAnalysis: { fourfeetzAnalysis: ["기록 책임을 먼저 확인해야 합니다.", "도입 목적을 분명히 해야 합니다."], koreanIndustryImplications: ["국내 개인정보 기준을 확인해야 합니다.", "기존 업무 흐름과 연결성을 시험해야 합니다."], readerLimitations: ["실제 성과는 아직 확인되지 않았습니다.", "해외 결과를 국내에 일반화할 수 없습니다."] },
+    evidenceScope: { sharedBasis: "공개 자료", verificationBoundary: "확인된 공개 범위", independentVerificationAvailable: true, conditionalPublicationReason: "서로 다른 두 출처가 확인했다.", limitations: ["공개 자료 범위", "성과 미검증"] },
     sections: [{ heading: "공개 범위", paragraphs: ["두 자료에서 확인된 내용을 설명합니다.", "성과를 확대 해석하지 않습니다."] }, { heading: "업무 의미", paragraphs: ["한국 독자가 이해할 맥락을 제공합니다.", "확인된 사실과 분석을 구분합니다."] }, { heading: "확인할 점", paragraphs: ["시범 운영이라는 한계가 있습니다.", "추가 자료를 살펴봐야 합니다."] }],
     source: { url: "https://example.org/a" }, corroboratingSources: [{ url: "https://example.net/b" }],
     ...overrides,
@@ -100,11 +101,63 @@ test("selects one best primary per corroborated event", () => {
   assert.deepEqual(selectCorroboratedPrimaries(candidates).map(({ url }) => url), ["https://example.org/a"]);
 });
 
+test("selects an allowlisted official or research primary without a second publisher", () => {
+  const official = { title: "Official pet AI release", summary: "The official release documents two product facts.", url: "https://example.org/official", publishedAt: "2026-10-10T01:00:00Z", feed: { ...feed, primaryEvidence: true, evidenceType: "official" }, corroboratingSources: [] };
+  const publisher = { ...official, url: "https://example.net/report", feed: { ...feed, allowedHosts: ["example.net"], primaryEvidence: false } };
+  assert.deepEqual(selectEvidencePrimaries([official, publisher]).map(({ url }) => url), [official.url]);
+});
+
+test("preserves PR 8 fallback candidate evaluation while respecting the daily limit", () => {
+  const candidates = Array.from({ length: 12 }, (_, index) => ({ id: index }));
+  assert.equal(selectApiCandidates(candidates, 1).length, 4);
+  assert.equal(selectApiCandidates(candidates, 2).length, 8);
+});
+
 test("blocks publication when independent corroboration is absent", () => {
   const article = { title: "반려동물 서비스 기록 관리에 관한 새로운 공식 발표", description: "반려동물 서비스 사업자의 일정과 돌봄 기록을 연결하는 공개 자료의 핵심 내용과 확인 범위를 자세히 정리합니다.", keywords: ["반려동물", "기록", "서비스"], sourceFacts: ["시범 공개", "기록 연결"], sections: [{ heading: "하나", paragraphs: ["설명입니다.", "설명입니다."] }, { heading: "둘", paragraphs: ["설명입니다.", "설명입니다."] }, { heading: "셋", paragraphs: ["설명입니다.", "설명입니다."] }], source: { url: "https://example.org/a" }, corroboratingSources: [] };
   const review = { factsSupported: true, copyrightSafe: true, safe: true, duplicateFree: true, topicRelevant: true, independentlyCorroborated: true, corroboratedFactCount: 2, unsupportedFacts: [], originalityScore: 100, seoScore: 15, safetyScore: 15 };
   const decision = publicationDecision(article, { url: "https://example.org/a", feed, corroboratingSources: [] }, review, []);
   assert.equal(decision.publish, false);
+  assert.ok(decision.hardBlocks.includes("insufficient_independent_sources"));
+});
+
+test("conditionally publishes verified official primary material with explicit limitations", () => {
+  const officialFeed = { ...feed, reliability: 25, primaryEvidence: true, evidenceType: "official" };
+  const candidate = { url: "https://example.org/a", feed: officialFeed, corroboratingSources: [] };
+  const article = verifiedArticle({
+    corroboratingSources: [],
+    verifiedClaims: verifiedArticle().verifiedClaims.map((claim) => ({ ...claim, evidence: [{ sourceUrl: candidate.url, evidenceSummary: "공식 원자료에 명시됨" }], limitation: "공식 발표 범위이며 독립 검증되지 않았습니다." })),
+    evidenceScope: { sharedBasis: "공식 발표 원자료", verificationBoundary: "공식 발표에 명시된 사실만 확인했습니다.", independentVerificationAvailable: false, conditionalPublicationReason: "허용 목록의 공식 원자료로 사실을 직접 확인했으나 독립 검증 자료는 아직 없습니다.", limitations: ["독립 검증 자료가 없습니다.", "발표 이후 성과는 확인되지 않았습니다."] },
+  });
+  const review = passingReview({ independentlyCorroborated: false, corroboratedFactCount: 0, evidenceBasis: { primaryMaterialAvailable: true, sharedOrigin: "공식 발표", independentResearchEvidence: false }, failedClaims: [], crossVerificationFailures: [] });
+  const decision = publicationDecision(article, candidate, review, []);
+  assert.equal(decision.checks.conditionalPrimaryEvidenceAccepted, true);
+  assert.equal(decision.score.total, 100);
+  assert.equal(decision.publish, true);
+});
+
+test("keeps the 90 point threshold for conditional primary publication", () => {
+  const officialFeed = { ...feed, reliability: 25, primaryEvidence: true, evidenceType: "research" };
+  const candidate = { url: "https://example.org/a", feed: officialFeed, corroboratingSources: [] };
+  const base = verifiedArticle();
+  const article = verifiedArticle({ corroboratingSources: [], verifiedClaims: base.verifiedClaims.map((claim) => ({ ...claim, evidence: [{ sourceUrl: candidate.url, evidenceSummary: "연구 원자료" }], limitation: "독립 재현되지 않은 연구 범위입니다." })), evidenceScope: { sharedBasis: "연구 원자료", verificationBoundary: "연구가 보고한 범위만 확인했습니다.", independentVerificationAvailable: false, conditionalPublicationReason: "허용 목록의 연구 원자료를 직접 확인했으나 독립 재현 자료는 아직 없습니다.", limitations: ["독립 재현 없음", "표본 범위 제한"] } });
+  const review = passingReview({ independentlyCorroborated: false, corroboratedFactCount: 0, originalityScore: 56, evidenceBasis: { primaryMaterialAvailable: true, sharedOrigin: "연구 원자료", independentResearchEvidence: false }, failedClaims: [], crossVerificationFailures: [] });
+  const decision = publicationDecision(article, candidate, review, []);
+  assert.equal(decision.score.total, 89);
+  assert.equal(decision.hardBlocks.length, 0);
+  assert.equal(decision.publish, false);
+});
+
+test("official-source exception never bypasses fact, copyright, or disclosure failures", () => {
+  const officialFeed = { ...feed, reliability: 25, primaryEvidence: true, evidenceType: "official" };
+  const candidate = { url: "https://example.org/a", feed: officialFeed, corroboratingSources: [] };
+  const base = verifiedArticle();
+  const article = verifiedArticle({ corroboratingSources: [], verifiedClaims: base.verifiedClaims.map((claim) => ({ ...claim, evidence: [{ sourceUrl: candidate.url, evidenceSummary: "공식 원자료" }], limitation: "공식 발표 범위입니다." })), evidenceScope: { sharedBasis: "공식 발표", verificationBoundary: "공식 발표 범위", independentVerificationAvailable: false, conditionalPublicationReason: "짧음", limitations: ["한계 하나", "한계 둘"] } });
+  const review = passingReview({ independentlyCorroborated: false, corroboratedFactCount: 0, factsSupported: false, copyrightSafe: false, evidenceBasis: { primaryMaterialAvailable: true, sharedOrigin: "공식 발표", independentResearchEvidence: false }, failedClaims: [{ subject: "주장", reason: "원자료에 없음", requiredEvidence: "공식 근거" }], crossVerificationFailures: [] });
+  const decision = publicationDecision(article, candidate, review, []);
+  assert.equal(decision.publish, false);
+  assert.ok(decision.hardBlocks.includes("unverified_facts"));
+  assert.ok(decision.hardBlocks.includes("copyright_risk"));
   assert.ok(decision.hardBlocks.includes("insufficient_independent_sources"));
 });
 

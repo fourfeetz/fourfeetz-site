@@ -7,6 +7,8 @@ export type NewsSource = {
   name: string;
   url: string;
   publishedAt: string;
+  primaryEvidence?: boolean;
+  evidenceType?: "official" | "research" | "publisher_report";
 };
 
 export type NewsQuality = {
@@ -40,7 +42,13 @@ export type NewsArticle = {
   corroboratingSources: NewsSource[];
   sourceFacts: string[];
   verifiedClaims: VerifiedClaim[];
-  evidenceScope: { sharedBasis: string; verificationBoundary: string; limitations: string[] };
+  evidenceScope: {
+    sharedBasis: string;
+    verificationBoundary: string;
+    independentVerificationAvailable: boolean;
+    conditionalPublicationReason: string;
+    limitations: string[];
+  };
   editorialAnalysis: {
     fourfeetzAnalysis: string[];
     koreanIndustryImplications: string[];
@@ -67,10 +75,16 @@ function isPublishedArticle(value: unknown): value is NewsArticle {
     && article.sections.length > 0
     && typeof article.source?.url === "string"
     && Array.isArray(article.corroboratingSources)
-    && article.corroboratingSources.length > 0
+    && (article.corroboratingSources.length > 0 || (
+      article.source?.primaryEvidence === true
+      && (article.source.evidenceType === "official" || article.source.evidenceType === "research")
+      && article.evidenceScope?.independentVerificationAvailable === false
+    ))
     && Array.isArray(article.verifiedClaims)
     && article.verifiedClaims.length >= 2
     && typeof article.evidenceScope?.verificationBoundary === "string"
+    && typeof article.evidenceScope?.independentVerificationAvailable === "boolean"
+    && typeof article.evidenceScope?.conditionalPublicationReason === "string"
     && Array.isArray(article.editorialAnalysis?.fourfeetzAnalysis)
     && article.editorialAnalysis.fourfeetzAnalysis.length >= 2
     && Array.isArray(article.editorialAnalysis?.koreanIndustryImplications)

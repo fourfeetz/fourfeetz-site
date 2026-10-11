@@ -12,9 +12,14 @@ for (const article of articles) {
   if (!/^[a-z0-9-]+$/.test(article.slug) || slugs.has(article.slug)) throw new Error(`Invalid or duplicate slug: ${article.slug}`);
   if (urls.has(article.source?.url)) throw new Error(`Duplicate source URL: ${article.source.url}`);
   if ((article.quality?.total ?? 0) < QUALITY_THRESHOLD) throw new Error(`Below quality threshold: ${article.slug}`);
-  if (!Array.isArray(article.corroboratingSources) || article.corroboratingSources.length === 0) throw new Error(`Missing independent source: ${article.slug}`);
+  if (!Array.isArray(article.corroboratingSources)) throw new Error(`Invalid corroborating sources: ${article.slug}`);
+  const conditionalPrimary = article.corroboratingSources.length === 0
+    && article.source?.primaryEvidence === true
+    && ["official", "research"].includes(article.source?.evidenceType)
+    && article.evidenceScope?.independentVerificationAvailable === false;
+  if (article.corroboratingSources.length === 0 && !conditionalPrimary) throw new Error(`Missing independent or trusted primary source: ${article.slug}`);
   if (!Array.isArray(article.verifiedClaims) || article.verifiedClaims.length < 2) throw new Error(`Missing claim evidence: ${article.slug}`);
-  if (!article.evidenceScope?.verificationBoundary || !Array.isArray(article.evidenceScope?.limitations) || article.evidenceScope.limitations.length < 2) throw new Error(`Missing evidence scope: ${article.slug}`);
+  if (!article.evidenceScope?.verificationBoundary || typeof article.evidenceScope?.independentVerificationAvailable !== "boolean" || typeof article.evidenceScope?.conditionalPublicationReason !== "string" || !Array.isArray(article.evidenceScope?.limitations) || article.evidenceScope.limitations.length < 2) throw new Error(`Missing evidence scope: ${article.slug}`);
   if (!article.editorialAnalysis || ![article.editorialAnalysis.fourfeetzAnalysis, article.editorialAnalysis.koreanIndustryImplications, article.editorialAnalysis.readerLimitations].every((items) => Array.isArray(items) && items.length >= 2)) throw new Error(`Missing editorial analysis: ${article.slug}`);
   const primaryHost = new URL(article.source.url).hostname;
   if (article.corroboratingSources.some((source) => new URL(source.url).hostname === primaryHost)) throw new Error(`Corroborating source is not independent: ${article.slug}`);
@@ -27,7 +32,7 @@ for (const article of articles) {
 // Recheck pairwise duplication independently of the stored model review.
 for (let index = 0; index < articles.length; index += 1) {
   const peers = articles.filter((_, peerIndex) => peerIndex !== index);
-  const candidate = { url: articles[index].source.url, feed: { allowedHosts: [new URL(articles[index].source.url).hostname], reliability: 25 }, corroboratingSources: articles[index].corroboratingSources };
+  const candidate = { url: articles[index].source.url, feed: { allowedHosts: [new URL(articles[index].source.url).hostname], reliability: 25, primaryEvidence: articles[index].source.primaryEvidence === true, evidenceType: articles[index].source.evidenceType }, corroboratingSources: articles[index].corroboratingSources };
   const checks = deterministicChecks(articles[index], candidate, peers);
   if (checks.hardBlocks.includes("duplicate_content")) throw new Error(`Duplicate content: ${articles[index].slug}`);
   if (checks.hardBlocks.includes("source_copy_risk")) throw new Error(`Source copying risk: ${articles[index].slug}`);

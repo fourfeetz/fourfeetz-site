@@ -126,6 +126,21 @@ export function selectCorroboratedPrimaries(items) {
   });
 }
 
+export function isTrustedPrimaryEvidence(candidate) {
+  return candidate?.feed?.primaryEvidence === true
+    && ["official", "research"].includes(candidate.feed.evidenceType)
+    && (candidate.feed.reliability ?? 0) >= 22;
+}
+
+export function selectEvidencePrimaries(items) {
+  const corroboratedUrls = new Set(selectCorroboratedPrimaries(items).map(({ url }) => url));
+  return items.filter((item) => corroboratedUrls.has(item.url) || (isTrustedPrimaryEvidence(item) && (item.corroboratingSources?.length ?? 0) === 0));
+}
+
+export function selectApiCandidates(candidates, remainingToday) {
+  return candidates.slice(0, Math.min(remainingToday * 4, 8));
+}
+
 export function isRelevant(item) {
   const haystack = ` ${normalizeText(`${item.title} ${item.summary} ${item.sourceText ?? ""}`)} `;
   const animalTerms = ["pet", "dog", "cat", "puppy", "kitten", "animal", "veterinary", "grooming", "petfood", "반려동물", "강아지", "고양이", "펫테크", "동물병원", "애견"];
@@ -200,7 +215,6 @@ export function deterministicChecks(article, candidate, existingArticles) {
   const corroboratingSources = candidate.corroboratingSources ?? [];
   const distinctCorroboration = corroboratingSources.filter((source) => new URL(source.url).hostname.toLowerCase() !== sourceHost);
   const declaredUrls = new Set((article.corroboratingSources ?? []).map((source) => source.url));
-  if (distinctCorroboration.length === 0 || !distinctCorroboration.every((source) => declaredUrls.has(source.url))) hardBlocks.push("insufficient_independent_sources");
   const allowedEvidenceUrls = new Set([candidate.url, ...corroboratingSources.map((source) => source.url)]);
   const verifiedClaims = Array.isArray(article.verifiedClaims) ? article.verifiedClaims : [];
   const claimsHaveIndependentEvidence = verifiedClaims.length >= 2 && verifiedClaims.every((claim) => {
@@ -208,8 +222,21 @@ export function deterministicChecks(article, candidate, existingArticles) {
     const hosts = new Set(evidenceUrls.filter((url) => allowedEvidenceUrls.has(url)).map((url) => new URL(url).hostname.toLowerCase()));
     return evidenceUrls.length >= 2 && evidenceUrls.every((url) => allowedEvidenceUrls.has(url)) && hosts.size >= 2;
   });
-  if (!claimsHaveIndependentEvidence) hardBlocks.push("claim_evidence_missing");
-  return { maxSimilarity, sourceCopyRatio, sourceValid, seoValid, editorialAnalysisValid, claimsHaveIndependentEvidence, hardBlocks };
+  const conditionalPrimaryEvidence = isTrustedPrimaryEvidence(candidate)
+    && distinctCorroboration.length === 0
+    && article.evidenceScope?.independentVerificationAvailable === false
+    && typeof article.evidenceScope?.conditionalPublicationReason === "string"
+    && article.evidenceScope.conditionalPublicationReason.trim().length >= 20
+    && Array.isArray(article.evidenceScope?.limitations)
+    && article.evidenceScope.limitations.length >= 2
+    && verifiedClaims.length >= 2
+    && verifiedClaims.every((claim) => claim.evidence?.some(({ sourceUrl }) => sourceUrl === candidate.url) && typeof claim.limitation === "string" && claim.limitation.trim().length >= 10)
+    && Array.isArray(article.editorialAnalysis?.readerLimitations)
+    && article.editorialAnalysis.readerLimitations.length >= 2;
+  const hasDeclaredIndependentSources = distinctCorroboration.length > 0 && distinctCorroboration.every((source) => declaredUrls.has(source.url));
+  if (!hasDeclaredIndependentSources && !conditionalPrimaryEvidence) hardBlocks.push("insufficient_independent_sources");
+  if (!claimsHaveIndependentEvidence && !conditionalPrimaryEvidence) hardBlocks.push("claim_evidence_missing");
+  return { maxSimilarity, sourceCopyRatio, sourceValid, seoValid, editorialAnalysisValid, claimsHaveIndependentEvidence, conditionalPrimaryEvidence, hardBlocks };
 }
 
 export function scoreArticle(article, candidate, review, checks) {
@@ -230,9 +257,14 @@ export function publicationDecision(article, candidate, review, existingArticles
   if (!review.safe) hardBlocks.push("safety_risk");
   if (!review.duplicateFree) hardBlocks.push("ai_duplicate_flag");
   if (review.topicRelevant !== true) hardBlocks.push("off_topic");
-  if (review.independentlyCorroborated !== true || review.corroboratedFactCount < 2 || review.unsupportedFacts?.length) hardBlocks.push("cross_verification_failed");
+  const conditionalPrimaryEvidenceAccepted = checks.conditionalPrimaryEvidence
+    && review.factsSupported === true
+    && review.evidenceBasis?.primaryMaterialAvailable === true
+    && (review.failedClaims ?? []).length === 0
+    && (review.crossVerificationFailures ?? []).length === 0;
+  if ((!conditionalPrimaryEvidenceAccepted && (review.independentlyCorroborated !== true || review.corroboratedFactCount < 2)) || review.unsupportedFacts?.length) hardBlocks.push("cross_verification_failed");
   const score = scoreArticle(article, candidate, review, checks);
-  return { publish: hardBlocks.length === 0 && score.total >= QUALITY_THRESHOLD, score, hardBlocks, checks };
+  return { publish: hardBlocks.length === 0 && score.total >= QUALITY_THRESHOLD, score, hardBlocks, checks: { ...checks, conditionalPrimaryEvidenceAccepted } };
 }
 
 export function articlesPublishedOn(articles, isoDate) {
