@@ -3,7 +3,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import {
   MAX_DAILY_ARTICLES, articlesPublishedOn, attachCorroboratingSources, deduplicateCandidates, isFresh, isRelevant,
-  extractSourceText, loadJsonFiles, parseFeed, publicationDecision, selectCorroboratedPrimaries, slugify, sourceId, writeJsonSafely,
+  extractSourceText, freshnessReason, loadJsonFiles, parseFeedWithDiagnostics, publicationDecision, selectCorroboratedPrimaries, slugify, sourceId, writeJsonSafely,
 } from "./core.mjs";
 import { loadFeeds } from "./config.mjs";
 import { estimateCost, generateArticle, reviewArticle } from "./openai.mjs";
@@ -30,19 +30,30 @@ function log(event, details = {}) {
 async function collectCandidates() {
   if (fixturePath) {
     const fixture = JSON.parse(fs.readFileSync(path.resolve(fixturePath), "utf8"));
-    return fixture.candidates;
+    return { candidates: fixture.candidates, feedReports: [{ feed: "fixture", status: "ok", entries: fixture.candidates.length, accepted: fixture.candidates.length, rejected: {} }] };
   }
-  const results = await Promise.allSettled(loadFeeds().map(async (feed) => {
+  const feeds = loadFeeds();
+  const results = await Promise.allSettled(feeds.map(async (feed) => {
     const response = await fetch(feed.url, { headers: { "User-Agent": "FourFeetzNewsBot/1.0 (+https://fourfeetz.com/ko/news)" }, signal: AbortSignal.timeout(20_000) });
     if (!response.ok) throw new Error(`${response.status} ${feed.url}`);
     const xml = await response.text();
     if (xml.length > 2_000_000) throw new Error(`Feed exceeds 2 MB safety limit: ${feed.url}`);
-    return parseFeed(xml, feed);
+    const parsed = parseFeedWithDiagnostics(xml, feed);
+    return { feed: feed.name, status: "ok", ...parsed.diagnostics, candidates: parsed.items };
   }));
-  return results.flatMap((result) => {
-    if (result.status === "rejected") { log("feed_error", { error: String(result.reason) }); return []; }
-    return result.value;
+  const candidates = [];
+  const feedReports = results.map((result, index) => {
+    if (result.status === "rejected") {
+      const report = { feed: feeds[index].name, status: "failed", error: String(result.reason) };
+      log("feed_error", report);
+      return report;
+    }
+    candidates.push(...result.value.candidates);
+    const { candidates: omitted, ...report } = result.value;
+    void omitted;
+    return report;
   });
+  return { candidates, feedReports };
 }
 
 async function hydrateSources(candidates) {
@@ -57,6 +68,13 @@ async function hydrateSources(candidates) {
       log("source_fetch_error", { source: candidate.url, error: String(error) });
       return candidate;
     }
+  }));
+}
+
+async function hydrateCandidateGroups(candidates) {
+  return Promise.all(candidates.map(async (candidate) => {
+    const hydrated = await hydrateSources([candidate, ...(candidate.corroboratingSources ?? [])]);
+    return { ...hydrated[0], corroboratingSources: hydrated.slice(1) };
   }));
 }
 
@@ -78,12 +96,46 @@ async function main() {
   const remainingToday = Math.max(0, MAX_DAILY_ARTICLES - articlesPublishedOn(existingArticles, koreanDate));
   if (remainingToday === 0) return log("daily_limit_reached", { date: koreanDate });
 
-  const collected = await collectCandidates();
-  const filtered = collected.filter((candidate) => isRelevant(candidate) && isFresh(candidate, now));
-  const hydrated = await hydrateSources(filtered.slice(0, remainingToday * 6));
-  const crossVerified = selectCorroboratedPrimaries(attachCorroboratingSources(hydrated));
-  const eligible = deduplicateCandidates(crossVerified, existingArticles).slice(0, remainingToday * 3);
-  if (!eligible.length) return log("no_suitable_news", { collected: collected.length });
+  const { candidates: collected, feedReports } = await collectCandidates();
+  const feedsSucceeded = feedReports.filter(({ status }) => status === "ok").length;
+  const feedsFailed = feedReports.length - feedsSucceeded;
+  const parseRejected = feedReports.reduce((totals, report) => {
+    for (const [reason, count] of Object.entries(report.rejected ?? {})) totals[reason] = (totals[reason] ?? 0) + count;
+    return totals;
+  }, {});
+  log("collection_summary", { feedsConfigured: feedReports.length, feedsSucceeded, feedsFailed, collected: collected.length, parseRejected, feeds: feedReports });
+
+  const relevant = collected.filter(isRelevant);
+  const relevantFresh = relevant.filter((candidate) => isFresh(candidate, now));
+  const dateRejected = relevant.reduce((totals, candidate) => {
+    const reason = freshnessReason(candidate, now);
+    if (reason !== "fresh") totals[reason] += 1;
+    return totals;
+  }, { too_old: 0, future: 0 });
+  log("filter_summary", {
+    input: collected.length,
+    keywordAccepted: relevant.length,
+    keywordRejected: collected.length - relevant.length,
+    dateAccepted: relevantFresh.length,
+    dateRejected,
+  });
+
+  const corroborated = attachCorroboratingSources(relevantFresh);
+  const withIndependentSources = corroborated.filter((candidate) => candidate.corroboratingSources.length > 0);
+  const primaries = selectCorroboratedPrimaries(corroborated);
+  const hydrated = await hydrateCandidateGroups(primaries.slice(0, remainingToday * 6));
+  const deduplicated = deduplicateCandidates(hydrated, existingArticles);
+  const eligible = deduplicated.slice(0, remainingToday * 3);
+  log("candidate_selection_summary", {
+    dateAccepted: relevantFresh.length,
+    independentlyCorroborated: withIndependentSources.length,
+    crossVerificationRejected: relevantFresh.length - withIndependentSources.length,
+    primaryEvents: primaries.length,
+    duplicateRejected: hydrated.length - deduplicated.length,
+    apiCandidates: eligible.length,
+  });
+  if (!eligible.length) return log("no_suitable_news", { collected: collected.length, apiCandidates: 0 });
+  log("api_candidates_ready", { count: eligible.length, candidates: eligible.map((candidate) => ({ title: candidate.title, source: candidate.feed.name, corroboratingSources: candidate.corroboratingSources.map((source) => ({ title: source.title, source: source.feed.name })) })) });
   if (process.env.NEWS_COLLECT_ONLY === "true") return log("collection_complete", { collected: collected.length, eligible: eligible.length, sources: eligible.map(({ url }) => url) });
 
   const reservation = await reserveBudget({ store: budgetStore, month, runId, reserveUsd: maxRunEstimate, limitUsd: budgetLimit });

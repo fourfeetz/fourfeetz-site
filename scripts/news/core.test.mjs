@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { assertNewsPath, attachCorroboratingSources, deduplicateCandidates, extractSourceText, jaccardSimilarity, parseFeed, publicationDecision, selectCorroboratedPrimaries } from "./core.mjs";
+import { assertNewsPath, attachCorroboratingSources, deduplicateCandidates, extractSourceText, freshnessReason, isFresh, isRelevant, jaccardSimilarity, parseFeed, parseFeedWithDiagnostics, publicationDecision, selectCorroboratedPrimaries } from "./core.mjs";
 
 const feed = { name: "Official", url: "https://example.org/feed", allowedHosts: ["example.org"], reliability: 25, topics: ["pet tech"] };
 
@@ -9,6 +9,36 @@ test("parses RSS items and rejects links outside the configured source host", ()
   const items = parseFeed(xml, feed);
   assert.equal(items.length, 1);
   assert.equal(items[0].url, "https://example.org/a");
+});
+
+test("decodes feeds that entity-encode a CDATA title wrapper", () => {
+  const xml = `<rss><channel><item><title>&lt;![CDATA[AI use in veterinary care]]&gt;</title><link>https://example.org/a</link><pubDate>Sat, 10 Oct 2026 01:00:00 GMT</pubDate></item></channel></rss>`;
+  assert.equal(parseFeed(xml, feed)[0].title, "AI use in veterinary care");
+});
+
+test("reports RSS parse rejection reasons separately", () => {
+  const xml = `<rss><channel>
+    <item><title>Accepted</title><link>https://example.org/a</link><pubDate>Sat, 10 Oct 2026 01:00:00 GMT</pubDate></item>
+    <item><title>Wrong host</title><link>https://evil.example/a</link><pubDate>Sat, 10 Oct 2026 01:00:00 GMT</pubDate></item>
+    <item><title>Bad date</title><link>https://example.org/b</link><pubDate>unknown</pubDate></item>
+    <item><title>Missing link</title><pubDate>Sat, 10 Oct 2026 01:00:00 GMT</pubDate></item>
+  </channel></rss>`;
+  const result = parseFeedWithDiagnostics(xml, feed);
+  assert.equal(result.items.length, 1);
+  assert.deepEqual(result.diagnostics.rejected, { missingRequiredFields: 1, invalidUrl: 0, disallowedHost: 1, invalidDate: 1 });
+});
+
+test("relevance matching uses word boundaries and covers pet or AI creative topics", () => {
+  assert.equal(isRelevant({ title: "New cat welfare research", summary: "Companion animal study" }), true);
+  assert.equal(isRelevant({ title: "AI video editing model launches", summary: "Creator workflow tool" }), true);
+  assert.equal(isRelevant({ title: "Education policy update", summary: "A general public notice" }), false);
+});
+
+test("freshness window accepts two-week reporting lag but rejects older and future items", () => {
+  const now = new Date("2026-10-15T00:00:00Z");
+  assert.equal(isFresh({ publishedAt: "2026-10-01T00:00:00Z" }, now), true);
+  assert.equal(freshnessReason({ publishedAt: "2026-09-30T23:59:59Z" }, now), "too_old");
+  assert.equal(freshnessReason({ publishedAt: "2026-10-16T00:00:01Z" }, now), "future");
 });
 
 test("extracts bounded source text without executable page content", () => {
@@ -34,6 +64,14 @@ test("links only a distinct publisher reporting the same event", () => {
   ];
   const [primary] = attachCorroboratingSources(candidates);
   assert.deepEqual(primary.corroboratingSources.map(({ url }) => url), ["https://example.net/b"]);
+});
+
+test("does not treat generic shared veterinary words as independent corroboration", () => {
+  const candidates = [
+    { title: "Clinic center opens a new small animal location", summary: "Veterinary teams expanded services in Washington.", url: "https://example.org/a", publishedAt: "2026-10-10T01:00:00Z" },
+    { title: "Small animal rotating internship returns", summary: "A veterinary education program resumes at a university.", url: "https://example.net/b", publishedAt: "2026-10-10T03:00:00Z" },
+  ];
+  assert.equal(attachCorroboratingSources(candidates)[0].corroboratingSources.length, 0);
 });
 
 test("selects one best primary per corroborated event", () => {
