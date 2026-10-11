@@ -3,11 +3,12 @@ import path from "node:path";
 import crypto from "node:crypto";
 import {
   MAX_DAILY_ARTICLES, articlesPublishedOn, attachCorroboratingSources, deduplicateCandidates, isFresh, isRelevant,
-  extractSourceText, freshnessReason, loadJsonFiles, parseFeedWithDiagnostics, publicationDecision, selectCorroboratedPrimaries, slugify, sourceId, writeJsonSafely,
+  extractSourceText, freshnessReason, loadJsonFiles, parseFeedWithDiagnostics, selectCorroboratedPrimaries, slugify, sourceId, writeJsonSafely,
 } from "./core.mjs";
 import { loadFeeds } from "./config.mjs";
-import { estimateCost, generateArticle, reviewArticle } from "./openai.mjs";
+import { estimateCost, generateArticle, reviewArticle, rewriteArticle } from "./openai.mjs";
 import { budgetExposure, createBudgetStore, recordBudgetUsage, releaseBudget, reserveBudget } from "./budget.mjs";
+import { runQualityCycle } from "./quality-cycle.mjs";
 
 const root = process.cwd();
 const articleDirectory = path.join(root, "content", "news", "ko");
@@ -25,6 +26,39 @@ const budgetStore = createBudgetStore({ stateDirectory });
 
 function log(event, details = {}) {
   process.stdout.write(`${JSON.stringify({ at: new Date().toISOString(), event, ...details })}\n`);
+}
+
+function compactDiagnostics(items = []) {
+  return items.slice(0, 20).map((item) => ({
+    subject: String(item.subject ?? "").slice(0, 300),
+    reason: String(item.reason ?? "").slice(0, 500),
+    requiredEvidence: String(item.requiredEvidence ?? "").slice(0, 500),
+  }));
+}
+
+function qualityLog({ candidate, attempt, review, decision }) {
+  log("quality_result", {
+    source: candidate.url,
+    attempt,
+    score: decision.score.total,
+    scores: decision.score,
+    blocks: decision.hardBlocks,
+    deterministic: {
+      maxExistingSimilarity: Number(decision.checks.maxSimilarity.toFixed(4)),
+      sourceCopyRatio: Number(decision.checks.sourceCopyRatio.toFixed(4)),
+      seoValid: decision.checks.seoValid,
+      claimsHaveIndependentEvidence: decision.checks.claimsHaveIndependentEvidence,
+    },
+    diagnostics: {
+      unsupportedFacts: (review.unsupportedFacts ?? []).slice(0, 20).map((value) => String(value).slice(0, 500)),
+      failedClaims: compactDiagnostics(review.failedClaims),
+      copyrightRisks: compactDiagnostics(review.copyrightRisks),
+      duplicateReasons: compactDiagnostics(review.duplicateReasons),
+      crossVerificationFailures: compactDiagnostics(review.crossVerificationFailures),
+      revisionPossible: review.revisionPossible === true,
+      revisionInstructions: (review.revisionInstructions ?? []).slice(0, 8).map((value) => String(value).slice(0, 500)),
+    },
+  });
 }
 
 async function collectCandidates() {
@@ -125,7 +159,7 @@ async function main() {
   const primaries = selectCorroboratedPrimaries(corroborated);
   const hydrated = await hydrateCandidateGroups(primaries.slice(0, remainingToday * 6));
   const deduplicated = deduplicateCandidates(hydrated, existingArticles);
-  const eligible = deduplicated.slice(0, remainingToday * 3);
+  const eligible = deduplicated.slice(0, remainingToday);
   log("candidate_selection_summary", {
     dateAccepted: relevantFresh.length,
     independentlyCorroborated: withIndependentSources.length,
@@ -148,7 +182,7 @@ async function main() {
       if (published >= remainingToday) break;
       const generated = fixturePath ? fixtureGeneration() : await generateArticle(candidate);
       latestLedger = await recordBudgetUsage({ store: budgetStore, month, runId, usage: generated.usage, costUsd: estimateCost(generated.usage) });
-      if (budgetExposure(latestLedger) > budgetLimit) { log("budget_guard_stopped", { phase: "after_generation", exposureUsd: budgetExposure(latestLedger), budgetLimit }); break; }
+      if (budgetExposure(latestLedger) > budgetLimit) throw new Error("Budget exposure exceeded after generation; stopping before review");
       const baseSlug = slugify(generated.value.title);
       const slug = existingArticles.some((article) => article.slug === baseSlug) ? `${baseSlug}-${sourceId(candidate.url).slice(0, 8)}` : baseSlug;
       const draft = {
@@ -162,15 +196,21 @@ async function main() {
           { label: "반려동물 콘텐츠 제작", href: "/ko/services" },
         ],
       };
-      const reviewed = fixturePath ? fixtureReview() : await reviewArticle(draft, candidate, existingArticles.map(({ title, description }) => ({ title, description })));
-      latestLedger = await recordBudgetUsage({ store: budgetStore, month, runId, usage: reviewed.usage, costUsd: estimateCost(reviewed.usage) });
-      if (budgetExposure(latestLedger) > budgetLimit) { log("budget_guard_stopped", { phase: "after_review", exposureUsd: budgetExposure(latestLedger), budgetLimit }); break; }
-      const decision = publicationDecision(draft, candidate, reviewed.value, existingArticles);
-      log("quality_result", { source: candidate.url, score: decision.score.total, blocks: decision.hardBlocks });
+      const result = await runQualityCycle({
+        draft, candidate, existingArticles,
+        review: (article) => fixturePath ? fixtureReview() : reviewArticle(article, candidate, existingArticles.map(({ title, description }) => ({ title, description }))),
+        rewrite: (article, review) => fixturePath ? { value: article, usage: { input_tokens: 0, output_tokens: 0 } } : rewriteArticle(article, candidate, review),
+        onUsage: async (phase, usage) => {
+          latestLedger = await recordBudgetUsage({ store: budgetStore, month, runId, usage, costUsd: estimateCost(usage) });
+          if (budgetExposure(latestLedger) > budgetLimit) throw new Error(`Budget exposure exceeded after ${phase}; stopping safely`);
+        },
+        onReview: async ({ attempt, review, decision }) => qualityLog({ candidate, attempt, review, decision }),
+      });
+      const { decision } = result;
       if (!decision.publish) continue;
-      const article = { ...draft, quality: { ...decision.score, checkedAt: new Date().toISOString() } };
+      const article = { ...result.draft, quality: { ...decision.score, checkedAt: new Date().toISOString() } };
       if (dryRun || !publishingEnabled) {
-        log("dry_run_candidate", { slug, score: decision.score.total, reason: dryRun ? "DRY_RUN" : "AUTO_PUBLISH_ENABLED is not true" });
+        log("dry_run_candidate", { slug, score: decision.score.total, rewriteAttempts: result.rewriteAttempts, reason: dryRun ? "DRY_RUN" : "AUTO_PUBLISH_ENABLED is not true" });
       } else {
         writeJsonSafely(path.join(articleDirectory, `${slug}.json`), article);
         existingArticles.push(article);

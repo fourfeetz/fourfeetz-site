@@ -16,6 +16,10 @@ The publishing gate combines deterministic checks with a separate AI review:
 
 Anything below 90 is rejected. Unclear or single-source stories, fewer than two independently corroborated facts, unsupported facts, duplicates, copyright risk, unsafe medical advice, and advertising/spam are hard blocks regardless of score. The code first matches reports from distinct hostnames and then the independent AI review checks fact-level corroboration. This is an editorial risk-control system, not a guarantee that AI output is error-free; review the first dry-run artifacts before activation.
 
+Each generated article must include at least two `verifiedClaims`. Every claim records evidence from at least two allowed URLs on distinct hosts and states the limitation of that evidence. Numeric findings must be attributed to the named study or announcement and cannot be generalized into independent real-world proof. Deterministic checks also measure eight-word source overlap, so a copied passage is blocked even if the AI reviewer misses it.
+
+The generation and review calls remain separate. Review logs include category scores, failed claims, required evidence, copyright risks, duplicate reasons, cross-verification failures, and whether a wording-only revision is safe. A single rewrite is allowed only when all facts and cross-source evidence already pass and the remaining issue is expression, duplication, or SEO. Unsupported facts, unsafe content, or failed cross-verification disable rewriting. The rewritten draft always receives a fresh independent review, and every rewrite/review call is charged to the same monthly budget ledger.
+
 ## Initial GitHub setup
 
 1. Review and merge `feature/auto-news-engine` manually. Do not enable auto-merge. GitHub scheduled workflows run from the repository default branch, so the schedule starts only after this workflow is approved and merged.

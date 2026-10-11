@@ -33,6 +33,24 @@
     "category": "펫테크",
     "keywords": ["펫테크", "펫비즈니스", "돌봄 기록", "업무 자동화"],
     "sourceFacts": ["시범 프로그램이 공개됐다.", "일정과 돌봄 기록을 연결하는 기능이 소개됐다."],
+    "verifiedClaims": [
+      {
+        "claim": "시범 프로그램이 공개됐다.",
+        "evidence": [
+          { "sourceUrl": "https://example.org/pet-tech-connected-care", "evidenceSummary": "공식 자료가 시범 프로그램 공개를 설명한다." },
+          { "sourceUrl": "https://example.net/connected-pet-service-records", "evidenceSummary": "독립 보도가 같은 시범 프로그램을 확인한다." }
+        ],
+        "limitation": "공개 자료에 나타난 시범 범위에 한정한다."
+      },
+      {
+        "claim": "일정과 돌봄 기록을 연결하는 기능이 소개됐다.",
+        "evidence": [
+          { "sourceUrl": "https://example.org/pet-tech-connected-care", "evidenceSummary": "공식 자료가 일정과 돌봄 기록 연결을 소개한다." },
+          { "sourceUrl": "https://example.net/connected-pet-service-records", "evidenceSummary": "독립 보도가 동일한 기능 범위를 확인한다." }
+        ],
+        "limitation": "실제 운영 성과는 확인되지 않았다."
+      }
+    ],
     "sections": [
       { "heading": "무엇이 공개됐나", "paragraphs": ["공개 자료는 반려동물 서비스 사업자를 위한 시범 도구를 소개한다. 핵심 범위는 일정과 일상적인 돌봄 기록을 연결하는 업무 흐름이다.", "자료에 없는 성과 수치나 이용자 평가는 확인된 사실로 다루지 않았다."] },
       { "heading": "현장에서 볼 지점", "paragraphs": ["기능의 가치는 기록이 실제 업무 순서와 맞는지에 달려 있다. 도입 전에는 권한 구분과 기록 수정 이력을 확인할 필요가 있다.", "이 내용은 의료 판단이나 진료 기록을 대신한다는 뜻이 아니다."] },
@@ -49,6 +67,12 @@
     "independentlyCorroborated": true,
     "corroboratedFactCount": 2,
     "unsupportedFacts": [],
+    "failedClaims": [],
+    "copyrightRisks": [],
+    "duplicateReasons": [],
+    "crossVerificationFailures": [],
+    "revisionPossible": false,
+    "revisionInstructions": [],
     "originalityScore": 100,
     "seoScore": 15,
     "safetyScore": 15,
