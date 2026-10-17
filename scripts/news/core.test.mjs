@@ -107,6 +107,18 @@ test("selects an allowlisted official or research primary without a second publi
   assert.deepEqual(selectEvidencePrimaries([official, publisher]).map(({ url }) => url), [official.url]);
 });
 
+test("rotates candidate groups even when feed metadata is missing", () => {
+  const candidates = [
+    { id: 1, title: "Veterinary care", summary: "New pet program" },
+    { id: 2, title: "Video animation", summary: "New creative workflow", feed: { name: "Creative" } },
+    { id: 3, title: "AI model", summary: "Technology update" },
+    { id: 4, title: "Pet clinic", summary: "Animal health", feed: { name: "Pet" } },
+  ];
+  const selected = selectApiCandidates(candidates, 1);
+  assert.equal(selected.length, 4);
+  assert.deepEqual(new Set(selected.map(({ id }) => id)), new Set([1, 2, 3, 4]));
+});
+
 test("preserves PR 8 fallback candidate evaluation while respecting the daily limit", () => {
   const candidates = Array.from({ length: 12 }, (_, index) => ({ id: index }));
   assert.equal(selectApiCandidates(candidates, 1).length, 4);
