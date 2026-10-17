@@ -144,8 +144,8 @@ export function selectApiCandidates(candidates, remainingToday) {
   const groups = new Map();
   for (const candidate of candidates) {
     const text = normalizeText(`${candidate.title} ${candidate.summary}`);
-    const topic = /\\b(dog|cat|pet|veterinar|animal|puppy|kitten|groom|food)\\b|반려동물|강아지|고양이/.test(text)
-      ? "pet" : /\\b(video|film|image|animation|creator|music)\\b|영상|이미지|애니메이션/.test(text)
+    const topic = /\b(dog|cat|pet|veterinar|animal|puppy|kitten|groom|food)\b|반려동물|강아지|고양이/.test(text)
+      ? "pet" : /\b(video|film|image|animation|creator|music)\b|영상|이미지|애니메이션/.test(text)
         ? "creative" : "technology";
     const key = `${topic}:${candidate.feed.name}`;
     if (!groups.has(key)) groups.set(key, []);
