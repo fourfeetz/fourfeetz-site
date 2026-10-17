@@ -1,5 +1,4 @@
 ﻿import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
 import { headers } from "next/headers";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
@@ -8,11 +7,6 @@ import Footer from "@/components/Footer";
 import RelatedPosts from "@/components/RelatedPosts";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { englishLanguageAlternates } from "@/lib/localization";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
 
 export const metadata: Metadata = {
   title: {
@@ -47,7 +41,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
 
   return (
     <html lang={language}>
-      <body className={montserrat.className}>
+      <body className="font-sans">
         <LanguageProvider>
           <Header />
           {children}
