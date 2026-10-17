@@ -289,6 +289,7 @@ export const navItems = [
   { href: "/characters", key: "characters" },
   { href: "/music", key: "music" },
   { href: "/insights", key: "insights" },
+  { href: "/news", key: "news" },
   { href: "/resources", key: "resources" },
   { href: "/services", key: "services" },
   { href: "/tools", key: "tools" },
