@@ -8,7 +8,7 @@ const description = "공식 출처를 바탕으로 선별하고 검증한 반려
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/ko/news" },
+  alternates: { canonical: "/ko/news", languages: { ko: "/ko/news", en: "/news" } },
   openGraph: { type: "website", title, description, url: "/ko/news", locale: "ko_KR" },
 };
 
