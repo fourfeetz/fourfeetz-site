@@ -4,6 +4,18 @@ import { deterministicChecks, loadJsonFiles, QUALITY_THRESHOLD } from "./core.mj
 
 const directory = path.join(process.cwd(), "content", "news", "ko");
 const articles = loadJsonFiles(directory);
+const englishDirectory = path.join(process.cwd(), "content", "news", "en");
+const englishArticles = loadJsonFiles(englishDirectory);
+const englishSlugs = new Set();
+for (const translated of englishArticles) {
+  const original = articles.find((article) => article.slug === translated.slug);
+  if (!original || translated.schemaVersion !== 1 || translated.language !== "en" || translated.sourceUrl !== original.source.url) throw new Error(`Invalid English article pair: ${translated.slug}`);
+  if (englishSlugs.has(translated.slug)) throw new Error(`Duplicate English slug: ${translated.slug}`);
+  if (!Array.isArray(translated.sections) || translated.sections.length !== original.sections.length || !translated.sections.every((section, i) => typeof section.heading === "string" && Array.isArray(section.paragraphs) && section.paragraphs.length === original.sections[i].paragraphs.length)) throw new Error(`Invalid English article structure: ${translated.slug}`);
+  if (!Array.isArray(translated.takeaway) || translated.takeaway.length !== original.takeaway.length) throw new Error(`Invalid English takeaway: ${translated.slug}`);
+  englishSlugs.add(translated.slug);
+}
+for (const article of articles) if (!englishSlugs.has(article.slug)) throw new Error(`Missing English translation: ${article.slug}`);
 const slugs = new Set();
 const urls = new Set();
 
