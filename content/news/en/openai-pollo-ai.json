@@ -24,8 +24,9 @@
     {
       "heading": "Questions for production teams",
       "paragraphs": [
-        "Before using AI-generated images or video in a commercial campaign, production teams should assess editing workflows, intellectual-property and likeness permissions, brand review procedures and the accuracy of promotional claims.",
-        "Teams should separately confirm availability, language support, pricing, data handling and actual output quality. None of those operational outcomes can be assumed from a short official case description."
+        "When independent verification is unavailable, distinguish the contents of the official announcement from editorial interpretation.",
+        "Keep model names, product names and feature descriptions within the scope of the original source.",
+        "Do not introduce numerical estimates or claims about outcomes that are absent from the source."
       ]
     }
   ],
