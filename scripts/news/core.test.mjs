@@ -119,10 +119,12 @@ test("rotates candidate groups even when feed metadata is missing", () => {
   assert.deepEqual(new Set(selected.map(({ id }) => id)), new Set([1, 2, 3, 4]));
 });
 
-test("preserves PR 8 fallback candidate evaluation while respecting the daily limit", () => {
-  const candidates = Array.from({ length: 12 }, (_, index) => ({ id: index }));
-  assert.equal(selectApiCandidates(candidates, 1).length, 4);
-  assert.equal(selectApiCandidates(candidates, 2).length, 8);
+test("evaluates up to eight fallback candidates per remaining daily slot, capped at sixteen", () => {
+  const candidates = Array.from({ length: 20 }, (_, index) => ({ id: index }));
+  assert.equal(selectApiCandidates(candidates, 0).length, 0);
+  assert.equal(selectApiCandidates(candidates, 1).length, 8);
+  assert.equal(selectApiCandidates(candidates, 2).length, 16);
+  assert.equal(selectApiCandidates(candidates, 3).length, 16);
 });
 
 test("blocks publication when independent corroboration is absent", () => {
