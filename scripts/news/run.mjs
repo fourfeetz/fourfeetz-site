@@ -6,12 +6,14 @@ import {
   extractSourceText, freshnessReason, isTrustedPrimaryEvidence, loadJsonFiles, parseFeedWithDiagnostics, selectApiCandidates, selectEvidencePrimaries, slugify, sourceId, writeJsonSafely,
 } from "./core.mjs";
 import { loadFeeds } from "./config.mjs";
-import { estimateCost, generateArticle, reviewArticle, rewriteArticle } from "./openai.mjs";
+import { estimateCost, generateArticle, reviewArticle, rewriteArticle, translateApprovedArticle } from "./openai.mjs";
 import { budgetExposure, createBudgetStore, recordBudgetUsage, releaseBudget, reserveBudget } from "./budget.mjs";
 import { runQualityCycle } from "./quality-cycle.mjs";
 
+
 const root = process.cwd();
 const articleDirectory = path.join(root, "content", "news", "ko");
+const englishDirectory = path.join(root, "content", "news", "en");
 const stateDirectory = path.join(root, "content", "news", ".state");
 const dryRun = process.env.DRY_RUN !== "false";
 const publishingEnabled = process.env.AUTO_PUBLISH_ENABLED === "true";
@@ -234,10 +236,27 @@ async function main() {
       if (dryRun || !publishingEnabled) {
         log("dry_run_candidate", { slug, score: decision.score.total, rewriteAttempts: result.rewriteAttempts, reason: dryRun ? "DRY_RUN" : "AUTO_PUBLISH_ENABLED is not true" });
       } else {
+        // The English edition is created only after the Korean article passes every gate.
+        // Translation failures must not result in a misleading or partially published pair.
+        const translation = fixturePath
+          ? { value: { title: article.title, description: article.description, category: article.category, sections: article.sections, takeaway: article.takeaway }, usage: { input_tokens: 0, output_tokens: 0 } }
+          : await translateApprovedArticle(article);
+        latestLedger = await recordBudgetUsage({ store: budgetStore, month, runId, usage: translation.usage, costUsd: estimateCost(translation.usage) });
+        if (budgetExposure(latestLedger) > budgetLimit) throw new Error("Budget exposure exceeded after translation; stopping safely");
+        const english = { schemaVersion: 1, slug, language: "en", sourceUrl: article.source.url, ...translation.value };
+        const valid = typeof english.title === "string" && english.title.trim().length >= 18
+          && typeof english.description === "string" && english.description.trim().length >= 50
+          && Array.isArray(english.sections) && english.sections.length === article.sections.length
+          && english.sections.every((section, i) => typeof section.heading === "string"
+            && Array.isArray(section.paragraphs) && section.paragraphs.length === article.sections[i].paragraphs.length
+            && section.paragraphs.every((paragraph) => typeof paragraph === "string" && paragraph.trim().length >= 10))
+          && Array.isArray(english.takeaway) && english.takeaway.length === article.takeaway.length;
+        if (!valid) { log("translation_rejected", { slug, reason: "structure_or_length_mismatch" }); continue; }
+        writeJsonSafely(path.join(englishDirectory, `${slug}.json`), english);
         writeJsonSafely(path.join(articleDirectory, `${slug}.json`), article);
         existingArticles.push(article);
         published += 1;
-        log("published", { slug, score: decision.score.total });
+        log("published", { slug, score: decision.score.total, languages: ["ko", "en"] });
       }
     }
     completed = true;
