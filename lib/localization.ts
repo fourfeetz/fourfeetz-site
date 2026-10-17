@@ -84,7 +84,7 @@ export function toEnglishPath(pathname: string) {
   }
 
   if (section === "news") {
-    return "/insights/news";
+    return rest.length ? `/news/${rest.join("/")}` : "/news";
   }
 
   if (section === "insights" && rest.length === 1 && isKoreanInsightRedirect(rest[0])) {
