@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "slug": "openai-pollo-ai",
+  "language": "en",
+  "sourceUrl": "https://openai.com/index/pollo-ai",
+  "title": "OpenAI Highlights Pollo AI's Image and Video Campaign Creation Workflow",
+  "description": "OpenAI's October 8 newsroom post describes Pollo AI's use of AI tools to turn creative concepts into campaign images and video ads. This is a company-published case study, not independent evidence of performance, adoption or business results.",
+  "category": "Creative AI",
+  "sections": [
+    {
+      "heading": "What OpenAI published about Pollo AI",
+      "paragraphs": [
+        "On October 8, 2026, OpenAI published a newsroom item titled “Pollo AI turns creative ideas into campaigns with OpenAI.” The available official description presents Pollo AI as an example of using AI tools to transform creative ideas into detailed imagery and cinematic video advertisements. No independent reporting was included in the evidence used for the Korean article.",
+        "The company summary mentions GPT-5.6, GPT-6 Astra and GPT-Image-2.5. That mention alone does not establish how each model was used, their comparative performance, or the scale of any deployment."
+      ]
+    },
+    {
+      "heading": "What can and cannot be concluded",
+      "paragraphs": [
+        "The substantiated point is that OpenAI published this case description and outlined an image-and-video creation workflow. Claims about advertising effectiveness, customer growth or commercial impact would require separate evidence.",
+        "For international readers, this is best understood as a limited official product-use example, not as an independently verified market study or an endorsement of a specific performance result."
+      ]
+    },
+    {
+      "heading": "Questions for production teams",
+      "paragraphs": [
+        "Before using AI-generated images or video in a commercial campaign, production teams should assess editing workflows, intellectual-property and likeness permissions, brand review procedures and the accuracy of promotional claims.",
+        "Teams should separately confirm availability, language support, pricing, data handling and actual output quality. None of those operational outcomes can be assumed from a short official case description."
+      ]
+    }
+  ],
+  "takeaway": [
+    "The available source is an official OpenAI case description with a narrow verification scope.",
+    "No independent sources or measured commercial outcomes were provided.",
+    "Creative teams should validate licensing, workflow fit, costs and output quality before relying on the example."
+  ]
+}
