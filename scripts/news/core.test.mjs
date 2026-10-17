@@ -238,3 +238,16 @@ test("rejects write targets outside content/news", () => {
   assert.throws(() => assertNewsPath("app/page.tsx"), /Refusing to write outside/);
 });
 
+
+
+test("retains trusted primary-source fallback even when corroboration grouping does not select it", () => {
+  const primary = { title: "Veterinary clinical research update", summary: "A published research finding", url: "https://example.org/research", feed: { name: "Research", reliability: 25, primaryEvidence: true, evidenceType: "research" }, corroboratingSources: [{ url: "https://example.net/report", feed: { reliability: 25 } }] };
+  assert.deepEqual(selectEvidencePrimaries([primary]).map(({ url }) => url), [primary.url]);
+  const untrusted = { ...primary, url: "https://example.org/untrusted", feed: { reliability: 20, primaryEvidence: false } };
+  assert.deepEqual(selectEvidencePrimaries([untrusted]), []);
+});
+
+test("considers more verified fallback candidates without changing the daily publishing cap", () => {
+  const candidates = Array.from({ length: 14 }, (_, i) => ({ title: `Distinct veterinary study ${i}`, summary: "Clinical findings", feed: { name: "Research" } }));
+  assert.equal(selectApiCandidates(candidates, 2).length, 14);
+});
