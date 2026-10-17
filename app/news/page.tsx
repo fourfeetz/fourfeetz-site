@@ -8,7 +8,7 @@ const description = "Source-checked updates on pets, veterinary care, pet techno
 
 export const metadata: Metadata = {
   title, description,
-  alternates: { canonical: "/news" },
+  alternates: { canonical: "/news", languages: { en: "/news", ko: "/ko/news" } },
   openGraph: { type: "website", title, description, url: "/news", locale: "en_US" },
 };
 
