@@ -158,7 +158,7 @@ test("requires at least 80 points for conditional primary publication", () => {
   assert.equal(decision.score.total, 89);
   assert.equal(decision.hardBlocks.length, 0);
   assert.equal(decision.publish, true);
-  const lowerReview = passingReview({ independentlyCorroborated: false, corroboratedFactCount: 0, originalityScore: 20, evidenceBasis: { primaryMaterialAvailable: true, sharedOrigin: "연구 원자료", independentResearchEvidence: false }, failedClaims: [], crossVerificationFailures: [] });
+  const lowerReview = passingReview({ independentlyCorroborated: false, corroboratedFactCount: 0, originalityScore: 0, evidenceBasis: { primaryMaterialAvailable: true, sharedOrigin: "연구 원자료", independentResearchEvidence: false }, failedClaims: [], crossVerificationFailures: [] });
   const lowerDecision = publicationDecision(article, candidate, lowerReview, []);
   assert.ok(lowerDecision.score.total < 80);
   assert.equal(lowerDecision.publish, false);
