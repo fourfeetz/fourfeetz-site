@@ -38,7 +38,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[#e6d8c8] bg-[#fbf7f0]/90 backdrop-blur-xl print:hidden">
       <div className="mx-auto flex max-w-[1440px] items-center gap-3 px-6 py-4 xl:gap-4">
-        <Link href={homeHref} className="shrink-0">
+        <Link href={homeHref} className="relative shrink-0 min-[1400px]:translate-x-[66px]">
           <Image
             src="/images/ui/logos/fourfeetz-logo.png"
             alt="FourFeetz Studios"
