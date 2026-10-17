@@ -148,7 +148,7 @@ test("conditionally publishes verified official primary material with explicit l
   assert.equal(decision.publish, true);
 });
 
-test("keeps the 90 point threshold for conditional primary publication", () => {
+test("requires at least 80 points for conditional primary publication", () => {
   const officialFeed = { ...feed, reliability: 25, primaryEvidence: true, evidenceType: "research" };
   const candidate = { url: "https://example.org/a", feed: officialFeed, corroboratingSources: [] };
   const base = verifiedArticle();
@@ -157,7 +157,11 @@ test("keeps the 90 point threshold for conditional primary publication", () => {
   const decision = publicationDecision(article, candidate, review, []);
   assert.equal(decision.score.total, 89);
   assert.equal(decision.hardBlocks.length, 0);
-  assert.equal(decision.publish, false);
+  assert.equal(decision.publish, true);
+  const lowerReview = passingReview({ independentlyCorroborated: false, corroboratedFactCount: 0, originalityScore: 20, evidenceBasis: { primaryMaterialAvailable: true, sharedOrigin: "연구 원자료", independentResearchEvidence: false }, failedClaims: [], crossVerificationFailures: [] });
+  const lowerDecision = publicationDecision(article, candidate, lowerReview, []);
+  assert.ok(lowerDecision.score.total < 80);
+  assert.equal(lowerDecision.publish, false);
 });
 
 test("official-source exception never bypasses fact, copyright, or disclosure failures", () => {
