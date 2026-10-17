@@ -2,7 +2,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
-export const QUALITY_THRESHOLD = 90;
+export const QUALITY_THRESHOLD = 80;
 export const MAX_DAILY_ARTICLES = 2;
 const NEWS_ROOT = path.resolve(process.cwd(), "content", "news");
 
