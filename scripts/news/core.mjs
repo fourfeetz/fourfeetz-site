@@ -134,11 +134,11 @@ export function isTrustedPrimaryEvidence(candidate) {
 
 export function selectEvidencePrimaries(items) {
   const corroboratedUrls = new Set(selectCorroboratedPrimaries(items).map(({ url }) => url));
-  return items.filter((item) => corroboratedUrls.has(item.url) || (isTrustedPrimaryEvidence(item) && (item.corroboratingSources?.length ?? 0) === 0));
+  return items.filter((item) => corroboratedUrls.has(item.url) || isTrustedPrimaryEvidence(item));
 }
 
 export function selectApiCandidates(candidates, remainingToday) {
-  const limit = Math.min(remainingToday * 4, 8);
+  const limit = Math.min(remainingToday * 8, 16);
   // Rotate across independently eligible topics and publishers before revisiting a group.
   // Never relax corroboration, source trust, duplicate, or editorial publication gates.
   const groups = new Map();
