@@ -175,7 +175,7 @@ async function main() {
   const withIndependentSources = corroborated.filter((candidate) => candidate.corroboratingSources.length > 0);
   const withTrustedPrimaryEvidence = corroborated.filter((candidate) => candidate.corroboratingSources.length === 0 && isTrustedPrimaryEvidence(candidate));
   const primaries = selectEvidencePrimaries(corroborated);
-  const hydrated = await hydrateCandidateGroups(primaries.slice(0, remainingToday * 6));
+  const hydrated = await hydrateCandidateGroups(primaries.slice(0, remainingToday * 12));
   const deduplicated = deduplicateCandidates(hydrated, existingArticles);
   // Evaluate additional verified candidates when earlier drafts fail editorial review.
   // Publishing is still limited by remainingToday and the existing budget guards.
