@@ -87,13 +87,13 @@ jobs:
         if: steps.mode.outputs.dry_run == 'false' && env.AUTO_PUBLISH_ENABLED == 'true'
         shell: bash
         run: |
-          if [ -z "$(git status --porcelain --untracked-files=all -- content/news/ko)" ]; then
+          if [ -z "$(git status --porcelain --untracked-files=all -- content/news/ko content/news/en)" ]; then
             echo "created=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git config user.name "fourfeetz-news-bot"
           git config user.email "fourfeetz-news-bot@users.noreply.github.com"
-          git add -- content/news/ko
+          git add -- content/news/ko content/news/en
           git commit -m "content(news): publish verified daily update"
           git push origin "HEAD:${GITHUB_REF_NAME}"
           echo "created=true" >> "$GITHUB_OUTPUT"
