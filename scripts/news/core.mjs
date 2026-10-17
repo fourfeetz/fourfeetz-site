@@ -147,7 +147,7 @@ export function selectApiCandidates(candidates, remainingToday) {
     const topic = /\b(dog|cat|pet|veterinar|animal|puppy|kitten|groom|food)\b|반려동물|강아지|고양이/.test(text)
       ? "pet" : /\b(video|film|image|animation|creator|music)\b|영상|이미지|애니메이션/.test(text)
         ? "creative" : "technology";
-    const key = `${topic}:${candidate.feed.name}`;
+    const key = `${topic}:${candidate.feed?.name ?? candidate.feed?.id ?? "unknown"}`;
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(candidate);
   }
