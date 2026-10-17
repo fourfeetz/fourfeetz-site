@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
 :root {
   --background: #fbf7f0;
   --foreground: #2b2119;
+  --font-sans: "Montserrat", Arial, Helvetica, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
