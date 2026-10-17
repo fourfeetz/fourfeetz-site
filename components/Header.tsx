@@ -37,7 +37,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#e6d8c8] bg-[#fbf7f0]/90 backdrop-blur-xl print:hidden">
-      <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-5 py-4 xl:gap-6 xl:px-8">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 px-6 py-4 xl:gap-4">
         <Link href={homeHref} className="shrink-0">
           <Image
             src="/images/ui/logos/fourfeetz-logo.png"
@@ -45,11 +45,11 @@ export default function Header() {
             width={240}
             height={80}
             priority
-            className="h-auto w-[170px] 2xl:w-[195px]"
+            className="h-auto w-[170px] 2xl:w-[185px]"
           />
         </Link>
 
-        <nav aria-label="Primary navigation" className="hidden min-w-0 flex-1 items-center justify-center gap-3 xl:flex 2xl:gap-6">
+        <nav aria-label="Primary navigation" className="hidden min-w-0 flex-1 items-center justify-center gap-2 xl:flex 2xl:gap-3">
           {activeNavItems.map((item) => (
             <Link
               key={item.href}
