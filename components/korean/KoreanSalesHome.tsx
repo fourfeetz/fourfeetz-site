@@ -13,7 +13,7 @@ const primary = "inline-flex min-h-12 items-center justify-center rounded-full b
 const secondary = "inline-flex min-h-12 items-center justify-center rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
 const card = "rounded-[30px] border border-[#eadfce] bg-white p-7 shadow-sm";
 
-export default function KoreanSalesHome() {
+export default function KoreanSalesHome({ newsSection }: { newsSection?: React.ReactNode }) {
   const productionRecords = localizeInsightArticles(
     getKoreanInsightArticles().filter((article) => [
       "from-first-image-to-final-short",
@@ -64,6 +64,8 @@ export default function KoreanSalesHome() {
         </div>
       </div>
     </section>
+
+    {newsSection}
 
     <section className="px-6 py-20"><div className="mx-auto max-w-7xl"><h2 className="text-4xl font-black text-[#2b2119] md:text-5xl">제작은 이렇게 진행됩니다</h2><ol className="mt-8 grid gap-5 md:grid-cols-4">{[["자료 확인","사진, 이름, 특징, 분위기와 사용 목적을 확인합니다."],["구성 안내","공개 가능한 범위와 원하는 결과물을 바탕으로 구성을 안내합니다."],["제작·검토","AI를 활용해 제작하고 합의된 기준에 따라 결과를 검토합니다."],["수정·전달","확정된 수정 범위를 반영해 최종 파일을 전달합니다."]].map(([t,d],i)=><li key={t} className={card}><span className="font-black text-[#a67c52]">0{i+1}</span><h3 className="mt-4 text-xl font-black">{t}</h3><p className="mt-3 leading-7 text-[#76685d]">{d}</p></li>)}</ol></div></section>
 
