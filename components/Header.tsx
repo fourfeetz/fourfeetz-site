@@ -49,7 +49,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav aria-label="Primary navigation" className="hidden min-w-0 flex-1 items-center justify-center gap-3 xl:flex min-[1400px]:gap-[1cm]">
+        <nav aria-label="Primary navigation" className="hidden min-w-0 flex-1 items-center justify-center gap-3 xl:flex min-[1400px]:gap-[0.7cm]">
           {activeNavItems.map((item) => (
             <Link
               key={item.href}
