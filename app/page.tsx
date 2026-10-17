@@ -35,7 +35,7 @@ function PlaceholderThumb({ label }: { label: string }) {
   );
 }
 
-export default function Home() {
+export default function Home({ newsSection }: { newsSection?: React.ReactNode }) {
   const { t } = useLanguage();
 
   return (
@@ -88,6 +88,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {newsSection}
 
       <section className="px-6 py-20 md:py-24">
         <SectionHeader
