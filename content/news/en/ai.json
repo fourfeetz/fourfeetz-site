@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "slug": "ai",
+  "language": "en",
+  "sourceUrl": "https://www.dvm360.com/view/artificial-intelligence-use-among-veterinary-professionals-more-than-doubles-in-2-years",
+  "title": "Veterinary AI Adoption Surges, but Operational Maturity Shapes Reported Outcomes",
+  "description": "A 2026 Digitail and AAHA survey of 1,730 veterinary professionals in the US and Canada reports AI use at 83.7%, up from 39.2% in 2024. Differences in governance and workflow maturity accompany different self-reported outcomes; the survey does not establish causation.",
+  "category": "Industry & Technology",
+  "sections": [
+    {
+      "heading": "AI use is widespread, but maturity varies",
+      "paragraphs": [
+        "According to the 2026 veterinary AI survey released by Digitail and the American Animal Hospital Association (AAHA), 83.7% of 1,730 veterinary professionals surveyed in the United States and Canada said they use AI, compared with 39.2% in 2024. These are self-reported survey results, not a direct measure of use in every practice or evidence about the Korean market.",
+        "Among AI users, 88.3% reported using AI daily or weekly. Clinical documentation, including AI scribes and SOAP notes, was the most commonly reported application, at 62.8%. These figures describe respondents' reported use, not verified clinical effectiveness."
+      ]
+    },
+    {
+      "heading": "Reported benefits varied with operational maturity",
+      "paragraphs": [
+        "The survey assessed AI maturity across six dimensions, including strategy, governance, vendor evaluation, workflow integration, depth of use and organizational readiness. The reported average was 2.67 on a four-point scale. Practices at the highest maturity level reported more positive business outcomes than those at the lowest level.",
+        "That association does not prove that AI caused better outcomes. Both news reports relied on the same Digitail–AAHA survey rather than independent replications of its underlying findings."
+      ]
+    },
+    {
+      "heading": "Practical questions for veterinary clinics in Korea",
+      "paragraphs": [
+        "Before adopting AI, a clinic can define the tasks it will support, who reviews its output, how errors are corrected, and which activities are prohibited. Contracts and internal policies should address patient information, privacy, data retention and staff training.",
+        "To assess an implementation, clinics can examine documentation time, review frequency, staff training costs and consultation workflows rather than relying on adoption rates alone. Results from a US–Canada self-reported sample should not be generalized to Korean practices without local evidence."
+      ]
+    }
+  ],
+  "takeaway": [
+    "The survey reports rapid AI adoption alongside meaningful differences in operational maturity.",
+    "Governance, accountability and workflow design deserve attention before deployment.",
+    "The results are self-reported and specific to the US and Canada; they do not establish causal benefits or Korean adoption rates."
+  ]
+}
