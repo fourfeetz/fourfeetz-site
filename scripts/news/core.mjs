@@ -138,7 +138,27 @@ export function selectEvidencePrimaries(items) {
 }
 
 export function selectApiCandidates(candidates, remainingToday) {
-  return candidates.slice(0, Math.min(remainingToday * 4, 8));
+  const limit = Math.min(remainingToday * 4, 8);
+  // Rotate across independently eligible topics and publishers before revisiting a group.
+  // Never relax corroboration, source trust, duplicate, or editorial publication gates.
+  const groups = new Map();
+  for (const candidate of candidates) {
+    const text = normalizeText(`${candidate.title} ${candidate.summary}`);
+    const topic = /\b(dog|cat|pet|veterinar|animal|puppy|kitten|groom|food)\b|반려동물|강아지|고양이/.test(text)
+      ? "pet" : /\b(video|film|image|animation|creator|music)\b|영상|이미지|애니메이션/.test(text)
+        ? "creative" : "technology";
+    const key = `${topic}:${candidate.feed.name}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(candidate);
+  }
+  const selected = [];
+  while (selected.length < limit && [...groups.values()].some((items) => items.length)) {
+    for (const items of groups.values()) {
+      if (selected.length >= limit) break;
+      if (items.length) selected.push(items.shift());
+    }
+  }
+  return selected;
 }
 
 export function isRelevant(item) {
