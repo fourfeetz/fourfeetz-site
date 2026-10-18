@@ -30,6 +30,7 @@ jobs:
       MONTHLY_BUDGET_USD: ${{ vars.MONTHLY_BUDGET_USD || '10' }}
       MAX_RUN_ESTIMATED_USD: ${{ vars.MAX_RUN_ESTIMATED_USD || '2' }}
       AUTO_PUBLISH_ENABLED: ${{ vars.AUTO_PUBLISH_ENABLED || 'false' }}
+      NEWS_PUBLICATION_MODE: curation
       NEWS_FEEDS_JSON: ${{ vars.NEWS_FEEDS_JSON }}
       BUDGET_LEDGER_BACKEND: github-issue
       GITHUB_TOKEN: ${{ github.token }}
