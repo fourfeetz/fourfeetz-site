@@ -82,7 +82,7 @@ function isPublishedArticle(value: unknown): value is NewsArticle {
         && article.verifiedClaims.every((claim) => Array.isArray(claim.evidence)
           && claim.evidence.length > 0
           && claim.evidence.some((evidence) => evidence.sourceUrl === article.source?.url)
-          && claim.evidence.every((evidence) => [article.source?.url, ...article.corroboratingSources.map((source) => source.url)].includes(evidence.sourceUrl)))
+          && claim.evidence.every((evidence) => [article.source?.url, ...(article.corroboratingSources ?? []).map((source) => source.url)].includes(evidence.sourceUrl)))
       : (article.corroboratingSources.length > 0 || (
         article.source?.primaryEvidence === true
         && (article.source.evidenceType === "official" || article.source.evidenceType === "research")
