@@ -17,6 +17,7 @@ const englishDirectory = path.join(root, "content", "news", "en");
 const stateDirectory = path.join(root, "content", "news", ".state");
 const dryRun = process.env.DRY_RUN !== "false";
 const publishingEnabled = process.env.AUTO_PUBLISH_ENABLED === "true";
+const curationMode = process.env.NEWS_PUBLICATION_MODE === "curation";
 const fixturePath = process.env.NEWS_FIXTURE_PATH;
 const now = process.env.NEWS_NOW ? new Date(process.env.NEWS_NOW) : new Date();
 const koreanDate = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul", year: "numeric", month: "2-digit", day: "2-digit" }).format(now);
@@ -174,13 +175,17 @@ async function main() {
   const corroborated = attachCorroboratingSources(relevantFresh);
   const withIndependentSources = corroborated.filter((candidate) => candidate.corroboratingSources.length > 0);
   const withTrustedPrimaryEvidence = corroborated.filter((candidate) => candidate.corroboratingSources.length === 0 && isTrustedPrimaryEvidence(candidate));
-  const primaries = selectEvidencePrimaries(corroborated);
+  const primaries = curationMode
+    ? corroborated.filter((candidate) => (candidate.feed.reliability ?? 0) >= 20)
+    : selectEvidencePrimaries(corroborated);
   const hydrated = await hydrateCandidateGroups(primaries.slice(0, remainingToday * 12));
   const deduplicated = deduplicateCandidates(hydrated, existingArticles);
   // Evaluate additional verified candidates when earlier drafts fail editorial review.
   // Publishing is still limited by remainingToday and the existing budget guards.
-  const eligible = selectApiCandidates(deduplicated, remainingToday);
+  const eligible = selectApiCandidates(deduplicated, remainingToday)
+    .map((candidate) => ({ ...candidate, curationMode }));
   log("candidate_selection_summary", {
+    publicationMode: curationMode ? "curation" : "editorial",
     dateAccepted: relevantFresh.length,
     independentlyCorroborated: withIndependentSources.length,
     conditionalPrimaryEvidence: withTrustedPrimaryEvidence.length,
@@ -210,6 +215,7 @@ async function main() {
       const slug = existingArticles.some((article) => article.slug === baseSlug) ? `${baseSlug}-${sourceId(candidate.url).slice(0, 8)}` : baseSlug;
       const draft = {
         schemaVersion: 1, slug, language: "ko", ...generated.value,
+        publicationMode: curationMode ? "curation" : "editorial",
         publishedAt: now.toISOString(),
         source: { name: candidate.feed.name, url: candidate.url, publishedAt: candidate.publishedAt, primaryEvidence: candidate.feed.primaryEvidence === true, evidenceType: candidate.feed.evidenceType ?? "publisher_report" },
         corroboratingSources: candidate.corroboratingSources.map(({ feed, url, publishedAt }) => ({ name: feed.name, url, publishedAt })),
