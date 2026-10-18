@@ -287,9 +287,12 @@ export function publicationDecision(article, candidate, review, existingArticles
   if (candidate.curationMode === true) {
     // Source-attributed news briefs are not independent investigative reports.
     // The source must be explicitly named, every claim traceable, and the text original.
+    const permittedEvidenceUrls = new Set([candidate.url, ...(candidate.corroboratingSources ?? []).map((source) => source.url)]);
     const traceable = Array.isArray(article.verifiedClaims) && article.verifiedClaims.length >= 2
       && article.verifiedClaims.every((claim) => Array.isArray(claim.evidence)
-        && claim.evidence.some((evidence) => evidence.sourceUrl === candidate.url));
+        && claim.evidence.length > 0
+        && claim.evidence.some((evidence) => evidence.sourceUrl === candidate.url)
+        && claim.evidence.every((evidence) => permittedEvidenceUrls.has(evidence.sourceUrl)));
     const existingDuplicate = (review.duplicateFindings ?? []).some((finding) => finding.category === "existing_article");
     const permitted = new Set(["insufficient_independent_sources", "claim_evidence_missing", "cross_verification_failed", "ai_duplicate_flag"]);
     const blocked = hardBlocks.filter((block) => !permitted.has(block));
