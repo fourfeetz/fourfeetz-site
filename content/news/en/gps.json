@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "slug": "gps",
+  "language": "en",
+  "sourceUrl": "https://www.dvm360.com/view/lost-dogs-and-the-way-home-what-research-shows-about-tags-microchips-and-gps-trackers",
+  "title": "What Research Says About the Return Paths of Lost Dogs: Tags, Microchips, and GPS Trackers",
+  "description": "According to dvm360, the way a dog finds its way back to its family after getting lost is determined mainly by neighborhood searches and identification information, and when a dog ends up in a shelter, a microchip increases the chances of return. However, all of the figures included in this article are attributed to cited past studies and institutional data, and no independent cross-checking was provided.",
+  "category": "Pet/Veterinary Medicine",
+  "sections": [
+    {
+      "heading": "There was no single path for a lost dog to come home",
+      "paragraphs": [
+        "According to dvm360, the process by which a dog returns home after losing its way was closer to a combination of nearby searching and identification methods than to a single device. The original article explained this pattern by combining a 2012 ASPCA study, a 2009 JAVMA study, and Shelter Animals Count data.",
+        "The first factor was on-the-ground searching. In the surveys cited in the article, a significant share of recovered dogs were found through neighborhood searches. This shows that the range within which guardians first act is in fact closely tied to the path home."
+      ]
+    },
+    {
+      "heading": "Microchips made a bigger difference at the shelter stage",
+      "paragraphs": [
+        "dvm360 cited a 2009 U.S. shelter study to report that dogs with microchips were more likely to be returned to their guardians than dogs without them. However, this result came from a sample that included only animals admitted to shelters.",
+        "The original article added that even with a microchip, return can be hindered if contact information is incorrect or missing. In other words, the management of registration information, rather than the chip itself, was presented as the variable affecting actual reunification."
+      ]
+    },
+    {
+      "heading": "GPS trackers serve a different role",
+      "paragraphs": [
+        "The article distinguished GPS trackers from tags and microchips. If tags and chips are strong at identification, GPS trackers were presented as tools for confirming location. The original article also mentioned Fi Ultra and TIME’s 2026 selection, but this is closer to product introduction and award information and should not be read as a general guarantee of performance.",
+        "Accordingly, this section is better viewed as a reference for distinguishing which device is useful in which situation, rather than as a comparison of “what is better.”"
+      ]
+    },
+    {
+      "heading": "Questions that remain for Korean readers",
+      "paragraphs": [
+        "For Korea’s companion-animal industry, the important question is post-incident response rather than device sales. The key issues are practical procedures such as how easily registration information can be updated when it changes, how hospitals and shelters connect chip-scan results, and what guardians should do first immediately after a pet goes missing.",
+        "However, the findings of U.S. studies cannot be transferred directly into a universal conclusion for the Korean market. This is because regions, systems, and shelter operations differ. For that reason, it is safer to read this report as one that leaves questions to check rather than conclusions to accept."
+      ]
+    }
+  ],
+  "takeaway": [
+    "The return of a lost dog is better explained when tags, microchips, and on-site searching work together.",
+    "The article repeatedly emphasizes that with microchips, the key issue is not merely implantation but keeping registration information up to date.",
+    "GPS trackers are strong for location confirmation rather than identification, and coverage and service conditions should be considered together.",
+    "Because these figures are based on U.S. studies and institutional data, they cannot be generalized directly to Korea."
+  ]
+}
