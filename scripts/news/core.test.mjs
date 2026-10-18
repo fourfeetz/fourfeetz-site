@@ -253,3 +253,22 @@ test("considers more verified fallback candidates without changing the daily pub
   const candidates = Array.from({ length: 14 }, (_, i) => ({ title: `Distinct veterinary study ${i}`, summary: "Clinical findings", feed: { name: "Research" } }));
   assert.equal(selectApiCandidates(candidates, 2).length, 14);
 });
+
+test("curation accepts attributed briefs but still rejects duplicate or unsafe articles", () => {
+  const candidate = { url: "https://example.org/a", feed, curationMode: true, corroboratingSources: [] };
+  const claims = ["첫 번째 발행처 주장", "두 번째 발행처 주장"];
+  const article = verifiedArticle({
+    corroboratingSources: [],
+    verifiedClaims: claims.map((claim) => ({
+      claim, limitation: "발행처 자료에만 근거합니다.",
+      evidence: [{ sourceUrl: candidate.url, evidenceSummary: "발행처 원문" }],
+    })),
+  });
+  const review = passingReview({ independentlyCorroborated: false, corroboratedFactCount: 0,
+    duplicateFree: false, duplicateFindings: [{ category: "syndicated_coverage", subject: "외부 유사 보도", reason: "동일 발표", comparisonTarget: "외부 매체" }] });
+  assert.equal(publicationDecision(article, candidate, review, []).publish, true);
+  assert.equal(publicationDecision(article, candidate, { ...review, copyrightSafe: false }, []).publish, false);
+  assert.equal(publicationDecision(article, candidate, { ...review, duplicateFindings: [{ category: "existing_article" }] }, []).publish, false);
+  assert.equal(publicationDecision(article, candidate, { ...review, duplicateFindings: [{ category: "source_expression" }] }, []).publish, false);
+  assert.equal(publicationDecision(verifiedArticle({ corroboratingSources: [] }), candidate, review, []).publish, false);
+});
