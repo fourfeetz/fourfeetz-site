@@ -30,6 +30,7 @@ export type VerifiedClaim = {
 
 export type NewsArticle = {
   schemaVersion: 1;
+  publicationMode?: "editorial" | "curation";
   slug: string;
   language: "ko";
   title: string;
@@ -75,11 +76,18 @@ function isPublishedArticle(value: unknown): value is NewsArticle {
     && article.sections.length > 0
     && typeof article.source?.url === "string"
     && Array.isArray(article.corroboratingSources)
-    && (article.corroboratingSources.length > 0 || (
-      article.source?.primaryEvidence === true
-      && (article.source.evidenceType === "official" || article.source.evidenceType === "research")
-      && article.evidenceScope?.independentVerificationAvailable === false
-    ))
+    && (article.publicationMode === "curation"
+      ? Array.isArray(article.verifiedClaims)
+        && article.verifiedClaims.length >= 2
+        && article.verifiedClaims.every((claim) => Array.isArray(claim.evidence)
+          && claim.evidence.length > 0
+          && claim.evidence.some((evidence) => evidence.sourceUrl === article.source?.url)
+          && claim.evidence.every((evidence) => [article.source?.url, ...article.corroboratingSources.map((source) => source.url)].includes(evidence.sourceUrl)))
+      : (article.corroboratingSources.length > 0 || (
+        article.source?.primaryEvidence === true
+        && (article.source.evidenceType === "official" || article.source.evidenceType === "research")
+        && article.evidenceScope?.independentVerificationAvailable === false
+      )))
     && Array.isArray(article.verifiedClaims)
     && article.verifiedClaims.length >= 2
     && typeof article.evidenceScope?.verificationBoundary === "string"
@@ -92,7 +100,7 @@ function isPublishedArticle(value: unknown): value is NewsArticle {
     && Array.isArray(article.editorialAnalysis?.readerLimitations)
     && article.editorialAnalysis.readerLimitations.length >= 2
     && typeof article.quality?.total === "number"
-    && article.quality.total >= 90;
+    && (article.publicationMode === "curation" || article.quality.total >= 90);
 }
 
 export function getNewsArticles(): NewsArticle[] {
