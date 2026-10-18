@@ -295,6 +295,7 @@ export function publicationDecision(article, candidate, review, existingArticles
     const blocked = hardBlocks.filter((block) => !permitted.has(block));
     if (!traceable) blocked.push("unattributed_claims");
     if (existingDuplicate || checks.maxSimilarity >= 0.72) blocked.push("existing_article_duplicate");
+    if ((review.duplicateFindings ?? []).some((finding) => finding.category === "source_expression")) blocked.push("source_expression_duplicate");
     if (!review.duplicateFree && !(review.duplicateFindings ?? []).length) blocked.push("unexplained_duplicate_flag");
     if ((review.failedClaims ?? []).length || (review.copyrightRisks ?? []).length || (review.unsupportedFacts ?? []).length) blocked.push("unsupported_or_copyright_risk");
     return { publish: blocked.length === 0, score, hardBlocks: [...new Set(blocked)], checks: { ...checks, conditionalPrimaryEvidenceAccepted, curationMode: true } };
