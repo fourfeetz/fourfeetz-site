@@ -284,6 +284,21 @@ export function publicationDecision(article, candidate, review, existingArticles
     && (review.crossVerificationFailures ?? []).length === 0;
   if ((!conditionalPrimaryEvidenceAccepted && (review.independentlyCorroborated !== true || review.corroboratedFactCount < 2)) || review.unsupportedFacts?.length) hardBlocks.push("cross_verification_failed");
   const score = scoreArticle(article, candidate, review, checks);
+  if (candidate.curationMode === true) {
+    // Source-attributed news briefs are not independent investigative reports.
+    // The source must be explicitly named, every claim traceable, and the text original.
+    const traceable = Array.isArray(article.verifiedClaims) && article.verifiedClaims.length >= 2
+      && article.verifiedClaims.every((claim) => Array.isArray(claim.evidence)
+        && claim.evidence.some((evidence) => evidence.sourceUrl === candidate.url));
+    const existingDuplicate = (review.duplicateFindings ?? []).some((finding) => finding.category === "existing_article");
+    const permitted = new Set(["insufficient_independent_sources", "claim_evidence_missing", "cross_verification_failed", "ai_duplicate_flag"]);
+    const blocked = hardBlocks.filter((block) => !permitted.has(block));
+    if (!traceable) blocked.push("unattributed_claims");
+    if (existingDuplicate || checks.maxSimilarity >= 0.72) blocked.push("existing_article_duplicate");
+    if (!review.duplicateFree && !(review.duplicateFindings ?? []).length) blocked.push("unexplained_duplicate_flag");
+    if ((review.failedClaims ?? []).length || (review.copyrightRisks ?? []).length || (review.unsupportedFacts ?? []).length) blocked.push("unsupported_or_copyright_risk");
+    return { publish: blocked.length === 0, score, hardBlocks: [...new Set(blocked)], checks: { ...checks, conditionalPrimaryEvidenceAccepted, curationMode: true } };
+  }
   return { publish: hardBlocks.length === 0 && score.total >= QUALITY_THRESHOLD, score, hardBlocks, checks: { ...checks, conditionalPrimaryEvidenceAccepted } };
 }
 
