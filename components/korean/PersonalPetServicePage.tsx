@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BadgeCheck, BookHeart, Heart, ImageIcon, PartyPopper } from "lucide-react";
 import { HeroVideoPanel } from "@/components/CinematicHero";
+import { VideoPricingSection } from "@/components/korean/VideoPricingSection";
 import { koreanHeroVideos } from "@/lib/heroVideos";
 import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 
@@ -44,7 +45,7 @@ export default function PersonalPetServicePage() {
           <Link href="/ko/services#contact" aria-label="무료 상담받기" className={button}>무료 상담받기</Link>
           <Link href="/ko/videos" aria-label="My Pet Story 제작 사례 보기" className={secondaryButton}>제작 사례 보기</Link>
         </div>
-        <p className="mt-5 font-bold text-[#6f4e37]">가격은 사진과 원하는 작품 구성을 확인한 후 안내해 드립니다. 결제 전 사진과 원하는 분위기를 먼저 상담해 주세요.</p>
+        <p className="mt-5 font-bold text-[#6f4e37]">대표 가격은 99,000원부터입니다. 결제 전 사진과 원하는 작품 구성을 먼저 상담해 주세요.</p>
       </div>
       <HeroVideoPanel locale="ko" video={koreanHeroVideos.myPetStory} />
     </section>
@@ -57,6 +58,8 @@ export default function PersonalPetServicePage() {
         <div className="mt-10 grid gap-6 md:grid-cols-3">{strengths.map((item, index) => <article key={item.title} className={card}><span className="grid size-11 place-items-center rounded-full bg-[#6f4e37] font-black text-white">0{index + 1}</span><h3 className="mt-5 text-2xl font-black text-[#2b2119]">{item.title}</h3><p className="mt-3 leading-8 text-[#76685d]">{item.text}</p></article>)}</div>
       </div>
     </section>
+
+    <VideoPricingSection description="간단한 15초 영상부터 여러 장면으로 구성된 스토리형 영상까지, 남기고 싶은 이야기에 맞춰 선택할 수 있습니다." />
 
     <section className="px-6 py-20">
       <div className="mx-auto max-w-7xl">
