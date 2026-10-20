@@ -4,6 +4,7 @@ import { BadgeCheck, Building2, Heart, PawPrint } from "lucide-react";
 import { films } from "@/lib/films";
 import { shorts } from "@/data/shorts";
 import { HeroVideoPanel } from "@/components/CinematicHero";
+import MemorialServiceSpotlight from "@/components/MemorialServiceSpotlight";
 import { koreanHeroVideos } from "@/lib/heroVideos";
 import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 import { getKoreanInsightArticles } from "@/lib/insights";
@@ -35,6 +36,15 @@ export default function KoreanSalesHome({ newsSection }: { newsSection?: React.R
       <div><p className="text-sm font-black uppercase tracking-[.25em] text-[#a67c52]">FourFeetz Creative Studio</p><h1 className="mt-4 text-5xl font-black leading-[1.12] tracking-tight text-[#2b2119] md:text-7xl">사진 속 우리 아이를<br />특별한 이야기로 만들어드립니다</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d] md:text-xl">반려동물 맞춤 영상과 디지털 작품부터 반려동물 업체를 위한 감성 홍보 콘텐츠까지, FourFeetz가 사진과 이야기를 기억에 남는 장면으로 완성합니다.</p><div className="mt-8 flex flex-wrap gap-3"><Link href="/ko/services/personal-pet-video" aria-label="무료 상담받기" className={primary}>My Pet Story</Link><Link href="/ko/services/pet-video" className={secondary}>업체 홍보 콘텐츠 알아보기</Link><Link href="/ko/videos" className={secondary}>제작 사례 보기</Link></div></div>
       <HeroVideoPanel locale="ko" video={koreanHeroVideos.home} />
     </section>
+
+    <MemorialServiceSpotlight
+      eyebrow="Pet Memorial Video"
+      title="소중한 반려동물과의 추억을 영상으로 간직하세요"
+      description="함께했던 따뜻한 순간과 잊지 못할 추억을 한 편의 감성적인 영상으로 담아드립니다."
+      buttonLabel="추모영상 보러가기"
+      href="/ko/services/pet-memorial-video"
+      imageAlt="따뜻한 빛 속에서 반려동물과의 추억을 표현한 추모영상 대표 이미지"
+    />
 
     <section className="border-y border-[#eadfce] bg-white px-6 py-16"><div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-2">
       <Link href="/ko/services/personal-pet-video" aria-label="My Pet Story 자세히 보기" className={`${card} group`}><Heart className="text-[#a67c52]" /><p className="mt-6 text-sm font-black text-[#a67c52]">개인 고객</p><h2 className="mt-2 text-3xl font-black text-[#2b2119]">My Pet Story</h2><p className="mt-4 leading-8 text-[#76685d]">생일·입양 기념, 일상의 추억과 추모를 위한 맞춤 영상·디지털 작품을 상담합니다.</p><span className="mt-6 inline-flex font-black text-[#6f4e37]">My Pet Story →</span></Link>

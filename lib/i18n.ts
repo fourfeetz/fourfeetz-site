@@ -14,7 +14,7 @@ export const dict = {
       news: "News",
       resources: "Resources",
       services: "Services",
-      personal: "Personal Pet Art",
+      personal: "My Pet Story",
       business: "Business Content",
       contact: "Contact",
       tools: "Tools",
@@ -291,7 +291,7 @@ export const navItems = [
   { href: "/insights", key: "insights" },
   { href: "/news", key: "news" },
   { href: "/resources", key: "resources" },
-  { href: "/services", key: "services" },
+  { href: "/services", key: "personal" },
   { href: "/tools", key: "tools" },
 ] as const satisfies readonly NavItem[];
 
