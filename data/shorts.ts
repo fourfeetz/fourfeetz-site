@@ -42,6 +42,7 @@ export type Short = {
     title: string;
     href: string;
   };
+  soundtrack?: string;
   insight?: {
     title: string;
     href: string;
@@ -59,6 +60,42 @@ export type Short = {
 };
 
 export const shorts: Short[] = [
+  {
+    id: "short-013",
+    slug: "heavenly-steps-together",
+    type: "episode",
+    title: "Together, Beyond the Clouds",
+    description: "Two small dogs climb a flower-lined stairway toward a warm, cloud-filled sky in a gentle memorial short about love that remains close.",
+    category: "Pet Memorial Short",
+    badge: "MEMORIAL FILM",
+    duration: "55 sec",
+    tools: [],
+    aspectRatio: "9:16",
+    spokenLanguage: "No dialogue",
+    koreanSpokenLanguage: "대사 없음",
+    moods: ["Gentle", "Reflective", "Warm"],
+    koreanMoods: ["따뜻함", "차분함", "추억"],
+    productionNotes: [
+      { label: "Format", value: "A 55-second vertical memorial short presented in its original 9:16 composition." },
+      { label: "Visual Direction", value: "Soft daylight, flower-lined steps, and an open sky create a peaceful, memory-led atmosphere without presenting a real customer story." },
+      { label: "Music", value: "Lingering Piano Notes accompanies the short with a quiet piano arrangement." },
+    ],
+    koreanProductionNotes: [
+      { label: "형식", value: "원본 9:16 구성을 유지한 55초 세로형 추모 쇼츠입니다." },
+      { label: "시각 연출", value: "꽃으로 둘러싸인 계단과 열린 하늘, 부드러운 빛으로 실제 고객 사례가 아닌 평온한 추억의 정서를 표현했습니다." },
+      { label: "음악", value: "조용한 피아노 편곡의 Lingering Piano Notes를 함께 사용합니다." },
+    ],
+    video: "/videos/services/pet-memorial-heavenly-steps.mp4",
+    soundtrack: "/audio/music/lingering-piano-notes.mp3",
+    poster: "/images/services/pet-memorial-heavenly-steps-cover.jpg",
+    endFrame: "/images/shorts/pet-memorial/heavenly-steps-story-frame.png",
+    gallery: [{ src: "/images/shorts/pet-memorial/heavenly-steps-story-frame.png", alt: "꽃길 계단 위에서 함께 하늘을 바라보는 두 강아지", caption: "두 아이가 함께 이어가는 평온한 기억의 장면입니다." }],
+    music: { title: "Lingering Piano Notes", href: "/music/lingering-piano-notes" },
+    publishedAt: "2026-10-20",
+    updatedAt: "2026-10-20",
+    featured: true,
+    publishStatus: "published",
+  },
   {
     id: "short-012",
     slug: "haru-luna-teddy-bear-chase",

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Short } from "@/data/shorts";
 import { shorts } from "@/data/shorts";
+import SyncedVideoPlayer from "@/components/SyncedVideoPlayer";
 
 export default function ShortDetailPage({ short }: { short: Short }) {
   const relatedShorts = shorts.filter((item) => item.type === "episode");
@@ -52,15 +53,7 @@ export default function ShortDetailPage({ short }: { short: Short }) {
         </div>
 
         <div id="watch" className="mx-auto w-full max-w-md scroll-mt-24 overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-2xl shadow-[#6f4e37]/15">
-          <video
-            src={short.video}
-            poster={short.poster}
-            controls
-            playsInline
-            preload="metadata"
-            className="aspect-[9/16] h-auto w-full object-cover"
-            aria-label={`Play ${short.title}`}
-          />
+          <SyncedVideoPlayer src={short.video} poster={short.poster} audioSrc={short.soundtrack} label={`Play ${short.title}`} className="aspect-[9/16] h-auto w-full object-cover" />
         </div>
       </section>
 
