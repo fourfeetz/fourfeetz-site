@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { BadgeCheck, BookHeart, Heart, ImageIcon, PartyPopper } from "lucide-react";
 import { HeroVideoPanel } from "@/components/CinematicHero";
-import { VideoPricingSection } from "@/components/korean/VideoPricingSection";
 import { koreanHeroVideos } from "@/lib/heroVideos";
 import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 
@@ -58,8 +57,6 @@ export default function PersonalPetServicePage() {
         <div className="mt-10 grid gap-6 md:grid-cols-3">{strengths.map((item, index) => <article key={item.title} className={card}><span className="grid size-11 place-items-center rounded-full bg-[#6f4e37] font-black text-white">0{index + 1}</span><h3 className="mt-5 text-2xl font-black text-[#2b2119]">{item.title}</h3><p className="mt-3 leading-8 text-[#76685d]">{item.text}</p></article>)}</div>
       </div>
     </section>
-
-    <VideoPricingSection description="간단한 15초 영상부터 여러 장면으로 구성된 스토리형 영상까지, 남기고 싶은 이야기에 맞춰 선택할 수 있습니다." />
 
     <section className="px-6 py-20">
       <div className="mx-auto max-w-7xl">
