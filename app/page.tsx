@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CinematicHero from "@/components/CinematicHero";
+import MemorialServiceSpotlight from "@/components/MemorialServiceSpotlight";
 import { socialPlatforms } from "@/lib/i18n";
 import {
   getFeaturedWorks,
@@ -41,6 +42,15 @@ export default function Home({ newsSection }: { newsSection?: React.ReactNode })
   return (
     <main>
       <CinematicHero />
+
+      <MemorialServiceSpotlight
+        eyebrow="Pet Memorial Video"
+        title="Keep Your Pet’s Most Precious Memories Close"
+        description="We turn the warm moments you shared and the memories you never want to lose into one heartfelt memorial film."
+        buttonLabel="Explore Memorial Videos"
+        href="/services"
+        imageAlt="A warm pet memorial video scene created by FourFeetz"
+      />
 
       <section className="px-6 py-20 md:py-24">
         <SectionHeader
