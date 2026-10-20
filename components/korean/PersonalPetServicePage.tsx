@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BadgeCheck, BookHeart, Heart, ImageIcon, PartyPopper } from "lucide-react";
 import { HeroVideoPanel } from "@/components/CinematicHero";
+import { VideoPricingSection } from "@/components/korean/VideoPricingSection";
 import { koreanHeroVideos } from "@/lib/heroVideos";
 import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 
@@ -113,6 +114,8 @@ export default function PersonalPetServicePage() {
         </div>
       </div>
     </section>
+
+    <VideoPricingSection description="간단한 15초 영상부터 여러 장면으로 구성된 스토리형 영상까지, 남기고 싶은 이야기에 맞춰 선택할 수 있습니다." />
 
     <section className="px-6 py-20">
       <div className="mx-auto flex max-w-7xl flex-col gap-6 rounded-[40px] bg-[#6f4e37] p-8 text-white md:flex-row md:items-center md:justify-between md:p-12">
