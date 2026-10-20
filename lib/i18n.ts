@@ -301,6 +301,7 @@ export const koreanNavItems = [
   { href: "/ko/services/pet-video", key: "business" },
   { href: "/ko/videos", key: "videos" },
   { href: "/ko/characters", key: "characters" },
+  { href: "/ko/music", key: "music" },
   { href: "/ko/insights", key: "insights" },
   { href: "/ko/news", key: "news" },
   { href: "/ko/services#contact", key: "contact" },

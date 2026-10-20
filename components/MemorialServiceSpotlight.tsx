@@ -23,7 +23,7 @@ export default function MemorialServiceSpotlight({
       <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[40px] border border-[#eadfce] bg-[#f3e9df] shadow-sm md:grid-cols-[0.88fr_1.12fr] md:items-stretch">
         <div className="relative min-h-[340px] overflow-hidden md:min-h-[460px]">
           <Image
-            src="/images/services/pet-memorial-heavenly-steps-cover.jpg"
+            src="/images/services/pet-memorial-0914-cover.jpg"
             alt={imageAlt}
             fill
             sizes="(min-width: 768px) 44vw, 100vw"

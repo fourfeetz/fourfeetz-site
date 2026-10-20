@@ -11,7 +11,17 @@ function formatTime(value: number) {
   return `${minutes}:${seconds}`;
 }
 
-export default function HaruMusicPlaylist() {
+const copy = {
+  en: {
+    eyebrow: "FourFeetz Music Queue", title: "Play All Music", description: (count: number) => `Listen to the official theme and ${count} original soundtracks in sequence.`, button: "Play All Music", nowPlaying: "Now Playing", ready: "Ready to play", startsWhenSelected: "Playback starts only when you select Play All.", previous: "Previous track", next: "Next track", pause: "Pause playlist", play: "Play playlist", volume: "Volume", audio: (title?: string) => title ? `${title} playlist audio` : "FourFeetz music playlist",
+  },
+  ko: {
+    eyebrow: "FourFeetz 음악 재생목록", title: "전체 음악 재생", description: (count: number) => `공식 테마와 오리지널 사운드트랙 ${count}곡을 순서대로 감상해 보세요.`, button: "전체 음악 재생", nowPlaying: "현재 재생 중", ready: "재생 준비 완료", startsWhenSelected: "전체 음악 재생을 선택하면 재생이 시작됩니다.", previous: "이전 곡", next: "다음 곡", pause: "재생목록 일시 정지", play: "재생목록 재생", volume: "볼륨", audio: (title?: string) => title ? `${title} 재생목록 오디오` : "FourFeetz 음악 재생목록",
+  },
+} as const;
+
+export default function HaruMusicPlaylist({ language = "en" }: { language?: "en" | "ko" }) {
+  const text = copy[language];
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -104,13 +114,13 @@ export default function HaruMusicPlaylist() {
       <div className="mx-auto max-w-7xl rounded-[36px] border border-[#eadfce] bg-white p-7 shadow-xl shadow-[#6f4e37]/10 md:p-10">
         <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-center">
           <div>
-            <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">FourFeetz Music Queue</p>
-            <h2 id="music-playlist-title" className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-5xl">Play All Music</h2>
-            <p className="mt-5 max-w-xl leading-8 text-[#76685d]">Listen to the official theme and {musicTracks.length - 1} original soundtracks in sequence.</p>
+            <p className="text-sm font-black tracking-[0.24em] text-[#a67c52]">{text.eyebrow}</p>
+            <h2 id="music-playlist-title" className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-5xl">{text.title}</h2>
+            <p className="mt-5 max-w-xl leading-8 text-[#76685d]">{text.description(musicTracks.length - 1)}</p>
             {currentIndex === null ? (
               <button type="button" onClick={() => playTrack(0)} className="mt-7 inline-flex items-center gap-3 rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
                 <Play size={19} fill="currentColor" aria-hidden="true" />
-                Play All Music
+                {text.button}
               </button>
             ) : null}
           </div>
@@ -124,18 +134,18 @@ export default function HaruMusicPlaylist() {
               onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
               onLoadedMetadata={(event) => setDuration(event.currentTarget.duration || 0)}
               onEnded={playNext}
-              aria-label={currentTrack ? `${currentTrack.title} playlist audio` : "FourFeetz music playlist"}
+              aria-label={text.audio(currentTrack?.title)}
             />
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">Now Playing</p>
+            <p className="text-xs font-black tracking-[0.22em] text-[#a67c52]">{text.nowPlaying}</p>
             <div className="mt-3 min-h-16" aria-live="polite">
-              <h3 className="text-2xl font-black text-[#2b2119]">{currentTrack?.title ?? "Ready to play"}</h3>
-              <p className="mt-1 text-sm font-semibold text-[#8a7767]">{currentTrack ? `${currentIndex! + 1} of ${musicTracks.length} · ${currentTrack.artist}` : "Playback starts only when you select Play All."}</p>
+              <h3 className="text-2xl font-black text-[#2b2119]">{currentTrack?.title ?? text.ready}</h3>
+              <p className="mt-1 text-sm font-semibold text-[#8a7767]">{currentTrack ? `${currentIndex! + 1} / ${musicTracks.length} · ${currentTrack.artist}` : text.startsWhenSelected}</p>
             </div>
 
             <div className="mt-5 flex items-center justify-center gap-3">
-              <button type="button" onClick={playPrevious} disabled={currentIndex === null} aria-label="Previous track" className="grid size-11 place-items-center rounded-full border border-[#d9c7b4] bg-white text-[#6f4e37] transition hover:border-[#6f4e37] disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37]"><SkipBack size={19} fill="currentColor" aria-hidden="true" /></button>
-              <button type="button" onClick={togglePlayback} aria-label={isPlaying ? "Pause playlist" : "Play playlist"} className="grid size-14 place-items-center rounded-full bg-[#6f4e37] text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">{isPlaying ? <Pause size={22} fill="currentColor" aria-hidden="true" /> : <Play size={22} fill="currentColor" aria-hidden="true" />}</button>
-              <button type="button" onClick={playNext} disabled={currentIndex === null} aria-label="Next track" className="grid size-11 place-items-center rounded-full border border-[#d9c7b4] bg-white text-[#6f4e37] transition hover:border-[#6f4e37] disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37]"><SkipForward size={19} fill="currentColor" aria-hidden="true" /></button>
+              <button type="button" onClick={playPrevious} disabled={currentIndex === null} aria-label={text.previous} className="grid size-11 place-items-center rounded-full border border-[#d9c7b4] bg-white text-[#6f4e37] transition hover:border-[#6f4e37] disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37]"><SkipBack size={19} fill="currentColor" aria-hidden="true" /></button>
+              <button type="button" onClick={togglePlayback} aria-label={isPlaying ? text.pause : text.play} className="grid size-14 place-items-center rounded-full bg-[#6f4e37] text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">{isPlaying ? <Pause size={22} fill="currentColor" aria-hidden="true" /> : <Play size={22} fill="currentColor" aria-hidden="true" />}</button>
+              <button type="button" onClick={playNext} disabled={currentIndex === null} aria-label={text.next} className="grid size-11 place-items-center rounded-full border border-[#d9c7b4] bg-white text-[#6f4e37] transition hover:border-[#6f4e37] disabled:cursor-not-allowed disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37]"><SkipForward size={19} fill="currentColor" aria-hidden="true" /></button>
             </div>
 
             <div className="mt-6">
@@ -144,7 +154,7 @@ export default function HaruMusicPlaylist() {
             </div>
 
             <label className="mt-5 flex items-center gap-3 text-xs font-black uppercase tracking-[0.14em] text-[#9a8775]">
-              Volume
+              {text.volume}
               <input type="range" min="0" max="1" step="0.01" value={volume} onChange={(event) => changeVolume(event.target.value)} aria-label="Playlist volume" className="w-full accent-[#6f4e37]" />
             </label>
           </div>
