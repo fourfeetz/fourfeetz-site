@@ -16,6 +16,7 @@ import {
 import { VideoPricingSection } from "@/components/korean/VideoPricingSection";
 import { MemorialInquiryForm } from "@/components/korean/MemorialInquiryForm";
 import { MemorialProductionGuide } from "@/components/korean/MemorialProductionGuide";
+import SyncedVideoPlayer from "@/components/SyncedVideoPlayer";
 
 export const metadata: Metadata = {
   title: { absolute: "반려동물 추모영상 제작 | 무지개다리 추억 영상 | FourFeetz" },
@@ -24,9 +25,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ko/services/pet-memorial-video" },
 };
 
-const videoPosterSrc = "/images/services/pet-memorial-0914-cover.jpg";
-const storyImageSrc = "/images/services/my-pet-story-haru-pori-garden.webp";
-const videoSrc = "/videos/services/pet-memorial-0914.mp4";
+const videoPosterSrc = "/images/services/pet-memorial-heavenly-steps-cover.jpg";
+const storyImageSrc = "/images/shorts/pet-memorial/heavenly-steps-story-frame.png";
+const videoSrc = "/videos/services/pet-memorial-heavenly-steps.mp4";
+const soundtrackSrc = "/audio/music/lingering-piano-notes.mp3";
 
 const features = [
   {
@@ -124,20 +126,18 @@ export default function Page() {
 
             <div className="mx-auto w-full max-w-[390px] lg:max-w-none">
               <div className="overflow-hidden rounded-[28px] border border-white/90 bg-black shadow-[0_24px_65px_rgba(91,62,38,.20)]">
-                <video
-                  className="aspect-[9/16] w-full object-cover"
-                  controls
-                  playsInline
-                  preload="metadata"
-                  poster={videoPosterSrc}
-                >
-                  <source src={videoSrc} type="video/mp4" />
-                  브라우저에서 영상을 재생할 수 없습니다.
-                </video>
+                <SyncedVideoPlayer src={videoSrc} poster={videoPosterSrc} audioSrc={soundtrackSrc} label="반려동물 추모영상 샘플 재생" className="aspect-[9/16] w-full object-cover" />
               </div>
               <p className="mt-3 text-center text-xs tracking-[.08em] text-[#8a8179]">
                 FourFeetz | Pet Memorial Video
               </p>
+              <div className="mt-4 rounded-2xl border border-[#e7ddd3] bg-white/80 p-4">
+                <p className="text-xs font-bold tracking-[.16em] text-[#9a775b]">MEMORIAL SOUNDTRACK</p>
+                <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+                  <Link href="/music/lingering-piano-notes" className="font-serif text-lg font-semibold text-[#5f4534] underline decoration-[#cdb099] underline-offset-4">Lingering Piano Notes</Link>
+                  <audio controls preload="metadata" className="h-9 max-w-full"><source src={soundtrackSrc} type="audio/mpeg" />브라우저에서 음악을 재생할 수 없습니다.</audio>
+                </div>
+              </div>
             </div>
 
             <div className="hidden min-h-[390px] flex-col items-center justify-center lg:flex">
@@ -175,7 +175,7 @@ export default function Page() {
               alt="반려동물과 함께한 따뜻한 일상을 담은 추억 이미지"
               fill
               sizes="(min-width: 1024px) 51vw, 100vw"
-              className="object-cover"
+              className="object-cover object-[center_64%]"
             />
           </div>
 

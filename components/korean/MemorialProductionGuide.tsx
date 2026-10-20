@@ -68,7 +68,7 @@ export function MemorialProductionGuide() {
               <div className="flex items-center gap-3"><MessageCircleHeart className="size-7" aria-hidden="true" /><p className="text-sm font-bold tracking-[.16em] text-[#f5eade]">OPTION</p></div>
               <h2 className="mt-5 font-serif text-2xl font-semibold">AI 음성 메시지</h2>
               <p className="mt-4 leading-8 text-[#f5eade]">보호자에게 전하고 싶은 마지막 메시지를 영상 속 따뜻한 AI 음성으로 표현할 수 있습니다.</p>
-              <p className="mt-5 border-l-2 border-white/50 pl-4 font-serif italic leading-7 text-white/90">“걱정하지 마. 우리 이제 아프지 않고 함께 잘 지내고 있어. 사랑해, 엄마.”</p>
+              <p className="mt-5 border-l-2 border-white/50 pl-4 font-serif italic leading-7 text-white/90">“나는 잘 지내고 있어. 너무 걱정하지 마. 사랑해 엄마!”</p>
             </article>
           </div>
         </div>
