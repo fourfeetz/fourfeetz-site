@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PetIndustryServicePage, PetVideoLandingPage } from "@/components/korean/PetBusinessServicePages";
 import PersonalPetServicePage from "@/components/korean/PersonalPetServicePage";
-import { VideoPricingSection } from "@/components/korean/VideoPricingSection";
 import { getPetIndustryService, petServiceSlugs, petVideoLandingMetadata } from "@/lib/petBusinessServices";
 
 const baseUrl = "https://fourfeetz.com";
@@ -43,7 +42,6 @@ export default async function Page({ params }: Props) {
           <Link href="/ko/services/pet-memorial-video" className="mt-6 inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white md:mt-0">추모영상 자세히 보기</Link>
         </div>
       </section>
-      <VideoPricingSection description="간단한 15초 영상부터 여러 장면으로 구성된 스토리형 영상까지, 남기고 싶은 이야기에 맞춰 선택할 수 있습니다." />
     </>;
   }
 
