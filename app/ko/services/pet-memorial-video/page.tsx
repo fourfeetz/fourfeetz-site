@@ -14,6 +14,8 @@ import {
   Users,
 } from "lucide-react";
 import { VideoPricingSection } from "@/components/korean/VideoPricingSection";
+import { MemorialInquiryForm } from "@/components/korean/MemorialInquiryForm";
+import { MemorialProductionGuide } from "@/components/korean/MemorialProductionGuide";
 
 export const metadata: Metadata = {
   title: { absolute: "반려동물 추모영상 제작 | 무지개다리 추억 영상 | FourFeetz" },
@@ -107,11 +109,11 @@ export default function Page() {
               </p>
 
               <Link
-                href="/ko/services#contact"
+                href="#memorial-inquiry"
                 className="mt-9 inline-flex min-w-[260px] items-center justify-center gap-4 rounded-2xl bg-[#926b4b] px-7 py-4 text-lg font-bold text-white shadow-[0_14px_32px_rgba(112,77,48,.16)] transition hover:-translate-y-0.5 hover:bg-[#825f43]"
               >
                 <Mail className="h-6 w-6" strokeWidth={1.8} />
-                무료 상담받기
+                추모영상 제작 상담하기
                 <ChevronRight className="h-5 w-5" />
               </Link>
 
@@ -236,11 +238,11 @@ export default function Page() {
                 사진 상태와 원하는 분위기를 확인한 뒤 제작 가능한 구성을 안내해 드립니다.
               </p>
               <Link
-                href="/ko/services#contact"
+                href="#memorial-inquiry"
                 className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-bold text-[#765237] transition hover:-translate-y-0.5"
               >
                 <Mail className="h-5 w-5" />
-                무료 상담받기
+                우리 아이 이야기 시작하기
                 <ChevronRight className="h-5 w-5" />
               </Link>
             </div>
@@ -248,7 +250,35 @@ export default function Page() {
         </div>
       </section>
 
-      <VideoPricingSection description="간단한 15초 추억 영상부터 여러 장면으로 구성된 스토리형 추모영상까지, 소중하게 남기고 싶은 기억에 맞춰 선택할 수 있습니다." />
+      <VideoPricingSection
+        description="간단한 15초 추억 영상부터 여러 장면으로 구성된 스토리형 추모영상까지, 소중하게 남기고 싶은 기억에 맞춰 선택할 수 있습니다."
+        ctaHref="#memorial-inquiry"
+        ctaLabel="추모영상 제작 상담하기"
+        notice={
+          <aside className="rounded-[28px] border border-[#e7ddd3] bg-[#f7f0e8] p-6 md:p-8" aria-labelledby="revision-guidance-heading">
+            <p className="text-sm font-bold tracking-[.16em] text-[#a17859]">GUIDANCE</p>
+            <h3 id="revision-guidance-heading" className="mt-3 font-serif text-3xl font-semibold text-[#2d2925]">수정 안내</h3>
+            <div className="mt-4 max-w-4xl space-y-3 leading-8 text-[#706963]">
+              <p>수정 횟수는 전달된 시안을 기준으로 자막, 음악, 장면 순서 및 기존 장면의 경미한 조정을 의미합니다.</p>
+              <p>새로운 장면 추가, 새로운 반려동물 또는 캐릭터 추가, 확정된 스토리의 큰 변경 등은 기본 수정 범위에 포함되지 않으며 작업 내용에 따라 추가 비용이 발생할 수 있습니다.</p>
+              <p>제작 전 원하시는 장면과 메시지를 충분히 알려주시면 보다 만족도 높은 영상을 제작할 수 있습니다.</p>
+            </div>
+          </aside>
+        }
+      />
+
+      <MemorialProductionGuide />
+
+      <section id="memorial-inquiry" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24 lg:px-14" aria-labelledby="memorial-inquiry-heading">
+        <div className="mx-auto grid max-w-[1260px] gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
+          <div>
+            <p className="text-sm font-bold tracking-[.2em] text-[#a17859]">MEMORIAL CONSULTATION</p>
+            <h2 id="memorial-inquiry-heading" className="mt-4 font-serif text-4xl font-semibold tracking-[-0.03em] md:text-5xl">우리 아이 이야기를 들려주세요.</h2>
+            <p className="mt-6 text-lg leading-9 text-[#706963]">닮게 표현하고 싶은 사진, 꼭 담고 싶은 장면과 전하고 싶은 메시지를 알려주시면 제작 방향을 함께 안내해 드립니다.</p>
+          </div>
+          <MemorialInquiryForm />
+        </div>
+      </section>
     </main>
   );
 }
