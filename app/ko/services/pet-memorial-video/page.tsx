@@ -13,6 +13,7 @@ import {
   Sparkles,
   Users,
 } from "lucide-react";
+import { VideoPricingSection } from "@/components/korean/VideoPricingSection";
 
 export const metadata: Metadata = {
   title: { absolute: "반려동물 추모영상 제작 | 무지개다리 추억 영상 | FourFeetz" },
@@ -198,6 +199,8 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <VideoPricingSection description="간단한 15초 추억 영상부터 여러 장면으로 구성된 스토리형 추모영상까지, 소중하게 남기고 싶은 기억에 맞춰 선택할 수 있습니다." />
 
       <section className="border-t border-[#eee5dd] bg-white px-6 py-20 md:px-10 lg:px-14 lg:py-24">
         <div className="mx-auto max-w-[1260px] text-center">
