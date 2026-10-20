@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "slug": "veterinary-practice-news-wordrx",
+  "language": "ko",
+  "title": "Veterinary Practice News가 ‘WordRx’ 퀴즈 콘텐츠를 게시했다",
+  "description": "Veterinary Practice News에 따르면, 이 매체는 2026년 10월 20일자 ‘WordRx: Your dose of veterinary wordplay’라는 제목의 가벼운 참여형 콘텐츠를 게재했다. 기사 본문은 수의학 용어 퀴즈의 진행 방식과 화면 안내를 설명하는 데 초점이 맞춰져 있으며",
+  "category": "업계/미디어",
+  "keywords": [
+    "Veterinary Practice News",
+    "WordRx",
+    "수의학",
+    "퀴즈",
+    "참여형 콘텐츠",
+    "업계 미디어"
+  ],
+  "sourceFacts": [
+    "원문 발행처는 Veterinary Practice News이다.",
+    "해당 페이지의 게시 시각은 2026-10-20T05:00:31.000Z로 표시되어 있다.",
+    "제목은 ‘WordRx: Your dose of veterinary wordplay’이다.",
+    "본문은 수의학 단어 퀴즈의 규칙과 플레이 방법을 설명한다.",
+    "페이지에는 관련 스폰서 콘텐츠와 다른 홍보성 모듈도 함께 노출된다."
+  ],
+  "verifiedClaims": [
+    {
+      "claim": "Veterinary Practice News는 2026년 10월 20일 ‘WordRx: Your dose of veterinary wordplay’라는 콘텐츠를 게시했다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/wordrx-oct-20-2026/",
+          "evidenceSummary": "페이지 상단에 매체명, 게시일(October 20, 2026), 제목이 함께 표시된다."
+        }
+      ],
+      "limitation": "독립 출처가 없어 게시 사실과 기본 메타데이터만 원문 기준으로 확인할 수 있다."
+    },
+    {
+      "claim": "이 콘텐츠는 수의학 용어를 맞히는 Wordle 스타일 퀴즈의 진행 방식을 안내한다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/wordrx-oct-20-2026/",
+          "evidenceSummary": "본문의 How to play WordRX 구간에 정답 추리 방식, 입력 규칙, 색상 피드백(초록·노랑·회색) 설명이 포함돼 있다."
+        }
+      ],
+      "limitation": "설명 문구는 원문에 근거한 것이며, 실제 게임성이나 독자 반응에 대한 별도 검증은 없다."
+    },
+    {
+      "claim": "해당 페이지에는 퀴즈 본문 외에도 스폰서 콘텐츠와 뉴스레터, 데모캐스트, 쿠키 고지 등 여러 사이트 모듈이 함께 배치돼 있다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/wordrx-oct-20-2026/",
+          "evidenceSummary": "본문 주변에 Education Center - Sponsored, Demo-Cast, newsletter sign-up, cookie policy 안내 등 다양한 사이트 요소가 함께 보인다."
+        }
+      ],
+      "limitation": "이는 페이지 구성에 대한 관찰이며, 각 모듈의 별도 편집 의도까지는 단정할 수 없다."
+    }
+  ],
+  "evidenceScope": {
+    "sharedBasis": "이 기사에서 확인 가능한 사실은 Veterinary Practice News의 단일 원문 페이지에 표시된 제목, 게시 시각, 퀴즈 설명, 페이지 구성 요소이다.",
+    "verificationBoundary": "독립 취재나 교차검증은 수행하지 않았으며, 원문 페이지에 직접 드러난 내용만 사용했다. 원문에 없는 외부 맥락, 독자 반응, 실효성 평가는 포함하지 않았다.",
+    "independentVerificationAvailable": false,
+    "conditionalPublicationReason": "primarySource가 publisher_report이며 independentSources가 제공되지 않아, 원문 페이지에 직접 표시된 사실만 조건부로 소개했다.",
+    "limitations": [
+      "독립 출처가 없어 사실 확인 범위가 단일 페이지에 한정된다.",
+      "게시물의 실제 이용자 경험이나 퀴즈 운영 방식은 원문만으로 검증되지 않는다.",
+      "홍보성 모듈과 편집 콘텐츠의 경계는 페이지 구조상 확인되지만, 그 영향은 판단할 수 없다."
+    ]
+  },
+  "editorialAnalysis": {
+    "fourfeetzAnalysis": [
+      "이 콘텐츠는 수의학 전문 매체가 업계 독자를 대상으로 가벼운 참여형 코너를 운영하는 사례로 읽을 수 있다.",
+      "다만 기사 자체가 정보성 리포트가 아니라 퀴즈 페이지이므로, 사실 보도와 동일한 기준으로 해석하면 안 된다.",
+      "FOURFEETZ 관점에서는 이런 형식이 독자 체류나 반복 방문 유도에는 유리할 수 있지만, 원문 한 건만으로 효과를 판단할 수는 없다."
+    ],
+    "koreanIndustryImplications": [
+      "국내 동물병원이나 수의 관련 사업자는 해외 전문매체가 교육·참여형 콘텐츠를 어떻게 배치하는지 참고할 수 있다.",
+      "실무적으로는 전문 정보, 스폰서 콘텐츠, 참여형 코너가 같은 페이지에 섞일 때 독자 경험이 어떻게 달라지는지 점검해 볼 수 있다.",
+      "한국 시장에 그대로 적용된다고 단정하기보다, 자사 채널의 독자층과 콘텐츠 목적에 맞는지 먼저 확인하는 것이 필요하다."
+    ],
+    "readerLimitations": [
+      "표본은 단일 페이지 1건이다.",
+      "지역·시장별 반응은 확인되지 않았다.",
+      "사용자 참여 데이터나 성과 지표가 없어 효과를 일반화할 수 없다.",
+      "원문이 자체 제작한 참여형 콘텐츠이므로 외부 검증이 가능한 연구 결과로 보기 어렵다."
+    ]
+  },
+  "sections": [
+    {
+      "heading": "무엇이 올라왔나",
+      "paragraphs": [
+        "Veterinary Practice News에 따르면, 이 매체는 2026년 10월 20일 ‘WordRx: Your dose of veterinary wordplay’라는 참여형 콘텐츠를 게재했다. 페이지는 수의학 용어를 맞히는 간단한 퀴즈 형식으로 구성돼 있다.",
+        "원문은 이 코너를 심각한 보도보다 가벼운 놀이에 가깝게 소개하며, 수의학 관련 어휘를 점검하는 데 초점을 둔다."
+      ]
+    },
+    {
+      "heading": "원문이 직접 보여주는 운영 방식",
+      "paragraphs": [
+        "페이지의 ‘How to play WordRX’ 안내에 따르면, 이용자는 정답 단어를 제한된 횟수 안에 추리해야 한다. 입력한 단어 뒤에는 글자 위치와 포함 여부를 색으로 알려주는 방식이 적용된다.",
+        "이 설명은 퀴즈의 규칙을 전달하는 수준에 머물며, 참여율이나 학습 효과 같은 결과는 원문에서 제시되지 않는다."
+      ]
+    },
+    {
+      "heading": "FOURFEETZ 시각의 참고 포인트",
+      "paragraphs": [
+        "이 사례는 수의학 업계 매체가 뉴스 외에도 가벼운 참여형 포맷을 함께 운영할 수 있음을 보여준다. 다만 페이지 안에 스폰서 영역과 다른 홍보 모듈도 함께 있어, 독자는 콘텐츠 종류를 구분해 읽을 필요가 있다.",
+        "국내 업계 독자라면 이런 형식 자체보다, 전문성 유지와 페이지 편집의 혼합이 독자 경험에 어떤 영향을 주는지 검토하는 참고 사례로 보는 편이 적절하다."
+      ]
+    }
+  ],
+  "takeaway": [
+    "Veterinary Practice News는 2026년 10월 20일 WordRx 퀴즈 페이지를 올렸다.",
+    "원문은 수의학 용어 퀴즈의 규칙을 설명하는 참여형 콘텐츠다.",
+    "독립 출처가 없어 효과나 확장 가능성은 판단할 수 없다.",
+    "국내 업계에는 콘텐츠 형식 참고 사례 정도로만 해석하는 것이 안전하다."
+  ],
+  "publicationMode": "curation",
+  "publishedAt": "2026-10-20T07:45:08.564Z",
+  "source": {
+    "name": "Veterinary Practice News",
+    "url": "https://www.veterinarypracticenews.com/wordrx-oct-20-2026/",
+    "publishedAt": "2026-10-20T05:00:31.000Z",
+    "primaryEvidence": false,
+    "evidenceType": "publisher_report"
+  },
+  "corroboratingSources": [],
+  "relatedLinks": [
+    {
+      "label": "FourFeetz 인사이트",
+      "href": "/ko/insights"
+    },
+    {
+      "label": "실전 리소스",
+      "href": "/ko/resources"
+    },
+    {
+      "label": "반려동물 콘텐츠 제작",
+      "href": "/ko/services"
+    }
+  ],
+  "quality": {
+    "sourceReliability": 22,
+    "originality": 23,
+    "duplicateCheck": 20,
+    "seo": 15,
+    "safetyCopyright": 15,
+    "total": 95,
+    "checkedAt": "2026-10-20T07:45:32.877Z"
+  }
+}

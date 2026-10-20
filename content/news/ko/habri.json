@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "slug": "habri",
+  "language": "ko",
+  "title": "HABRI 설문, 반려동물 소유 인식 확대와 건강 혜택 체감 보고",
+  "description": "Veterinary Practice News에 따르면, HABRI의 2026년 미국 전국 설문에서 반려동물 소유자가 체감한 건강 혜택, 인간-동물 유대 인식, 예방진료와의 연관성, 그리고 소유 장벽이 함께 제시됐다. 다만 이는 자기보고형 설문 결과로, 인과관계는 확인하지 못했다.",
+  "category": "반려동물 산업",
+  "keywords": [
+    "HABRI",
+    "인간-동물 유대",
+    "반려동물 소유",
+    "예방진료",
+    "미국 설문",
+    "자기보고"
+  ],
+  "sourceFacts": [
+    "원문 발행처는 Veterinary Practice News이며, 해당 매체는 HABRI의 2026 Human-Animal Bond Benchmark Survey of Americans를 소개했다.",
+    "설문 결과로 미국 반려동물 소유자의 98%가 최소 1개 이상의 건강 혜택을 경험했다고 응답했다.",
+    "미국인 응답자의 97%가 연구로 확인된 반려동물 혜택을 적어도 1개 알고 있다고 답했다.",
+    "응답자가 인지한 평균 건강 혜택 수는 18개로, HABRI의 2021년 조사에서 12개였던 것보다 많았다.",
+    "가장 널리 인지된 혜택은 외로움 완화 92%, 우울감 감소 89%, 스트레스 감소 88%, 어려운 삶의 상황 대처 도움 87%였다.",
+    "반려동물 소유자 중 94%는 인간-동물 유대 연구를 아는 것이 반려동물과 더 많은 시간을 보내게 했다고 답했고, 91%는 정기 검진을 포함한 건강 관리에 도움이 됐다고 답했다.",
+    "유대감이 가장 강하다고 답한 소유자는 수의사를 보유했다고 답한 비율이 94%로, 그렇지 않은 강도 그룹의 86%보다 높았다.",
+    "유대감이 가장 강하다고 답한 소유자는 예방접종을 최신 상태로 유지한다고 답한 비율이 84%로, 다른 그룹의 77%보다 높았다."
+  ],
+  "verifiedClaims": [
+    {
+      "claim": "Veterinary Practice News는 HABRI의 2026년 미국 전국 설문을 근거로, 반려동물 소유와 인간-동물 유대에 대한 인식이 높아졌다고 보도했다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/human-animal-bond-benefits-pet-ownership-survey/",
+          "evidenceSummary": "기사 본문과 제목에서 HABRI의 2026 Human-Animal Bond Benchmark Survey of Americans를 소개하며 공공 인식 확대를 다뤘다."
+        }
+      ],
+      "limitation": "독립 출처가 없어 원문 보도와 HABRI 조사 소개 범위에서만 확인 가능하다."
+    },
+    {
+      "claim": "기사에 따르면 설문 응답자의 98%는 반려동물 소유로 최소 한 가지 건강 혜택을 경험했다고 답했다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/human-animal-bond-benefits-pet-ownership-survey/",
+          "evidenceSummary": "원문에 98 percent of pet owners reported experiencing at least one health benefit from pet ownership라고 명시돼 있다."
+        }
+      ],
+      "limitation": "자기보고 응답이며 의학적 인과를 입증하는 결과는 아니다."
+    },
+    {
+      "claim": "설문에서 미국인의 97%는 연구로 뒷받침된 반려동물 혜택을 최소 한 가지 알고 있다고 답했다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/human-animal-bond-benefits-pet-ownership-survey/",
+          "evidenceSummary": "원문에 97 percent of Americans were aware of at least one research-backed benefit라고 적시돼 있다."
+        }
+      ],
+      "limitation": "인지 여부를 묻는 설문 결과로, 실제 이해 수준이나 행동 변화를 직접 측정한 것은 아니다."
+    },
+    {
+      "claim": "응답자가 인식한 평균 건강 혜택 수는 18개였고, 2021년 HABRI 조사에서는 12개였다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/human-animal-bond-benefits-pet-ownership-survey/",
+          "evidenceSummary": "원문에 The average respondent recognized 18 health benefits, up from 12 in HABRI's 2021 survey라고 기재돼 있다."
+        }
+      ],
+      "limitation": "두 조사 간 비교는 같은 기관의 설문 수치 비교에 해당하며, 별도 교차검증은 없다."
+    },
+    {
+      "claim": "가장 널리 인지된 혜택은 외로움 완화, 우울감 감소, 스트레스 감소, 어려운 상황 대처 도움 순으로 제시됐다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/human-animal-bond-benefits-pet-ownership-survey/",
+          "evidenceSummary": "원문에 각 항목의 인지 비율이 92%, 89%, 88%, 87%로 제시돼 있다."
+        }
+      ],
+      "limitation": "혜택의 우선순위는 설문 응답 기준이며, 객관적 효과 크기를 뜻하지 않는다."
+    },
+    {
+      "claim": "반려동물 소유자 중 다수는 인간-동물 유대 연구를 알게 되면서 반려동물과의 시간과 건강 관리를 더 중시한다고 답했다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.veterinarypracticenews.com/human-animal-bond-benefits-pet-ownership-survey/",
+          "evidenceSummary": "원문에 94 percent said knowledge ... made them more likely to spend time with their pets, 91 percent said it encouraged them to maintain their animals' health라고 제시돼 있다."
+        }
+      ],
+      "limitation": "행동 변화는 자기보고이며, 실제 행동 기록으로 확인된 것은 아니다."
+    }
+  ],
+  "evidenceScope": {
+    "sharedBasis": "HABRI의 2026 Human-Animal Bond Benchmark Survey of Americans를 소개한 Veterinary Practice News 원문",
+    "verificationBoundary": "현재 확인 가능한 근거는 Veterinary Practice News가 게재한 기사와 그 안에 인용된 HABRI 설문 소개뿐이다. 독립 취재, 원자료 전문 대조, 또는 외부 재분석은 수행하지 않았다.",
+    "independentVerificationAvailable": false,
+    "conditionalPublicationReason": "원문이 HABRI 설문 결과를 요약한 2차 보도이며, 제공된 자료에는 독립 출처가 없다. 따라서 기사에는 원문에 직접 제시된 수치와 자기보고형 응답만 조건부로 사용할 수 있다.",
+    "limitations": [
+      "단일 기사와 단일 설문 소개에 의존한다.",
+      "자기보고형 응답이므로 인과관계를 입증하지 못한다.",
+      "표본 구성, 응답률, 문항 설계의 세부는 제공된 자료에서 제한적으로만 확인된다.",
+      "미국 성인 대상 결과이므로 한국 시장에 그대로 일반화할 수 없다."
+    ]
+  },
+  "editorialAnalysis": {
+    "fourfeetzAnalysis": [
+      "이번 설문은 반려동물 소유의 체감 혜택이 널리 인식되고 있음을 보여주지만, 그 자체로 건강 개선의 원인이나 효과 규모를 입증하지는 않는다.",
+      "국내 사업자에게는 반려인 교육, 예방진료 안내, 정기 검진 유도 메시지가 어떤 방식으로 받아들여지는지 점검할 실무 단서가 될 수 있다.",
+      "다만 수의사 보유율과 예방접종 최신 유지율의 차이는 설문 응답층의 특성일 수 있어, 현장 정책 판단에 바로 대입하기보다 고객군별 반응을 확인할 필요가 있다."
+    ],
+    "koreanIndustryImplications": [
+      "국내 병원과 펫서비스 업체는 '유대감' 메시지가 예방관리 참여에 어떤 영향을 주는지 자체 고객 설문이나 예약 데이터로 확인할 수 있다.",
+      "반려동물 소유 장벽으로 제시된 비용과 주거 제한은 한국에서도 별도 변수일 수 있으므로, 국내 주거 형태와 지출 구조를 전제로 재검토해야 한다.",
+      "정책·마케팅 문구는 미국 설문 수치를 그대로 쓰기보다, 한국 이용자에게 적용 가능한 범위와 한계를 함께 밝혀야 한다."
+    ],
+    "readerLimitations": [
+      "응답은 건강 혜택 인식과 체감에 관한 것으로, 의학적 진단이나 치료 효과를 의미하지 않는다.",
+      "미국 성인 대상 조사이므로 한국 반려동물 가구의 상황과 다를 수 있다.",
+      "표본의 세부 구성, 조사 방식, 문항 표현에 따라 응답 결과가 달라질 수 있다.",
+      "단일 원문 보도만으로는 장기적 변화나 원인-결과 관계를 판단할 수 없다."
+    ]
+  },
+  "sections": [
+    {
+      "heading": "HABRI 설문이 보여준 것",
+      "paragraphs": [
+        "Veterinary Practice News에 따르면, Human Animal Bond Research Institute(HABRI)의 2026년 미국 전국 설문에서 반려동물 소유자 다수는 최소 한 가지 건강 혜택을 경험했다고 답했다. 같은 기사에 따르면 미국인의 대다수는 연구로 확인된 혜택을 알고 있다고 응답했다.",
+        "이 보도는 반려동물 소유에 대한 사회적 인식과 행동 태도의 변화를 함께 다루지만, 응답은 어디까지나 설문 응답자의 자기보고에 기반한다."
+      ]
+    },
+    {
+      "heading": "수치가 말하는 범위",
+      "paragraphs": [
+        "기사에 제시된 수치만 보면, 외로움 완화와 스트레스 감소처럼 정서적 혜택이 가장 먼저 떠오르는 항목으로 나타났다. 또 인간-동물 유대 연구를 접한 뒤 반려동물과 시간을 더 보내고 건강 관리를 챙기게 됐다는 응답도 다수였다.",
+        "다만 이러한 결과는 설문에서 ‘그렇게 느꼈다’는 응답이지, 실제 건강 개선이 얼마나 있었는지까지 증명하지는 않는다."
+      ]
+    },
+    {
+      "heading": "반려동물 산업이 읽을 실무 포인트",
+      "paragraphs": [
+        "국내 반려동물 사업자는 예방진료와 생활관리 안내를 설계할 때, 보호자의 인식이 실제 방문·재방문·예방접종 유지와 어떻게 연결되는지 별도로 확인할 필요가 있다.",
+        "또한 비용과 주거 제한은 반려동물 소유의 장벽으로 자주 언급되므로, 서비스 설계나 상담 자료에서 이런 현실적 제약을 함께 고려하는 편이 좋다."
+      ]
+    }
+  ],
+  "takeaway": [
+    "이번 보도는 반려동물 소유의 체감 혜택과 공공 인식을 보여주지만, 자기보고 설문이라는 한계가 분명하다.",
+    "한국 독자는 미국 설문 결과를 그대로 일반화하기보다, 국내 보호자 데이터와 현장 반응으로 다시 확인해야 한다.",
+    "FOURFEETZ 관점에서 핵심은 ‘유대감’이 아니라, 그 인식이 예방관리 행동으로 이어지는지 별도 검증이 필요하다는 점이다."
+  ],
+  "publicationMode": "curation",
+  "publishedAt": "2026-10-20T07:45:08.564Z",
+  "source": {
+    "name": "Veterinary Practice News",
+    "url": "https://www.veterinarypracticenews.com/human-animal-bond-benefits-pet-ownership-survey/",
+    "publishedAt": "2026-10-19T21:28:40.000Z",
+    "primaryEvidence": false,
+    "evidenceType": "publisher_report"
+  },
+  "corroboratingSources": [],
+  "relatedLinks": [
+    {
+      "label": "FourFeetz 인사이트",
+      "href": "/ko/insights"
+    },
+    {
+      "label": "실전 리소스",
+      "href": "/ko/resources"
+    },
+    {
+      "label": "반려동물 콘텐츠 제작",
+      "href": "/ko/services"
+    }
+  ],
+  "quality": {
+    "sourceReliability": 22,
+    "originality": 21,
+    "duplicateCheck": 20,
+    "seo": 15,
+    "safetyCopyright": 15,
+    "total": 93,
+    "checkedAt": "2026-10-20T07:45:58.682Z"
+  }
+}
