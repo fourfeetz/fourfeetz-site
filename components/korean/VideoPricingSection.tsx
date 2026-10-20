@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { BadgeCheck } from "lucide-react";
 import { videoPricingPackages } from "@/lib/petBusinessServices";
 
@@ -7,8 +8,14 @@ const pricingCard =
 
 export function VideoPricingSection({
   description = "간단한 15초 영상부터 여러 장면으로 구성된 스토리형 홍보영상까지 필요한 범위에 맞춰 선택할 수 있습니다.",
+  notice,
+  ctaHref = "/ko/services#contact",
+  ctaLabel = "무료 상담받기",
 }: {
   description?: string;
+  notice?: ReactNode;
+  ctaHref?: string;
+  ctaLabel?: string;
 }) {
   return (
     <section className="border-y border-[#eadfce] bg-white px-6 py-20">
@@ -35,8 +42,9 @@ export function VideoPricingSection({
       </div>
       <div className="mx-auto mt-8 flex max-w-7xl flex-col gap-5 rounded-[28px] bg-[#6f4e37] p-6 text-white sm:flex-row sm:items-center sm:justify-between md:p-8">
         <p className="text-lg font-black">대표 가격 99,000원부터</p>
-        <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 상담받기</Link>
+        <Link href={ctaHref} className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">{ctaLabel}</Link>
       </div>
+      {notice ? <div className="mx-auto mt-6 max-w-7xl">{notice}</div> : null}
     </section>
   );
 }
