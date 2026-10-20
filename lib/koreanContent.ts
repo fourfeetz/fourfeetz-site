@@ -206,6 +206,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
 };
 
 export const koreanMusicDescriptions: Record<string, string> = {
+  "lingering-piano-notes": "두 강아지가 구름 너머의 꽃길 계단을 함께 오르는 추모 쇼츠를 위해 제공된, 조용하고 따뜻한 피아노 선율입니다.",
   "moonlit-lake-part-1": "달빛 호수 영상에 사용된 두 곡 가운데 첫 번째 음악입니다. 완성 영상과 별도로 원곡을 들을 수 있습니다.",
   "moonlit-lake-part-2": "달빛 호수 영상에 사용된 두 곡 가운데 두 번째 음악입니다. 완성 영상과 별도로 원곡을 들을 수 있습니다.",
   "calming-fireplace-rain-for-dogs": "강아지와 반려동물의 휴식과 수면을 위해 잔잔한 빗소리와 따뜻한 벽난로의 분위기를 담은 편안한 오리지널 트랙입니다.",

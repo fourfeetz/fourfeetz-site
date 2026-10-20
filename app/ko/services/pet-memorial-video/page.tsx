@@ -25,9 +25,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/ko/services/pet-memorial-video" },
 };
 
-const videoPosterSrc = "/images/services/pet-memorial-heavenly-steps-cover.jpg";
-const storyImageSrc = "/images/shorts/pet-memorial/heavenly-steps-story-frame.png";
-const videoSrc = "/videos/services/pet-memorial-heavenly-steps.mp4";
+const originalVideoPosterSrc = "/images/services/pet-memorial-0914-cover.jpg";
+const originalVideoSrc = "/videos/services/pet-memorial-0914.mp4";
+const storyImageSrc = "/images/services/pet-memorial-0914-cover.jpg";
+const newVideoPosterSrc = "/images/services/pet-memorial-heavenly-steps-cover.jpg";
+const newStoryImageSrc = "/images/shorts/pet-memorial/heavenly-steps-story-frame.png";
+const newVideoSrc = "/videos/services/pet-memorial-heavenly-steps.mp4";
 const soundtrackSrc = "/audio/music/lingering-piano-notes.mp3";
 
 const features = [
@@ -126,18 +129,21 @@ export default function Page() {
 
             <div className="mx-auto w-full max-w-[390px] lg:max-w-none">
               <div className="overflow-hidden rounded-[28px] border border-white/90 bg-black shadow-[0_24px_65px_rgba(91,62,38,.20)]">
-                <SyncedVideoPlayer src={videoSrc} poster={videoPosterSrc} audioSrc={soundtrackSrc} label="반려동물 추모영상 샘플 재생" className="aspect-[9/16] w-full object-cover" />
+                <video
+                  controls
+                  playsInline
+                  preload="metadata"
+                  poster={originalVideoPosterSrc}
+                  aria-label="반려동물 추모영상 샘플 재생"
+                  className="aspect-[9/16] w-full object-cover"
+                >
+                  <source src={originalVideoSrc} type="video/mp4" />
+                  브라우저에서 영상을 재생할 수 없습니다.
+                </video>
               </div>
               <p className="mt-3 text-center text-xs tracking-[.08em] text-[#8a8179]">
                 FourFeetz | Pet Memorial Video
               </p>
-              <div className="mt-4 rounded-2xl border border-[#e7ddd3] bg-white/80 p-4">
-                <p className="text-xs font-bold tracking-[.16em] text-[#9a775b]">MEMORIAL SOUNDTRACK</p>
-                <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
-                  <Link href="/music/lingering-piano-notes" className="font-serif text-lg font-semibold text-[#5f4534] underline decoration-[#cdb099] underline-offset-4">Lingering Piano Notes</Link>
-                  <audio controls preload="metadata" className="h-9 max-w-full"><source src={soundtrackSrc} type="audio/mpeg" />브라우저에서 음악을 재생할 수 없습니다.</audio>
-                </div>
-              </div>
             </div>
 
             <div className="hidden min-h-[390px] flex-col items-center justify-center lg:flex">
@@ -197,6 +203,36 @@ export default function Page() {
               <p className="mt-10 rotate-[-4deg] font-serif text-2xl italic text-[#9d785d]">
                 고마워, 함께해줘서 ♡
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-[#eee5dd] bg-white px-6 py-16 md:px-10 lg:px-14 lg:py-24">
+        <div className="mx-auto grid max-w-[1260px] gap-10 rounded-[30px] border border-[#e8ddd3] bg-[#fcf8f3] p-6 shadow-[0_12px_42px_rgba(91,65,43,.07)] md:p-10 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:items-center">
+          <div className="mx-auto w-full max-w-[340px] overflow-hidden rounded-[24px] border border-white bg-black shadow-[0_18px_42px_rgba(91,65,43,.16)]">
+            <SyncedVideoPlayer src={newVideoSrc} poster={newVideoPosterSrc} audioSrc={soundtrackSrc} label="새 추모영상 샘플 재생" className="aspect-[9/16] w-full object-cover" />
+          </div>
+          <div>
+            <p className="text-sm font-bold tracking-[.2em] text-[#a17859]">NEW MEMORIAL SHORT</p>
+            <h2 className="mt-4 font-serif text-4xl font-semibold tracking-[-0.035em] md:text-5xl">구름 너머에서도<br />함께하는 두 아이</h2>
+            <p className="mt-6 max-w-2xl text-lg leading-9 text-[#706963]">
+              오늘 추가한 추모영상은 꽃길 계단과 따뜻한 하늘의 분위기로, 곁에 남아 있는 사랑을 조용히 표현합니다.
+            </p>
+            <div className="mt-7 flex flex-wrap items-center gap-4">
+              <Link href="/shorts/heavenly-steps-together" className="inline-flex items-center gap-2 rounded-full bg-[#805a3e] px-6 py-3 font-bold text-white transition hover:bg-[#6d4b34]">
+                새 쇼츠 보기 <ChevronRight className="h-4 w-4" />
+              </Link>
+              <Link href="/music/lingering-piano-notes" className="font-semibold text-[#765139] underline decoration-[#cdb099] underline-offset-4">
+                Lingering Piano Notes 듣기
+              </Link>
+            </div>
+            <div className="mt-7 flex items-center gap-4 rounded-2xl border border-[#e7ddd3] bg-white/80 p-4">
+              <Image src={newStoryImageSrc} alt="꽃길 계단을 함께 오르는 두 강아지" width={72} height={96} className="h-20 w-14 rounded-xl object-cover" />
+              <div>
+                <p className="text-xs font-bold tracking-[.16em] text-[#9a775b]">MEMORIAL SOUNDTRACK</p>
+                <audio controls preload="metadata" className="mt-2 h-9 max-w-full"><source src={soundtrackSrc} type="audio/mpeg" />브라우저에서 음악을 재생할 수 없습니다.</audio>
+              </div>
             </div>
           </div>
         </div>
