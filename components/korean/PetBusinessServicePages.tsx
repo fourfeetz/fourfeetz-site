@@ -11,8 +11,9 @@ import {
   Sparkles,
 } from "lucide-react";
 import type { PetIndustryService } from "@/lib/petBusinessServices";
-import { petIndustryServices, videoPricingPackages } from "@/lib/petBusinessServices";
+import { petIndustryServices } from "@/lib/petBusinessServices";
 import { HeroVideoPanel } from "@/components/CinematicHero";
+import { VideoPricingSection } from "@/components/korean/VideoPricingSection";
 import { koreanHeroVideos } from "@/lib/heroVideos";
 import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 
@@ -309,24 +310,7 @@ export function PetIndustryServicePage({ service }: { service: PetIndustryServic
       </section>
 
       {service.slug === "grooming-hotel" ? (
-        <section className="border-y border-[#eadfce] bg-white px-6 py-20">
-          <SectionHeading eyebrow="Pricing" title="제작 가격" description="간단한 15초 영상부터 여러 장면으로 구성된 스토리형 홍보영상까지 필요한 범위에 맞춰 선택할 수 있습니다." />
-          <div className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-3">
-            {videoPricingPackages.map((tier) => (
-              <article key={tier.name} className={`${cardClass} p-7 md:p-8`}>
-                <p className="text-sm font-black uppercase tracking-[0.18em] text-[#a67c52]">{tier.name}</p>
-                <p className="mt-5 text-3xl font-black text-[#2b2119]">{tier.price}</p>
-                <ul className="mt-7 space-y-3 text-[#76685d]">
-                  {tier.detailFeatures.map((feature) => <li key={feature} className="flex gap-2 leading-7"><BadgeCheck className="mt-0.5 size-5 shrink-0 text-[#a67c52]" aria-hidden="true" />{feature}</li>)}
-                </ul>
-              </article>
-            ))}
-          </div>
-          <div className="mx-auto mt-8 flex max-w-7xl flex-col gap-5 rounded-[28px] bg-[#6f4e37] p-6 text-white sm:flex-row sm:items-center sm:justify-between md:p-8">
-            <p className="text-lg font-black">대표 가격 99,000원부터</p>
-            <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 상담받기</Link>
-          </div>
-        </section>
+        <VideoPricingSection />
       ) : (
         <section className="border-y border-[#eadfce] bg-[#6f4e37] px-6 py-16 text-white">
           <div className="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">
