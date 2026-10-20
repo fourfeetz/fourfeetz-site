@@ -200,8 +200,6 @@ export default function Page() {
         </div>
       </section>
 
-      <VideoPricingSection description="간단한 15초 추억 영상부터 여러 장면으로 구성된 스토리형 추모영상까지, 소중하게 남기고 싶은 기억에 맞춰 선택할 수 있습니다." />
-
       <section className="border-t border-[#eee5dd] bg-white px-6 py-20 md:px-10 lg:px-14 lg:py-24">
         <div className="mx-auto max-w-[1260px] text-center">
           <p className="text-sm font-bold tracking-[.2em] text-[#a17859]">MEMORIAL STORY</p>
@@ -249,6 +247,8 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <VideoPricingSection description="간단한 15초 추억 영상부터 여러 장면으로 구성된 스토리형 추모영상까지, 소중하게 남기고 싶은 기억에 맞춰 선택할 수 있습니다." />
     </main>
   );
 }

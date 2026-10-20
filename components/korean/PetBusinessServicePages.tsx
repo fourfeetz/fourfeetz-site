@@ -309,16 +309,14 @@ export function PetIndustryServicePage({ service }: { service: PetIndustryServic
         <ol className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-5">{service.process.map((step, index) => <li key={step.title} className={`${cardClass} p-6`}><span className="text-sm font-black uppercase tracking-[0.18em] text-[#a67c52]">Step {index + 1}</span><h3 className="mt-4 text-xl font-black text-[#2b2119]">{step.title}</h3><p className="mt-3 leading-7 text-[#76685d]">{step.description}</p></li>)}</ol>
       </section>
 
-      {service.slug === "grooming-hotel" ? (
-        <VideoPricingSection />
-      ) : (
+      {service.slug !== "grooming-hotel" ? (
         <section className="border-y border-[#eadfce] bg-[#6f4e37] px-6 py-16 text-white">
           <div className="mx-auto flex max-w-7xl flex-col gap-7 md:flex-row md:items-center md:justify-between">
             <div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#e5c9a8]">Custom Quote</p><h2 className="mt-3 text-4xl font-black md:text-5xl">업체별 맞춤 견적</h2><p className="mt-4 max-w-3xl text-lg leading-8 text-[#f4e8da]">업체별 구성과 영상 길이에 따라 맞춤 견적을 안내드립니다.</p></div>
             <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 상담받기</Link>
           </div>
         </section>
-      )}
+      ) : null}
 
       <section className="bg-white px-6 py-20">
         <div className="mx-auto max-w-4xl">
@@ -333,6 +331,8 @@ export function PetIndustryServicePage({ service }: { service: PetIndustryServic
           <Link href="/ko/services#contact" className="inline-flex min-h-12 shrink-0 items-center justify-center rounded-full bg-white px-7 py-4 font-black text-[#6f4e37] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">무료 상담받기</Link>
         </div>
       </section>
+
+      {service.slug === "grooming-hotel" ? <VideoPricingSection /> : null}
     </main>
   );
 }
