@@ -284,15 +284,14 @@ type NavItem = Readonly<{ href: string; key: NavKey }>;
 
 export const navItems = [
   { href: "/en", key: "home" },
-  { href: "/about", key: "about" },
+  { href: "/services/personal-pet-video", key: "personal" },
+  { href: "/services", key: "business" },
   { href: "/videos", key: "videos" },
   { href: "/characters", key: "characters" },
   { href: "/music", key: "music" },
   { href: "/insights", key: "insights" },
   { href: "/news", key: "news" },
-  { href: "/resources", key: "resources" },
-  { href: "/services", key: "personal" },
-  { href: "/tools", key: "tools" },
+  { href: "/services#contact", key: "contact" },
 ] as const satisfies readonly NavItem[];
 
 export const koreanNavItems = [
