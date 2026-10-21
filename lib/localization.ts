@@ -5,6 +5,7 @@ export type SiteLanguage = "en" | "ko";
 const koreanPrefixes = new Set([
   "about",
   "contact",
+  "editorial-policy",
   "characters",
   "films",
   "insights",

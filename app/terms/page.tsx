@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import StaticInfoPage from "@/components/StaticInfoPage";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
   description: "Read the terms governing access to FourFeetz Studios content, resources, characters, media, and website services.",
-  alternates: { canonical: "/terms" },
+  alternates: englishLanguageAlternates("/terms", "/ko/terms"),
 };
 
 export default function TermsPage() {
