@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "slug": "henart-enifer-mycoprotein-levendo-petfoodindustry",
+  "language": "ko",
+  "title": "HenArt, Enifer mycoprotein 적용한 반려견 사료 ‘Levendo’ 출시 소식, PetfoodIndustry",
+  "description": "Petfood Industry에 따르면, 이스라엘 반려동물 식품사 HenArt가 Enifer의 발효 단백질 원료인 Pekilo mycoprotein을 사용한 반려견용 완전사료 Levendo를 선보였다. 해당 보도는 제품 출시와 원료 적용 사실을 전하지만, 독립적인 교차검증 자료는 함께 제시되지 않았다.",
+  "category": "반려동물 식품/신제품",
+  "keywords": [
+    "HenArt",
+    "Enifer",
+    "mycoprotein",
+    "반려견 사료",
+    "완전사료",
+    "발효 단백질",
+    "제품 출시"
+  ],
+  "sourceFacts": [
+    "원문 발행처는 Petfood Industry다.",
+    "보도 시각은 2026-10-21T08:05:00.000Z다.",
+    "HenArt는 Levendo라는 반려견 사료를 출시했다고 Petfood Industry가 전했다.",
+    "해당 제품에는 Enifer의 Pekilo 발효 마이코프로틴이 사용됐다.",
+    "보도는 Levendo를 성견 및 노령견용 완전사료로 소개했다.",
+    "제공된 자료에는 독립 출처가 포함되어 있지 않다."
+  ],
+  "verifiedClaims": [
+    {
+      "claim": "Petfood Industry는 HenArt가 Enifer의 Pekilo mycoprotein을 적용한 반려견 사료 Levendo를 출시했다고 보도했다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.petfoodindustry.com/pet-food-market/product-launches/article/15837512/henart-launches-levendo-dog-food-with-enifer-mycoprotein",
+          "evidenceSummary": "기사 제목과 요약에 HenArt의 Levendo 출시, Enifer mycoprotein 적용, 그리고 소비자용 국제 출시라는 사실이 제시되어 있다."
+        }
+      ],
+      "limitation": "제공된 원자료는 publisher report이며, 독립 취재나 교차검증 자료가 없어 보도 내용은 원문 범위 안에서만 확인된다."
+    },
+    {
+      "claim": "해당 제품은 성견과 노령견을 위한 baked complete food로 소개됐다.",
+      "evidence": [
+        {
+          "sourceUrl": "https://www.petfoodindustry.com/pet-food-market/product-launches/article/15837512/henart-launches-levendo-dog-food-with-enifer-mycoprotein",
+          "evidenceSummary": "원문 요약에서 제품이 baked, complete food for adult and senior dogs로 설명된다."
+        }
+      ],
+      "limitation": "본문 전문이 제공되지 않아 제품 구성과 표현은 제목 및 요약 정보에 한정해 확인된다."
+    }
+  ],
+  "evidenceScope": {
+    "sharedBasis": "제공된 primarySource는 Petfood Industry의 기사 요약이며, HenArt의 Levendo 출시와 Enifer Pekilo mycoprotein 적용 사실을 담고 있다.",
+    "verificationBoundary": "독립 출처가 없어 제품 출시와 원료 적용 사실은 원문 요약에 적힌 범위까지만 다룬다. 성분 효능, 시장 반응, 판매 실적, 한국 시장 영향은 확인할 수 없다.",
+    "independentVerificationAvailable": false,
+    "conditionalPublicationReason": "primarySource가 publisher_report이고 independentSources가 비어 있어, 독립 교차검증 없이 원문에 명시된 사실만 조건부로 소개한다.",
+    "limitations": [
+      "원문 본문이 제공되지 않았다.",
+      "독립 출처가 없다.",
+      "출시 효과, 성분 효능, 시장성, 소비자 반응은 확인되지 않았다.",
+      "한국 시장에의 직접적 영향은 단정할 수 없다."
+    ]
+  },
+  "editorialAnalysis": {
+    "fourfeetzAnalysis": [
+      "이 보도는 반려견 사료 신제품 출시와 대체 단백질 원료 적용이라는 제품 뉴스로 읽을 수 있다.",
+      "다만 제시된 정보가 기사 제목과 요약에 한정돼 있어, 원료 배합 비율이나 영양 설계의 세부 근거는 확인되지 않는다.",
+      "FOURFEETZ 기준으로는 출시 사실과 원료 명시 사실만 소개하고, 효능이나 산업적 파급은 원문 밖으로 확장하지 않는 편집이 적절하다."
+    ],
+    "koreanIndustryImplications": [
+      "국내 반려동물 식품 사업자는 발효 단백질 원료를 사용할 때 원료 규격, 표시 문구, 완전사료 요건 충족 여부를 먼저 확인할 필요가 있다.",
+      "수입·유통을 고려하는 경우 원료 출처와 제품 카테고리 표기가 한국 규정에 맞는지 검토해야 한다.",
+      "해외 제품 사례를 국내 시장 수요로 바로 일반화하지 말고, 같은 성분이라도 국내 허가·표시·소비자 인식이 다를 수 있음을 전제해야 한다."
+    ],
+    "readerLimitations": [
+      "이번 자료는 단일 원문 요약만 제공돼 표본, 지역 비교, 소비자 반응 같은 일반화 근거가 없다.",
+      "발표 주체의 자체 홍보 성격일 수 있어 독립 검증이 부족하다.",
+      "효능이나 안전성에 대한 의료적 판단으로 읽어서는 안 된다."
+    ]
+  },
+  "sections": [
+    {
+      "heading": "출시 소식이 전한 핵심",
+      "paragraphs": [
+        "Petfood Industry에 따르면 HenArt가 Enifer의 Pekilo mycoprotein을 사용한 반려견 사료 Levendo를 선보였다. 원문 요약은 이 제품을 성견과 노령견을 위한 baked complete food로 설명한다.",
+        "이번 자료에서 확인되는 사실은 제품 출시와 원료 적용, 제품 대상군 정도다. 판매 성과나 소비자 반응, 한국 시장 반응은 제공된 정보만으로는 판단할 수 없다."
+      ]
+    },
+    {
+      "heading": "독립 검증이 없는 조건부 소개",
+      "paragraphs": [
+        "제공된 자료는 publisher report 한 건뿐이라, FOURFEETZ는 이 내용을 독립 취재로 확정하지 않는다. 따라서 기사는 원문에 적힌 사실만 소개하는 조건부 편집으로 다뤄야 한다.",
+        "특히 원료 기능성, 영양적 우위, 시장 확장 가능성 같은 해석은 본문에서 제외하고, 원문 범위를 벗어나는 추정은 삼가야 한다."
+      ]
+    },
+    {
+      "heading": "국내 업계가 확인할 실무 포인트",
+      "paragraphs": [
+        "국내 사업자는 대체 단백질 원료를 제품화할 때 원료명 표기, 완전사료 기준, 유통 단계의 서류 정합성을 먼저 점검해야 한다.",
+        "해외 사례를 참고하더라도 국내 규정과 소비자 이해도는 별개이므로, 동일한 제품 콘셉트가 곧바로 국내에서도 같은 반응을 보인다고 단정할 수는 없다."
+      ]
+    }
+  ],
+  "takeaway": [
+    "Petfood Industry는 HenArt의 Levendo 출시와 Enifer Pekilo mycoprotein 적용을 보도했다.",
+    "제공 자료에는 독립 출처가 없어, FOURFEETZ는 원문에 적힌 사실만 조건부로 소개한다.",
+    "국내 독자와 업계는 성분 효능보다 표시·규정·원료 검증에 우선 주목할 필요가 있다."
+  ],
+  "publicationMode": "curation",
+  "publishedAt": "2026-10-21T10:28:59.597Z",
+  "source": {
+    "name": "Petfood Industry",
+    "url": "https://www.petfoodindustry.com/pet-food-market/product-launches/article/15837512/henart-launches-levendo-dog-food-with-enifer-mycoprotein",
+    "publishedAt": "2026-10-21T08:05:00.000Z",
+    "primaryEvidence": false,
+    "evidenceType": "publisher_report"
+  },
+  "corroboratingSources": [],
+  "relatedLinks": [
+    {
+      "label": "FourFeetz 인사이트",
+      "href": "/ko/insights"
+    },
+    {
+      "label": "실전 리소스",
+      "href": "/ko/resources"
+    },
+    {
+      "label": "반려동물 콘텐츠 제작",
+      "href": "/ko/services"
+    }
+  ],
+  "quality": {
+    "sourceReliability": 22,
+    "originality": 20,
+    "duplicateCheck": 20,
+    "seo": 15,
+    "safetyCopyright": 15,
+    "total": 92,
+    "checkedAt": "2026-10-21T10:29:23.081Z"
+  }
+}
