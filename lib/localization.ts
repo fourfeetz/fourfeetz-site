@@ -80,6 +80,7 @@ export function toEnglishPath(pathname: string) {
   }
 
   if (section === "services" && rest.length === 1 && koreanOnlyServiceSlugs.has(rest[0])) {
+    if (rest[0] === "personal-pet-video" || rest[0] === "pet-memorial-video") return `/services/${rest[0]}`;
     return "/services";
   }
 

@@ -6,7 +6,8 @@ import { useLanguage } from "@/components/LanguageProvider";
 import { localizedHref } from "@/lib/localization";
 
 const footerLinks = [
-  { href: "/services", koreanHref: "/ko/services/personal-pet-video", label: "My Pet Story", koreanOnly: true },
+  { href: "/services/personal-pet-video", koreanHref: "/ko/services/personal-pet-video", label: "My Pet Story" },
+  { href: "/services/pet-memorial-video", koreanHref: "/ko/services/pet-memorial-video", label: "Memorial Video" },
   { href: "/services", koreanHref: "/ko/services/pet-video", label: "Pet Business Content", koreanOnly: true },
   { href: "/videos", label: "Videos" },
   { href: "/characters", label: "Characters" },
@@ -36,6 +37,7 @@ export default function Footer() {
     Terms: "이용약관",
     Contact: "문의",
     "My Pet Story": "My Pet Story",
+    "Memorial Video": "추모영상",
     "Pet Business Content": "업체용 콘텐츠",
   } as Record<string, string> : {};
 
