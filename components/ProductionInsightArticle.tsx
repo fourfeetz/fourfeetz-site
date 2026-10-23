@@ -125,12 +125,24 @@ function ProductionDiagram({ type, language }: { type: NonNullable<ProductionIns
 
 function ArticleSection({ section, language }: { section: ProductionInsightSection; language: ArticleLanguage }) {
   const labels = articleLabels[language];
+  const renderParagraph = (paragraph: string) => {
+    const links = section.links?.filter(({ text }) => paragraph.includes(text)) ?? [];
+    if (!links.length) return paragraph;
+
+    const pattern = new RegExp(`(${links.map(({ text }) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "g");
+    return paragraph.split(pattern).map((part, index) => {
+      const link = links.find(({ text }) => text === part);
+      return link
+        ? <Link key={`${part}-${index}`} href={link.href} className="font-bold text-[#6f4e37] underline decoration-[#c8a98c] underline-offset-4">{part}</Link>
+        : part;
+    });
+  };
   return (
     <section id={section.id} className="scroll-mt-28 border-t border-[#eadfce] py-12 first:border-t-0 first:pt-0 md:py-16">
       <p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{labels.productionNotes}</p>
       <h2 className="mt-3 text-3xl font-black tracking-tight text-[#2b2119] md:text-5xl">{section.title}</h2>
       <div className="mt-7 space-y-6 text-lg leading-8 text-[#665a50]">
-        {section.paragraphs.map((paragraph) => <p key={paragraph.slice(0, 72)}>{paragraph}</p>)}
+        {section.paragraphs.map((paragraph) => <p key={paragraph.slice(0, 72)}>{renderParagraph(paragraph)}</p>)}
       </div>
       {section.steps ? (
         <ol className="my-9 grid gap-3">

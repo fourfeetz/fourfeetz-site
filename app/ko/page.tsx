@@ -5,7 +5,8 @@ import { getNewsArticles } from "@/lib/news";
 import { languageAlternates } from "@/lib/localization";
 
 const title = "FourFeetz | 반려동물 맞춤 영상·콘텐츠 제작 스튜디오";
-const description = "반려동물 사진과 이야기를 감성적인 맞춤 영상과 디지털 작품으로 만들고, 반려동물 업체용 홍보 콘텐츠를 제작하는 FourFeetz Studios입니다.";
+const description = "반려동물 추모영상과 AI 맞춤 영상을 제작하는 FourFeetz입니다.";
+const socialDescription = "소중한 반려동물의 사진과 이야기를 AI 맞춤 영상으로 제작합니다.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -15,13 +16,13 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "FourFeetz Studios",
     title,
-    description,
+    description: socialDescription,
     url: "/ko",
     locale: "ko_KR",
     alternateLocale: ["en_US"],
     images: [{ url: "/images/studio-hero-v2.png", alt: "FourFeetz 오리지널 동물 캐릭터 스튜디오" }],
   },
-  twitter: { card: "summary_large_image", title, description, images: ["/images/studio-hero-v2.png"] },
+  twitter: { card: "summary_large_image", title, description: socialDescription, images: ["/images/studio-hero-v2.png"] },
 };
 
 export default function Page() {

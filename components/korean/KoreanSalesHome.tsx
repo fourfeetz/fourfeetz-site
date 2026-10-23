@@ -48,7 +48,7 @@ export default function KoreanSalesHome({ newsSection }: { newsSection?: React.R
       eyebrow="Pet Memorial Video"
       title="소중한 반려동물과의 추억을 영상으로 간직하세요"
       description="함께했던 따뜻한 순간과 잊지 못할 추억을 한 편의 감성적인 영상으로 담아드립니다."
-      buttonLabel="추모영상 보러가기"
+      buttonLabel="반려동물 추모영상 제작 보기"
       href="/ko/services/pet-memorial-video"
       imageAlt="따뜻한 빛 속에서 반려동물과의 추억을 표현한 추모영상 대표 이미지"
     />
