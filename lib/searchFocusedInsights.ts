@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import type { ProductionInsight } from "@/lib/productionInsights";
 import { englishLanguageAlternates, languageAlternates } from "@/lib/localization";
+import { aiVideoFailureInsight } from "@/lib/aiVideoFailureInsight";
 
 export const searchFocusedInsightSlugs = [
   "ai-pet-video-from-one-photo",
   "pet-grooming-salon-promo-video-guide",
   "ai-pet-video-production-cost-guide",
+  "why-ai-video-production-fails",
 ] as const;
 
 export type SearchFocusedInsightSlug = (typeof searchFocusedInsightSlugs)[number];
@@ -16,6 +18,7 @@ type LocalizedInsight = ProductionInsight & { heroAlt: string };
 const dates = { published: "2026-09-14", updated: "2026-09-14" } as const;
 
 export const searchFocusedInsights: Record<SearchFocusedInsightSlug, Record<Language, LocalizedInsight>> = {
+  "why-ai-video-production-fails": aiVideoFailureInsight,
   "ai-pet-video-from-one-photo": {
     en: {
       ...dates,
@@ -131,7 +134,7 @@ export function createSearchFocusedInsightMetadata(slug: SearchFocusedInsightSlu
   const englishPath = `/insights/${slug}`;
   const koreanPath = `/ko/insights/${slug}`;
   const path = language === "ko" ? koreanPath : englishPath;
-  const title = `${article.title} | FourFeetz`;
+  const title = `${article.seoTitle ?? article.title} | FourFeetz`;
   return {
     title: { absolute: title },
     description: article.description,

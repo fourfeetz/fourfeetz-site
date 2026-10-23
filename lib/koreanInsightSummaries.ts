@@ -9,6 +9,18 @@ export type KoreanInsightSummary = {
 };
 
 export const koreanInsightSummaries: Record<string, KoreanInsightSummary> = {
+  "why-ai-video-production-fails": {
+    title: "AI 영상 제작이 실패하는 7가지 이유와 해결 방법",
+    category: "AI 영상 제작",
+    imageAlt: "캐릭터와 동작 및 장면 연결을 검토하는 AI 영상 제작 화면",
+    subtitle: "AI 영상 생성 실패를 모델 문제가 아닌 전체 제작 과정에서 진단하는 실전 가이드입니다.",
+    summary: [
+      "AI 영상 생성이 실패하거나 캐릭터 얼굴과 움직임이 달라지는 원인을 기준 이미지, 장면 설계와 제작 흐름을 중심으로 설명합니다.",
+      "너무 많은 행동, 캐릭터 일관성, 여러 캐릭터의 동작, 이미지 투 비디오와 영상 연장에서 생기는 문제를 구분해 살펴봅니다.",
+      "짧은 생성과 단계별 검토를 통해 실패를 줄이고 편집 가능한 장면을 만드는 방법을 정리합니다.",
+    ],
+    topics: ["AI 영상 제작이 실패하는 7가지 원인", "캐릭터 일관성과 영상 연장 문제", "실패를 줄이는 제작 워크플로"],
+  },
   "runway-dev-ai-media-platform": {
     title: "Runway Dev 통합 AI 미디어 제작 플랫폼 분석",
     category: "도구 업데이트",
