@@ -55,6 +55,7 @@ export type ProductionInsightSection = {
 export type ProductionInsight = {
   slug: string;
   title: string;
+  seoTitle?: string;
   shortTitle: string;
   description: string;
   eyebrow: string;
