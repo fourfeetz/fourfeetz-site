@@ -10,6 +10,7 @@ import { petServiceSlugs } from "@/lib/petBusinessServices";
 import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 import { getNewsArticles } from "@/lib/news";
 import { loadEnglishNewsTranslations } from "@/lib/news-english";
+import { koreanMemorialInsights } from "@/lib/koreanMemorialInsights";
 const baseUrl="https://fourfeetz.com";
 const routes=["/en","/about","/characters",...characterDetails.map(c=>`/characters/${c.slug}`),"/contact","/editorial-policy","/videos","/insights","/insights/guides","/insights/news","/news","/music","/privacy","/resources","/services","/services/personal-pet-video","/services/pet-memorial-video","/terms","/tools",...resourceDetails.map(r=>`/resources/${r.slug}`),...practicalResources.map(r=>`/resources/${r.slug}`)];
 export default function sitemap():MetadataRoute.Sitemap{
@@ -25,6 +26,7 @@ export default function sitemap():MetadataRoute.Sitemap{
  const shortPages=shorts.map(s=>({url:`${baseUrl}/shorts/${s.slug}`,changeFrequency:"monthly" as const,priority:0.7,alternates:{languages:al(`/shorts/${s.slug}`,`/ko/shorts/${s.slug}`)}}));
  const koreanPages=[...new Set(pairedPaths.values())].map(k=>{const e=[...pairedPaths.entries()].find(([,v])=>v===k)?.[0]??"";const i=k.startsWith("/ko/insights/")?publishedInsights.find(x=>`/ko/insights/${x.slug}`===k):undefined;return{url:`${baseUrl}${k}`,...(i?.updatedAt||i?.publishedAt?{lastModified:i.updatedAt??i.publishedAt}:{}),changeFrequency:k==="/ko"?("weekly" as const):("monthly" as const),priority:k==="/ko"?1:k.startsWith("/ko/insights/")?0.8:k.split("/").filter(Boolean).length===2?0.8:0.7,alternates:{languages:al(e,k)}}});
  const koreanOnlyServicePages=[...petServiceSlugs.map(slug=>({url:`${baseUrl}/ko/services/${slug}`,lastModified:"2026-08-17",changeFrequency:"monthly" as const,priority:slug==="pet-video"?0.8:0.7})),{url:`${baseUrl}/ko/services/pet-memorial-video`,lastModified:"2026-09-14",changeFrequency:"monthly" as const,priority:0.8}];
+ const koreanOnlyInsightPages=Object.values(koreanMemorialInsights).map(article=>({url:`${baseUrl}/ko/insights/${article.slug}`,lastModified:article.updated,changeFrequency:"monthly" as const,priority:0.8}));
  const newsPages=[...newsArticles.flatMap(article=>[{url:`${baseUrl}/ko/news/${article.slug}`,lastModified:article.updatedAt??article.publishedAt,changeFrequency:"weekly" as const,priority:0.7},...(englishNews.has(article.slug)?[{url:`${baseUrl}/news/${article.slug}`,lastModified:article.updatedAt??article.publishedAt,changeFrequency:"weekly" as const,priority:0.7,alternates:{languages:al(`/news/${article.slug}`,`/ko/news/${article.slug}`)}}]:[])])];
- return[...staticPages,...insightPages,...filmPages,...shortPages,...musicPages,...koreanPages,...koreanOnlyServicePages,...newsPages];
+ return[...staticPages,...insightPages,...filmPages,...shortPages,...musicPages,...koreanPages,...koreanOnlyServicePages,...koreanOnlyInsightPages,...newsPages];
 }

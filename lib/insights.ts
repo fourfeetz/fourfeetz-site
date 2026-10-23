@@ -8,6 +8,7 @@ import { searchFocusedInsights } from "@/lib/searchFocusedInsights";
 import { isPublishedContent, sortByFreshness, type PublishStatus } from "@/lib/publishing";
 import { toolNewsInsights } from "@/lib/toolNewsInsights";
 import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
+import { koreanMemorialInsights } from "@/lib/koreanMemorialInsights";
 
 export type InsightArticle = {
   slug: string;
@@ -158,7 +159,33 @@ export function getPublishedInsightsByGroup(group: InsightGroup, now = new Date(
 }
 
 export function getKoreanInsightArticles(now = new Date()) {
-  return getPublishedInsightArticles(now).filter((article) => !isKoreanInsightRedirect(article.slug));
+  const koreanOnlyArticles = Object.values(koreanMemorialInsights).map((article): InsightArticle => ({
+    slug: article.slug,
+    group: "guides",
+    contentType: "production-guide",
+    hasPublishedWork: false,
+    category: article.category,
+    title: article.shortTitle,
+    description: article.description,
+    readTime: article.readTime,
+    href: `/ko/insights/${article.slug}`,
+    image: article.hero,
+    imageAlt: article.heroAlt ? { ko: article.heroAlt } : undefined,
+    imageFit: article.heroFit,
+    imagePosition: article.heroPosition,
+    tags: article.tags,
+    keywords: article.keywords,
+    tools: article.tools,
+    characters: article.characters,
+    publishedAt: article.published,
+    updatedAt: article.updated,
+    publishStatus: "published",
+  }));
+
+  return sortByFreshness([
+    ...getPublishedInsightArticles(now).filter((article) => !isKoreanInsightRedirect(article.slug)),
+    ...koreanOnlyArticles,
+  ]);
 }
 
 export function getKoreanInsightsByGroup(group: InsightGroup, now = new Date()) {

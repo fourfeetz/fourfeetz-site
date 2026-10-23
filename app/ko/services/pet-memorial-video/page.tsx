@@ -17,12 +17,34 @@ import { VideoPricingSection } from "@/components/korean/VideoPricingSection";
 import { MemorialInquiryForm } from "@/components/korean/MemorialInquiryForm";
 import { MemorialProductionGuide } from "@/components/korean/MemorialProductionGuide";
 import SyncedVideoPlayer from "@/components/SyncedVideoPlayer";
+import { languageAlternates } from "@/lib/localization";
+
+const pageUrl = "https://fourfeetz.com/ko/services/pet-memorial-video";
+const pageTitle = "반려동물 추모영상 제작 | 강아지·고양이 메모리얼 영상 | FourFeetz";
+const pageDescription =
+  "반려동물 사진과 이야기를 바탕으로 강아지·고양이 추모영상을 제작합니다. 소중한 아이와의 추억을 맞춤 영상으로 간직하세요.";
+const socialImageUrl = "https://fourfeetz.com/images/services/pet-memorial-0914-cover.jpg";
 
 export const metadata: Metadata = {
-  title: { absolute: "반려동물 추모영상 제작 | 무지개다리 추억 영상 | FourFeetz" },
-  description:
-    "강아지와 고양이의 사진과 소중한 이야기를 바탕으로 따뜻한 반려동물 추모영상과 추억 영상을 제작합니다.",
-  alternates: { canonical: "/ko/services/pet-memorial-video" },
+  title: { absolute: pageTitle },
+  description: pageDescription,
+  alternates: languageAlternates("/services/pet-memorial-video", "/ko/services/pet-memorial-video"),
+  openGraph: {
+    type: "website",
+    siteName: "FourFeetz Studios",
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    locale: "ko_KR",
+    alternateLocale: ["en_US"],
+    images: [{ url: socialImageUrl, alt: "강아지와 고양이 반려동물 추모영상 제작 예시" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: pageTitle,
+    description: pageDescription,
+    images: [socialImageUrl],
+  },
 };
 
 const originalVideoPosterSrc = "/images/services/pet-memorial-0914-cover.jpg";
@@ -32,6 +54,90 @@ const newVideoPosterSrc = "/images/services/pet-memorial-heavenly-steps-cover.jp
 const newStoryImageSrc = "/images/shorts/pet-memorial/heavenly-steps-story-frame.png";
 const newVideoSrc = "/videos/services/pet-memorial-heavenly-steps.mp4";
 const soundtrackSrc = "/audio/music/lingering-piano-notes.mp3";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": `${pageUrl}#service`,
+      name: "반려동물 추모영상 제작",
+      serviceType: "반려동물 추모영상 및 맞춤 AI 영상 제작",
+      description: pageDescription,
+      url: pageUrl,
+      areaServed: { "@type": "Country", name: "대한민국" },
+      provider: {
+        "@type": "Organization",
+        name: "FourFeetz Studios",
+        url: "https://fourfeetz.com",
+      },
+      offers: {
+        "@type": "AggregateOffer",
+        priceCurrency: "KRW",
+        lowPrice: "99000",
+        highPrice: "299000",
+        offerCount: "3",
+        url: pageUrl,
+      },
+    },
+    {
+      "@type": "VideoObject",
+      "@id": `${pageUrl}#heavenly-steps-video`,
+      name: "반려동물 추모영상 제작 예시 | 구름 너머에서도 함께하는 두 아이",
+      description:
+        "꽃길 계단과 따뜻한 하늘의 분위기로 두 반려견과 함께한 사랑을 표현한 FourFeetz 공식 추모영상 제작 예시입니다.",
+      thumbnailUrl: ["https://fourfeetz.com/images/services/pet-memorial-heavenly-steps-cover.jpg"],
+      uploadDate: "2026-10-20",
+      duration: "PT55S",
+      contentUrl: "https://fourfeetz.com/videos/services/pet-memorial-heavenly-steps.mp4",
+      url: pageUrl,
+      inLanguage: "ko-KR",
+      creator: {
+        "@type": "Organization",
+        name: "FourFeetz Studios",
+        url: "https://fourfeetz.com",
+      },
+    },
+  ],
+};
+
+const faqs = [
+  {
+    question: "사진은 몇 장이 필요한가요?",
+    answer:
+      "기본 상담은 선명한 사진 1~3장으로 시작할 수 있습니다. 원하는 장면과 구성에 따라 추가 사진을 요청드릴 수 있습니다.",
+  },
+  {
+    question: "강아지뿐 아니라 고양이 추모영상도 제작할 수 있나요?",
+    answer:
+      "네. 강아지·반려견의 추모영상뿐 아니라 고양이와 다른 반려동물도 가능합니다. 애견 추모영상을 찾는 보호자분도 같은 맞춤 제작 상담을 받으실 수 있습니다.",
+  },
+  {
+    question: "여러 마리의 반려동물을 한 영상에 담을 수 있나요?",
+    answer:
+      "가능합니다. 각 아이의 특징이 잘 보이는 사진과 관계, 담고 싶은 이야기를 함께 보내주세요. 사진 상태와 장면 수를 확인한 뒤 적합한 구성을 안내합니다.",
+  },
+  {
+    question: "제작 기간은 얼마나 걸리나요?",
+    answer:
+      "자료와 제작 방향이 확정된 뒤 예상 작업일은 STANDARD 2일, DELUXE 4일, PREMIUM 6일입니다. 상담 내용과 작업 일정에 따라 달라질 수 있습니다.",
+  },
+  {
+    question: "수정은 어디까지 가능한가요?",
+    answer:
+      "상품별로 1~3회의 수정이 포함되며 자막, 음악, 장면 순서와 기존 장면의 경미한 조정을 요청할 수 있습니다. 새 장면이나 캐릭터 추가 등 큰 변경은 추가 비용이 발생할 수 있습니다.",
+  },
+  {
+    question: "AI 음성 메시지도 넣을 수 있나요?",
+    answer:
+      "상담 후 선택 옵션으로 추가할 수 있습니다. 전하고 싶은 메시지와 원하는 분위기를 확인해 영상에 어울리는 방식으로 안내합니다.",
+  },
+  {
+    question: "완성 영상은 어떻게 전달되나요?",
+    answer:
+      "워터마크가 포함된 시안을 먼저 확인한 뒤 수정과 승인을 진행합니다. 잔금 결제가 완료되면 워터마크 없는 고화질 영상 파일을 전달합니다.",
+  },
+] as const;
 
 const features = [
   {
@@ -82,6 +188,10 @@ const services = [
 export default function Page() {
   return (
     <main className="overflow-hidden bg-[#fbf8f3] text-[#2d2925]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+      />
       <section className="relative border-b border-[#eee4da] bg-[radial-gradient(circle_at_78%_24%,rgba(236,203,167,.28),transparent_27%),linear-gradient(180deg,#fffdfa_0%,#fbf8f3_100%)]">
         <PawPrint className="pointer-events-none absolute right-[4%] top-24 h-24 w-24 rotate-[-12deg] text-[#8d6747]/10" />
         <PawPrint className="pointer-events-none absolute left-[31%] top-[58%] h-10 w-10 rotate-[15deg] text-[#8d6747]/10" />
@@ -107,10 +217,10 @@ export default function Page() {
               <div className="mt-7 h-px w-14 bg-[#a37c5c]" />
 
               <p className="mt-7 text-lg leading-9 text-[#706963] md:text-xl">
-                사랑하는 아이와의 소중한 추억을
-                <br /> 아름다운 영상으로 기록해 보세요.
-                <br /> 사진 한 장에도, 함께한 모든 순간에도
-                <br /> 잊지 못할 사랑이 담겨 있습니다.
+                FourFeetz는 반려동물의 사진과 이야기를 바탕으로
+                <br /> 강아지·반려견·고양이의 소중한 기억을
+                <br /> 따뜻한 맞춤 추모영상으로 제작합니다.
+                <br /> 함께한 사랑을 오래 간직해 보세요.
               </p>
 
               <Link
@@ -141,9 +251,12 @@ export default function Page() {
                   브라우저에서 영상을 재생할 수 없습니다.
                 </video>
               </div>
-              <p className="mt-3 text-center text-xs tracking-[.08em] text-[#8a8179]">
-                FourFeetz | Pet Memorial Video
-              </p>
+              <div className="mt-5 text-center">
+                <h2 className="font-serif text-xl font-semibold text-[#3b342e]">반려동물 추모영상 제작 예시</h2>
+                <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#8a8179]">
+                  소중한 반려동물이 다시 행복하게 뛰어놀고 함께했던 순간을 떠올릴 수 있도록 만든 FourFeetz 공식 샘플입니다. 상담 후 보내주신 사진과 이야기를 바탕으로 원하는 분위기와 스토리에 맞춰 제작합니다.
+                </p>
+              </div>
             </div>
 
             <div className="hidden min-h-[390px] flex-col items-center justify-center lg:flex">
@@ -178,7 +291,7 @@ export default function Page() {
           <div className="relative min-h-[480px] overflow-hidden lg:min-h-[620px]">
             <Image
               src={storyImageSrc}
-              alt="반려동물과 함께한 따뜻한 일상을 담은 추억 이미지"
+              alt="강아지와 고양이의 따뜻한 추억을 표현한 반려동물 메모리얼 영상 이미지"
               fill
               sizes="(min-width: 1024px) 51vw, 100vw"
               className="object-cover object-[center_64%]"
@@ -304,6 +417,29 @@ export default function Page() {
       />
 
       <MemorialProductionGuide />
+
+      <section className="border-t border-[#eee5dd] bg-white px-6 py-16 md:px-10 lg:px-14 lg:py-24" aria-labelledby="memorial-faq-heading">
+        <div className="mx-auto max-w-[1100px]">
+          <p className="text-sm font-bold tracking-[.2em] text-[#a17859]">FREQUENTLY ASKED QUESTIONS</p>
+          <h2 id="memorial-faq-heading" className="mt-4 font-serif text-4xl font-semibold tracking-[-0.03em] md:text-5xl">
+            반려동물 추모영상 제작 FAQ
+          </h2>
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-[#706963]">
+            무지개다리 영상과 반려동물 메모리얼 영상 제작을 준비할 때 자주 묻는 내용을 정리했습니다.
+          </p>
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {faqs.map(({ question, answer }) => (
+              <details key={question} className="group rounded-[22px] border border-[#e7ddd3] bg-[#fdfbf8] px-6 py-5 open:bg-[#f7f0e8]">
+                <summary className="cursor-pointer list-none pr-8 font-serif text-lg font-semibold text-[#3b342e] marker:hidden">
+                  {question}
+                  <span className="float-right text-[#9a775b] transition group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p className="mt-4 border-t border-[#e7ddd3] pt-4 leading-7 text-[#706963]">{answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section id="memorial-inquiry" className="scroll-mt-24 px-6 py-16 md:px-10 md:py-24 lg:px-14" aria-labelledby="memorial-inquiry-heading">
         <div className="mx-auto grid max-w-[1260px] gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start">

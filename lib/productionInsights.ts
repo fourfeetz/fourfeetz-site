@@ -23,6 +23,7 @@ export type ProductionInsightSection = {
   id: string;
   title: string;
   paragraphs: string[];
+  links?: { text: string; href: string }[];
   bullets?: string[];
   steps?: string[];
   note?: string;
@@ -72,7 +73,13 @@ export type ProductionInsight = {
   tools: string[];
   characters: string[];
   recordBasis?: string;
-  serviceCta?: { href: string; protofaceAffiliate?: boolean };
+  serviceCta?: {
+    href: string;
+    title?: string;
+    description?: string;
+    label?: string;
+    protofaceAffiliate?: boolean;
+  };
   featuredVideo?: {
     name: string;
     description: string;
