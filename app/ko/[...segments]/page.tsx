@@ -141,7 +141,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title = `${item.koreanTitle ?? item.title} | FourFeetz 필름`; description = koreanFilmDescriptions[slug]; englishPath = `/works/${slug}`; image = item.thumbnail;
   } else if (section === "shorts") {
     const item = shorts.find((entry) => entry.slug === slug); if (!item) return {};
-    title = `${koreanShortTitles[slug] ?? item.title} | FourFeetz 쇼츠`; description = koreanShortDescriptions[slug]; englishPath = `/shorts/${slug}`; image = item.poster ?? image;
+    title = slug === "heavenly-steps-together"
+      ? "반려동물 추모영상 제작 예시 | 무지개다리에서 다시 만난 두 아이 | FourFeetz"
+      : `${koreanShortTitles[slug] ?? item.title} | FourFeetz 쇼츠`;
+    description = koreanShortDescriptions[slug]; englishPath = `/shorts/${slug}`; image = item.poster ?? image;
   } else if (section === "characters") {
     const item = characterDetails.find((entry) => entry.slug === slug); if (!item) return {};
     const koreanCharacter = koreanCharacters[slug];
@@ -172,6 +175,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: { absolute: title },
     description,
+    ...(section === "shorts" && slug === "heavenly-steps-together" ? { robots: { index: true, follow: true } } : {}),
     alternates: languageAlternates(englishPath, koreanPath),
     openGraph: { type: "article", siteName: "FourFeetz Studios", title, description, url: koreanPath, locale: "ko_KR", alternateLocale: ["en_US"], images: [{ url: image, alt: title }] },
     twitter: { card: "summary_large_image", title, description, images: [image] },

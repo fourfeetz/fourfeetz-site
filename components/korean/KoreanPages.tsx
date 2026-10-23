@@ -266,8 +266,35 @@ export function KoreanFilmDetail({ slug }: { slug: string }) {
 export function KoreanShortDetail({ slug }: { slug: string }) {
   const item = shorts.find((entry) => entry.slug === slug); if (!item) notFound();
   const characterLinks = item.characterLinks ?? (item.characterHref ? [{ name: item.characters?.[0] ?? "캐릭터", href: item.characterHref }] : []);
+  const isMemorialWatchPage = item.slug === "heavenly-steps-together";
+  const canonicalUrl = "https://fourfeetz.com/ko/shorts/heavenly-steps-together";
+  const videoSchema = isMemorialWatchPage ? {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": `${canonicalUrl}#video`,
+    name: "무지개다리에서 다시 만난 두 아이 | 반려동물 추모영상 제작 예시",
+    description: koreanShortDescriptions[item.slug],
+    thumbnailUrl: ["https://fourfeetz.com/images/services/pet-memorial-heavenly-steps-cover.jpg"],
+    uploadDate: "2026-10-20",
+    duration: "PT55S",
+    contentUrl: "https://fourfeetz.com/videos/services/pet-memorial-heavenly-steps.mp4",
+    inLanguage: "ko-KR",
+    url: canonicalUrl,
+  } : null;
+  const breadcrumbSchema = isMemorialWatchPage ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "홈", item: "https://fourfeetz.com/ko" },
+      { "@type": "ListItem", position: 2, name: "영상", item: "https://fourfeetz.com/ko/videos?type=shorts" },
+      { "@type": "ListItem", position: 3, name: "반려동물 추모영상", item: "https://fourfeetz.com/ko/services/pet-memorial-video" },
+      { "@type": "ListItem", position: 4, name: "무지개다리에서 다시 만난 두 아이", item: canonicalUrl },
+    ],
+  } : null;
   return <main>
-    <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[1fr_0.7fr] md:items-center"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{koreanShortTitles[item.slug] ?? item.title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanShortDescriptions[item.slug]}</p><p className="mt-5 font-black text-[#6f4e37]">{item.duration} · 9:16 세로형 영상</p><div className="mt-6 flex flex-wrap gap-3">{characterLinks.map((character) => <Link key={character.href} href={`/ko${character.href}`} className={secondaryButton}>{character.name} 캐릭터</Link>)}{item.insight ? <Link href={`/ko${item.insight.href}`} className={secondaryButton}>관련 제작 기록</Link> : null}</div></div><video controls playsInline preload="metadata" poster={item.poster} className="mx-auto aspect-[9/16] h-auto max-h-[720px] w-full max-w-sm object-contain rounded-[32px] bg-black shadow-xl"><source src={item.video} type="video/mp4" /></video></section>
+    {videoSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema).replace(/</g, "\\u003c") }} /> : null}
+    {breadcrumbSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema).replace(/</g, "\\u003c") }} /> : null}
+    <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[1fr_0.7fr] md:items-center"><div className={isMemorialWatchPage ? "order-2 md:order-1" : undefined}><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{koreanShortTitles[item.slug] ?? item.title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanShortDescriptions[item.slug]}</p><p className="mt-5 font-black text-[#6f4e37]">{item.duration} · 9:16 세로형 영상</p><div className="mt-6 flex flex-wrap gap-3">{characterLinks.map((character) => <Link key={character.href} href={`/ko${character.href}`} className={secondaryButton}>{character.name} 캐릭터</Link>)}{item.insight ? <Link href={`/ko${item.insight.href}`} className={secondaryButton}>관련 제작 기록</Link> : null}{isMemorialWatchPage ? <Link href="/ko/services/pet-memorial-video" className={primaryButton}>반려동물 추모영상 제작 서비스 보기</Link> : null}</div></div><video controls playsInline preload="metadata" poster={item.poster} aria-label={isMemorialWatchPage ? "무지개다리에서 다시 만난 두 아이 추모영상" : undefined} className={`mx-auto aspect-[9/16] h-auto max-h-[720px] w-full max-w-sm object-contain rounded-[32px] bg-black shadow-xl ${isMemorialWatchPage ? "order-1 md:order-2" : ""}`}><source src={item.video} type="video/mp4" /></video></section>
     {item.koreanProductionNotes?.length ? <section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.35fr_0.65fr]"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">Making Story</p><h2 className="mt-3 text-4xl font-black text-[#2b2119]">실제 제작 과정</h2><div className="mt-6 flex flex-wrap gap-2">{item.tools.map((tool) => <span key={tool} className="rounded-full bg-[#f2e8dc] px-4 py-2 text-sm font-bold text-[#6f4e37]">{tool}</span>)}</div></div><div className="grid gap-4 sm:grid-cols-2">{item.koreanProductionNotes.map((note) => <article key={note.label} className={`${cardClass} p-6`}><p className="text-sm font-black text-[#a67c52]">{note.label}</p><p className="mt-3 leading-7 text-[#5f5248]">{note.value}</p></article>)}</div></div></section> : null}
     {item.affiliate ? <section className="px-6 py-20"><div className="mx-auto max-w-7xl rounded-[32px] bg-[#6f4e37] p-7 text-white shadow-xl md:flex md:items-center md:justify-between md:gap-10 md:p-10"><div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#ead3b5]">Affiliate Partner</p><h2 className="mt-3 text-3xl font-black md:text-4xl">Protoface Studio 사용해보기</h2><p className="mt-4 text-lg font-bold text-[#fff8ef]">Studio Unlimited 가입 시 $10 추가 무료 크레딧 혜택</p><p className="mt-3 text-sm leading-6 text-[#eadfd2]">제휴 링크 안내: 이 링크를 통해 가입하면 FourFeetz가 추천 혜택을 받을 수 있습니다. 혜택 조건은 변경될 수 있으므로 가입 시 확인해 주세요.</p></div><div className="mt-7 shrink-0 md:mt-0 md:text-right"><p className="text-sm font-bold text-[#ead3b5]">쿠폰 코드</p><p className="mt-1 text-3xl font-black tracking-[0.12em]">{item.affiliate.code}</p><a href={item.affiliate.href} target="_blank" rel="sponsored noreferrer" className="mt-5 inline-flex rounded-full bg-white px-6 py-3 font-black text-[#6f4e37]">Protoface Studio 열기 →</a></div></div></section> : null}
   </main>;

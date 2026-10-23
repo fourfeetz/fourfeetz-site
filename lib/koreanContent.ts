@@ -7,6 +7,7 @@ export const koreanFilmDescriptions: Record<string, string> = {
 };
 
 export const koreanShortDescriptions: Record<string, string> = {
+  "heavenly-steps-together": "소중한 반려동물의 사진과 이야기를 바탕으로 제작한 FourFeetz 반려동물 추모영상 예시입니다. 강아지·고양이 추모영상과 무지개다리 메모리얼 영상을 맞춤 제작합니다.",
   "haru-luna-teddy-bear-chase": "HARU가 LUNA의 곰인형을 훔쳐 마당으로 달아납니다. LUNA가 추격 끝에 도약해 곰인형을 되찾고 달아나자, 이번에는 HARU가 뒤쫓는 유쾌한 역할 반전 추격전입니다.",
   "puppy-cat-playtime-chaos": "놀고 싶은 골든리트리버 강아지가 시큰둥한 고양이에게 계속 다가가면서 조용한 거실이 유쾌한 소동으로 바뀌는 코믹 쇼츠입니다.",
   "oli-peaceful-swim": "아기 수달 OLI가 물 위를 부드럽게 떠다니며 여유로운 수영을 즐깁니다. 편안하게 감상할 수 있는 FourFeetz 쇼츠입니다.",
@@ -29,6 +30,7 @@ type KoreanCharacterLink = {
 };
 
 export const koreanShortTitles: Record<string, string> = {
+  "heavenly-steps-together": "무지개다리에서 다시 만난 두 아이",
   "haru-luna-teddy-bear-chase": "곰인형을 훔친 하루, 루나의 역습",
   "puppy-cat-playtime-chaos": "놀고 싶은 강아지, 단호한 고양이",
   "oli-peaceful-swim": "올리의 평화로운 수영 시간",

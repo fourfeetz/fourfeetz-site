@@ -333,8 +333,8 @@ export default function Page() {
               오늘 추가한 추모영상은 꽃길 계단과 따뜻한 하늘의 분위기로, 곁에 남아 있는 사랑을 조용히 표현합니다.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-4">
-              <Link href="/shorts/heavenly-steps-together" className="inline-flex items-center gap-2 rounded-full bg-[#805a3e] px-6 py-3 font-bold text-white transition hover:bg-[#6d4b34]">
-                새 쇼츠 보기 <ChevronRight className="h-4 w-4" />
+              <Link href="/ko/shorts/heavenly-steps-together" className="inline-flex items-center gap-2 rounded-full bg-[#805a3e] px-6 py-3 font-bold text-white transition hover:bg-[#6d4b34]">
+                실제 추모영상 제작 사례 보기 <ChevronRight className="h-4 w-4" />
               </Link>
               <Link href="/music/lingering-piano-notes" className="font-semibold text-[#765139] underline decoration-[#cdb099] underline-offset-4">
                 Lingering Piano Notes 듣기

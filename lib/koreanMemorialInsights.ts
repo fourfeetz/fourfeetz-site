@@ -96,6 +96,7 @@ export const koreanMemorialInsights: Record<KoreanMemorialInsightSlug, Productio
       { question: "고양이나 다른 반려동물도 가능한가요?", answer: "네. 사진으로 외형과 특징을 확인할 수 있다면 고양이와 다른 반려동물도 상담할 수 있습니다." },
     ],
     related: [
+      { label: "제작 예시", title: "무지개다리에서 다시 만난 두 아이 추모영상 보기", href: "/ko/shorts/heavenly-steps-together" },
       { label: "관련 가이드", title: "반려동물 추모영상 제작 방법｜어떤 사진을 준비해야 할까요?", href: "/ko/insights/pet-memorial-video-photo-guide" },
       { label: "제작 서비스", title: "FourFeetz 반려동물 추모영상 제작", href: serviceHref },
     ],
@@ -195,6 +196,7 @@ export const koreanMemorialInsights: Record<KoreanMemorialInsightSlug, Productio
       { question: "여러 반려동물을 한 영상에 담을 수 있나요?", answer: "가능합니다. 각 아이의 사진을 따로 준비하고 크기 차이, 관계와 원하는 장면을 알려주면 제작 방향을 정하는 데 도움이 됩니다." },
     ],
     related: [
+      { label: "제작 예시", title: "실제 반려동물 추모영상 제작 예시 보기", href: "/ko/shorts/heavenly-steps-together" },
       { label: "관련 가이드", title: "강아지 추모영상이란? 무지개다리를 건넌 반려동물을 기억하는 방법", href: "/ko/insights/dog-memorial-video-rainbow-bridge" },
       { label: "제작 서비스", title: "FourFeetz 반려동물 추모영상 제작", href: serviceHref },
     ],
