@@ -1,6 +1,8 @@
 import { getStoreProduct } from "@/lib/store";
 import { assertSameOriginMutation, readBoundedJsonObject, storeApiResponse, storeRequestErrorResponse } from "@/lib/store/api-security";
 import { getPaymentReadiness } from "@/lib/store/readiness";
+import { createPendingOrder } from "@/lib/store/payment";
+import { NeonOrderRepository } from "@/lib/store/neon-repository";
 
 export async function POST(request: Request) {
   try {
@@ -20,7 +22,12 @@ export async function POST(request: Request) {
   }
   const productSlug = typeof body.productSlug === "string" && /^[a-z0-9-]{1,100}$/.test(body.productSlug) ? body.productSlug : null;
   const product = productSlug ? getStoreProduct(productSlug) : null;
-  if (!product || body.provider !== "TOSS" || product.priceKrw <= 0 || product.saleStatus !== "available") return storeApiResponse("PRODUCT_UNAVAILABLE", 409);
+  if (!product || body.provider !== "TOSS" || product.priceKrw <= 0) return storeApiResponse("PRODUCT_UNAVAILABLE", 409);
 
-  return storeApiResponse("CHECKOUT_UNAVAILABLE", 503, { "Retry-After": "60" });
+  try {
+    const order = await createPendingOrder({ product: { id: product.id, slug: product.slug, price: product.priceKrw, currency: "KRW", checkoutEnabled: true }, provider: "TOSS" }, new NeonOrderRepository());
+    return Response.json({ orderNumber: order.orderNumber, orderName: product.name.ko, amount: order.amount, currency: order.currency }, { status: 201, headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
+  } catch {
+    return storeApiResponse("CHECKOUT_UNAVAILABLE", 503, { "Retry-After": "60" });
+  }
 }

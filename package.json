@@ -8,11 +8,13 @@
     "start": "next start",
     "lint": "eslint",
     "test:store": "node --test --experimental-strip-types scripts/store/*.test.ts",
+    "db:migrate:store": "node --experimental-strip-types scripts/store/migrate.ts",
     "test:news": "node --test scripts/news/*.test.mjs",
     "news:dry-run": "node scripts/news/run.mjs",
     "news:verify": "node scripts/news/verify-content.mjs"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.2.0",
     "@next/third-parties": "16.4.3",
     "@tosspayments/tosspayments-sdk": "^2.10.0",
     "@vercel/analytics": "^2.0.1",

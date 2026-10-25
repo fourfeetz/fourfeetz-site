@@ -1,17 +1,25 @@
-create type payment_status as enum ('PENDING', 'PAID', 'FAILED', 'CANCELED', 'REFUNDED');
-create type payment_provider as enum ('TOSS', 'PAYPAL', 'PAYHIP');
+-- Idempotent Creator Store schema for a dedicated Neon Preview database.
+create extension if not exists pgcrypto;
 
-create table products (
+do $$ begin
+  create type payment_status as enum ('PENDING', 'PAID', 'FAILED', 'CANCELED', 'REFUNDED');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type payment_provider as enum ('TOSS', 'PAYPAL', 'PAYHIP');
+exception when duplicate_object then null; end $$;
+
+create table if not exists products (
   id uuid primary key,
   slug text not null unique,
   price integer not null check (price >= 0),
-  currency char(3) not null,
+  currency char(3) not null check (currency in ('KRW', 'USD')),
   status text not null check (status in ('preparing', 'coming-soon', 'available')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-create table orders (
+create table if not exists orders (
   id uuid primary key,
   order_number text not null unique,
   product_id uuid not null references products(id),
@@ -19,13 +27,13 @@ create table orders (
   payment_provider payment_provider not null,
   payment_status payment_status not null default 'PENDING',
   provider_payment_id text unique,
-  amount integer not null check (amount >= 0),
-  currency char(3) not null,
+  amount integer not null check (amount > 0),
+  currency char(3) not null check (currency in ('KRW', 'USD')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
-create table payment_events (
+create table if not exists payment_events (
   id uuid primary key,
   order_id uuid not null references orders(id),
   provider_event_id text not null unique,
@@ -33,7 +41,7 @@ create table payment_events (
   processed_at timestamptz not null default now()
 );
 
-create table download_entitlements (
+create table if not exists download_entitlements (
   id uuid primary key,
   order_id uuid not null references orders(id),
   product_id uuid not null references products(id),
@@ -43,8 +51,14 @@ create table download_entitlements (
   unique (order_id, product_id)
 );
 
-create index orders_status_created_at_idx on orders(payment_status, created_at desc);
-create index payment_events_order_id_idx on payment_events(order_id);
-create index download_entitlements_expires_at_idx on download_entitlements(expires_at) where revoked_at is null;
+create index if not exists orders_status_created_at_idx on orders(payment_status, created_at desc);
+create index if not exists payment_events_order_id_idx on payment_events(order_id);
+create index if not exists download_entitlements_expires_at_idx on download_entitlements(expires_at) where revoked_at is null;
 
--- Apply least-privilege grants and provider-specific row-level security before production use.
+insert into products (id, slug, price, currency, status) values
+  ('3f1ff879-9a8b-4d61-a78a-e47f2c330001', 'free-pet-video-prompt', 0, 'KRW', 'preparing'),
+  ('3f1ff879-9a8b-4d61-a78a-e47f2c330002', 'pet-video-starter-pack', 9900, 'KRW', 'preparing'),
+  ('3f1ff879-9a8b-4d61-a78a-e47f2c330003', 'pet-creator-pack', 19900, 'KRW', 'coming-soon')
+on conflict (id) do update set slug = excluded.slug, price = excluded.price, currency = excluded.currency, status = excluded.status, updated_at = now();
+
+-- Use a dedicated least-privilege application role before production activation.
