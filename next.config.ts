@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
       { source: "/works", destination: "/videos?type=long-form", statusCode: 301 },
       { source: "/youtube", destination: "/social", statusCode: 301 },
       { source: "/ko/films", destination: "/ko/videos?type=long-form", statusCode: 301 },
+      { source: "/ko/works/:slug", destination: "/ko/films/:slug", permanent: true },
       { source: "/ko/shorts", destination: "/ko/videos?type=shorts", statusCode: 301 },
       { source: "/insights/ai-video-workflow", destination: "/insights/repeatable-ai-video-workflow", statusCode: 301 },
       { source: "/insights/vertical-video-reframing", destination: "/insights/reframing-16-9-guide", statusCode: 301 },

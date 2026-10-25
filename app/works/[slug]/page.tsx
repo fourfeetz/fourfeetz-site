@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import FilmDetailPage from "@/components/FilmDetailPage";
 import { films, getFilm } from "@/lib/films";
 import { englishLanguageAlternates } from "@/lib/localization";
+import { createVideoStructuredData } from "@/lib/videoStructuredData";
 
 type FilmPageProps = {
   params: Promise<{ slug: string }>;
@@ -47,5 +48,21 @@ export default async function Page({ params }: FilmPageProps) {
   const film = getFilm(slug);
   if (!film) notFound();
 
-  return <FilmDetailPage film={film} />;
+  const videoSchema = film.uploadDate
+    ? createVideoStructuredData({
+        canonicalPath: `/works/${film.slug}`,
+        contentUrl: film.video,
+        description: film.description,
+        duration: film.duration,
+        inLanguage: film.language === "No Dialogue" || film.language === "Music & Ambience" ? "zxx" : "en",
+        name: film.title,
+        thumbnailUrl: film.thumbnail,
+        uploadDate: film.uploadDate,
+      })
+    : null;
+
+  return <>
+    {videoSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema).replace(/</g, "\\u003c") }} /> : null}
+    <FilmDetailPage film={film} />
+  </>;
 }

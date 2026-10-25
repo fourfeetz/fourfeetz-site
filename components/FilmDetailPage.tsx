@@ -66,20 +66,16 @@ export default function FilmDetailPage({ film }: { film: Film }) {
             {film.characterSlugs?.map((slug) => <Link key={slug} href={`/characters/${slug}`} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37]">Meet {film.character}</Link>)}
           </div>
         </div>
-        <div className="relative aspect-video overflow-hidden rounded-[32px] border border-[#eadfce] bg-white shadow-xl shadow-[#6f4e37]/10">
-          <Image src={film.heroImage} alt={`${film.title} hero image`} fill priority sizes="(min-width: 768px) 560px, 100vw" className="object-cover" />
+        <div id="watch" className="scroll-mt-24 overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-xl shadow-[#6f4e37]/10">
+          <video src={film.video} poster={film.thumbnail} controls playsInline preload="metadata" className="aspect-video h-auto w-full object-cover" aria-label={`Play ${film.title}`} />
         </div>
       </section>
 
-      <section id="watch" className="scroll-mt-24 border-y border-[#eadfce] bg-white px-6 py-20 md:py-24">
+      <section className="border-y border-[#eadfce] bg-white px-6 py-20 md:py-24">
         <div className="mx-auto max-w-7xl">
           {film.badges?.length ? <div className="flex flex-wrap gap-2">{film.badges.map((badge, index) => <span key={badge} className={index === 0 ? "rounded-full bg-[#6f4e37] px-3 py-1.5 text-xs font-black tracking-[0.18em] text-white" : "rounded-full border border-[#6f4e37]/30 bg-[#fff7ea] px-3 py-1.5 text-xs font-black tracking-[0.14em] text-[#6f4e37]"}>{badge}</span>)}</div> : null}
           <h2 className={`${film.badges?.length ? "mt-5" : ""} text-4xl font-black tracking-tight text-[#2b2119] md:text-6xl`}>{film.title}</h2>
           <p className="mt-5 max-w-4xl text-lg leading-8 text-[#76685d]">{film.watchDescription ?? film.description}</p>
-          <div className="mt-8 overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-2xl shadow-[#6f4e37]/15">
-            <video src={film.video} poster={film.thumbnail} controls playsInline preload="metadata" className="aspect-video h-auto w-full object-cover" aria-label={`Play ${film.title}`} />
-          </div>
-
           <article className="mt-10 rounded-[32px] border border-[#eadfce] bg-[#fffaf4] p-7 shadow-sm md:p-9">
             <p className="text-sm font-black uppercase tracking-[0.32em] text-[#a67c52]">Film Details</p>
             <h3 className="mt-3 text-3xl font-black text-[#2b2119] md:text-4xl">Production Notes</h3>
