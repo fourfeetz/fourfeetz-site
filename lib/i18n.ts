@@ -12,6 +12,7 @@ export const dict = {
       music: "Music",
       insights: "Insights",
       news: "News",
+      store: "Store",
       resources: "Resources",
       services: "Services",
       personal: "My Pet Story",
@@ -150,6 +151,7 @@ export const dict = {
       music: "음악",
       insights: "인사이트",
       news: "뉴스",
+      store: "스토어",
       resources: "리소스",
       services: "제작 의뢰",
       personal: "My Pet Story",
@@ -291,6 +293,7 @@ export const navItems = [
   { href: "/music", key: "music" },
   { href: "/insights", key: "insights" },
   { href: "/news", key: "news" },
+  { href: "/store", key: "store" },
   { href: "/services#contact", key: "contact" },
 ] as const satisfies readonly NavItem[];
 
@@ -303,6 +306,7 @@ export const koreanNavItems = [
   { href: "/ko/music", key: "music" },
   { href: "/ko/insights", key: "insights" },
   { href: "/ko/news", key: "news" },
+  { href: "/ko/store", key: "store" },
   { href: "/ko/services#contact", key: "contact" },
 ] as const satisfies readonly NavItem[];
 
