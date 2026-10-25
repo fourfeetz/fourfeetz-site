@@ -16,6 +16,7 @@ export type StoreProduct = Readonly<{
   verifiedAt: string | null;
   saleStatus: StoreSaleStatus;
   level: LocalizedText;
+  freeAsset?: Readonly<{ filename: string; mimeType: "application/pdf"; version: string }>;
 }>;
 
 export const storeProducts: readonly StoreProduct[] = [
@@ -32,11 +33,12 @@ export const storeProducts: readonly StoreProduct[] = [
     },
     priceKrw: 0,
     image: "/images/shorts/cozy-retriever-kitten/cozy-retriever-kitten-poster.png",
-    includedFiles: [{ en: "Prompt document (being prepared)", ko: "프롬프트 문서 (준비 중)" }],
+    includedFiles: [{ en: "Bilingual PDF prompt guide", ko: "한영 PDF 프롬프트 가이드" }],
     supportedModels: [{ name: "AI video generators", verification: "not-verified" }],
     verifiedAt: null,
     saleStatus: "preparing",
     level: { en: "Beginner", ko: "초급" },
+    freeAsset: { filename: "free-pet-video-prompt-v1.pdf", mimeType: "application/pdf", version: "1.0" },
   },
   {
     slug: "pet-video-starter-pack",
