@@ -1,0 +1,10 @@
+import Link from "next/link";
+import StoreSupportForm from "@/components/store/StoreSupportForm";
+import type { StoreLanguage } from "@/lib/store";
+
+export default function StoreSupportPage({ language }: { language: StoreLanguage }) {
+  const ko = language === "ko";
+  const prefix = ko ? "/ko" : "";
+  const copy = ko ? { eyebrow: "Store Support", title: "스토어 고객 지원", desc: "결제, 다운로드, 사용 방법 또는 환불에 관한 문의를 남겨 주세요. 현재 스토어 상품은 준비 중이며 결제된 주문은 없습니다.", policy: "환불 안내 초안", policyText: "디지털 콘텐츠 제공 전 취소, 제공 개시 동의, 파일 하자, 중복 결제와 제공 실패를 구분해 처리할 예정입니다. 청약철회 제한은 관련 법령상 고지와 동의 요건을 충족하는 범위에서만 적용합니다. 실제 판매 전 사업자 정보와 정책에 대한 법률 검토가 필요합니다.", back: "스토어로 돌아가기" } : { eyebrow: "Store Support", title: "Store customer support", desc: "Contact us about payment, downloads, product usage or a refund request. Store products are still in preparation and there are currently no paid orders.", policy: "Draft refund approach", policyText: "The operating policy will distinguish cancellation before delivery, consent to begin digital delivery, defective files, duplicate charges and failed delivery. Any withdrawal restriction will apply only when legally required notice and consent conditions are met. Business details and policy require legal review before sales begin.", back: "Back to Store" };
+  return <main className="bg-[#fbf7f0] px-6 py-16 text-[#2b2119] md:py-24"><div className="mx-auto max-w-5xl"><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{copy.eyebrow}</p><h1 className="mt-4 text-5xl font-black tracking-tight md:text-6xl">{copy.title}</h1><p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">{copy.desc}</p><div className="mt-10"><StoreSupportForm language={language} /></div><section className="mt-8 rounded-[28px] border border-[#e0c8aa] bg-[#fffaf1] p-7"><h2 className="text-2xl font-black">{copy.policy}</h2><p className="mt-4 leading-8 text-[#76685d]">{copy.policyText}</p></section><Link href={`${prefix}/store`} className="mt-8 inline-flex font-black text-[#6f4e37] underline underline-offset-4">{copy.back}</Link></div></main>;
+}
