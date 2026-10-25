@@ -1,7 +1,14 @@
+import { assertSameOriginMutation, storeApiResponse, storeRequestErrorResponse } from "@/lib/store/api-security";
 import { getPaymentReadiness } from "@/lib/store/readiness";
 
-export async function POST() {
+export async function POST(request: Request) {
+  try {
+    assertSameOriginMutation(request);
+  } catch (error) {
+    return storeRequestErrorResponse(error);
+  }
+
   const readiness = getPaymentReadiness();
-  if (!readiness.tossSandbox) return Response.json({ error: "TOSS_SANDBOX_NOT_CONFIGURED", message: "No payment was approved. Add test credentials and a database in Preview before enabling confirmation." }, { status: 503 });
-  return Response.json({ error: "DATABASE_ADAPTER_NOT_INSTALLED", message: "Server-side amount and order validation must run through the order repository before calling Toss confirm." }, { status: 503 });
+  if (!readiness.tossSandbox) return storeApiResponse("PAYMENT_CONFIRMATION_UNAVAILABLE", 503, { "Retry-After": "60" });
+  return storeApiResponse("PAYMENT_CONFIRMATION_UNAVAILABLE", 503, { "Retry-After": "60" });
 }
