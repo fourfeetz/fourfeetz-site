@@ -275,7 +275,7 @@ export function KoreanShortDetail({ slug }: { slug: string }) {
     name: "무지개다리에서 다시 만난 두 아이 | 반려동물 추모영상 제작 예시",
     description: koreanShortDescriptions[item.slug],
     thumbnailUrl: ["https://fourfeetz.com/images/services/pet-memorial-heavenly-steps-cover.jpg"],
-    uploadDate: "2026-10-20",
+    uploadDate: "2026-10-20T20:31:11+09:00",
     duration: "PT55S",
     contentUrl: "https://fourfeetz.com/videos/services/pet-memorial-heavenly-steps.mp4",
     inLanguage: "ko-KR",
