@@ -87,7 +87,7 @@ const structuredData = {
       description:
         "꽃길 계단과 따뜻한 하늘의 분위기로 두 반려견과 함께한 사랑을 표현한 FourFeetz 공식 추모영상 제작 예시입니다.",
       thumbnailUrl: ["https://fourfeetz.com/images/services/pet-memorial-heavenly-steps-cover.jpg"],
-      uploadDate: "2026-10-20",
+      uploadDate: "2026-10-20T20:31:11+09:00",
       duration: "PT55S",
       contentUrl: "https://fourfeetz.com/videos/services/pet-memorial-heavenly-steps.mp4",
       url: pageUrl,
