@@ -20,6 +20,7 @@ No database has been provisioned in this PR. Before activation, create separate 
 - Duplicate confirmations return the already-known result and never create a second entitlement.
 - Refund or cancellation revokes the entitlement.
 - Logs exclude secrets, authorization headers, payment keys, card data and full buyer email addresses.
+- Browser mutation routes enforce same-origin Fetch Metadata/Origin checks, bounded JSON bodies and non-cached generic errors.
 
 ## Toss Payments sandbox flow
 
@@ -32,6 +33,8 @@ No database has been provisioned in this PR. Before activation, create separate 
 7. Cancellation/refund re-queries provider state and updates the order plus entitlement.
 
 Toss general payment webhooks should be re-queried by `paymentKey`; the implementation must not invent a webhook signature header that the general payment webhook does not provide.
+
+Before enabling checkout, add durable rate limiting at Vercel Firewall or the database/Redis boundary. An in-memory limiter is not sufficient for serverless production instances.
 
 ## PayPal direct versus Payhip
 
