@@ -2,13 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getNewsArticles } from "@/lib/news";
 import { loadEnglishNewsTranslations } from "@/lib/news-english";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 const title = "Pet Industry, Pet Tech & AI News";
 const description = "Source-checked updates on pets, veterinary care, pet technology and creative AI from the FourFeetz editorial desk.";
 
 export const metadata: Metadata = {
   title, description,
-  alternates: { canonical: "/news", languages: { en: "/news", ko: "/ko/news" } },
+  alternates: englishLanguageAlternates("/news", "/ko/news"),
   openGraph: { type: "website", title, description, url: "/news", locale: "en_US" },
 };
 
