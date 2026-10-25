@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getNewsArticle, getNewsArticles } from "@/lib/news";
 import { loadEnglishNewsTranslations } from "@/lib/news-english";
+import { englishLanguageAlternates } from "@/lib/localization";
 
 type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: translated.title,
     description: translated.description,
-    alternates: { canonical: `/news/${article.slug}`, languages: { en: `/news/${article.slug}`, ko: `/ko/news/${article.slug}` } },
+    alternates: englishLanguageAlternates(`/news/${article.slug}`, `/ko/news/${article.slug}`),
     openGraph: { type: "article", title: translated.title, description: translated.description, url: `/news/${article.slug}`, locale: "en_US", publishedTime: article.publishedAt },
   };
 }

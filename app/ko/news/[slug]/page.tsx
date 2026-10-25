@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getNewsArticle, getNewsArticles } from "@/lib/news";
+import { loadEnglishNewsTranslations } from "@/lib/news-english";
+import { languageAlternates } from "@/lib/localization";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -15,11 +17,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = getNewsArticle((await params).slug);
   if (!article) return {};
   const path = `/ko/news/${article.slug}`;
+  const hasEnglishTranslation = loadEnglishNewsTranslations([article]).has(article.slug);
   return {
     title: article.title,
     description: article.description,
     keywords: article.keywords,
-    alternates: { canonical: path, languages: { ko: path, en: `/news/${article.slug}` } },
+    alternates: hasEnglishTranslation ? languageAlternates(`/news/${article.slug}`, path) : { canonical: path },
     openGraph: { type: "article", title: article.title, description: article.description, url: path, locale: "ko_KR", publishedTime: article.publishedAt, modifiedTime: article.updatedAt },
     twitter: { card: "summary", title: article.title, description: article.description },
   };

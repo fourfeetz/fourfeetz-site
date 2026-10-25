@@ -3,14 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PetIndustryServicePage, PetVideoLandingPage } from "@/components/korean/PetBusinessServicePages";
 import PersonalPetServicePage from "@/components/korean/PersonalPetServicePage";
+import { languageAlternates } from "@/lib/localization";
 import { getPetIndustryService, petServiceSlugs, petVideoLandingMetadata } from "@/lib/petBusinessServices";
 
 const baseUrl = "https://fourfeetz.com";
 type Props = { params: Promise<{ service: string }> };
 export const dynamicParams = false;
 export function generateStaticParams() { return petServiceSlugs.map((service) => ({ service })); }
-function pageMetadata(title:string,description:string,path:string,image:string):Metadata{return{title:{absolute:title},description,alternates:{canonical:path},openGraph:{type:"website",siteName:"FourFeetz Studios",title,description,url:path,locale:"ko_KR",images:[{url:image,alt:title}]},twitter:{card:"summary_large_image",title,description,images:[image]}};}
-export async function generateMetadata({params}:Props):Promise<Metadata>{const{service:slug}=await params;if(slug==="pet-video")return pageMetadata(petVideoLandingMetadata.title,petVideoLandingMetadata.description,petVideoLandingMetadata.path,petVideoLandingMetadata.image);if(slug==="personal-pet-video")return pageMetadata("My Pet Story | 반려동물 맞춤 영상·디지털 작품 | FourFeetz","My Pet Story는 반려동물 사진과 이야기를 감성 영상, 기념·추모 이야기와 디지털 작품으로 완성하는 FourFeetz의 개인 고객 서비스입니다.","/ko/services/personal-pet-video","/images/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2-poster.webp");const service=getPetIndustryService(slug);if(!service)return{};const path=`/ko/services/${service.slug}`;return pageMetadata(`${service.title} | FourFeetz`,service.description,path,service.image);}
+function pageMetadata(title:string,description:string,path:string,image:string,alternates:Metadata["alternates"]={canonical:path}):Metadata{return{title:{absolute:title},description,alternates,openGraph:{type:"website",siteName:"FourFeetz Studios",title,description,url:path,locale:"ko_KR",images:[{url:image,alt:title}]},twitter:{card:"summary_large_image",title,description,images:[image]}};}
+export async function generateMetadata({params}:Props):Promise<Metadata>{const{service:slug}=await params;if(slug==="pet-video")return pageMetadata(petVideoLandingMetadata.title,petVideoLandingMetadata.description,petVideoLandingMetadata.path,petVideoLandingMetadata.image);if(slug==="personal-pet-video"){const path="/ko/services/personal-pet-video";return pageMetadata("My Pet Story | 반려동물 맞춤 영상·디지털 작품 | FourFeetz","My Pet Story는 반려동물 사진과 이야기를 감성 영상, 기념·추모 이야기와 디지털 작품으로 완성하는 FourFeetz의 개인 고객 서비스입니다.",path,"/images/shorts/haru-luna/haru-luna-rainy-evening-vertical-v2-poster.webp",languageAlternates("/services/personal-pet-video",path));}const service=getPetIndustryService(slug);if(!service)return{};const path=`/ko/services/${service.slug}`;return pageMetadata(`${service.title} | FourFeetz`,service.description,path,service.image);}
 export default async function Page({ params }: Props) {
   const { service: slug } = await params;
   const service = getPetIndustryService(slug);

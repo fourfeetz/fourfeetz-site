@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { KoreanServicesPage } from "@/components/korean/KoreanPages";
+import { languageAlternates } from "@/lib/localization";
 
 export const metadata: Metadata = {
   title: { absolute: "AI 영상 제작 서비스 | FourFeetz" },
   description: "FourFeetz는 반려동물 맞춤 영상, 반려동물 추모영상, 브랜드 광고와 반려동물 업체 홍보 콘텐츠를 제작합니다.",
-  alternates: { canonical: "/ko/services" },
+  alternates: languageAlternates("/services", "/ko/services"),
 };
 
 export default function ServicesPage() {

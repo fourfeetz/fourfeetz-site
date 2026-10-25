@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getNewsArticles } from "@/lib/news";
+import { languageAlternates } from "@/lib/localization";
 
 const title = "반려동물·펫테크 뉴스";
 const description = "공식 출처를 바탕으로 선별하고 검증한 반려동물 산업, 펫테크, AI 콘텐츠 제작 소식입니다.";
@@ -8,7 +9,7 @@ const description = "공식 출처를 바탕으로 선별하고 검증한 반려
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/ko/news", languages: { ko: "/ko/news", en: "/news" } },
+  alternates: languageAlternates("/news", "/ko/news"),
   openGraph: { type: "website", title, description, url: "/ko/news", locale: "ko_KR" },
 };
 
