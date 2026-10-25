@@ -4,6 +4,7 @@ export type StoreSaleStatus = "preparing" | "coming-soon" | "available";
 type LocalizedText = Readonly<Record<StoreLanguage, string>>;
 
 export type StoreProduct = Readonly<{
+  id: string;
   slug: string;
   name: LocalizedText;
   shortDescription: LocalizedText;
@@ -21,6 +22,7 @@ export type StoreProduct = Readonly<{
 
 export const storeProducts: readonly StoreProduct[] = [
   {
+    id: "3f1ff879-9a8b-4d61-a78a-e47f2c330001",
     slug: "free-pet-video-prompt",
     name: { en: "Free Pet Video Prompt", ko: "무료 반려동물 영상 프롬프트" },
     shortDescription: {
@@ -41,6 +43,7 @@ export const storeProducts: readonly StoreProduct[] = [
     freeAsset: { filename: "free-pet-video-prompt-v1.pdf", mimeType: "application/pdf", version: "1.0" },
   },
   {
+    id: "3f1ff879-9a8b-4d61-a78a-e47f2c330002",
     slug: "pet-video-starter-pack",
     name: { en: "Pet Video Starter Pack", ko: "반려동물 영상 스타터 팩" },
     shortDescription: {
@@ -69,6 +72,7 @@ export const storeProducts: readonly StoreProduct[] = [
     level: { en: "Beginner · Intermediate", ko: "초급 · 중급" },
   },
   {
+    id: "3f1ff879-9a8b-4d61-a78a-e47f2c330003",
     slug: "pet-creator-pack",
     name: { en: "Pet Creator Pack", ko: "펫 크리에이터 팩" },
     shortDescription: {

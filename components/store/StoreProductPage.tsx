@@ -10,8 +10,8 @@ export default function StoreProductPage({ product, language }: { product: Store
   const prefix = ko ? "/ko" : "";
   const readiness = getPaymentReadiness();
   const freeDownloadEnabled = product.priceKrw === 0 && Boolean(product.freeAsset) && readiness.freePreviewDownload;
-  const tossSandboxEnabled = product.priceKrw > 0 && product.saleStatus === "available" && readiness.tossSandbox;
-  const status = freeDownloadEnabled ? (ko ? "Preview 다운로드 검증" : "Preview download testing") : product.priceKrw === 0 ? (ko ? "자료 검토 중" : "File under review") : product.saleStatus === "coming-soon" ? (ko ? "출시 예정" : "Coming soon") : product.saleStatus === "preparing" ? (ko ? "결제 준비 중" : "Payment setup in progress") : (ko ? "판매 중" : "Available");
+  const tossSandboxEnabled = product.priceKrw > 0 && readiness.tossSandbox;
+  const status = freeDownloadEnabled ? (ko ? "Preview 다운로드 검증" : "Preview download testing") : tossSandboxEnabled ? (ko ? "Preview Sandbox 테스트" : "Preview Sandbox testing") : product.priceKrw === 0 ? (ko ? "자료 검토 중" : "File under review") : product.saleStatus === "coming-soon" ? (ko ? "출시 예정" : "Coming soon") : product.saleStatus === "preparing" ? (ko ? "결제 준비 중" : "Payment setup in progress") : (ko ? "판매 중" : "Available");
   const text = ko ? {
     back: "스토어로 돌아가기", includes: "포함 예정 파일", models: "지원 AI 영상 모델", notVerified: "호환성 검증 전", verified: "검증 완료", date: "검증일", noDate: "아직 검증되지 않음",
     how: "사용 방법", howItems: ["상품 파일과 이용 안내를 내려받습니다.", "안내된 생성 도구에서 범용 프롬프트를 적용합니다.", "사진과 원하는 장면에 맞춰 허용된 항목만 조정합니다.", "생성 결과를 검토하고 필요한 경우 다시 생성합니다."],

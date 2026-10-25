@@ -15,6 +15,7 @@ export interface OrderRepository {
   confirmPaidAtomically(input: { orderNumber: string; providerPaymentId: string; event: PaymentEvent; entitlement: DownloadEntitlement }): Promise<"paid" | "duplicate" | "conflict">;
   updateStatus(orderNumber: string, status: Exclude<PaymentStatus, "PENDING" | "PAID">): Promise<void>;
   recordEventOnce(orderNumber: string, event: PaymentEvent): Promise<"processed" | "duplicate">;
+  applyTerminalStatusAtomically(input: { orderNumber: string; status: "FAILED" | "CANCELED" | "REFUNDED"; event: PaymentEvent }): Promise<"updated" | "duplicate" | "conflict">;
   findEntitlement(orderNumber: string, productId: string): Promise<DownloadEntitlement | null>;
 }
 
@@ -46,7 +47,10 @@ export async function confirmPayment(input: { orderNumber: string; amount: numbe
   if (!order) throw new StorePaymentError("ORDER_NOT_FOUND", "Order does not exist.");
   if (order.amount !== input.amount) throw new StorePaymentError("AMOUNT_MISMATCH", "Provider amount does not match the server order.");
   if (order.currency !== input.currency) throw new StorePaymentError("CURRENCY_MISMATCH", "Provider currency does not match the server order.");
-  if (order.status === "PAID") return { result: "duplicate" as const, order };
+  if (order.status === "PAID") {
+    if (order.providerPaymentId === input.providerPaymentId) return { result: "duplicate" as const, order };
+    throw new StorePaymentError("APPROVAL_CONFLICT", "A different provider payment is already attached to this order.");
+  }
   if (order.status !== "PENDING") throw new StorePaymentError("INVALID_ORDER_STATE", `Cannot pay an order in ${order.status} state.`);
   const result = await repository.confirmPaidAtomically({ orderNumber: order.orderNumber, providerPaymentId: input.providerPaymentId, event: { providerEventId: input.providerEventId, eventType: "PAYMENT_CONFIRMED", processedAt: now.toISOString() }, entitlement: { orderId: order.id, productId: order.productId, expiresAt: new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000).toISOString(), revokedAt: null } });
   if (result === "conflict") throw new StorePaymentError("APPROVAL_CONFLICT", "Order was changed by another approval attempt.");
@@ -58,6 +62,15 @@ export async function processWebhook(input: { orderNumber: string; providerEvent
   const order = await repository.findOrder(input.orderNumber);
   if (!order) throw new StorePaymentError("ORDER_NOT_FOUND", "Order does not exist.");
   return repository.recordEventOnce(order.orderNumber, { providerEventId: input.providerEventId, eventType: input.eventType, processedAt: now.toISOString() });
+}
+
+export async function applyProviderTerminalStatus(input: { orderNumber: string; providerEventId: string; eventType: string; status: "FAILED" | "CANCELED" | "REFUNDED"; providerProofVerified: boolean }, repository: OrderRepository, now = new Date()) {
+  if (!input.providerProofVerified) throw new StorePaymentError("UNVERIFIED_PROVIDER_EVENT", "Provider event authenticity could not be verified.");
+  const order = await repository.findOrder(input.orderNumber);
+  if (!order) throw new StorePaymentError("ORDER_NOT_FOUND", "Order does not exist.");
+  const result = await repository.applyTerminalStatusAtomically({ orderNumber: order.orderNumber, status: input.status, event: { providerEventId: input.providerEventId, eventType: input.eventType, processedAt: now.toISOString() } });
+  if (result === "conflict") throw new StorePaymentError("INVALID_ORDER_STATE", "Provider status conflicts with the stored order state.");
+  return result;
 }
 
 export async function authorizeDownload(input: { orderNumber: string; productId: string }, repository: OrderRepository, now = new Date()) {
