@@ -40,6 +40,7 @@ export type Film = {
     href: string;
   };
   publishedAt?: string;
+  uploadDate?: string;
   updatedAt?: string;
   featured?: boolean;
   publishStatus?: "published" | "draft";
@@ -74,6 +75,7 @@ export const films: Film[] = [
     watchDescription: "Watch the complete six-minute Moonlit Lake film with both original music tracks. Playback starts only when you press play.",
     musicSlugs: ["moonlit-lake-part-1", "moonlit-lake-part-2"],
     publishedAt: "2026-09-17",
+    uploadDate: "2026-09-17T18:03:27+09:00",
     updatedAt: "2026-09-17",
     publishStatus: "published",
   },
@@ -111,6 +113,7 @@ export const films: Film[] = [
     ],
     musicSlugs: ["calming-fireplace-rain-for-dogs"],
     publishedAt: "2026-08-11",
+    uploadDate: "2026-08-11T21:52:23+09:00",
     updatedAt: "2026-08-11",
     publishStatus: "published",
   },
@@ -161,6 +164,7 @@ export const films: Film[] = [
     ],
     musicSlugs: ["snowy-hearth-nap"],
     publishedAt: "2026-07-23",
+    uploadDate: "2026-07-23T21:41:28+09:00",
     updatedAt: "2026-07-23",
     featured: true,
     publishStatus: "published",
@@ -235,6 +239,7 @@ export const films: Film[] = [
     ],
     musicSlugs: ["haru-main-theme"],
     publishedAt: "2026-07-16",
+    uploadDate: "2026-07-15T16:43:10+09:00",
     updatedAt: "2026-07-17",
     featured: true,
     publishStatus: "published",
@@ -278,6 +283,7 @@ export const films: Film[] = [
       { title: "Why HARU's Relaxing Videos Stay Calm and Natural", description: "A production record about restrained motion, static framing, and the review criteria used for HARU relaxing scenes.", href: "/insights/haru-relaxing-videos-calm-natural" },
     ],
     publishedAt: "2026-07-16",
+    uploadDate: "2026-07-16T21:03:55+09:00",
     featured: true,
     publishStatus: "published",
   },

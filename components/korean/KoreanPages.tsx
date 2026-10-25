@@ -45,6 +45,7 @@ import { getNewProductionGuide } from "@/lib/newProductionGuides";
 import { getMusicTrack, musicTracks } from "@/lib/music";
 import { getResource, resourceDetails } from "@/lib/resourceDetails";
 import { videoPricingPackages } from "@/lib/petBusinessServices";
+import { createVideoStructuredData } from "@/lib/videoStructuredData";
 
 const primaryButton = "inline-flex items-center justify-center rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
 const secondaryButton = "inline-flex items-center justify-center rounded-full border border-[#6f4e37]/40 bg-white px-7 py-4 font-black text-[#6f4e37] transition hover:border-[#6f4e37] hover:text-[#2b2119] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
@@ -247,7 +248,18 @@ export function KoreanFilmDetail({ slug }: { slug: string }) {
   const title = item.koreanTitle ?? item.title;
   const insight = item.relatedInsights?.[0];
   const music = item.musicSlugs ?? [];
+  const videoSchema = item.uploadDate ? createVideoStructuredData({
+    canonicalPath: `/ko/films/${item.slug}`,
+    contentUrl: item.video,
+    description: koreanFilmDescriptions[item.slug],
+    duration: item.duration,
+    inLanguage: item.language === "No Dialogue" || item.language === "Music & Ambience" ? "zxx" : "ko",
+    name: title,
+    thumbnailUrl: item.thumbnail,
+    uploadDate: item.uploadDate,
+  }) : null;
   return <main>
+    {videoSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema).replace(/</g, "\\u003c") }} /> : null}
     <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:items-center">
       <div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{item.category}</p><h1 className="mt-4 text-5xl font-black text-[#2b2119] md:text-7xl">{title}</h1><p className="mt-6 text-lg leading-8 text-[#76685d]">{koreanFilmDescriptions[item.slug]}</p><div className="mt-7 flex flex-wrap gap-3">
         {item.characterSlugs?.map((characterSlug) => <Link key={characterSlug} href={`/ko/characters/${characterSlug}`} className={secondaryButton}>{item.character} 캐릭터</Link>)}
@@ -255,9 +267,8 @@ export function KoreanFilmDetail({ slug }: { slug: string }) {
         {music.map((musicSlug, index) => <Link key={musicSlug} href={`/ko/music/${musicSlug}`} className={secondaryButton}>{music.length > 1 ? `음악 ${index + 1} 듣기` : "음악 듣기"}</Link>)}
         <Link href="/ko/videos" className={secondaryButton}>관련 작품 보기</Link>
       </div></div>
-      <div className="relative aspect-video overflow-hidden rounded-[32px] border border-[#eadfce] bg-white"><Image src={item.thumbnail} alt={`${title} 필름 장면`} fill priority sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" /></div>
+      <div className="overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-xl"><video controls playsInline preload="metadata" poster={item.thumbnail} aria-label={`${title} 재생`} className="aspect-video h-auto w-full object-cover"><source src={item.video} type="video/mp4" /></video></div>
     </section>
-    <section className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto max-w-5xl"><video controls playsInline preload="metadata" poster={item.thumbnail} className="aspect-video h-auto w-full rounded-[32px] bg-black object-cover shadow-xl"><source src={item.video} type="video/mp4" /></video></div></section>
     <section className="px-6 py-20"><SectionHeading eyebrow="Film Information" title="작품 정보" /><div className="mx-auto mt-8 grid max-w-7xl gap-5 sm:grid-cols-2 lg:grid-cols-4">{[["길이",item.duration],["캐릭터",item.character],["상태",item.status ?? "공개"],["해상도",item.resolution ?? "Full HD"]].map(([label,value]) => <article key={label} className={`${cardClass} p-6`}><p className="text-sm font-black text-[#a67c52]">{label}</p><p className="mt-3 text-xl font-black text-[#2b2119]">{value}</p></article>)}</div></section>
     {item.featuredRelease ? <section className="px-6 pb-20"><SectionHeading eyebrow="Published Release" title="함께 볼 공개 쇼츠" /><Link href={`/ko${item.featuredRelease.href}`} className="mx-auto mt-8 block max-w-7xl rounded-[40px] border border-[#eadfce] bg-white p-8 shadow-xl shadow-[#6f4e37]/10 transition hover:-translate-y-1 hover:shadow-2xl md:p-12"><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">공개된 캐릭터 쇼츠</p><h2 className="mt-4 text-4xl font-black text-[#2b2119] md:text-6xl">{item.featuredRelease.koreanTitle}</h2><p className="mt-5 max-w-2xl text-lg leading-8 text-[#76685d]">{item.featuredRelease.koreanDescription}</p><span className="mt-7 inline-flex font-black text-[#6f4e37]">공개 쇼츠 보기 →</span></Link></section> : null}
   </main>;
@@ -267,20 +278,18 @@ export function KoreanShortDetail({ slug }: { slug: string }) {
   const item = shorts.find((entry) => entry.slug === slug); if (!item) notFound();
   const characterLinks = item.characterLinks ?? (item.characterHref ? [{ name: item.characters?.[0] ?? "캐릭터", href: item.characterHref }] : []);
   const isMemorialWatchPage = item.slug === "heavenly-steps-together";
-  const canonicalUrl = "https://fourfeetz.com/ko/shorts/heavenly-steps-together";
-  const videoSchema = isMemorialWatchPage ? {
-    "@context": "https://schema.org",
-    "@type": "VideoObject",
-    "@id": `${canonicalUrl}#video`,
-    name: "무지개다리에서 다시 만난 두 아이 | 반려동물 추모영상 제작 예시",
+  const canonicalPath = `/ko/shorts/${item.slug}`;
+  const canonicalUrl = `https://fourfeetz.com${canonicalPath}`;
+  const videoSchema = item.poster && item.uploadDate ? createVideoStructuredData({
+    canonicalPath,
+    contentUrl: item.video,
     description: koreanShortDescriptions[item.slug],
-    thumbnailUrl: ["https://fourfeetz.com/images/services/pet-memorial-heavenly-steps-cover.jpg"],
-    uploadDate: "2026-10-20T20:31:11+09:00",
-    duration: "PT55S",
-    contentUrl: "https://fourfeetz.com/videos/services/pet-memorial-heavenly-steps.mp4",
-    inLanguage: "ko-KR",
-    url: canonicalUrl,
-  } : null;
+    duration: item.duration,
+    inLanguage: item.koreanSpokenLanguage === "대사 없음" || item.spokenLanguage === "No dialogue" ? "zxx" : "ko",
+    name: isMemorialWatchPage ? "무지개다리에서 다시 만난 두 아이 | 반려동물 추모영상 제작 예시" : (koreanShortTitles[item.slug] ?? item.title),
+    thumbnailUrl: item.poster,
+    uploadDate: item.uploadDate,
+  }) : null;
   const breadcrumbSchema = isMemorialWatchPage ? {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",

@@ -3,12 +3,26 @@ import Link from "next/link";
 import type { Short } from "@/data/shorts";
 import { shorts } from "@/data/shorts";
 import SyncedVideoPlayer from "@/components/SyncedVideoPlayer";
+import { createVideoStructuredData } from "@/lib/videoStructuredData";
 
 export default function ShortDetailPage({ short }: { short: Short }) {
   const relatedShorts = shorts.filter((item) => item.type === "episode");
+  const videoSchema = short.poster && short.uploadDate
+    ? createVideoStructuredData({
+        canonicalPath: `/shorts/${short.slug}`,
+        contentUrl: short.video,
+        description: short.description,
+        duration: short.duration,
+        inLanguage: short.spokenLanguage === "No dialogue" ? "zxx" : "en",
+        name: short.title,
+        thumbnailUrl: short.poster,
+        uploadDate: short.uploadDate,
+      })
+    : null;
 
   return (
     <main>
+      {videoSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema).replace(/</g, "\\u003c") }} /> : null}
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.8fr_1.2fr] md:items-center md:py-24">
         <div>
           {short.badge ? (
@@ -156,20 +170,12 @@ export default function ShortDetailPage({ short }: { short: Short }) {
                 className="group overflow-hidden rounded-[28px] border border-[#eadfce] bg-white shadow-sm transition duration-200 hover:-translate-y-[3px] hover:shadow-xl hover:shadow-[#6f4e37]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2"
               >
                 <div className="overflow-hidden bg-black">
-                  {(related.slug === "haru-luna-quiet-rainy-evening" || related.slug === "cozy-retriever-kitten-sleep-short") && related.poster ? (
+                  {related.poster ? (
                     <div className="relative aspect-[9/16] w-full">
-                      <Image src={related.poster} alt={`${related.title} poster`} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="object-contain transition-transform duration-200 group-hover:scale-[1.015]" />
+                      <Image src={related.poster} alt={`${related.title} poster`} fill sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className={`${related.slug === "haru-luna-quiet-rainy-evening" || related.slug === "cozy-retriever-kitten-sleep-short" ? "object-contain" : "object-cover"} transition-transform duration-200 group-hover:scale-[1.015]`} />
                     </div>
                   ) : (
-                    <video
-                      src={related.video}
-                      poster={related.poster}
-                      muted
-                      playsInline
-                      preload="metadata"
-                      className="pointer-events-none aspect-[9/16] h-auto w-full object-cover transition-transform duration-200 group-hover:scale-[1.015]"
-                      aria-hidden="true"
-                    />
+                    <div className="aspect-[9/16] w-full bg-[#2b2119]" aria-hidden="true" />
                   )}
                 </div>
                 <div className="p-6">

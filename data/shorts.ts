@@ -54,6 +54,7 @@ export type Short = {
     offer: string;
   };
   publishedAt?: string;
+  uploadDate?: string;
   updatedAt?: string;
   featured?: boolean;
   publishStatus?: "published" | "draft";
@@ -92,6 +93,7 @@ export const shorts: Short[] = [
     gallery: [{ src: "/images/shorts/pet-memorial/heavenly-steps-story-frame.png", alt: "꽃길 계단 위에서 함께 하늘을 바라보는 두 강아지", caption: "두 아이가 함께 이어가는 평온한 기억의 장면입니다." }],
     music: { title: "Lingering Piano Notes", href: "/music/lingering-piano-notes" },
     publishedAt: "2026-10-20",
+    uploadDate: "2026-10-20T20:31:11+09:00",
     updatedAt: "2026-10-20",
     featured: true,
     publishStatus: "published",
@@ -135,6 +137,7 @@ export const shorts: Short[] = [
       offer: "$10 in FREE EXTRA CREDITS with Studio Unlimited",
     },
     publishedAt: "2026-09-11",
+    uploadDate: "2026-09-11T11:31:51Z",
     updatedAt: "2026-09-11",
     featured: true,
     publishStatus: "published",
@@ -162,6 +165,7 @@ export const shorts: Short[] = [
     video: "/videos/shorts/dog-and-cat/dog-and-cat-0907-eng.mp4",
     poster: "/images/shorts/dog-and-cat/dog-and-cat-0907-eng-poster.jpg",
     publishedAt: "2026-09-07",
+    uploadDate: "2026-09-07T07:56:40Z",
     updatedAt: "2026-09-07",
     featured: true,
     publishStatus: "published",
@@ -189,6 +193,7 @@ export const shorts: Short[] = [
     characterHref: "/characters/oli",
     insight: { title: "Read the Production Record", href: "/insights/oli-swimming-scene-lessons" },
     publishedAt: "2026-08-09",
+    uploadDate: "2026-08-09T22:49:42+09:00",
     updatedAt: "2026-08-09",
     featured: true,
     publishStatus: "published",
@@ -217,6 +222,7 @@ export const shorts: Short[] = [
     poster: "/images/shorts/cozy-retriever-kitten/cozy-retriever-kitten-poster.png",
     insight: { title: "Read the Production Story", href: "/insights/cozy-retriever-kitten-sleep-short" },
     publishedAt: "2026-08-09",
+    uploadDate: "2026-08-09T22:15:03+09:00",
     updatedAt: "2026-08-09",
     featured: true,
     publishStatus: "published",
@@ -246,6 +252,7 @@ export const shorts: Short[] = [
     music: { title: "Rainy Window with HARU & LUNA", href: "/music/rainy-window-with-haru-luna" },
     insight: { title: "Read the Production Story", href: "/insights/haru-luna-rainy-window-ai-pet-video" },
     publishedAt: "2026-08-06",
+    uploadDate: "2026-08-06T22:36:25+09:00",
     updatedAt: "2026-08-06",
     featured: true,
     publishStatus: "published",
@@ -272,6 +279,7 @@ export const shorts: Short[] = [
     characterHref: "/characters/ruru",
     music: { title: "RURU Theme", href: "/music/ruru-theme" },
     publishedAt: "2026-07-27",
+    uploadDate: "2026-07-27T22:02:43+09:00",
     updatedAt: "2026-07-27",
     featured: true,
     publishStatus: "published",
@@ -319,6 +327,7 @@ export const shorts: Short[] = [
     ],
     music: { title: "Hugo and Haru Meadow", href: "/music/hugo-and-haru-meadow" },
     publishedAt: "2026-07-25",
+    uploadDate: "2026-07-25T21:45:29+09:00",
     updatedAt: "2026-07-25",
     featured: true,
     publishStatus: "published",
@@ -346,6 +355,7 @@ export const shorts: Short[] = [
     characterHref: "/characters/luna",
     music: { title: "Window Cat Paws", href: "/music/window-cat-paws" },
     publishedAt: "2026-07-22",
+    uploadDate: "2026-07-22T20:27:55+09:00",
     featured: true,
     publishStatus: "published",
   },
@@ -368,6 +378,7 @@ export const shorts: Short[] = [
     video: "/videos/shorts/haru/short-001.mp4",
     poster: "/images/shorts/haru/short-001.jpg",
     publishedAt: "2026-07-15",
+    uploadDate: "2026-07-15T16:43:10+09:00",
     publishStatus: "published",
   },
   {
@@ -389,6 +400,7 @@ export const shorts: Short[] = [
     video: "/videos/shorts/haru/short-002.mp4",
     poster: "/images/shorts/haru/short-002-v2.jpg",
     publishedAt: "2026-07-15",
+    uploadDate: "2026-07-15T22:39:27+09:00",
     publishStatus: "published",
   },
   {
@@ -428,6 +440,7 @@ export const shorts: Short[] = [
     ],
     insight: { title: "Read the Two-Character Production Record", href: "/insights/haru-pori-two-character-scene" },
     publishedAt: "2026-07-16",
+    uploadDate: "2026-07-16T21:56:29+09:00",
     updatedAt: "2026-07-22",
     featured: true,
     publishStatus: "published",
@@ -450,8 +463,10 @@ export const shorts: Short[] = [
       { label: "Distribution", value: "Prepared for YouTube Shorts, Instagram Reels, and TikTok." },
     ],
     video: "/videos/shorts/haru/short-004.mp4",
+    poster: "/images/works/haru-first-journey/video-thumbnails/haru-first-journey.jpg",
     originalFilmHref: "/works/haru-first-journey",
     publishedAt: "2026-07-17",
+    uploadDate: "2026-07-17T20:57:58+09:00",
     publishStatus: "published",
   },
 ];
