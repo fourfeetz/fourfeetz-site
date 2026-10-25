@@ -1,6 +1,7 @@
 ﻿import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -49,6 +50,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           <Footer />
         </LanguageProvider>
         <GoogleAnalytics gaId="G-T4L4K2EHN2" />
+        <Analytics />
       </body>
     </html>
   );
