@@ -14,6 +14,7 @@ import {
 } from "@/lib/recentProductionExperiences";
 import { englishLanguageAlternates, languageAlternates } from "@/lib/localization";
 import { petMemoryProductionExperiences, petMemoryProductionExperienceSlugs } from "@/lib/petMemoryProductionExperiences";
+import { protofaceWorkflowInsights, protofaceWorkflowInsightSlugs } from "@/lib/protofaceWorkflowInsights";
 
 export const newProductionGuideSlugs = [
   "extend-ai-video-scenes-google-flow",
@@ -25,6 +26,7 @@ export const newProductionGuideSlugs = [
   ...studioWorkflowInsightSlugs,
   ...recentProductionExperienceSlugs,
   ...petMemoryProductionExperienceSlugs,
+  ...protofaceWorkflowInsightSlugs,
 ] as const;
 
 export type NewProductionGuideSlug = (typeof newProductionGuideSlugs)[number];
@@ -1263,6 +1265,7 @@ export const newProductionGuides = {
   ...studioWorkflowInsights,
   ...recentProductionExperiences,
   ...petMemoryProductionExperiences,
+  ...protofaceWorkflowInsights,
 } as Record<NewProductionGuideSlug, Record<NewProductionGuideLanguage, NewProductionGuide>>;
 
 export function isNewProductionGuideSlug(slug: string): slug is NewProductionGuideSlug {

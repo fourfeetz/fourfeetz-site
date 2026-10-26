@@ -19,6 +19,8 @@ const productionRecordSlugs = new Set([
   "seedance-2-pet-human-reference-test",
   "ai-pet-memorial-memory-film",
   "protoface-seedance-2-real-production-test",
+  "protoface-multiple-ai-video-models-workflow",
+  "protoface-capcut-youtube-production-workflow",
 ]);
 
 const studioAnalysisSlugs = new Set([
