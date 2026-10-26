@@ -74,6 +74,21 @@ export type ProductionInsight = {
   tools: string[];
   characters: string[];
   recordBasis?: string;
+  leadVideo?: {
+    src: string;
+    poster: string;
+    title: string;
+    intro: string;
+    caption: string;
+    presentation?: "portrait";
+  };
+  secondaryCta?: {
+    href: string;
+    description: string;
+    label: string;
+    coupon: string;
+    disclosure: string;
+  };
   serviceCta?: {
     href: string;
     title?: string;

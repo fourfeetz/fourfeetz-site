@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import HeroIllustrationCard from "@/components/HeroIllustrationCard";
+import InsightCard from "@/components/insights/InsightCard";
 import InsightsFilter from "@/components/insights/InsightsFilter";
 import { insightGroups, type InsightGroup, type InsightLanguage } from "@/lib/insightGroups";
 import { isAnalysisContentType } from "@/lib/insightClassification";
@@ -33,8 +34,18 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
       ).length,
     }))
     .filter(({ count }) => count > 0);
+  const protofaceFeaturedSlugs = [
+    "protoface-multiple-ai-video-models-workflow",
+    "protoface-capcut-youtube-production-workflow",
+  ];
   const featured = articles.find((article) => article.slug === "how-haru-was-created")
-    ?? articles.find((article) => article.contentType === "production-record");
+    ?? articles.find(
+      (article) =>
+        article.contentType === "production-record" && !protofaceFeaturedSlugs.includes(article.slug),
+    );
+  const protofaceFeatured = protofaceFeaturedSlugs
+    .map((slug) => articles.find((article) => article.slug === slug))
+    .filter((article): article is NonNullable<typeof article> => Boolean(article));
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -148,6 +159,27 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
         </div>
       </section>
 
+      {protofaceFeatured.length ? (
+        <section className="border-b border-[#eadfce] bg-[#fffaf4] px-6 py-16 md:py-20">
+          <div className="mx-auto max-w-7xl">
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">
+              {isKorean ? "추천 제작 경험" : "Featured Production Experience"}
+            </p>
+            <h2 className="mt-3 max-w-4xl text-3xl font-black text-[#2b2119] md:text-5xl">
+              {isKorean ? "Protoface 실제 제작 과정" : "Real Protoface Production Workflows"}
+            </h2>
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">
+              {isKorean
+                ? "여러 AI 영상 모델을 선택한 과정과 생성 결과를 CapCut 편집·YouTube 게시까지 연결한 실제 제작 기록입니다."
+                : "Two first-hand records covering model selection and the path from generated footage to CapCut editing and YouTube publishing."}
+            </p>
+            <div className="mt-8 grid gap-5 md:grid-cols-2">
+              {protofaceFeatured.map((article) => <InsightCard key={article.slug} article={article} language={language} />)}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {featured ? (
         <section className="px-6 py-16 md:py-20">
           <Link
@@ -192,7 +224,7 @@ export default function InsightsHub({ language = "en" }: { language?: InsightLan
       {isKorean && englishOnlyArticles.length ? (
         <section className="border-t border-[#eadfce] bg-[#fffaf4] px-6 py-16 md:py-20">
           <div className="mx-auto max-w-7xl">
-            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">English Articles</p>
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">영문 제공 글</p>
             <h2 className="mt-3 text-3xl font-black text-[#2b2119] md:text-5xl">영문으로 제공되는 제작 가이드</h2>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-[#76685d]">다음 글은 현재 영문 전체 본문으로 제공됩니다.</p>
             <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">

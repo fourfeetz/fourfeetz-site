@@ -225,6 +225,37 @@ function ArticleSection({ section, language }: { section: ProductionInsightSecti
   );
 }
 
+function SecondaryAffiliateCta({
+  cta,
+  language,
+}: {
+  cta: NonNullable<ProductionInsight["secondaryCta"]>;
+  language: ArticleLanguage;
+}) {
+  return (
+    <aside className="my-12 rounded-[28px] border border-[#d8c3ad] bg-[#fffaf4] p-6 shadow-sm md:p-8">
+      <p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">
+        {language === "ko" ? "제휴 링크 안내" : "Affiliate link"}
+      </p>
+      <p className="mt-4 text-lg font-bold leading-8 text-[#2b2119]">{cta.description}</p>
+      <div className="mt-5 flex flex-wrap items-center gap-3">
+        <a
+          href={cta.href}
+          target="_blank"
+          rel="sponsored noopener noreferrer"
+          className="inline-flex min-h-12 items-center rounded-full bg-[#6f4e37] px-6 py-3 font-black text-white transition hover:bg-[#543b2c]"
+        >
+          {cta.label}
+        </a>
+        <span className="rounded-full border border-[#d8c3ad] bg-white px-4 py-3 text-sm font-black text-[#6f4e37]">
+          {language === "ko" ? "쿠폰" : "Coupon"}: {cta.coupon}
+        </span>
+      </div>
+      <p className="mt-4 text-sm leading-6 text-[#76685d]">{cta.disclosure}</p>
+    </aside>
+  );
+}
+
 export default function ProductionInsightArticle({
   article,
   language = "en",
@@ -331,11 +362,30 @@ export default function ProductionInsightArticle({
           </figure>
         </header>
 
+        {article.leadVideo ? (
+          <section className="mx-auto max-w-5xl px-6 pb-16">
+            <p className="max-w-4xl text-lg leading-8 text-[#665a50]">{article.leadVideo.intro}</p>
+            <figure className="mt-7">
+              <div className={`overflow-hidden rounded-[28px] border border-[#d8c3ad] bg-black shadow-xl shadow-[#6f4e37]/10 ${article.leadVideo.presentation === "portrait" ? "mx-auto max-w-md" : ""}`}>
+                <video src={article.leadVideo.src} poster={article.leadVideo.poster} controls playsInline preload="metadata" aria-label={article.leadVideo.title} className={`${article.leadVideo.presentation === "portrait" ? "aspect-[9/16] object-contain" : "aspect-video object-cover"} h-auto w-full`} />
+              </div>
+              <figcaption className="mt-4 text-sm leading-6 text-[#76685d]">{article.leadVideo.caption}</figcaption>
+            </figure>
+          </section>
+        ) : null}
+
         <div className="mx-auto grid max-w-6xl gap-10 px-6 pb-24 lg:grid-cols-[250px_minmax(0,1fr)]">
           <aside className="hidden lg:block"><div className="sticky top-28 rounded-[24px] border border-[#eadfce] bg-white p-5 shadow-sm"><p className="text-xs font-black uppercase tracking-[0.2em] text-[#a67c52]">{labels.contents}</p><nav className="mt-4 grid gap-1">{article.sections.map((section) => <a key={section.id} href={`#${section.id}`} className="rounded-xl px-3 py-2 text-sm font-bold leading-5 text-[#76685d] hover:bg-[#f2e8dc] hover:text-[#2b2119]">{section.title}</a>)}<a href="#faq" className="rounded-xl px-3 py-2 text-sm font-bold text-[#76685d] hover:bg-[#f2e8dc] hover:text-[#2b2119]">FAQ</a></nav></div></aside>
           <div className="min-w-0">
             <section className="mb-12 rounded-[30px] border border-[#d8c3ad] bg-[#f2e8dc] p-7 md:p-9"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">{labels.verdict}</p><p className="mt-4 text-xl font-bold leading-9 text-[#2b2119] md:text-2xl">{article.verdict}</p></section>
-            {article.sections.map((section) => <ArticleSection key={section.id} section={section} language={language} />)}
+            {article.sections.map((section, index) => (
+              <div key={section.id}>
+                <ArticleSection section={section} language={language} />
+                {article.secondaryCta && index === Math.floor(article.sections.length / 2) - 1
+                  ? <SecondaryAffiliateCta cta={article.secondaryCta} language={language} />
+                  : null}
+              </div>
+            ))}
             <section id="faq" className="scroll-mt-28 border-t border-[#eadfce] py-16"><p className="text-xs font-black uppercase tracking-[0.22em] text-[#a67c52]">FAQ</p><h2 className="mt-3 text-3xl font-black text-[#2b2119] md:text-5xl">{labels.faqTitle}</h2><div className="mt-8 space-y-3">{article.faqs.map((faq) => <details key={faq.question} className="rounded-2xl border border-[#eadfce] bg-white p-5"><summary className="cursor-pointer font-black text-[#2b2119]">{faq.question}</summary><p className="mt-4 leading-7 text-[#665a50]">{faq.answer}</p></details>)}</div></section>
           </div>
         </div>
