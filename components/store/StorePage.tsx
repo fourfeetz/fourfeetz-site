@@ -41,6 +41,32 @@ export default function StorePage({ language }: { language: StoreLanguage }) {
       </div>
     </section>
 
+    <section id="digital-guides" className="border-b border-[#eadfce] bg-[#fffdf8] px-6 py-20">
+      <div className="mx-auto max-w-7xl">
+        <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">FourFeetz Digital Guides</p>
+        <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">{ko ? "AI 반려동물 영상 제작 디지털 가이드" : "AI Pet Video Digital Guides"}</h2>
+        <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">{ko ? "기획부터 프롬프트 작성, AI 영상 생성과 편집까지 따라 하는 입문용 PDF 가이드입니다. 한국어판과 영어판을 각각 준비했습니다." : "Beginner-friendly PDF guides covering story planning, prompt writing, AI video generation and editing. Choose the Korean or English edition."}</p>
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {([
+            { code: "ko", name: "AI 반려동물 영상 제작 입문 가이드", subtitle: "한국어판 · PDF · 12페이지", englishName: "AI Pet Video Starter Guide — Korean Edition" },
+            { code: "en", name: "AI Pet Video Starter Guide", subtitle: "English edition · PDF · 12 pages", englishName: "AI Pet Video Starter Guide — English Edition" },
+          ] as const).map((guide) => (
+            <article key={guide.code} className="flex flex-col rounded-[30px] border border-[#eadfce] bg-white p-7 shadow-sm">
+              <span className="w-fit rounded-full bg-[#f2e8dc] px-3 py-1.5 text-xs font-black text-[#6f4e37]">{guide.code === "ko" ? "한국어 / Korean" : "English / 영어"}</span>
+              <h3 className="mt-5 text-2xl font-black text-[#2b2119]">{ko ? guide.name : guide.englishName}</h3>
+              <p className="mt-3 text-sm text-[#76685d]">{guide.subtitle}</p>
+              <p className="mt-5 leading-7 text-[#76685d]">{ko ? "영상 아이디어, 기본 프롬프트 예시, 제작 체크리스트와 편집 팁을 담았습니다." : "Includes beginner prompts, a planning worksheet, video creation tips and an editing checklist."}</p>
+              <div className="mt-auto pt-8">
+                <p className="text-2xl font-black">₩9,900</p>
+                <button type="button" disabled aria-disabled="true" className="mt-4 inline-flex min-h-12 w-full cursor-not-allowed items-center justify-center rounded-full bg-[#ded5cb] px-6 py-3 font-black text-[#62574d]">{ko ? "판매 준비 중 · 구매 불가" : "Coming soon · Checkout unavailable"}</button>
+                <p className="mt-3 text-xs leading-5 text-[#76685d]">{ko ? "Lemon Squeezy 판매자 심사 및 결제·파일 전달 확인 후 구매가 열립니다." : "Checkout opens after merchant approval and successful payment and file-delivery testing."}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <section className="px-6 py-20"><div className="mx-auto max-w-7xl"><div className="grid gap-8 rounded-[36px] border border-[#eadfce] bg-white p-7 shadow-sm md:grid-cols-[0.85fr_1.15fr] md:p-10"><div className="relative min-h-72 overflow-hidden rounded-[28px]"><Image src={freeProduct.image} alt={freeProduct.name[language]} fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" /></div><div className="flex flex-col justify-center"><span className="inline-flex w-fit items-center gap-2 rounded-full bg-[#f2e8dc] px-4 py-2 text-xs font-black text-[#6f4e37]"><Download size={15} />{statusLabel(freeProduct, language)}</span><h2 className="mt-5 text-4xl font-black tracking-tight md:text-5xl">{copy.free}</h2><p className="mt-4 text-lg leading-8 text-[#76685d]">{freeProduct.shortDescription[language]}</p><p className="mt-3 leading-7 text-[#9a8775]">{copy.freeDesc}</p><Link href={`${prefix}/store/${freeProduct.slug}`} className={`${secondaryButton} mt-7 w-fit`}>{copy.details}<ArrowRight size={18} /></Link></div></div></div></section>
 
     <section id="products" className="border-y border-[#eadfce] bg-white px-6 py-20"><div className="mx-auto max-w-7xl"><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">Creator Packs</p><h2 className="mt-3 text-4xl font-black tracking-tight md:text-6xl">{copy.paid}</h2><p className="mt-5 max-w-2xl text-lg leading-8 text-[#76685d]">{copy.paidDesc}</p><div className="mt-10 grid gap-6 lg:grid-cols-2">{paidProducts.map(product => <article key={product.slug} className="overflow-hidden rounded-[32px] border border-[#eadfce] bg-[#fffdf8] shadow-sm"><div className="relative aspect-[16/9]"><Image src={product.image} alt={product.name[language]} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" /></div><div className="p-7"><div className="flex flex-wrap items-center justify-between gap-3"><span className="rounded-full bg-[#f2e8dc] px-3 py-1.5 text-xs font-black text-[#6f4e37]">{statusLabel(product, language)}</span><span className="text-xl font-black">{formatStorePrice(product.priceKrw, language)}</span></div><h3 className="mt-5 text-3xl font-black">{product.name[language]}</h3><p className="mt-4 leading-7 text-[#76685d]">{product.shortDescription[language]}</p><Link href={`${prefix}/store/${product.slug}`} className={`${secondaryButton} mt-7`}>{copy.details}<ArrowRight size={18} /></Link></div></article>)}</div></div></section>
