@@ -1284,7 +1284,7 @@ export function createNewProductionGuideMetadata(
   const englishPath = `/insights/${slug}`;
   const koreanPath = `/ko/insights/${slug}`;
   const path = language === "ko" ? koreanPath : englishPath;
-  const title = `${article.title} | FourFeetz`;
+  const title = `${article.seoTitle ?? article.title} | FourFeetz`;
 
   return {
     title: { absolute: title },
