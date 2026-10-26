@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import StorePage from "@/components/store/StorePage";
+import StoreLandingPage from "@/components/store/StoreLandingPage";
 import { englishLanguageAlternates } from "@/lib/localization";
 
 const title = "AI Video Prompt Store | FourFeetz";
@@ -8,8 +8,8 @@ const description = "Beginner and intermediate AI pet video prompt packs and pra
 export const metadata: Metadata = {
   title: { absolute: title }, description,
   alternates: englishLanguageAlternates("/store", "/ko/store"),
-  openGraph: { type: "website", siteName: "FourFeetz Studios", title, description, url: "/store", images: [{ url: "/images/insights/image-to-video-prompts.png", alt: title }] },
-  twitter: { card: "summary_large_image", title, description, images: ["/images/insights/image-to-video-prompts.png"] },
+  openGraph: { type: "website", siteName: "FourFeetz Studios", title, description, url: "/store", images: [{ url: "/images/store/digital-guides-hero.png", alt: title }] },
+  twitter: { card: "summary_large_image", title, description, images: ["/images/store/digital-guides-hero.png"] },
 };
 
-export default function Page() { return <StorePage language="en" />; }
+export default function Page() { return <StoreLandingPage language="en" />; }

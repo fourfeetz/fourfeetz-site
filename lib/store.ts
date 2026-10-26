@@ -34,7 +34,7 @@ export const storeProducts: readonly StoreProduct[] = [
       ko: "AI 영상 도구에 장면, 동작, 분위기를 설명하는 기본 방식을 익힐 수 있도록 구성한 입문 자료입니다.",
     },
     priceKrw: 0,
-    image: "/images/shorts/cozy-retriever-kitten/cozy-retriever-kitten-poster.png",
+    image: "/images/store/digital-guides-hero.png",
     includedFiles: [{ en: "Bilingual PDF prompt guide", ko: "한영 PDF 프롬프트 가이드" }],
     supportedModels: [{ name: "AI video generators", verification: "not-verified" }],
     verifiedAt: null,
@@ -55,7 +55,7 @@ export const storeProducts: readonly StoreProduct[] = [
       ko: "FourFeetz의 비공개 캐릭터 자료나 내부 워크플로를 포함하지 않고, 일반적인 반려동물 영상 장면을 중심으로 구성한 초급·중급 패키지입니다.",
     },
     priceKrw: 9900,
-    image: "/images/insights/image-to-video-prompts.png",
+    image: "/images/store/pet-video-starter-pack.png",
     sampleVideo: {
       src: "/videos/shorts/cozy-retriever-kitten/cozy-retriever-kitten-sleep-short.mp4",
       poster: "/images/shorts/cozy-retriever-kitten/cozy-retriever-kitten-poster.png",
@@ -84,7 +84,7 @@ export const storeProducts: readonly StoreProduct[] = [
       ko: "반복적인 범용 반려동물 영상 제작을 위한 확장 팩입니다. 구성과 호환성은 출시 전에 검증하여 안내합니다.",
     },
     priceKrw: 19900,
-    image: "/images/insights/ai-video-workflow.png",
+    image: "/images/store/pet-creator-pack.png",
     includedFiles: [
       { en: "Ten general-purpose prompts (planned)", ko: "범용 프롬프트 10종 (예정)" },
       { en: "Usage guide and examples (planned)", ko: "사용 설명서 및 샘플 (예정)" },
