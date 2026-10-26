@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BookOpen, CircleHelp, Download } from "lucide-react";
+import { ArrowRight, BookOpen, CircleHelp, Download, Lightbulb, PencilLine, PlayCircle, Star, LockKeyhole, Clapperboard, Settings2 } from "lucide-react";
 import { formatStorePrice, storeProducts, type StoreLanguage, type StoreProduct } from "@/lib/store";
 
 const primaryButton = "inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#6f4e37] px-7 py-3.5 font-black text-white transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52] focus-visible:ring-offset-2";
@@ -17,14 +17,14 @@ export default function StorePage({ language }: { language: StoreLanguage }) {
   const freeProduct = storeProducts[0];
   const paidProducts = storeProducts.slice(1);
   const copy = ko ? {
-    eyebrow: "FourFeetz Creator Store", title: "처음 시작하는 AI 반려동물 영상", desc: "직접 영상을 만들어 보고 싶은 분을 위한 범용 초급·중급 프롬프트와 실전 가이드를 준비하고 있습니다. FourFeetz의 비공개 캐릭터 자료와 내부 제작 기술은 포함하지 않습니다.",
+    eyebrow: "FourFeetz Creator Store", title: "AI로 만드는 반려동물 감성 영상", desc: "기획부터 프롬프트, 영상 생성, 편집까지. 누구나 따라 할 수 있는 실전 PDF 가이드로 우리 아이의 특별한 이야기를 영상으로 만들어보세요.",
     explore: "상품 살펴보기", service: "맞춤 영상 제작 의뢰", free: "무료로 시작하기", freeDesc: "파일이 완성되면 실제 다운로드 방식과 이용 조건을 함께 안내합니다. 현재는 다운로드를 제공하지 않습니다.",
     paid: "프롬프트 패키지", paidDesc: "가격과 예정 구성을 먼저 공개합니다. 결제와 파일 전달은 준비가 끝난 상품에만 활성화됩니다.", sample: "실제 제작 샘플", sampleDesc: "상품이 다루는 영상 유형을 이해하기 위한 공개 제작 예시입니다. 이 영상이 상품 프롬프트의 결과물이라는 의미는 아닙니다.",
     guide: "처음 사용하나요?", steps: ["상품 상세에서 포함 파일과 지원 범위를 확인합니다.", "출시 후 안내되는 AI 영상 도구에 프롬프트를 적용합니다.", "생성 결과를 검토하고 장면과 동작을 짧게 조정합니다."],
     faq: "자주 묻는 질문", faqItems: [["FourFeetz 캐릭터 프롬프트가 포함되나요?", "아니요. HARU 마스터 프롬프트, 캐릭터 바이블, 내부 워크플로와 독점 기술은 판매하지 않습니다."], ["어떤 AI 모델에서 사용할 수 있나요?", "아직 호환성 검증이 끝나지 않았습니다. 검증된 모델과 날짜만 상품 상세에 표시합니다."], ["지금 구매하거나 다운로드할 수 있나요?", "아니요. 실제 파일과 결제 설정이 준비되지 않아 현재 모든 구매·다운로드 기능은 비활성 상태입니다."], ["직접 만들기 어려우면 어떻게 하나요?", "맞춤 영상 제작 서비스를 통해 FourFeetz에 제작을 의뢰할 수 있습니다."]],
     support: "스토어 고객 지원", supportDesc: "결제, 다운로드, 사용 방법과 환불 요청 안내를 확인하세요.", details: "상품 상세 보기",
   } : {
-    eyebrow: "FourFeetz Creator Store", title: "A gentle start to AI pet video", desc: "General beginner and intermediate prompts for people who want to make their own videos. FourFeetz private character materials and internal production techniques are never included.",
+    eyebrow: "FourFeetz Creator Store", title: "Create heartwarming pet videos with AI", desc: "From story planning and prompts to video creation and editing. Discover beginner-friendly PDF guides to bring your pet’s special story to life.",
     explore: "Explore products", service: "Request a custom video", free: "Start with a free prompt", freeDesc: "When the file is complete, the real download method and usage terms will be published together. No download is offered yet.",
     paid: "Prompt packs", paidDesc: "Planned contents and prices are shown now. Checkout and delivery will only be enabled for products that are ready.", sample: "Published video sample", sampleDesc: "This public production sample shows the kind of video discussed by the store. It is not presented as an output made from the product prompts.",
     guide: "New to AI video?", steps: ["Check the included files and support scope on the product page.", "After release, apply the prompt in a listed AI video tool.", "Review the result and make small adjustments to the scene and action."],
@@ -33,36 +33,51 @@ export default function StorePage({ language }: { language: StoreLanguage }) {
   };
 
   return <main className="bg-[#fbf7f0] text-[#2b2119]">
-    <section className="relative overflow-hidden border-b border-[#eadfce] px-6 py-20 md:py-28">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#ead7c1_0,transparent_42%)]" />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-        <div><p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">{copy.eyebrow}</p><h1 className="mt-5 max-w-4xl text-5xl font-black leading-[1.05] tracking-tight md:text-7xl">{copy.title}</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">{copy.desc}</p><div className="mt-9 flex flex-wrap gap-3"><Link href="#products" className={primaryButton}>{copy.explore}<ArrowRight size={18} /></Link><Link href={`${prefix}/services#contact`} className={secondaryButton}>{copy.service}</Link></div></div>
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[40px] border border-[#eadfce] bg-white shadow-2xl shadow-[#6f4e37]/10"><Image src="/images/insights/image-to-video-prompts.png" alt={ko ? "AI 반려동물 영상 프롬프트 가이드 이미지" : "AI pet video prompt guide"} fill loading="eager" sizes="(min-width: 1024px) 46vw, 100vw" className="object-cover" /></div>
+    <section className="relative overflow-hidden border-b border-[#e7e6f4] bg-[#f7f8ff] px-6 pb-20 pt-14 md:pb-28 md:pt-20">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_85%_15%,#dcecff_0,transparent_48%)]" />
+      <div className="relative mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[0.22em] text-[#6751dc]">FOURFEETZ DIGITAL GUIDES</p>
+          <h1 className="mt-5 max-w-3xl text-5xl font-black leading-[1.12] tracking-tight text-[#132b5b] md:text-6xl">{copy.title}</h1>
+          <p className="mt-6 max-w-xl text-lg leading-8 text-[#455b7b]">{copy.desc}</p>
+          <div className="mt-8 flex flex-wrap gap-3"><Link href="#digital-guides" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-[#6751dc] px-7 py-3.5 font-black text-white transition hover:bg-[#513ac1]">{copy.explore}<ArrowRight size={18} /></Link><Link href={`${prefix}/services#contact`} className="inline-flex min-h-12 items-center rounded-full border border-[#c9c7e9] bg-white px-7 py-3.5 font-black text-[#263c70]">{copy.service}</Link></div>
+          <div className="mt-9 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {([{ Icon: Lightbulb, ko: "기획 아이디어", en: "Story ideas" },{ Icon: PencilLine, ko: "프롬프트 예시", en: "Prompt examples" },{ Icon: PlayCircle, ko: "영상 제작 방법", en: "Video creation" },{ Icon: Star, ko: "실전 체크리스트", en: "Practical checklists" }] as const).map(({Icon,ko:labelKo,en:labelEn})=><div key={labelEn} className="flex flex-col items-center gap-2 text-center"><span className="flex size-12 items-center justify-center rounded-full border border-[#e5e4f8] bg-white text-[#6751dc] shadow-sm"><Icon size={22}/></span><span className="text-xs font-bold text-[#263c70]">{ko?labelKo:labelEn}</span></div>)}
+          </div>
+        </div>
+        <div className="relative aspect-[16/10] overflow-hidden rounded-[36px] border border-[#e5e4f8] bg-[#e7f0ff] shadow-xl shadow-[#1d3a76]/10">
+          <Image src="/images/shorts/cozy-retriever-kitten/cozy-retriever-kitten-poster.png" alt={ko ? "따뜻한 반려동물 애니메이션 영상 예시" : "Warm animated pet video example"} fill loading="eager" sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#10234d]/85 via-[#10234d]/25 to-transparent p-7 pt-24 text-white"><p className="text-2xl font-black">{ko?"우리 아이의 특별한 이야기를 영상으로":"Turn your pet’s story into a video"}</p><p className="mt-2 text-sm text-white/85">{ko?"기획 · 프롬프트 · 영상 생성 · 편집":"Plan · Prompt · Create · Edit"}</p></div>
+        </div>
       </div>
     </section>
 
-    <section id="digital-guides" className="border-b border-[#eadfce] bg-[#fffdf8] px-6 py-20">
+    <section id="digital-guides" className="relative bg-[#f8f9ff] px-6 pb-20 pt-14">
       <div className="mx-auto max-w-7xl">
-        <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">FourFeetz Digital Guides</p>
-        <h2 className="mt-3 text-4xl font-black tracking-tight md:text-5xl">{ko ? "AI 반려동물 영상 제작 디지털 가이드" : "AI Pet Video Digital Guides"}</h2>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-[#76685d]">{ko ? "기획부터 프롬프트 작성, AI 영상 생성과 편집까지 따라 하는 입문용 PDF 가이드입니다. 한국어판과 영어판을 각각 준비했습니다." : "Beginner-friendly PDF guides covering story planning, prompt writing, AI video generation and editing. Choose the Korean or English edition."}</p>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <p className="text-sm font-black uppercase tracking-[0.2em] text-[#6751dc]">Digital Guides</p>
+        <h2 className="mt-3 text-3xl font-black tracking-tight text-[#142b5c] md:text-5xl">{ko?"AI 반려동물 영상 제작 입문 가이드":"AI Pet Video Starter Guides"}</h2>
+        <p className="mt-4 max-w-3xl text-[#455b7b]">{ko?"같은 제작 과정을 한국어판과 영어판으로 준비했습니다. 원하는 언어를 선택하세요.":"Choose your preferred language. Both editions cover the same beginner-friendly workflow."}</p>
+        <div className="mt-9 grid gap-6 lg:grid-cols-2">
           {([
-            { code: "ko", name: "AI 반려동물 영상 제작 입문 가이드", subtitle: "한국어판 · PDF · 12페이지", englishName: "AI Pet Video Starter Guide — Korean Edition" },
-            { code: "en", name: "AI Pet Video Starter Guide", subtitle: "English edition · PDF · 12 pages", englishName: "AI Pet Video Starter Guide — English Edition" },
-          ] as const).map((guide) => (
-            <article key={guide.code} className="flex flex-col rounded-[30px] border border-[#eadfce] bg-white p-7 shadow-sm">
-              <span className="w-fit rounded-full bg-[#f2e8dc] px-3 py-1.5 text-xs font-black text-[#6f4e37]">{guide.code === "ko" ? "한국어 / Korean" : "English / 영어"}</span>
-              <h3 className="mt-5 text-2xl font-black text-[#2b2119]">{ko ? guide.name : guide.englishName}</h3>
-              <p className="mt-3 text-sm text-[#76685d]">{guide.subtitle}</p>
-              <p className="mt-5 leading-7 text-[#76685d]">{ko ? "영상 아이디어, 기본 프롬프트 예시, 제작 체크리스트와 편집 팁을 담았습니다." : "Includes beginner prompts, a planning worksheet, video creation tips and an editing checklist."}</p>
-              <div className="mt-auto pt-8">
-                <p className="text-2xl font-black">₩9,900</p>
-                <button type="button" disabled aria-disabled="true" className="mt-4 inline-flex min-h-12 w-full cursor-not-allowed items-center justify-center rounded-full bg-[#ded5cb] px-6 py-3 font-black text-[#62574d]">{ko ? "판매 준비 중 · 구매 불가" : "Coming soon · Checkout unavailable"}</button>
-                <p className="mt-3 text-xs leading-5 text-[#76685d]">{ko ? "Lemon Squeezy 판매자 심사 및 결제·파일 전달 확인 후 구매가 열립니다." : "Checkout opens after merchant approval and successful payment and file-delivery testing."}</p>
+            {code:"ko",title:"AI 반려동물 영상 제작 입문 가이드 (PDF)",titleEn:"AI Pet Video Starter Guide (Korean PDF)",tag:"한국어판",tagEn:"Korean Edition",description:"영상 기획부터 프롬프트 작성, AI 영상 생성과 편집까지 단계별로 익히는 한국어 PDF 가이드입니다.",descriptionEn:"A Korean-language PDF guide to planning, prompting, creating and editing AI pet videos."},
+            {code:"en",title:"AI Pet Video Starter Guide (PDF)",titleEn:"AI Pet Video Starter Guide (PDF)",tag:"영문판",tagEn:"English Edition",description:"기획, 프롬프트, 영상 생성, 편집을 실습하는 영문 PDF 가이드입니다.",descriptionEn:"A practical English-language PDF guide with beginner prompts, video planning and editing tips."}
+          ] as const).map(guide=><article key={guide.code} className="overflow-hidden rounded-[30px] border border-[#e5e7f5] bg-white shadow-lg shadow-[#142b5c]/5">
+            <div className="grid gap-0 sm:grid-cols-[0.47fr_0.53fr]">
+              <div className="relative min-h-72 bg-[#e6edff] sm:min-h-[360px]">
+                <Image src="/images/shorts/cozy-retriever-kitten/cozy-retriever-kitten-poster.png" alt={ko?"반려동물 애니메이션을 활용한 PDF 가이드 소개 이미지":"Animated pet scene illustrating the PDF guide"} fill sizes="(min-width: 1024px) 24vw, (min-width: 640px) 40vw, 100vw" className="object-cover"/>
+                <div className="absolute inset-x-4 top-4 rounded-xl bg-white/95 p-3 text-center shadow-sm"><p className="text-xs font-black tracking-widest text-[#6751dc]">FOURFEETZ</p><p className="mt-1 text-sm font-black leading-5 text-[#142b5c]">{guide.code==="ko"?"AI 반려동물 영상 제작 입문 가이드":"AI Pet Video Starter Guide"}</p><p className="mt-1 text-[10px] text-[#455b7b]">{guide.code==="ko"?"기획 · 프롬프트 · 생성 · 편집":"Plan · Prompt · Create · Edit"}</p></div>
               </div>
-            </article>
-          ))}
+              <div className="flex flex-col p-6 sm:p-7">
+                <span className="w-fit rounded-full bg-[#e8e5ff] px-3 py-1 text-xs font-black text-[#6751dc]">{ko?guide.tag:guide.tagEn}</span>
+                <h3 className="mt-4 text-xl font-black leading-7 text-[#142b5c]">{ko?guide.title:guide.titleEn}</h3>
+                <p className="mt-4 text-sm leading-6 text-[#455b7b]">{ko?guide.description:guide.descriptionEn}</p>
+                <p className="mt-auto pt-6 text-3xl font-black text-[#142b5c]">₩9,900</p>
+                <button type="button" disabled aria-disabled="true" className="mt-3 inline-flex min-h-12 cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-[#9ba3b7] px-4 font-black text-white"><LockKeyhole size={17}/>{ko?"곧 구매 가능":"Checkout coming soon"}</button>
+                <p className="mt-2 text-center text-xs text-[#697894]">{ko?"판매자 심사 및 결제 검증 후 판매 시작":"Available after merchant approval and checkout testing"}</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3 border-t border-[#e9eaf7] bg-[#fcfcff] p-5 text-xs text-[#455b7b] sm:grid-cols-4">{([{Icon:BookOpen,ko:"PDF 가이드",en:"PDF guide"},{Icon:PlayCircle,ko:"프롬프트 예시",en:"Prompt examples"},{Icon:Settings2,ko:"단계별 제작",en:"Step-by-step"},{Icon:Star,ko:"체크리스트",en:"Checklist"}] as const).map(({Icon,ko:labelKo,en:labelEn})=><span key={labelEn} className="flex items-center gap-2"><Icon className="shrink-0 text-[#6751dc]" size={18}/>{ko?labelKo:labelEn}</span>)}</div>
+          </article>)}
         </div>
       </div>
     </section>
