@@ -49,7 +49,7 @@ export type ProductionInsightSection = {
     position?: string;
     fit?: "cover" | "contain";
     aspect?: "standard" | "landscape" | "video";
-    presentation?: "portrait";
+    presentation?: "portrait" | "landscape";
   }[];
 };
 export type ProductionInsight = {
