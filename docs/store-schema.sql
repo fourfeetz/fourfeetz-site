@@ -1,5 +1,10 @@
--- Idempotent Creator Store schema for a dedicated Neon Preview database.
+-- Idempotent Creator Store schema for the dedicated Neon database branch selected by DATABASE_URL_UNPOOLED.
 create extension if not exists pgcrypto;
+
+create table if not exists store_schema_migrations (
+  version text primary key,
+  applied_at timestamptz not null default now()
+);
 
 do $$ begin
   create type payment_status as enum ('PENDING', 'PAID', 'FAILED', 'CANCELED', 'REFUNDED');
@@ -59,6 +64,9 @@ insert into products (id, slug, price, currency, status) values
   ('3f1ff879-9a8b-4d61-a78a-e47f2c330001', 'free-pet-video-prompt', 0, 'KRW', 'preparing'),
   ('3f1ff879-9a8b-4d61-a78a-e47f2c330002', 'pet-video-starter-pack', 9900, 'KRW', 'preparing'),
   ('3f1ff879-9a8b-4d61-a78a-e47f2c330003', 'pet-creator-pack', 19900, 'KRW', 'coming-soon')
-on conflict (id) do update set slug = excluded.slug, price = excluded.price, currency = excluded.currency, status = excluded.status, updated_at = now();
+on conflict (id) do nothing;
+
+insert into store_schema_migrations (version) values ('20261026_001')
+on conflict (version) do nothing;
 
 -- Use a dedicated least-privilege application role before production activation.
