@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ANONYMOUS, loadTossPayments } from "@tosspayments/tosspayments-sdk";
+import type { StoreLanguage } from "@/lib/store";
 
 type CreatedOrder = Readonly<{
   orderNumber: string;
@@ -10,7 +11,7 @@ type CreatedOrder = Readonly<{
   currency: "KRW";
 }>;
 
-export default function TossSandboxCheckoutButton({ productSlug, clientKey, label, checkoutBasePath }: { productSlug: string; clientKey: string; label: string; checkoutBasePath: string }) {
+export default function TossSandboxCheckoutButton({ productSlug, clientKey, label, checkoutBasePath, language }: { productSlug: string; clientKey: string; label: string; checkoutBasePath: string; language: StoreLanguage }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,7 +22,7 @@ export default function TossSandboxCheckoutButton({ productSlug, clientKey, labe
       const response = await fetch("/api/store/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productSlug, provider: "TOSS" }),
+        body: JSON.stringify({ productSlug, provider: "TOSS", locale: language }),
       });
       const payload = await response.json() as CreatedOrder | { message?: string };
       if (!response.ok || !("orderNumber" in payload)) throw new Error("message" in payload ? payload.message : "Checkout is not configured.");
