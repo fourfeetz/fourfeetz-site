@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import StaticInfoPage from "@/components/StaticInfoPage";
 import { koreanPageTypographyClass } from "@/lib/koreanServiceStyles";
 import { languageAlternates } from "@/lib/localization";
@@ -48,6 +49,7 @@ export default function KoreanTermsPage() {
           { title: "고객 제공 자료", paragraphs: ["고객은 상담이나 제작을 위해 제공하는 반려동물 사진, 이름, 이야기, 문구와 그 밖의 자료를 제공하고 제작 목적으로 사용할 수 있는 권리를 보유해야 합니다. 제3자의 권리를 침해하는 자료를 제공해서는 안 됩니다.", "고객 사진이나 완성 결과물을 FourFeetz 포트폴리오 또는 홍보 자료에 공개하려면 별도 동의를 받는 것을 원칙으로 합니다."] },
           { title: "편집 및 정보 콘텐츠", paragraphs: ["기사, 리뷰, 워크플로와 도구 관련 설명은 일반적인 교육 목적으로 제공합니다. 기능, 가격, 라이선스와 플랫폼 정책은 변경될 수 있으므로 제작 또는 상업적 결정을 내리기 전에 관련 제공업체의 최신 정보를 확인해야 합니다."] },
           { title: "제3자 서비스", paragraphs: ["링크와 임베디드 서비스는 제3자 웹사이트로 연결될 수 있습니다. FourFeetz Studios는 해당 서비스의 이용 가능성, 보안, 콘텐츠 또는 약관을 통제하지 않으며, 제3자 서비스 이용으로 발생한 손실에 책임을 지지 않습니다."] },
+          { title: "디지털 스토어 구매", paragraphs: [<>유료 PDF 가이드와 디지털 프롬프트 패키지의 청약철회 및 환불 기준은 <Link className="font-bold text-[#6f4e37] underline underline-offset-4" href="/ko/refund-policy">디지털 콘텐츠 환불정책</Link>을 함께 적용합니다. 이 약관은 관계 법령상 소비자 권리를 제한하지 않습니다.</>] },
           { title: "면책 및 변경", paragraphs: ["웹사이트는 이용 가능한 상태를 기준으로 제공되며 중단 없는 접속이나 오류 없는 콘텐츠를 보장하지 않습니다. 스튜디오 운영 변화에 따라 이 약관을 업데이트할 수 있습니다. 콘텐츠 이용 허가 또는 약관 관련 문의는 fourfeetzstudio@gmail.com으로 보낼 수 있습니다."] },
         ]}
         cta={{ eyebrow: "이용 문의", title: "FourFeetz 콘텐츠 이용을 계획하고 있나요?", description: "보호되는 자료를 라이선스, 게시, 각색 또는 상업적으로 이용하기 전에 스튜디오에 문의해 주세요.", href: "/ko/services#contact", label: "무료 상담받기" }}

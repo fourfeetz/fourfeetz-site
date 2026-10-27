@@ -20,6 +20,7 @@ const footerLinks = [
   { href: "/about", label: "About" },
   { href: "/editorial-policy", koreanHref: "/ko/editorial-policy", label: "Editorial Policy" },
   { href: "/privacy", koreanHref: "/ko/privacy", label: "Privacy" },
+  { href: "/refund-policy", koreanHref: "/ko/refund-policy", label: "Refund Policy" },
   { href: "/terms", koreanHref: "/ko/terms", label: "Terms" },
   { href: "/contact", koreanHref: "/ko/contact", label: "Contact" },
 ];
@@ -38,6 +39,7 @@ export default function Footer() {
     About: "소개",
     "Editorial Policy": "편집 및 AI 원칙",
     Privacy: "개인정보 처리방침",
+    "Refund Policy": "환불정책",
     Terms: "이용약관",
     Contact: "문의",
     "My Pet Story": "My Pet Story",
