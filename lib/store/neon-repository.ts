@@ -1,6 +1,7 @@
 import "server-only";
 import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
 import type { DownloadEntitlement, Order, OrderRepository, PaymentEvent, PaymentStatus } from "@/lib/store/payment";
+import type { DownloadAccessRepository, DownloadAccessToken } from "@/lib/store/download-access";
 
 type DatabaseRow = Record<string, unknown>;
 
@@ -20,6 +21,7 @@ function toOrder(row: DatabaseRow): Order {
     status: row.payment_status as PaymentStatus,
     amount: Number(row.amount),
     currency: row.currency as Order["currency"],
+    locale: row.locale === "ko" || row.locale === "en" ? row.locale : null,
     providerPaymentId: row.provider_payment_id ? String(row.provider_payment_id) : null,
     createdAt: new Date(String(row.created_at)).toISOString(),
     updatedAt: new Date(String(row.updated_at)).toISOString(),
@@ -31,7 +33,7 @@ function outcome(rows: unknown, fallback: "conflict"): string {
   return row?.outcome ? String(row.outcome) : fallback;
 }
 
-export class NeonOrderRepository implements OrderRepository {
+export class NeonOrderRepository implements OrderRepository, DownloadAccessRepository {
   async findOrder(orderNumber: string) {
     const rows = await database().query("select * from orders where order_number = $1 limit 1", [orderNumber]);
     return rows[0] ? toOrder(rows[0] as DatabaseRow) : null;
@@ -39,9 +41,9 @@ export class NeonOrderRepository implements OrderRepository {
 
   async createPending(order: Order) {
     await database().query(
-      `insert into orders (id, order_number, product_id, buyer_email, payment_provider, payment_status, provider_payment_id, amount, currency, created_at, updated_at)
-       values ($1, $2, $3, $4, $5::payment_provider, 'PENDING', null, $6, $7, $8, $8)`,
-      [order.id, order.orderNumber, order.productId, order.buyerEmail, order.provider, order.amount, order.currency, order.createdAt],
+      `insert into orders (id, order_number, product_id, buyer_email, payment_provider, payment_status, provider_payment_id, amount, currency, locale, created_at, updated_at)
+       values ($1, $2, $3, $4, $5::payment_provider, 'PENDING', null, $6, $7, $8, $9, $9)`,
+      [order.id, order.orderNumber, order.productId, order.buyerEmail, order.provider, order.amount, order.currency, order.locale, order.createdAt],
     );
   }
 
@@ -141,5 +143,25 @@ export class NeonOrderRepository implements OrderRepository {
     const row = rows[0] as DatabaseRow | undefined;
     if (!row) return null;
     return { orderId: String(row.order_id), productId: String(row.product_id), expiresAt: new Date(String(row.expires_at)).toISOString(), revokedAt: row.revoked_at ? new Date(String(row.revoked_at)).toISOString() : null };
+  }
+
+  async createDownloadAccessToken(token: DownloadAccessToken) {
+    await database().query(
+      `insert into download_access_tokens (id, order_id, product_id, locale, token_hash, expires_at, revoked_at, created_at)
+       values ($1, $2, $3, $4, $5, $6, null, $7)`,
+      [token.id, token.orderId, token.productId, token.locale, token.tokenHash, token.expiresAt, token.createdAt],
+    );
+  }
+
+  async findDownloadAccessToken(orderNumber: string, tokenHash: string) {
+    const rows = await database().query(
+      `select t.id, t.order_id, t.product_id, t.locale, t.token_hash, t.expires_at, t.revoked_at, t.created_at
+       from download_access_tokens t join orders o on o.id = t.order_id
+       where o.order_number = $1 and t.token_hash = $2 limit 1`,
+      [orderNumber, tokenHash],
+    );
+    const row = rows[0] as DatabaseRow | undefined;
+    if (!row) return null;
+    return { id: String(row.id), orderId: String(row.order_id), productId: String(row.product_id), locale: row.locale as DownloadAccessToken["locale"], tokenHash: String(row.token_hash), expiresAt: new Date(String(row.expires_at)).toISOString(), revokedAt: row.revoked_at ? new Date(String(row.revoked_at)).toISOString() : null, createdAt: new Date(String(row.created_at)).toISOString() };
   }
 }

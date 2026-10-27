@@ -50,6 +50,32 @@ The fail redirect never changes an order because its query string is buyer-contr
 ## Operational controls still required
 
 - Add Vercel Firewall rate limits to the order, confirm and webhook routes before sharing Sandbox checkout broadly. A managed Redis limiter is appropriate only if the product later needs customer/order-aware risk counters that Firewall rules cannot express.
-- Keep paid file storage and signed URLs disabled until PR #55.
+- Keep paid file delivery disabled until the private Blob store, real PDFs and additive download-token migration are verified in Preview.
 - Alert on repeated `PAYMENT_CONFIRMATION_FAILED`, `WEBHOOK_RETRY`, approval conflicts and stale `PENDING` orders.
 - Never log authorization headers, payment keys, card fields or full buyer email addresses.
+
+## Private paid PDF delivery
+
+Paid delivery uses a Vercel Blob store created with **Private** access. PDFs must not be copied into `public/`, and neither Blob URLs nor pathnames are returned to the browser. The download route validates the paid order, active entitlement, product match and a 256-bit buyer token before streaming the private Blob through the server.
+
+The starter guide currently has one database product ID for both languages. A token is bound to the locale selected by the checkout success page, and the server maps that locale to a distinct private Blob pathname:
+
+- `STORE_PAID_PDF_KO_BLOB_PATH`: Korean starter guide
+- `STORE_PAID_PDF_EN_BLOB_PATH`: English starter guide
+
+The Pet Creator Pack has no mapping and remains unavailable until its file is ready. The free prompt continues to use its separate Preview-only free-download route.
+
+### Preview setup
+
+1. Create or connect a Vercel Blob store with **Private** access to the FourFeetz Vercel project for Preview only.
+2. Upload the verified Korean and English PDFs in the Vercel Blob dashboard. Keep the returned Blob URLs private; record only each pathname.
+3. Set `STORE_PAID_PDF_KO_BLOB_PATH` and `STORE_PAID_PDF_EN_BLOB_PATH` to those pathnames for Preview only.
+4. The connected private store supplies `BLOB_STORE_ID` and short-lived Vercel OIDC credentials. For local-only testing, `BLOB_READ_WRITE_TOKEN` may be used instead and must never be committed.
+5. Run `npm run db:migrate:store` against the intended Preview Neon branch. The migration only adds `download_access_tokens` and its indexes; it does not rewrite existing orders.
+6. Verify the migration a second time, then set `STORE_PAID_DOWNLOADS_ENABLED=true` for Preview only and redeploy.
+
+The enable flag must not be added to Production. Missing Blob credentials, missing file path mappings, an absent token table or any storage error leaves the purchase recorded but keeps the download button disabled or returns a generic failure.
+
+### Buyer credential and reuse policy
+
+After a verified payment, the confirmation route creates a 256-bit random token. Only its SHA-256 hash is stored in Neon. The raw value is sent as a `Secure`, `HttpOnly`, `SameSite=Strict` cookie scoped to that order's download route, so knowledge of an order number alone is insufficient. Tokens may be reused from the same browser until the entitlement expires seven days after payment. Refund processing revokes the entitlement, which blocks every token for the order immediately.
