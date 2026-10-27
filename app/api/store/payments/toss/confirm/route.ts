@@ -2,7 +2,7 @@ import { assertSameOriginMutation, readBoundedJsonObject, storeApiResponse, stor
 import { getPaymentReadiness } from "@/lib/store/readiness";
 import { confirmPayment, StorePaymentError } from "@/lib/store/payment";
 import { NeonOrderRepository } from "@/lib/store/neon-repository";
-import { confirmTossPayment } from "@/lib/store/toss";
+import { confirmTossPayment, getTossPayment } from "@/lib/store/toss";
 
 export async function POST(request: Request) {
   try {
@@ -32,7 +32,11 @@ export async function POST(request: Request) {
     if (order.status === "PAID" && order.providerPaymentId !== paymentKey) return storeApiResponse("PAYMENT_CONFLICT", 409);
     if (order.status !== "PENDING" && order.status !== "PAID") return storeApiResponse("PAYMENT_VERIFICATION_FAILED", 409);
 
-    const providerPayment = await confirmTossPayment({ paymentKey, orderId, amount, idempotencyKey: order.id });
+    const providerPayment = await confirmTossPayment({ paymentKey, orderId, amount, idempotencyKey: order.id }).catch(async () => {
+      // A timeout or repeated idempotent request can hide a completed approval response.
+      // Re-querying is safe and is the provider-recommended recovery boundary.
+      return getTossPayment(paymentKey);
+    });
     if (providerPayment.paymentKey !== paymentKey || providerPayment.orderId !== orderId || providerPayment.totalAmount !== order.amount || providerPayment.currency !== order.currency || providerPayment.status !== "DONE") return storeApiResponse("PAYMENT_VERIFICATION_FAILED", 409);
 
     const result = await confirmPayment({ orderNumber: orderId, amount: providerPayment.totalAmount, currency: providerPayment.currency, providerPaymentId: providerPayment.paymentKey, providerEventId: `confirm:${providerPayment.paymentKey}`, providerVerified: true }, repository);

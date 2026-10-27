@@ -23,7 +23,7 @@ export class TossApiError extends Error {
 
 function authorizationHeader() {
   const secret = process.env.TOSS_SECRET_KEY;
-  if (!secret?.startsWith("test_")) throw new Error("TOSS_SANDBOX_UNAVAILABLE");
+  if (process.env.TOSS_PAYMENTS_MODE !== "test" || !secret?.startsWith("test_")) throw new Error("TOSS_SANDBOX_UNAVAILABLE");
   return `Basic ${Buffer.from(`${secret}:`).toString("base64")}`;
 }
 
