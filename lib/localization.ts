@@ -12,6 +12,7 @@ const koreanPrefixes = new Set([
   "music",
   "news",
   "privacy",
+  "refund-policy",
   "resources",
   "services",
   "shorts",
