@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ANONYMOUS, loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import type { StoreLanguage } from "@/lib/store";
+import { STORE_REFUND_POLICY_PATH, STORE_REFUND_POLICY_VERSION } from "@/lib/store/refund-policy";
 
 type CreatedOrder = Readonly<{
   orderNumber: string;
@@ -16,7 +17,7 @@ export default function TossSandboxCheckoutButton({ productSlug, clientKey, labe
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [policyAccepted, setPolicyAccepted] = useState(false);
-  const policyHref = language === "ko" ? "/ko/refund-policy" : "/refund-policy";
+  const policyHref = STORE_REFUND_POLICY_PATH[language];
 
   async function beginCheckout() {
     setPending(true);
@@ -25,7 +26,7 @@ export default function TossSandboxCheckoutButton({ productSlug, clientKey, labe
       const response = await fetch("/api/store/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productSlug, provider: "TOSS", locale: language }),
+        body: JSON.stringify({ productSlug, provider: "TOSS", locale: language, refundPolicyAccepted: policyAccepted, refundPolicyVersion: STORE_REFUND_POLICY_VERSION }),
       });
       const payload = await response.json() as CreatedOrder | { message?: string };
       if (!response.ok || !("orderNumber" in payload)) throw new Error("message" in payload ? payload.message : "Checkout is not configured.");
@@ -51,7 +52,7 @@ export default function TossSandboxCheckoutButton({ productSlug, clientKey, labe
     <label className="mb-3 flex cursor-pointer items-start gap-3 rounded-2xl border border-[#e0c8aa] bg-white p-4 text-sm leading-6 text-[#5f5147]">
       <input type="checkbox" checked={policyAccepted} onChange={(event) => setPolicyAccepted(event.target.checked)} className="mt-1 size-4 shrink-0 accent-[#6f4e37]" />
       <span>
-        {language === "ko" ? "환불정책을 확인했으며 결제 완료 후 디지털 콘텐츠가 즉시 제공되는 것에 동의합니다. 관계 법령상 소비자 권리는 유지됩니다." : "I have reviewed the refund policy and request immediate digital delivery after payment. My mandatory consumer rights remain unaffected."}{" "}
+        {language === "ko" ? "디지털 콘텐츠의 제공이 시작되면 법령에서 정한 요건에 따라 단순 변심 청약철회가 제한될 수 있음을 확인했으며, 결제 완료 후 즉시 제공을 요청합니다. 관계 법령상 소비자 권리는 유지됩니다." : "I understand that once digital delivery begins, cancellation for change of mind may be restricted where permitted by law, and I request delivery immediately after payment. My mandatory consumer rights remain unaffected."}{" "}
         <Link href={policyHref} target="_blank" rel="noreferrer" className="font-black text-[#6f4e37] underline underline-offset-4">
           {language === "ko" ? "환불정책 보기" : "View refund policy"}
         </Link>
