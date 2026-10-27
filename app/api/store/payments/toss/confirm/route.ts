@@ -64,7 +64,8 @@ export async function POST(request: Request) {
     }
     const headers = new Headers({ "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
     if (cookie) headers.set("Set-Cookie", cookie);
-    return Response.json({ status: "PAID", duplicate: result.result === "duplicate", productName: product?.name[locale] ?? null, amount: order.amount, currency: order.currency, downloadReady: Boolean(downloadUrl), downloadUrl }, { headers });
+    const responseLocale = order.locale ?? locale;
+    return Response.json({ status: "PAID", duplicate: result.result === "duplicate", orderNumber: order.orderNumber, productName: product?.name[responseLocale] ?? null, amount: order.amount, currency: order.currency, downloadReady: Boolean(downloadUrl), downloadUrl, downloadExpiresAt: entitlement?.expiresAt ?? null }, { headers });
   } catch (error) {
     if (error instanceof StorePaymentError && error.code === "APPROVAL_CONFLICT") return storeApiResponse("PAYMENT_CONFLICT", 409);
     return storeApiResponse("PAYMENT_CONFIRMATION_FAILED", 502, { "Retry-After": "5" });

@@ -16,7 +16,7 @@ try {
       where n.nspname = current_schema()
         and c.relkind = 'r'
         and c.relname = any($1::text[])`,
-    [["products", "orders", "payment_events", "download_entitlements", "download_access_tokens"]],
+    [["products", "orders", "payment_events", "download_entitlements", "download_access_tokens", "download_delivery_events"]],
   );
   const markerExists = await pool.query<{ exists: boolean }>("select to_regclass('store_schema_migrations') is not null as exists");
   let knownMigration = false;
@@ -33,15 +33,15 @@ try {
     `select c.relname as table_name from pg_class c join pg_namespace n on n.oid = c.relnamespace
       where n.nspname = current_schema() and c.relkind = 'r'
         and c.relname = any($1::text[]) order by c.relname`,
-    [["products", "orders", "payment_events", "download_entitlements", "download_access_tokens", "store_schema_migrations"]],
+    [["products", "orders", "payment_events", "download_entitlements", "download_access_tokens", "download_delivery_events", "store_schema_migrations"]],
   );
   const indexes = await pool.query<{ indexname: string }>(
     `select indexname from pg_indexes where schemaname = current_schema()
       and indexname = any($1::text[]) order by indexname`,
-    [["orders_status_created_at_idx", "payment_events_order_id_idx", "download_entitlements_expires_at_idx", "download_access_tokens_order_id_idx", "download_access_tokens_expires_at_idx"]],
+    [["orders_status_created_at_idx", "payment_events_order_id_idx", "download_entitlements_expires_at_idx", "download_access_tokens_order_id_idx", "download_access_tokens_expires_at_idx", "download_delivery_events_order_id_requested_at_idx"]],
   );
   const products = await pool.query<{ slug: string; price: number; currency: string; status: string }>("select slug, price, currency, status from products order by slug");
-  console.log(JSON.stringify({ migration: "20261026_001", tables: tables.rows.map((row) => row.table_name), indexes: indexes.rows.map((row) => row.indexname), products: products.rows }));
+  console.log(JSON.stringify({ migration: "20261027_003", tables: tables.rows.map((row) => row.table_name), indexes: indexes.rows.map((row) => row.indexname), products: products.rows }));
 } catch (error) {
   await pool.query("rollback").catch(() => undefined);
   throw error;

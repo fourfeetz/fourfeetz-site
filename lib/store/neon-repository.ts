@@ -2,6 +2,7 @@ import "server-only";
 import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
 import type { DownloadEntitlement, Order, OrderRepository, PaymentEvent, PaymentStatus } from "@/lib/store/payment";
 import type { DownloadAccessRepository, DownloadAccessToken } from "@/lib/store/download-access";
+import type { DownloadAttempt, DownloadAuditRepository, DownloadServerResult } from "@/lib/store/download-audit";
 
 type DatabaseRow = Record<string, unknown>;
 
@@ -23,6 +24,8 @@ function toOrder(row: DatabaseRow): Order {
     currency: row.currency as Order["currency"],
     locale: row.locale === "ko" || row.locale === "en" ? row.locale : null,
     providerPaymentId: row.provider_payment_id ? String(row.provider_payment_id) : null,
+    refundPolicyVersion: row.refund_policy_version ? String(row.refund_policy_version) : null,
+    refundPolicyConsentedAt: row.refund_policy_consented_at ? new Date(String(row.refund_policy_consented_at)).toISOString() : null,
     createdAt: new Date(String(row.created_at)).toISOString(),
     updatedAt: new Date(String(row.updated_at)).toISOString(),
   };
@@ -33,7 +36,7 @@ function outcome(rows: unknown, fallback: "conflict"): string {
   return row?.outcome ? String(row.outcome) : fallback;
 }
 
-export class NeonOrderRepository implements OrderRepository, DownloadAccessRepository {
+export class NeonOrderRepository implements OrderRepository, DownloadAccessRepository, DownloadAuditRepository {
   async findOrder(orderNumber: string) {
     const rows = await database().query("select * from orders where order_number = $1 limit 1", [orderNumber]);
     return rows[0] ? toOrder(rows[0] as DatabaseRow) : null;
@@ -41,9 +44,9 @@ export class NeonOrderRepository implements OrderRepository, DownloadAccessRepos
 
   async createPending(order: Order) {
     await database().query(
-      `insert into orders (id, order_number, product_id, buyer_email, payment_provider, payment_status, provider_payment_id, amount, currency, locale, created_at, updated_at)
-       values ($1, $2, $3, $4, $5::payment_provider, 'PENDING', null, $6, $7, $8, $9, $9)`,
-      [order.id, order.orderNumber, order.productId, order.buyerEmail, order.provider, order.amount, order.currency, order.locale, order.createdAt],
+      `insert into orders (id, order_number, product_id, buyer_email, payment_provider, payment_status, provider_payment_id, amount, currency, locale, refund_policy_version, refund_policy_consented_at, created_at, updated_at)
+       values ($1, $2, $3, $4, $5::payment_provider, 'PENDING', null, $6, $7, $8, $9, $10, $11, $11)`,
+      [order.id, order.orderNumber, order.productId, order.buyerEmail, order.provider, order.amount, order.currency, order.locale, order.refundPolicyVersion, order.refundPolicyConsentedAt, order.createdAt],
     );
   }
 
@@ -163,5 +166,31 @@ export class NeonOrderRepository implements OrderRepository, DownloadAccessRepos
     const row = rows[0] as DatabaseRow | undefined;
     if (!row) return null;
     return { id: String(row.id), orderId: String(row.order_id), productId: String(row.product_id), locale: row.locale as DownloadAccessToken["locale"], tokenHash: String(row.token_hash), expiresAt: new Date(String(row.expires_at)).toISOString(), revokedAt: row.revoked_at ? new Date(String(row.revoked_at)).toISOString() : null, createdAt: new Date(String(row.created_at)).toISOString() };
+  }
+
+  async createDownloadAttempt(attempt: DownloadAttempt) {
+    await database().query(
+      `insert into download_delivery_events (id, order_id, product_id, locale, requested_at, authentication_succeeded, server_result, refund_policy_version, refund_policy_consented_at)
+       values ($1, $2, $3, $4, $5, true, 'AUTHORIZED', $6, $7)`,
+      [attempt.id, attempt.orderId, attempt.productId, attempt.locale, attempt.requestedAt, attempt.refundPolicyVersion, attempt.refundPolicyConsentedAt],
+    );
+  }
+
+  async updateDownloadAttempt(id: string, result: DownloadServerResult, transferStartedAt?: string) {
+    await database().query(
+      `update download_delivery_events
+       set server_result = $2, transfer_started_at = coalesce($3, transfer_started_at)
+       where id = $1`,
+      [id, result, transferStartedAt ?? null],
+    );
+  }
+
+  async recordDeniedDownloadAttempt(orderNumber: string, requestedAt: string) {
+    await database().query(
+      `insert into download_delivery_events (id, order_id, product_id, locale, requested_at, authentication_succeeded, server_result, refund_policy_version, refund_policy_consented_at)
+       select gen_random_uuid(), id, product_id, locale, $2, false, 'AUTHENTICATION_DENIED', refund_policy_version, refund_policy_consented_at
+       from orders where order_number = $1 and locale in ('ko', 'en')`,
+      [orderNumber, requestedAt],
+    );
   }
 }

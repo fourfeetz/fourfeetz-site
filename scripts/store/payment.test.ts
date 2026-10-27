@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { applyProviderTerminalStatus, authorizeDownload, confirmPayment, createPendingOrder, maskPaymentLog, processWebhook, StorePaymentError, type DownloadEntitlement, type Order, type OrderRepository, type PaymentEvent, type PaymentStatus, type ProductSnapshot } from "../../lib/store/payment.ts";
 import { canServeFreeDownload, getPaymentReadiness } from "../../lib/store/readiness.ts";
+import { STORE_REFUND_POLICY_VERSION } from "../../lib/store/refund-policy.ts";
 
 class MemoryRepository implements OrderRepository {
   orders = new Map<string, Order>(); events = new Set<string>(); entitlements = new Map<string, DownloadEntitlement>();
@@ -29,13 +30,17 @@ class MemoryRepository implements OrderRepository {
 
 const product: ProductSnapshot = { id: "product-starter", slug: "pet-video-starter-pack", price: 9900, currency: "KRW", checkoutEnabled: true };
 const now = new Date("2026-10-25T00:00:00.000Z");
-async function pending(repo = new MemoryRepository()) { return { repo, order: await createPendingOrder({ product, provider: "TOSS", buyerEmail: "Buyer@Example.com", locale: "ko" }, repo, now) }; }
+const consent = { refundPolicyAccepted: true, refundPolicyVersion: STORE_REFUND_POLICY_VERSION } as const;
+async function pending(repo = new MemoryRepository()) { return { repo, order: await createPendingOrder({ product, provider: "TOSS", buyerEmail: "Buyer@Example.com", locale: "ko", ...consent }, repo, now) }; }
 async function expectCode(action: () => Promise<unknown>, code: string) { await assert.rejects(action, (error: unknown) => error instanceof StorePaymentError && error.code === code); }
 
 test("normal confirmed payment marks the order paid and grants entitlement", async () => { const { repo, order } = await pending(); const result = await confirmPayment({ orderNumber: order.orderNumber, amount: 9900, currency: "KRW", providerPaymentId: "payment-1", providerEventId: "event-1", providerVerified: true }, repo, now); assert.equal(result.result, "paid"); assert.equal((await repo.findOrder(order.orderNumber))?.status, "PAID"); assert.ok(await repo.findEntitlement(order.orderNumber, product.id)); });
 test("order numbers contain non-sequential 96-bit entropy", async () => { const { order } = await pending(); assert.match(order.orderNumber, /^FF-20261025-[A-F0-9]{24}$/); });
-test("invalid buyer email is rejected before storage", async () => { await expectCode(() => createPendingOrder({ product, provider: "TOSS", buyerEmail: "not-an-email", locale: "ko" }, new MemoryRepository(), now), "INVALID_BUYER_EMAIL"); });
-test("database failure does not return a usable pending order", async () => { const repo = new MemoryRepository(); repo.createPending = async () => { throw new Error("database unavailable"); }; await assert.rejects(() => createPendingOrder({ product, provider: "TOSS", locale: "ko" }, repo, now), /database unavailable/); assert.equal(repo.orders.size, 0); });
+test("policy consent is stored with the server timestamp and current version", async () => { const { order } = await pending(); assert.equal(order.refundPolicyVersion, STORE_REFUND_POLICY_VERSION); assert.equal(order.refundPolicyConsentedAt, now.toISOString()); });
+test("missing policy consent is rejected before an order is stored", async () => { const repo = new MemoryRepository(); await expectCode(() => createPendingOrder({ product, provider: "TOSS", locale: "ko", refundPolicyAccepted: false, refundPolicyVersion: STORE_REFUND_POLICY_VERSION }, repo, now), "REFUND_POLICY_CONSENT_REQUIRED"); assert.equal(repo.orders.size, 0); });
+test("stale policy version is rejected before an order is stored", async () => { const repo = new MemoryRepository(); await expectCode(() => createPendingOrder({ product, provider: "TOSS", locale: "ko", refundPolicyAccepted: true, refundPolicyVersion: "obsolete" }, repo, now), "REFUND_POLICY_CONSENT_REQUIRED"); assert.equal(repo.orders.size, 0); });
+test("invalid buyer email is rejected before storage", async () => { await expectCode(() => createPendingOrder({ product, provider: "TOSS", buyerEmail: "not-an-email", locale: "ko", ...consent }, new MemoryRepository(), now), "INVALID_BUYER_EMAIL"); });
+test("database failure does not return a usable pending order", async () => { const repo = new MemoryRepository(); repo.createPending = async () => { throw new Error("database unavailable"); }; await assert.rejects(() => createPendingOrder({ product, provider: "TOSS", locale: "ko", ...consent }, repo, now), /database unavailable/); assert.equal(repo.orders.size, 0); });
 test("client amount mismatch is rejected before approval", async () => { const { repo, order } = await pending(); await expectCode(() => confirmPayment({ orderNumber: order.orderNumber, amount: 100, currency: "KRW", providerPaymentId: "payment-2", providerEventId: "event-2", providerVerified: true }, repo), "AMOUNT_MISMATCH"); });
 test("currency mismatch is rejected independently from amount", async () => { const { repo, order } = await pending(); await expectCode(() => confirmPayment({ orderNumber: order.orderNumber, amount: 9900, currency: "USD", providerPaymentId: "payment-currency", providerEventId: "event-currency", providerVerified: true }, repo), "CURRENCY_MISMATCH"); });
 test("a forged success redirect cannot approve payment", async () => { const { repo, order } = await pending(); await expectCode(() => confirmPayment({ orderNumber: order.orderNumber, amount: 9900, currency: "KRW", providerPaymentId: "payment-forged", providerEventId: "event-forged", providerVerified: false }, repo), "PROVIDER_VERIFICATION_REQUIRED"); assert.equal((await repo.findOrder(order.orderNumber))?.status, "PENDING"); });

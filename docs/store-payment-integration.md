@@ -71,10 +71,16 @@ The Pet Creator Pack has no mapping and remains unavailable until its file is re
 2. Upload the verified Korean and English PDFs in the Vercel Blob dashboard. Keep the returned Blob URLs private; record only each pathname.
 3. Set `STORE_PAID_PDF_KO_BLOB_PATH` and `STORE_PAID_PDF_EN_BLOB_PATH` to those pathnames for Preview only.
 4. The connected private store supplies `BLOB_STORE_ID` and short-lived Vercel OIDC credentials. For local-only testing, `BLOB_READ_WRITE_TOKEN` may be used instead and must never be committed.
-5. Run `npm run db:migrate:store` against the intended Preview Neon branch. The migration only adds `download_access_tokens` and its indexes; it does not rewrite existing orders.
+5. Run `npm run db:migrate:store` against the intended Preview Neon branch only after reviewing migration `20261027_003`. It adds nullable policy-consent fields to `orders` and a `download_delivery_events` audit table; it does not backfill or rewrite existing orders.
 6. Verify the migration a second time, then set `STORE_PAID_DOWNLOADS_ENABLED=true` for Preview only and redeploy.
 
 The enable flag must not be added to Production. Missing Blob credentials, missing file path mappings, an absent token table or any storage error leaves the purchase recorded but keeps the download button disabled or returns a generic failure.
+
+### Consent and delivery evidence
+
+New orders require the current refund-policy version and an unchecked buyer consent control before the server creates the order. The server records its own consent timestamp. Existing orders remain `NULL`; the migration never fabricates historical consent.
+
+For an authenticated download, the server records the internal order/product, locale, request time, policy version and consent timestamp. It separately records when a private Blob stream is ready and the HTTP response starts. This is evidence of server-side delivery commencement only: the application cannot prove that the browser fully saved or opened the PDF. Denied attempts are recorded only when the supplied order number maps to an existing internal order, and no raw token, Blob URL, payment key, or card data is stored.
 
 ### Buyer credential and reuse policy
 
