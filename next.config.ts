@@ -17,6 +17,8 @@ const nextConfig: NextConfig = {
       { source: "/studio", destination: "/about", statusCode: 301 },
       { source: "/works", destination: "/videos?type=long-form", statusCode: 301 },
       { source: "/youtube", destination: "/social", statusCode: 301 },
+      { source: "/en/store", destination: "/store", permanent: true },
+      { source: "/en/store/:path*", destination: "/store/:path*", permanent: true },
       { source: "/ko/films", destination: "/ko/videos?type=long-form", statusCode: 301 },
       { source: "/ko/works/:slug", destination: "/ko/films/:slug", permanent: true },
       { source: "/ko/shorts", destination: "/ko/videos?type=shorts", statusCode: 301 },
