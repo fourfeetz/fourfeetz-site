@@ -102,6 +102,9 @@ export const storeProductSlugs = storeProducts.map((product) => product.slug);
 export function getStoreProduct(slug: string) {
   return storeProducts.find((product) => product.slug === slug);
 }
+export function getStoreProductById(id: string) {
+  return storeProducts.find((product) => product.id === id);
+}
 export function formatStorePrice(priceKrw: number, language: StoreLanguage) {
   if (priceKrw === 0) return language === "ko" ? "무료" : "Free";
   return new Intl.NumberFormat(language === "ko" ? "ko-KR" : "en-US", {

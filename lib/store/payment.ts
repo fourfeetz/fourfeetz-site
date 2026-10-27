@@ -5,7 +5,7 @@ export type PaymentStatus = (typeof paymentStatuses)[number];
 export type PaymentProvider = "TOSS" | "PAYPAL" | "PAYHIP";
 
 export type ProductSnapshot = Readonly<{ id: string; slug: string; price: number; currency: "KRW" | "USD"; checkoutEnabled: boolean }>;
-export type Order = Readonly<{ id: string; orderNumber: string; productId: string; buyerEmail: string | null; provider: PaymentProvider; status: PaymentStatus; amount: number; currency: "KRW" | "USD"; providerPaymentId: string | null; createdAt: string; updatedAt: string }>;
+export type Order = Readonly<{ id: string; orderNumber: string; productId: string; buyerEmail: string | null; provider: PaymentProvider; status: PaymentStatus; amount: number; currency: "KRW" | "USD"; locale: "ko" | "en" | null; providerPaymentId: string | null; createdAt: string; updatedAt: string }>;
 export type PaymentEvent = Readonly<{ providerEventId: string; eventType: string; processedAt: string }>;
 export type DownloadEntitlement = Readonly<{ orderId: string; productId: string; expiresAt: string; revokedAt: string | null }>;
 
@@ -29,14 +29,14 @@ export class StorePaymentError extends Error {
   }
 }
 
-export async function createPendingOrder(input: { product: ProductSnapshot; buyerEmail?: string; provider: PaymentProvider }, repository: OrderRepository, now = new Date()) {
+export async function createPendingOrder(input: { product: ProductSnapshot; buyerEmail?: string; provider: PaymentProvider; locale: "ko" | "en" }, repository: OrderRepository, now = new Date()) {
   if (!input.product.checkoutEnabled) throw new StorePaymentError("PRODUCT_UNAVAILABLE", "Checkout is disabled for this product.");
   if (!Number.isInteger(input.product.price) || input.product.price <= 0) throw new StorePaymentError("INVALID_CATALOG_PRICE", "Paid product price must be a positive integer.");
   const buyerEmail = input.buyerEmail?.trim().toLowerCase() || null;
   if (buyerEmail && (buyerEmail.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail))) throw new StorePaymentError("INVALID_BUYER_EMAIL", "Buyer email is invalid.");
   const id = randomUUID();
   const orderEntropy = randomUUID().replaceAll("-", "").slice(0, 24).toUpperCase();
-  const order: Order = { id, orderNumber: `FF-${now.toISOString().slice(0, 10).replaceAll("-", "")}-${orderEntropy}`, productId: input.product.id, buyerEmail, provider: input.provider, status: "PENDING", amount: input.product.price, currency: input.product.currency, providerPaymentId: null, createdAt: now.toISOString(), updatedAt: now.toISOString() };
+  const order: Order = { id, orderNumber: `FF-${now.toISOString().slice(0, 10).replaceAll("-", "")}-${orderEntropy}`, productId: input.product.id, buyerEmail, provider: input.provider, status: "PENDING", amount: input.product.price, currency: input.product.currency, locale: input.locale, providerPaymentId: null, createdAt: now.toISOString(), updatedAt: now.toISOString() };
   await repository.createPending(order);
   return order;
 }

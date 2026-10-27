@@ -26,7 +26,7 @@ export async function POST(request: Request) {
   if (!product || body.provider !== "TOSS" || product.priceKrw <= 0) return storeApiResponse("PRODUCT_UNAVAILABLE", 409);
 
   try {
-    const order = await createPendingOrder({ product: { id: product.id, slug: product.slug, price: product.priceKrw, currency: "KRW", checkoutEnabled: true }, provider: "TOSS" }, new NeonOrderRepository());
+    const order = await createPendingOrder({ product: { id: product.id, slug: product.slug, price: product.priceKrw, currency: "KRW", checkoutEnabled: true }, provider: "TOSS", locale }, new NeonOrderRepository());
     return Response.json({ orderNumber: order.orderNumber, orderName: product.name[locale], amount: order.amount, currency: order.currency }, { status: 201, headers: { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" } });
   } catch {
     return storeApiResponse("CHECKOUT_UNAVAILABLE", 503, { "Retry-After": "60" });

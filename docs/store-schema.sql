@@ -34,9 +34,12 @@ create table if not exists orders (
   provider_payment_id text unique,
   amount integer not null check (amount > 0),
   currency char(3) not null check (currency in ('KRW', 'USD')),
+  locale char(2) check (locale in ('ko', 'en')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table orders add column if not exists locale char(2) check (locale in ('ko', 'en'));
 
 create table if not exists payment_events (
   id uuid primary key,
@@ -56,9 +59,22 @@ create table if not exists download_entitlements (
   unique (order_id, product_id)
 );
 
+create table if not exists download_access_tokens (
+  id uuid primary key,
+  order_id uuid not null references orders(id),
+  product_id uuid not null references products(id),
+  locale char(2) not null check (locale in ('ko', 'en')),
+  token_hash char(64) not null unique,
+  expires_at timestamptz not null,
+  revoked_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
 create index if not exists orders_status_created_at_idx on orders(payment_status, created_at desc);
 create index if not exists payment_events_order_id_idx on payment_events(order_id);
 create index if not exists download_entitlements_expires_at_idx on download_entitlements(expires_at) where revoked_at is null;
+create index if not exists download_access_tokens_order_id_idx on download_access_tokens(order_id);
+create index if not exists download_access_tokens_expires_at_idx on download_access_tokens(expires_at) where revoked_at is null;
 
 insert into products (id, slug, price, currency, status) values
   ('3f1ff879-9a8b-4d61-a78a-e47f2c330001', 'free-pet-video-prompt', 0, 'KRW', 'preparing'),
@@ -67,6 +83,9 @@ insert into products (id, slug, price, currency, status) values
 on conflict (id) do nothing;
 
 insert into store_schema_migrations (version) values ('20261026_001')
+on conflict (version) do nothing;
+
+insert into store_schema_migrations (version) values ('20261027_002')
 on conflict (version) do nothing;
 
 -- Use a dedicated least-privilege application role before production activation.
