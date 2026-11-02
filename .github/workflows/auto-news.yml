@@ -1,9 +1,6 @@
 name: FourFeetz Auto News
 
 on:
-  schedule:
-    # GitHub cron is UTC: 00:00/09:00 UTC = 09:00/18:00 KST.
-    - cron: "0 0,9 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
