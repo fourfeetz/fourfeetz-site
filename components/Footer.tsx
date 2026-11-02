@@ -70,7 +70,7 @@ export default function Footer() {
       <div className="mx-auto mt-10 max-w-7xl border-t border-[#e6d8c8] pt-6 text-sm text-[#9a8775]">
         {lang === "ko" ? (
           <p className="mb-2 leading-6">
-            포피츠(FourFeetz) · 대표 박민식 · 사업자등록번호 865-16-02920 · 이메일 fourfeetzstudio@gmail.com
+            포피츠(FourFeetz) · 대표 박민식 · 사업자등록번호 865-16-02920 · 사업장 주소 경상남도 김해시 생림면 마사로 181 · 고객센터 070-4284-3201 · 이메일 fourfeetzstudio@gmail.com
           </p>
         ) : null}
         © 2026 FourFeetz Studios. All rights reserved.
