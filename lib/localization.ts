@@ -71,6 +71,10 @@ export function toEnglishPath(pathname: string) {
   if (pathname === "/ko") return "/en";
   if (!pathname.startsWith("/ko/")) return pathname;
 
+  if (pathname === "/ko/shorts/cat-memorial-video") {
+    return "/services/pet-memorial-video";
+  }
+
   const segments = pathname.slice(4).split("/").filter(Boolean);
   const [section, ...rest] = segments;
 

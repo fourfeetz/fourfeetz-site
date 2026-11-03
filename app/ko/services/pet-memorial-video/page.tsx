@@ -54,6 +54,9 @@ const newVideoPosterSrc = "/images/services/pet-memorial-heavenly-steps-cover.jp
 const newStoryImageSrc = "/images/shorts/pet-memorial/heavenly-steps-story-frame.png";
 const newVideoSrc = "/videos/services/pet-memorial-heavenly-steps.mp4";
 const soundtrackSrc = "/audio/music/lingering-piano-notes.mp3";
+const catVideoPosterSrc = "/images/shorts/cat-memorial/cat-in-pink-flower-field.png";
+const catVideoSrc = "/videos/shorts/cat-memorial/cat-memorial-video.mp4";
+const catSoundtrackSrc = "/audio/music/fading-into-silence.mp3";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -322,7 +325,8 @@ export default function Page() {
       </section>
 
       <section className="border-y border-[#eee5dd] bg-white px-6 py-16 md:px-10 lg:px-14 lg:py-24">
-        <div className="mx-auto grid max-w-[1260px] gap-10 rounded-[30px] border border-[#e8ddd3] bg-[#fcf8f3] p-6 shadow-[0_12px_42px_rgba(91,65,43,.07)] md:p-10 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:items-center">
+        <div className="mx-auto max-w-[1260px] space-y-8">
+        <div className="grid gap-10 rounded-[30px] border border-[#e8ddd3] bg-[#fcf8f3] p-6 shadow-[0_12px_42px_rgba(91,65,43,.07)] md:p-10 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:items-center">
           <div className="mx-auto w-full max-w-[340px] overflow-hidden rounded-[24px] border border-white bg-black shadow-[0_18px_42px_rgba(91,65,43,.16)]">
             <SyncedVideoPlayer src={newVideoSrc} poster={newVideoPosterSrc} audioSrc={soundtrackSrc} label="새 추모영상 샘플 재생" className="aspect-[9/16] w-full object-cover" />
           </div>
@@ -348,6 +352,28 @@ export default function Page() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="grid gap-10 rounded-[30px] border border-[#e8ddd3] bg-[#f8f1e9] p-6 shadow-[0_12px_42px_rgba(91,65,43,.07)] md:p-10 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:items-center">
+          <div className="mx-auto w-full max-w-[340px] overflow-hidden rounded-[24px] border border-white bg-black shadow-[0_18px_42px_rgba(91,65,43,.16)]">
+            <video controls playsInline preload="metadata" poster={catVideoPosterSrc} aria-label="다시 만날 그날까지 고양이 추모영상" className="aspect-[9/16] w-full object-contain">
+              <source src={catVideoSrc} type="video/mp4" />
+              브라우저에서 영상을 재생할 수 없습니다.
+            </video>
+          </div>
+          <div>
+            <p className="text-sm font-bold tracking-[.2em] text-[#a17859]">NEW CAT MEMORIAL SHORT</p>
+            <h2 className="mt-4 font-serif text-4xl font-semibold tracking-[-0.035em] md:text-5xl">다시 만날 그날까지</h2>
+            <p className="mt-6 max-w-2xl text-lg leading-9 text-[#706963]">따뜻한 햇살과 꽃길 속에서 평화롭게 다시 만나는 순간을 담은 고양이 추모영상입니다.</p>
+            <Link href="/ko/shorts/cat-memorial-video" className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#805a3e] px-6 py-3 font-bold text-white transition hover:bg-[#6d4b34]">
+              고양이 추모영상 보기 <ChevronRight className="h-4 w-4" />
+            </Link>
+            <div className="mt-7 rounded-2xl border border-[#e7ddd3] bg-white/80 p-4">
+              <p className="text-xs font-bold tracking-[.16em] text-[#9a775b]">MEMORIAL SOUNDTRACK</p>
+              <p className="mt-2 font-serif text-xl font-semibold text-[#3b342e]">Fading into Silence</p>
+              <audio controls preload="metadata" aria-label="Fading into Silence 재생" className="mt-3 h-9 w-full"><source src={catSoundtrackSrc} type="audio/mpeg" />브라우저에서 음악을 재생할 수 없습니다.</audio>
+            </div>
+          </div>
+        </div>
         </div>
       </section>
 
