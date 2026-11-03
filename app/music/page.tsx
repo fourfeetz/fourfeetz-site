@@ -34,7 +34,7 @@ function SectionHeader({ eyebrow, title, desc }: { eyebrow: string; title: strin
 
 export default function Page() {
   const featuredTrack = musicTracks.find((track) => track.featured)!;
-  const originalTracks = musicTracks.filter((track) => !track.featured);
+  const originalTracks = musicTracks.filter((track) => !track.featured && !track.koreanOnly);
 
   return (
     <main>

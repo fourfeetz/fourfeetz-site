@@ -28,6 +28,7 @@ export type MusicTrack = {
   updatedAt?: string;
   schemaDuration?: string;
   publishStatus?: "published" | "draft";
+  koreanOnly?: boolean;
 };
 
 const haruCover = "/images/music/tracks/haru-theme.png";
@@ -57,6 +58,7 @@ export const musicTracks: MusicTrack[] = [
     publishedAt: "2026-11-03",
     updatedAt: "2026-11-03",
     publishStatus: "published",
+    koreanOnly: true,
   },
   {
     slug: "lingering-piano-notes",

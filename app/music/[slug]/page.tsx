@@ -12,12 +12,12 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return musicTracks.map((track) => ({ slug: track.slug }));
+  return musicTracks.filter((track) => !track.koreanOnly).map((track) => ({ slug: track.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const track = getMusicTrack((await params).slug);
-  if (!track) return {};
+  if (!track || track.koreanOnly) return {};
   const title = `${track.title} | FourFeetz Music`;
   return {
     title: { absolute: title },
@@ -34,9 +34,9 @@ function Heading({ eyebrow, title }: { eyebrow: string; title: string }) {
 
 export default async function Page({ params }: Props) {
   const track = getMusicTrack((await params).slug);
-  if (!track) notFound();
+  if (!track || track.koreanOnly) notFound();
 
-  const relatedMusic = musicTracks.filter((item) => item.slug !== track.slug).slice(0, 3);
+  const relatedMusic = musicTracks.filter((item) => item.slug !== track.slug && !item.koreanOnly).slice(0, 3);
   const relatedFilms = track.character ? films.filter((film) => film.character === track.character).slice(0, 3) : [];
   const schema = {
     "@context": "https://schema.org",

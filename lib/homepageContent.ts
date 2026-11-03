@@ -42,7 +42,7 @@ export const homepageContent: HomepageContentItem[] = [
     featured: item.featured,
     publishStatus: item.publishStatus,
   })),
-  ...musicTracks.map((item) => ({
+  ...musicTracks.filter((item) => !item.koreanOnly).map((item) => ({
     id: item.slug,
     title: item.title,
     description: item.description,

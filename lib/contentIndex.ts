@@ -102,7 +102,7 @@ const resourceContent: SiteContentItem[] = [
   })),
 ];
 
-const musicContent: SiteContentItem[] = musicTracks.map((track) => ({
+const musicContent: SiteContentItem[] = musicTracks.filter((track) => !track.koreanOnly).map((track) => ({
   title: track.title,
   description: track.description,
   href: `/music/${track.slug}`,

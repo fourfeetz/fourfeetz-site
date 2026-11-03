@@ -22,6 +22,7 @@ const copy = {
 
 export default function HaruMusicPlaylist({ language = "en" }: { language?: "en" | "ko" }) {
   const text = copy[language];
+  const playlistTracks = language === "ko" ? musicTracks : musicTracks.filter((track) => !track.koreanOnly);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -29,11 +30,11 @@ export default function HaruMusicPlaylist({ language = "en" }: { language?: "en"
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.75);
 
-  const currentTrack = currentIndex === null ? null : musicTracks[currentIndex];
+  const currentTrack = currentIndex === null ? null : playlistTracks[currentIndex];
 
   async function playTrack(index: number) {
     const audio = audioRef.current;
-    const track = musicTracks[index];
+    const track = playlistTracks[index];
     if (!audio || !track) return;
 
     document.querySelectorAll("audio").forEach((player) => {
@@ -89,7 +90,7 @@ export default function HaruMusicPlaylist({ language = "en" }: { language?: "en"
       await playTrack(0);
       return;
     }
-    if (currentIndex < musicTracks.length - 1) {
+    if (currentIndex < playlistTracks.length - 1) {
       await playTrack(currentIndex + 1);
     } else {
       audioRef.current?.pause();
@@ -116,7 +117,7 @@ export default function HaruMusicPlaylist({ language = "en" }: { language?: "en"
           <div>
             <p className="text-sm font-black tracking-[0.24em] text-[#a67c52]">{text.eyebrow}</p>
             <h2 id="music-playlist-title" className="mt-3 text-4xl font-black tracking-tight text-[#2b2119] md:text-5xl">{text.title}</h2>
-            <p className="mt-5 max-w-xl leading-8 text-[#76685d]">{text.description(musicTracks.length - 1)}</p>
+            <p className="mt-5 max-w-xl leading-8 text-[#76685d]">{text.description(playlistTracks.length - 1)}</p>
             {currentIndex === null ? (
               <button type="button" onClick={() => playTrack(0)} className="mt-7 inline-flex items-center gap-3 rounded-full bg-[#6f4e37] px-7 py-4 font-black text-white shadow-lg shadow-[#6f4e37]/20 transition hover:bg-[#573b29] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37] focus-visible:ring-offset-2">
                 <Play size={19} fill="currentColor" aria-hidden="true" />
@@ -139,7 +140,7 @@ export default function HaruMusicPlaylist({ language = "en" }: { language?: "en"
             <p className="text-xs font-black tracking-[0.22em] text-[#a67c52]">{text.nowPlaying}</p>
             <div className="mt-3 min-h-16" aria-live="polite">
               <h3 className="text-2xl font-black text-[#2b2119]">{currentTrack?.title ?? text.ready}</h3>
-              <p className="mt-1 text-sm font-semibold text-[#8a7767]">{currentTrack ? `${currentIndex! + 1} / ${musicTracks.length} · ${currentTrack.artist}` : text.startsWhenSelected}</p>
+              <p className="mt-1 text-sm font-semibold text-[#8a7767]">{currentTrack ? `${currentIndex! + 1} / ${playlistTracks.length} · ${currentTrack.artist}` : text.startsWhenSelected}</p>
             </div>
 
             <div className="mt-5 flex items-center justify-center gap-3">
