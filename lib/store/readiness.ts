@@ -1,5 +1,5 @@
 export type TossCheckoutMode = "test" | "live" | null;
-export type PaymentReadiness = Readonly<{ tossSandbox: boolean; tossLive: boolean; tossCheckout: boolean; tossMode: TossCheckoutMode; paypalSandbox: boolean; database: boolean; freePreviewDownload: boolean; paidDownload: boolean }>;
+export type PaymentReadiness = Readonly<{ tossSandbox: boolean; tossProductionReviewSandbox: boolean; tossLive: boolean; tossCheckout: boolean; tossMode: TossCheckoutMode; paypalSandbox: boolean; database: boolean; freePreviewDownload: boolean; paidDownload: boolean }>;
 
 type PaymentEnvironment = Readonly<Record<string, string | undefined>>;
 
@@ -28,11 +28,20 @@ export function getPaymentReadiness(env: PaymentEnvironment = process.env): Paym
     && database
     && blobCredentials
     && privatePaidAssets;
-  const tossSandbox = previewEnvironment
+  const tossPreviewSandbox = previewEnvironment
     && env.STORE_SANDBOX_ENABLED === "true"
     && env.TOSS_PAYMENTS_MODE === "test"
     && credentialsAllowMode(env, "test")
     && database;
+  const tossProductionReviewSandbox = productionEnvironment
+    && env.STORE_PRODUCTION_SANDBOX_REVIEW_ENABLED === "true"
+    && env.STORE_SANDBOX_ENABLED === "true"
+    && env.STORE_LIVE_PAYMENTS_ENABLED !== "true"
+    && env.TOSS_PAYMENTS_MODE === "test"
+    && credentialsAllowMode(env, "test")
+    && database
+    && paidDownload;
+  const tossSandbox = tossPreviewSandbox || tossProductionReviewSandbox;
   const tossLive = productionEnvironment
     && env.STORE_LIVE_PAYMENTS_ENABLED === "true"
     && env.TOSS_PAYMENTS_MODE === "live"
@@ -41,6 +50,7 @@ export function getPaymentReadiness(env: PaymentEnvironment = process.env): Paym
     && paidDownload;
   return {
     tossSandbox,
+    tossProductionReviewSandbox,
     tossLive,
     tossCheckout: tossSandbox || tossLive,
     tossMode: tossLive ? "live" : tossSandbox ? "test" : null,

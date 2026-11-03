@@ -1,6 +1,6 @@
 # Toss Payments sandbox checkout
 
-The Creator Store supports KRW card test payments through Toss Payments JavaScript SDK v2 in local development and Vercel Preview. Production never accepts these test credentials; it uses a separate explicit live-payment gate and live key pair.
+The Creator Store supports KRW card test payments through Toss Payments JavaScript SDK v2 in local development and Vercel Preview. Production normally rejects test credentials and uses a separate explicit live-payment gate and live key pair. During the temporary card-acquirer review period only, Production can reuse the Sandbox flow behind an isolated review gate.
 
 ## Required Preview variables
 
@@ -12,7 +12,7 @@ Configure these variables only for the Vercel `preview` environment:
 - `NEXT_PUBLIC_TOSS_CLIENT_KEY`: matching Toss test client key (`test_*`). This key is expected in the browser.
 - `TOSS_SECRET_KEY`: matching Toss test secret key (`test_*`). Keep it server-only and mark it sensitive.
 
-Do not add real values to source control. Do not configure these gates for Production.
+Do not add real values to source control. For temporary Production card review, require all of `STORE_PRODUCTION_SANDBOX_REVIEW_ENABLED=true`, `STORE_SANDBOX_ENABLED=true`, `TOSS_PAYMENTS_MODE=test`, and `STORE_LIVE_PAYMENTS_ENABLED=false`. Remove or set the review flag to `false` immediately after review; checkout fails closed without it.
 
 ## Data and payment flow
 
@@ -41,6 +41,6 @@ Paid approval creates a time-limited entitlement in `download_entitlements`, but
 6. Modify the `amount` query value and confirm that approval fails without marking the order paid.
 7. Cancel in the payment window and confirm that the localized failure page is shown.
 8. Request the download endpoint without payment and confirm HTTP 403.
-9. Confirm that Preview shows test-payment copy and that Production never accepts the Preview test keys.
+9. Confirm that Preview shows test-payment copy and that Production accepts test keys only while the isolated card-review gate is explicitly enabled and the Live gate is disabled.
 
 Run `npm run lint`, `npx tsc --noEmit`, `npm run test:store`, and `npm run build` before merging.
