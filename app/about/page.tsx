@@ -128,7 +128,7 @@ const latestFilms = [...films].reverse().slice(0, 2).map((film) => ({
   meta: film.category,
 }));
 
-const latestShorts = [...shorts].reverse().slice(0, 2).map((short) => ({
+const latestShorts = shorts.filter((short) => !short.koreanOnly).reverse().slice(0, 2).map((short) => ({
   title: short.title,
   description: short.description,
   href: `/shorts/${short.slug}`,

@@ -6,7 +6,7 @@ import SyncedVideoPlayer from "@/components/SyncedVideoPlayer";
 import { createVideoStructuredData } from "@/lib/videoStructuredData";
 
 export default function ShortDetailPage({ short }: { short: Short }) {
-  const relatedShorts = shorts.filter((item) => item.type === "episode");
+  const relatedShorts = shorts.filter((item) => !item.koreanOnly && item.type === "episode");
   const videoSchema = short.poster && short.uploadDate
     ? createVideoStructuredData({
         canonicalPath: `/shorts/${short.slug}`,

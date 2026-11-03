@@ -83,8 +83,8 @@ function ShortCard({ short }: { short: Short }) {
 }
 
 export default function ShortsPage() {
-  const episodes = shorts.filter((short) => short.type === "episode");
-  const verticalCuts = shorts.filter((short) => short.type === "vertical-cut");
+  const episodes = shorts.filter((short) => !short.koreanOnly && short.type === "episode");
+  const verticalCuts = shorts.filter((short) => !short.koreanOnly && short.type === "vertical-cut");
 
   return (
     <main>

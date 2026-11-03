@@ -34,7 +34,7 @@ const filmContent: SiteContentItem[] = films.map((film) => ({
   detail: true,
 }));
 
-const shortContent: SiteContentItem[] = shorts.map((short) => ({
+const shortContent: SiteContentItem[] = shorts.filter((short) => !short.koreanOnly).map((short) => ({
   title: short.title,
   description: short.description,
   href: `/shorts/${short.slug}`,

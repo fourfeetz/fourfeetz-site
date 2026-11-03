@@ -54,7 +54,7 @@ export default function VideosHub({ language, activeFilter }: VideosHubProps) {
       : undefined,
     publishedAt: film.publishedAt,
   })).sort(newestFirst);
-  const shortVideos: VideoCard[] = shorts.map((short) => ({
+  const shortVideos: VideoCard[] = shorts.filter((short) => isKorean || !short.koreanOnly).map((short) => ({
     id: `short-${short.slug}`,
     title: isKorean ? (koreanShortTitles[short.slug] ?? short.title) : short.title,
     description: isKorean ? koreanShortDescriptions[short.slug] : short.description,

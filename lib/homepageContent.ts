@@ -28,7 +28,7 @@ export type HomepageContentItem = {
 // domain file (data/shorts.ts or the matching lib/{films,music,insights,resourceDetails,characterDetails}.ts).
 // Homepage sections are derived from this registry; never add homepage-only cards.
 export const homepageContent: HomepageContentItem[] = [
-  ...shorts.map((item) => ({
+  ...shorts.filter((item) => !item.koreanOnly).map((item) => ({
     id: item.id,
     title: item.title,
     description: item.description,

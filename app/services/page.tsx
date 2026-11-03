@@ -158,7 +158,7 @@ const featuredWork = [
     href: `/works/${film.slug}`,
   })),
   ...shorts
-    .filter((short) => short.type === "episode" && short.poster)
+    .filter((short) => !short.koreanOnly && short.type === "episode" && short.poster)
     .slice(0, 3)
     .map((short) => ({
       title: short.title,

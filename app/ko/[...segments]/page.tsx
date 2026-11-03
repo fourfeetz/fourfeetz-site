@@ -70,7 +70,7 @@ export function generateStaticParams() {
   return [
     ...Object.keys(sectionMetadata).map((section) => ({ segments: [section] })),
     ...films.map((item) => ({ segments: ["films", item.slug] })),
-    ...shorts.map((item) => ({ segments: ["shorts", item.slug] })),
+    ...shorts.filter((item) => !item.koreanOnly).map((item) => ({ segments: ["shorts", item.slug] })),
     ...characterDetails.map((item) => ({ segments: ["characters", item.slug] })),
     ...musicTracks.map((item) => ({ segments: ["music", item.slug] })),
     { segments: ["insights", "guides"] },

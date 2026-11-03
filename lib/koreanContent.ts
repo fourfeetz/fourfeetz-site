@@ -7,6 +7,7 @@ export const koreanFilmDescriptions: Record<string, string> = {
 };
 
 export const koreanShortDescriptions: Record<string, string> = {
+  "cat-memorial-video": "따뜻한 햇살과 꽃길 속에서 평화롭게 다시 만나는 순간을 담은 고양이 추모영상입니다.",
   "heavenly-steps-together": "소중한 반려동물의 사진과 이야기를 바탕으로 제작한 FourFeetz 반려동물 추모영상 예시입니다. 강아지·고양이 추모영상과 무지개다리 메모리얼 영상을 맞춤 제작합니다.",
   "haru-luna-teddy-bear-chase": "HARU가 LUNA의 곰인형을 훔쳐 마당으로 달아납니다. LUNA가 추격 끝에 도약해 곰인형을 되찾고 달아나자, 이번에는 HARU가 뒤쫓는 유쾌한 역할 반전 추격전입니다.",
   "puppy-cat-playtime-chaos": "놀고 싶은 골든리트리버 강아지가 시큰둥한 고양이에게 계속 다가가면서 조용한 거실이 유쾌한 소동으로 바뀌는 코믹 쇼츠입니다.",
@@ -30,6 +31,7 @@ type KoreanCharacterLink = {
 };
 
 export const koreanShortTitles: Record<string, string> = {
+  "cat-memorial-video": "다시 만날 그날까지",
   "heavenly-steps-together": "무지개다리에서 다시 만난 두 아이",
   "haru-luna-teddy-bear-chase": "곰인형을 훔친 하루, 루나의 역습",
   "puppy-cat-playtime-chaos": "놀고 싶은 강아지, 단호한 고양이",
@@ -208,6 +210,7 @@ export const koreanCharacters: Record<string, KoreanCharacterContent> = {
 };
 
 export const koreanMusicDescriptions: Record<string, string> = {
+  "fading-into-silence": "고양이 추모영상 ‘다시 만날 그날까지’를 위해 제작된 따뜻하고 평화로운 피아노 사운드트랙입니다. 사랑했던 반려동물과의 추억, 위로와 다시 만날 날을 기다리는 마음을 담았습니다.",
   "lingering-piano-notes": "두 강아지가 구름 너머의 꽃길 계단을 함께 오르는 추모 쇼츠를 위해 제공된, 조용하고 따뜻한 피아노 선율입니다.",
   "moonlit-lake-part-1": "달빛 호수 영상에 사용된 두 곡 가운데 첫 번째 음악입니다. 완성 영상과 별도로 원곡을 들을 수 있습니다.",
   "moonlit-lake-part-2": "달빛 호수 영상에 사용된 두 곡 가운데 두 번째 음악입니다. 완성 영상과 별도로 원곡을 들을 수 있습니다.",

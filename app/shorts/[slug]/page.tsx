@@ -11,13 +11,13 @@ type ShortPageProps = {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return shorts.map((short) => ({ slug: short.slug }));
+  return shorts.filter((short) => !short.koreanOnly).map((short) => ({ slug: short.slug }));
 }
 
 export async function generateMetadata({ params }: ShortPageProps): Promise<Metadata> {
   const { slug } = await params;
   const short = getShort(slug);
-  if (!short) return {};
+  if (!short || short.koreanOnly) return {};
 
   const title = `${short.title} | FourFeetz`;
   const canonical = `https://fourfeetz.com/shorts/${short.slug}`;
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: ShortPageProps): Promise<Meta
 export default async function Page({ params }: ShortPageProps) {
   const { slug } = await params;
   const short = getShort(slug);
-  if (!short) notFound();
+  if (!short || short.koreanOnly) notFound();
 
   return <ShortDetailPage short={short} />;
 }

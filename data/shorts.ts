@@ -58,6 +58,7 @@ export type Short = {
   updatedAt?: string;
   featured?: boolean;
   publishStatus?: "published" | "draft";
+  koreanOnly?: boolean;
 };
 
 export const shorts: Short[] = [
@@ -468,6 +469,40 @@ export const shorts: Short[] = [
     publishedAt: "2026-07-17",
     uploadDate: "2026-07-17T20:57:58+09:00",
     publishStatus: "published",
+  },
+  {
+    id: "short-014",
+    slug: "cat-memorial-video",
+    type: "episode",
+    title: "Until We Meet Again",
+    description: "A peaceful cat memorial video shaped by warm sunlight, a flower-lined path, and the hope of meeting again.",
+    category: "Pet Memorial Short",
+    badge: "MEMORIAL FILM",
+    duration: "46.602 sec",
+    tools: [],
+    aspectRatio: "9:16",
+    spokenLanguage: "Korean",
+    koreanSpokenLanguage: "한국어",
+    moods: ["Warm", "Peaceful", "Reflective"],
+    koreanMoods: ["따뜻함", "평온함", "추억"],
+    productionNotes: [
+      { label: "Format", value: "A 46.602-second vertical cat memorial video presented in its original 9:16 composition." },
+      { label: "Visual Direction", value: "Warm sunlight and a flower-lined path create a peaceful remembrance shaped around the hope of meeting again." },
+    ],
+    koreanProductionNotes: [
+      { label: "형식", value: "원본 9:16 구성을 유지한 46.602초 세로형 고양이 추모영상입니다." },
+      { label: "시각 연출", value: "따뜻한 햇살과 꽃길을 따라 평화롭게 다시 만나는 순간을 표현했습니다." },
+    ],
+    video: "/videos/shorts/cat-memorial/cat-memorial-video.mp4",
+    soundtrack: "/audio/music/fading-into-silence.mp3",
+    poster: "/images/shorts/cat-memorial/cat-in-pink-flower-field.png",
+    music: { title: "Fading into Silence", href: "/music/fading-into-silence" },
+    publishedAt: "2026-11-03",
+    uploadDate: "2026-11-03T21:35:00+09:00",
+    updatedAt: "2026-11-03",
+    featured: false,
+    publishStatus: "published",
+    koreanOnly: true,
   },
 ];
 
