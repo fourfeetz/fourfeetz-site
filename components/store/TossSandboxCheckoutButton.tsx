@@ -13,7 +13,7 @@ type CreatedOrder = Readonly<{
   currency: "KRW";
 }>;
 
-export default function TossSandboxCheckoutButton({ productSlug, clientKey, label, checkoutBasePath, language }: { productSlug: string; clientKey: string; label: string; checkoutBasePath: string; language: StoreLanguage }) {
+export default function TossCheckoutButton({ productSlug, clientKey, label, checkoutBasePath, language }: { productSlug: string; clientKey: string; label: string; checkoutBasePath: string; language: StoreLanguage }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [policyAccepted, setPolicyAccepted] = useState(false);

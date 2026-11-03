@@ -1,6 +1,6 @@
 # Creator Store Preview payment integration
 
-This integration is intentionally limited to Vercel Preview and local development. Production checkout, confirmation, webhooks and paid downloads remain disabled.
+The integration separates environments strictly: Vercel Preview uses Toss test keys, while Production can use Toss live keys only when every live-payment and private-delivery requirement is configured. Missing or mixed credentials fail closed.
 
 ## Activation gates
 

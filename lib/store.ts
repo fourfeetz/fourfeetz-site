@@ -62,13 +62,13 @@ export const storeProducts: readonly StoreProduct[] = [
       label: { en: "Example of the type of pet video the guide discusses", ko: "가이드에서 다루는 반려동물 영상 유형 예시" },
     },
     includedFiles: [
-      { en: "Three general-purpose prompts (being prepared)", ko: "범용 프롬프트 3종 (준비 중)" },
-      { en: "PDF usage guide (being prepared)", ko: "PDF 사용 설명서 (준비 중)" },
-      { en: "Settings and troubleshooting guide (being prepared)", ko: "권장 설정 및 문제 해결 가이드 (준비 중)" },
+      { en: "Three general-purpose prompts", ko: "범용 프롬프트 3종" },
+      { en: "PDF usage guide", ko: "PDF 사용 설명서" },
+      { en: "Settings and troubleshooting guide", ko: "권장 설정 및 문제 해결 가이드" },
     ],
     supportedModels: [{ name: "AI video generators", verification: "not-verified" }],
     verifiedAt: null,
-    saleStatus: "preparing",
+    saleStatus: "available",
     level: { en: "Beginner · Intermediate", ko: "초급 · 중급" },
   },
   {

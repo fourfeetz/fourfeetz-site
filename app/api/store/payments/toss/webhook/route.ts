@@ -6,7 +6,7 @@ import { NeonOrderRepository } from "@/lib/store/neon-repository";
 import { getTossPayment } from "@/lib/store/toss";
 
 export async function POST(request: Request) {
-  if (!getPaymentReadiness().tossSandbox) return storeApiResponse("WEBHOOK_UNAVAILABLE", 503, { "Retry-After": "60" });
+  if (!getPaymentReadiness().tossCheckout) return storeApiResponse("WEBHOOK_UNAVAILABLE", 503, { "Retry-After": "60" });
   let body: Record<string, unknown>;
   try {
     body = await readBoundedJsonObject(request, 32 * 1024);

@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   }
 
   const readiness = getPaymentReadiness();
-  if (!readiness.tossSandbox) return storeApiResponse("PAYMENT_CONFIRMATION_UNAVAILABLE", 503, { "Retry-After": "60" });
+  if (!readiness.tossCheckout) return storeApiResponse("PAYMENT_CONFIRMATION_UNAVAILABLE", 503, { "Retry-After": "60" });
 
   let body: Record<string, unknown>;
   try {

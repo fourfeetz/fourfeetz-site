@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   }
 
   const readiness = getPaymentReadiness();
-  if (!readiness.database || !readiness.tossSandbox) return storeApiResponse("CHECKOUT_UNAVAILABLE", 503, { "Retry-After": "60" });
+  if (!readiness.database || !readiness.tossCheckout) return storeApiResponse("CHECKOUT_UNAVAILABLE", 503, { "Retry-After": "60" });
 
   let body: Record<string, unknown>;
   try {

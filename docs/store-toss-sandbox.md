@@ -1,6 +1,6 @@
 # Toss Payments sandbox checkout
 
-The Creator Store supports KRW card test payments through Toss Payments JavaScript SDK v2. The flow is intentionally limited to local development and Vercel Preview deployments. Production checkout and paid-file delivery remain disabled.
+The Creator Store supports KRW card test payments through Toss Payments JavaScript SDK v2 in local development and Vercel Preview. Production never accepts these test credentials; it uses a separate explicit live-payment gate and live key pair.
 
 ## Required Preview variables
 
@@ -41,6 +41,6 @@ Paid approval creates a time-limited entitlement in `download_entitlements`, but
 6. Modify the `amount` query value and confirm that approval fails without marking the order paid.
 7. Cancel in the payment window and confirm that the localized failure page is shown.
 8. Request the download endpoint without payment and confirm HTTP 403.
-9. Confirm that the same product pages on Production still show disabled checkout controls.
+9. Confirm that Preview shows test-payment copy and that Production never accepts the Preview test keys.
 
 Run `npm run lint`, `npx tsc --noEmit`, `npm run test:store`, and `npm run build` before merging.

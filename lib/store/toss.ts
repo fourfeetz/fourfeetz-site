@@ -1,4 +1,5 @@
 import "server-only";
+import { getPaymentReadiness } from "@/lib/store/readiness";
 
 const TOSS_API_BASE = "https://api.tosspayments.com/v1";
 
@@ -23,7 +24,8 @@ export class TossApiError extends Error {
 
 function authorizationHeader() {
   const secret = process.env.TOSS_SECRET_KEY;
-  if (process.env.TOSS_PAYMENTS_MODE !== "test" || !secret?.startsWith("test_")) throw new Error("TOSS_SANDBOX_UNAVAILABLE");
+  const readiness = getPaymentReadiness();
+  if (!secret || (!readiness.tossSandbox && !readiness.tossLive)) throw new Error("TOSS_PAYMENTS_UNAVAILABLE");
   return `Basic ${Buffer.from(`${secret}:`).toString("base64")}`;
 }
 

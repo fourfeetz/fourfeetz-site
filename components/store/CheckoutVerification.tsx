@@ -8,7 +8,7 @@ import { STORE_REFUND_POLICY_PATH } from "@/lib/store/refund-policy";
 type VerificationState = "verifying" | "paid" | "failed";
 type VerifiedPayment = Readonly<{ orderNumber: string; productName: string | null; amount: number; currency: "KRW"; downloadReady: boolean; downloadUrl: string | null; downloadExpiresAt: string | null }>;
 
-export default function CheckoutVerification({ language, paymentKey, orderId, amount }: { language: StoreLanguage; paymentKey: string | null; orderId: string | null; amount: number | null }) {
+export default function CheckoutVerification({ language, paymentKey, orderId, amount, sandbox }: { language: StoreLanguage; paymentKey: string | null; orderId: string | null; amount: number | null; sandbox: boolean }) {
   const ko = language === "ko";
   const prefix = ko ? "/ko" : "";
   const policyHref = STORE_REFUND_POLICY_PATH[language];
@@ -36,7 +36,7 @@ export default function CheckoutVerification({ language, paymentKey, orderId, am
   const content = state === "verifying"
     ? { title: ko ? "결제 승인 확인 중" : "Verifying payment", body: ko ? "창을 닫지 마세요. 토스페이먼츠 승인 결과와 저장된 주문을 확인하고 있습니다." : "Please keep this page open while the provider result and stored order are verified." }
     : state === "paid"
-      ? { title: ko ? "Sandbox 결제가 확인되었습니다" : "Sandbox payment verified", body: payment?.downloadReady ? (ko ? "구매 권한이 확인되었습니다. 아래 버튼에서 준비된 PDF를 다운로드할 수 있습니다." : "Your purchase entitlement was verified. Download the prepared PDF below.") : (ko ? "테스트 결제와 주문 기록이 확인되었습니다. PDF 파일 또는 비공개 저장소가 준비되면 다운로드 버튼이 활성화됩니다." : "The test payment and order record were verified. The download button will activate when the PDF and private storage are ready.") }
+      ? { title: sandbox ? (ko ? "Sandbox 결제가 확인되었습니다" : "Sandbox payment verified") : (ko ? "결제가 완료되었습니다" : "Payment completed"), body: payment?.downloadReady ? (ko ? "구매 권한이 확인되었습니다. 아래 버튼에서 준비된 PDF를 다운로드할 수 있습니다." : "Your purchase entitlement was verified. Download the prepared PDF below.") : (ko ? "결제와 주문 기록이 확인되었습니다. 다운로드 준비에 문제가 있으면 스토어 지원에 문의해 주세요." : "The payment and order were verified. Contact store support if the download is not ready.") }
       : { title: ko ? "결제를 확인하지 못했습니다" : "Payment could not be verified", body: ko ? "주문은 결제 완료로 처리되지 않았습니다. 잠시 후 성공 URL을 다시 열거나 스토어 문의를 이용해 주세요." : "The order was not marked paid. Retry this success URL shortly or contact store support." };
 
   const expiry = payment?.downloadExpiresAt ? new Intl.DateTimeFormat(ko ? "ko-KR" : "en-US", { dateStyle: "medium", timeStyle: "short" }).format(new Date(payment.downloadExpiresAt)) : null;
