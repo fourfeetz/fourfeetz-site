@@ -22,6 +22,45 @@ function credentialsAllowMode(env: PaymentEnvironment, mode: "test" | "live") {
     && secret?.mode === mode && secret.role === "secret";
 }
 
+export function getPaymentReadinessDiagnostics(env: PaymentEnvironment = process.env) {
+  const client = tossCredential(env.NEXT_PUBLIC_TOSS_CLIENT_KEY);
+  const secret = tossCredential(env.TOSS_SECRET_KEY);
+  const productionEnvironment = env.VERCEL_ENV === "production";
+  const livePaymentsEnabled = env.STORE_LIVE_PAYMENTS_ENABLED === "true";
+  const tossPaymentsModeLive = env.TOSS_PAYMENTS_MODE === "live";
+  const database = Boolean(env.DATABASE_URL);
+  const paidDownloadsEnabled = env.STORE_PAID_DOWNLOADS_ENABLED === "true";
+  const blobStoreIdPresent = Boolean(env.BLOB_STORE_ID);
+  const blobReadWriteTokenPresent = Boolean(env.BLOB_READ_WRITE_TOKEN);
+  const blobCredentials = blobStoreIdPresent || blobReadWriteTokenPresent;
+  const paidPdfKoPathPresent = Boolean(env.STORE_PAID_PDF_KO_BLOB_PATH);
+  const paidPdfEnPathPresent = Boolean(env.STORE_PAID_PDF_EN_BLOB_PATH);
+  const privatePaidAssets = paidPdfKoPathPresent && paidPdfEnPathPresent;
+  const readiness = getPaymentReadiness(env);
+  return {
+    productionEnvironment,
+    livePaymentsEnabled,
+    tossPaymentsModeLive,
+    clientKeyPresent: Boolean(env.NEXT_PUBLIC_TOSS_CLIENT_KEY),
+    clientKeyRecognizedAsLive: client?.mode === "live" && client.role === "client",
+    secretKeyPresent: Boolean(env.TOSS_SECRET_KEY),
+    secretKeyRecognizedAsLive: secret?.mode === "live" && secret.role === "secret",
+    credentialsAllowLive: credentialsAllowMode(env, "live"),
+    database,
+    paidDownloadsEnabled,
+    blobStoreIdPresent,
+    blobReadWriteTokenPresent,
+    blobCredentials,
+    paidPdfKoPathPresent,
+    paidPdfEnPathPresent,
+    privatePaidAssets,
+    paidDownload: readiness.paidDownload,
+    tossLive: readiness.tossLive,
+    tossCheckout: readiness.tossCheckout,
+    tossMode: readiness.tossMode,
+  } as const;
+}
+
 export function getPaymentReadiness(env: PaymentEnvironment = process.env): PaymentReadiness {
   const previewEnvironment = env.VERCEL_ENV === "preview" || (env.NODE_ENV === "development" && !env.VERCEL_ENV);
   const productionEnvironment = env.VERCEL_ENV === "production";
