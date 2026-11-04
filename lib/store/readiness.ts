@@ -61,7 +61,7 @@ export function getPaymentReadiness(env: PaymentEnvironment = process.env): Paym
     tossMode: tossLive ? "live" : tossSandbox ? "test" : null,
     paypalSandbox: false,
     database,
-    freePreviewDownload: env.VERCEL_ENV === "preview" || (env.NODE_ENV === "development" && env.ENABLE_FREE_PROMPT_PREVIEW === "true"),
+    freePreviewDownload: env.VERCEL_ENV === "production" || env.VERCEL_ENV === "preview" || (env.NODE_ENV === "development" && env.ENABLE_FREE_PROMPT_PREVIEW === "true"),
     paidDownload,
   };
 }
