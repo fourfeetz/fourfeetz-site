@@ -54,7 +54,7 @@ export const storeProducts: readonly StoreProduct[] = [
       en: "A beginner-to-intermediate pack designed around common pet-video scenes without including FourFeetz private character assets or internal workflows.",
       ko: "FourFeetz의 비공개 캐릭터 자료나 내부 워크플로를 포함하지 않고, 일반적인 반려동물 영상 장면을 중심으로 구성한 초급·중급 패키지입니다.",
     },
-    priceKrw: 9900,
+    priceKrw: 29000,
     image: "/images/store/pet-video-starter-pack.png",
     sampleVideo: {
       src: "/videos/shorts/cozy-retriever-kitten/cozy-retriever-kitten-sleep-short.mp4",
@@ -83,7 +83,7 @@ export const storeProducts: readonly StoreProduct[] = [
       en: "A broader creator pack planned for repeatable general pet-video projects. Contents and compatibility will be confirmed before release.",
       ko: "반복적인 범용 반려동물 영상 제작을 위한 확장 팩입니다. 구성과 호환성은 출시 전에 검증하여 안내합니다.",
     },
-    priceKrw: 19900,
+    priceKrw: 49000,
     image: "/images/store/pet-creator-pack.png",
     includedFiles: [
       { en: "Ten general-purpose prompts (planned)", ko: "범용 프롬프트 10종 (예정)" },
