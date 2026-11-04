@@ -38,7 +38,7 @@ export const storeProducts: readonly StoreProduct[] = [
     includedFiles: [{ en: "Bilingual PDF prompt guide", ko: "한국어 PDF 입문 가이드" }],
     supportedModels: [{ name: "AI video generators", verification: "not-verified" }],
     verifiedAt: null,
-    saleStatus: "preparing",
+    saleStatus: "available",
     level: { en: "Beginner", ko: "초급" },
     freeAsset: { filename: "free-pet-video-prompt-v1.pdf", mimeType: "application/pdf", version: "3.0" },
   },
