@@ -3,18 +3,23 @@ export type PaymentReadiness = Readonly<{ tossSandbox: boolean; tossProductionRe
 
 type PaymentEnvironment = Readonly<Record<string, string | undefined>>;
 
-function tossCredentialMode(value: string | undefined): "test" | "live" | "unknown" | null {
+type TossCredential = Readonly<{ mode: "test" | "live"; role: "client" | "secret" }>;
+
+function tossCredential(value: string | undefined): TossCredential | null {
   if (!value) return null;
-  const normalized = value.toLowerCase();
-  if (/^(test[_-]|(?:ck|sk|client|secret)[_-]test[_-])/.test(normalized)) return "test";
-  if (/^(live[_-]|(?:ck|sk|client|secret)[_-]live[_-])/.test(normalized)) return "live";
-  return "unknown";
+  const match = /^(test|live)_(g?ck|g?sk)_/i.exec(value);
+  if (!match) return null;
+  return {
+    mode: match[1].toLowerCase() as "test" | "live",
+    role: match[2].toLowerCase().endsWith("ck") ? "client" : "secret",
+  };
 }
 
 function credentialsAllowMode(env: PaymentEnvironment, mode: "test" | "live") {
-  const clientMode = tossCredentialMode(env.NEXT_PUBLIC_TOSS_CLIENT_KEY);
-  const secretMode = tossCredentialMode(env.TOSS_SECRET_KEY);
-  return Boolean(clientMode && secretMode && clientMode !== (mode === "test" ? "live" : "test") && secretMode !== (mode === "test" ? "live" : "test"));
+  const client = tossCredential(env.NEXT_PUBLIC_TOSS_CLIENT_KEY);
+  const secret = tossCredential(env.TOSS_SECRET_KEY);
+  return client?.mode === mode && client.role === "client"
+    && secret?.mode === mode && secret.role === "secret";
 }
 
 export function getPaymentReadiness(env: PaymentEnvironment = process.env): PaymentReadiness {

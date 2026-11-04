@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "npm run test:store",
     "test:store": "node --test --experimental-strip-types scripts/store/*.test.ts",
     "db:migrate:store": "node --experimental-strip-types scripts/store/migrate.ts",
     "db:preflight:store": "node --experimental-strip-types scripts/store/preflight.ts",
