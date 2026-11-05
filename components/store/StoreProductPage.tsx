@@ -10,7 +10,7 @@ export default function StoreProductPage({ product, language }: { product: Store
   const prefix = ko ? "/ko" : "";
   const readiness = getPaymentReadiness();
   const productionEnvironment = process.env.VERCEL_ENV === "production";
-  const freeDownloadEnabled = product.priceKrw === 0 && Boolean(product.freeAsset) && readiness.freePreviewDownload;
+  const freeDownloadEnabled = product.priceKrw === 0 && Boolean(product.freeAsset) && product.saleStatus === "available";
   const tossCheckoutEnabled = product.priceKrw > 0 && readiness.tossCheckout;
   const tossSandboxEnabled = tossCheckoutEnabled && readiness.tossSandbox;
   const tossProductionReviewSandbox = tossSandboxEnabled && readiness.tossProductionReviewSandbox;
