@@ -10,6 +10,7 @@ export type StoreProduct = Readonly<{
   shortDescription: LocalizedText;
   description: LocalizedText;
   priceKrw: number;
+  priceUsd: number;
   image: string;
   sampleVideo?: Readonly<{ src: string; poster: string; label: LocalizedText }>;
   includedFiles: readonly LocalizedText[];
@@ -34,6 +35,7 @@ export const storeProducts: readonly StoreProduct[] = [
       ko: "AI 반려동물 영상의 기본 개념부터 사진 선택, 프롬프트 입력, 생성·편집 순서와 완성 체크까지 익히는 한국어 입문 자료입니다.",
     },
     priceKrw: 0,
+    priceUsd: 0,
     image: "/images/store/digital-guides-hero.png",
     includedFiles: [{ en: "Bilingual PDF prompt guide", ko: "한국어 PDF 입문 가이드" }],
     supportedModels: [{ name: "AI video generators", verification: "not-verified" }],
@@ -55,6 +57,7 @@ export const storeProducts: readonly StoreProduct[] = [
       ko: "FourFeetz의 비공개 캐릭터 자료나 내부 워크플로를 포함하지 않고, 일반적인 반려동물 영상 장면을 중심으로 구성한 초급·중급 패키지입니다.",
     },
     priceKrw: 29000,
+    priceUsd: 19.99,
     image: "/images/store/pet-video-starter-pack.png",
     sampleVideo: {
       src: "/videos/shorts/cozy-retriever-kitten/cozy-retriever-kitten-sleep-short.mp4",
@@ -84,6 +87,7 @@ export const storeProducts: readonly StoreProduct[] = [
       ko: "반복적인 범용 반려동물 영상 제작을 위한 확장 팩입니다. 구성과 호환성은 출시 전에 검증하여 안내합니다.",
     },
     priceKrw: 49000,
+    priceUsd: 34.99,
     image: "/images/store/pet-creator-pack.png",
     includedFiles: [
       { en: "Ten general-purpose prompts (planned)", ko: "범용 프롬프트 10종 (예정)" },
@@ -105,12 +109,11 @@ export function getStoreProduct(slug: string) {
 export function getStoreProductById(id: string) {
   return storeProducts.find((product) => product.id === id);
 }
-export function formatStorePrice(priceKrw: number, language: StoreLanguage) {
+export function formatStorePrice(priceKrw: number, language: StoreLanguage, priceUsd?: number) {
   if (priceKrw === 0) return language === "ko" ? "무료" : "Free";
-  return new Intl.NumberFormat(language === "ko" ? "ko-KR" : "en-US", {
-    style: "currency",
-    currency: "KRW",
-    maximumFractionDigits: 0,
-  }).format(priceKrw);
+  if (language === "en" && typeof priceUsd === "number") {
+    return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(priceUsd);
+  }
+  return new Intl.NumberFormat("ko-KR", { style: "currency", currency: "KRW", maximumFractionDigits: 0 }).format(priceKrw);
 }
 
