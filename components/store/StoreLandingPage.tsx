@@ -46,10 +46,9 @@ export default function StoreLandingPage({ language }: { language: StoreLanguage
 
   const heroIcons = [Lightbulb, PenLine, Play, Sparkles];
   const guideIcons = [FileText, Play, Settings, ListChecks];
-  const guideEditions = [
-    { badge: copy.koBadge, title: copy.koGuide, description: copy.koDescription, lang: "KO" },
-    { badge: copy.enBadge, title: copy.enGuide, description: copy.enDescription, lang: "EN" },
-  ];
+  const guideEditions = ko
+    ? [{ badge: copy.koBadge, title: copy.koGuide, description: copy.koDescription, lang: "KO" }]
+    : [{ badge: copy.enBadge, title: copy.enGuide, description: copy.enDescription, lang: "EN" }];
 
   return <main className="overflow-hidden bg-[#fbf7f0] text-[#0c2259]">
     <section className="relative isolate overflow-hidden border-b border-[#eadfce] bg-[linear-gradient(145deg,#fffaf4,#f2e8dc)] sm:min-h-[620px]">
