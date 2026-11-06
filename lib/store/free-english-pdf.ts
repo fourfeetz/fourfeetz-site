@@ -9,11 +9,29 @@ const pages = [
 ];
 
 function esc(s: string) { return s.replaceAll("\\","\\\\").replaceAll("(","\\(").replaceAll(")","\\)"); }
-export function createEnglishFreeGuidePdf() {
+function jpegSize(data: Buffer) {
+  let i = 2;
+  while (i + 9 < data.length) {
+    if (data[i] !== 0xff) { i++; continue; }
+    const marker = data[i + 1];
+    if (marker === 0xd8 || marker === 0xd9) { i += 2; continue; }
+    const len = data.readUInt16BE(i + 2);
+    if ([0xc0,0xc1,0xc2,0xc3,0xc5,0xc6,0xc7,0xc9,0xca,0xcb,0xcd,0xce,0xcf].includes(marker)) {
+      return { height: data.readUInt16BE(i + 5), width: data.readUInt16BE(i + 7) };
+    }
+    i += 2 + len;
+  }
+  throw new Error("Unsupported JPEG");
+}
+export async function createEnglishFreeGuidePdf() {
+  const { readFile } = await import("node:fs/promises");
+  const path = await import("node:path");
+  const coverImage = await readFile(path.join(process.cwd(), "public", "images", "shorts", "dog-and-cat", "dog-and-cat-0907-eng-poster.jpg"));
+  const imageSize = jpegSize(coverImage);
   const objects: string[] = [];
   const add=(s:string)=>{objects.push(s); return objects.length;};
   const font=add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>");
-  const bold=add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>");
+  const bold=add("<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>");\n  const image=add(`<< /Type /XObject /Subtype /Image /Width ${imageSize.width} /Height ${imageSize.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${coverImage.byteLength} >>\\nstream\\n${coverImage.toString("binary")}\\nendstream`);
   const pageRefs:number[]=[];
   const streamRefs:number[]=[];
   for (const lines of pages) {
@@ -34,7 +52,7 @@ export function createEnglishFreeGuidePdf() {
     pageRefs.push(0);
   }
   const pagesObjIndex=objects.length+1+pages.length;
-  for(let i=0;i<pages.length;i++){ pageRefs[i]=add(`<< /Type /Page /Parent ${pagesObjIndex} 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 ${font} 0 R /F2 ${bold} 0 R >> >> /Contents ${streamRefs[i]} 0 R >>`); }
+  for(let i=0;i<pages.length;i++){ pageRefs[i]=add(`<< /Type /Page /Parent ${pagesObjIndex} 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 ${font} 0 R /F2 ${bold} 0 R >> /XObject << /Im1 ${image} 0 R >> >> /Contents ${streamRefs[i]} 0 R >>`); }
   const pagesObj=add(`<< /Type /Pages /Kids [${pageRefs.map(r=>r+" 0 R").join(" ")}] /Count ${pageRefs.length} >>`);
   const catalog=add(`<< /Type /Catalog /Pages ${pagesObj} 0 R >>`);
   let pdf="%PDF-1.4\n"; const offsets=[0];
