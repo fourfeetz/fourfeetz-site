@@ -25,19 +25,19 @@ export const storeProducts: readonly StoreProduct[] = [
   {
     id: "3f1ff879-9a8b-4d61-a78a-e47f2c330001",
     slug: "free-pet-video-prompt",
-    name: { en: "Free Pet Video Prompt", ko: "무료 반려동물 AI 영상 입문 가이드" },
+    name: { en: "AI Pet Video Starter Guide", ko: "무료 반려동물 AI 영상 입문 가이드" },
     shortDescription: {
-      en: "One beginner-friendly prompt for creating a warm pet video.",
+      en: "A free beginner guide with a ready-to-use prompt, production steps and a final checklist.",
       ko: "첫 영상을 위한 기본 프롬프트, 단계별 제작 순서와 체크리스트를 담은 무료 입문 가이드입니다.",
     },
     description: {
-      en: "A simple starting point for learning how a scene, action and mood can be described for an AI video tool.",
+      en: "Learn the essentials of AI pet-video creation, from choosing a photo and writing a prompt to generation, editing and final review.",
       ko: "AI 반려동물 영상의 기본 개념부터 사진 선택, 프롬프트 입력, 생성·편집 순서와 완성 체크까지 익히는 한국어 입문 자료입니다.",
     },
     priceKrw: 0,
     priceUsd: 0,
     image: "/images/store/digital-guides-hero.png",
-    includedFiles: [{ en: "Bilingual PDF prompt guide", ko: "한국어 PDF 입문 가이드" }],
+    includedFiles: [{ en: "English PDF starter guide", ko: "한국어 PDF 입문 가이드" }],
     supportedModels: [{ name: "AI video generators", verification: "not-verified" }],
     verifiedAt: null,
     saleStatus: "available",

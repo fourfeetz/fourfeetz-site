@@ -51,13 +51,14 @@ export default function StoreLandingPage({ language }: { language: StoreLanguage
     : [{ badge: copy.enBadge, title: copy.enGuide, description: copy.enDescription, lang: "EN" }];
 
   return <main className="overflow-hidden bg-[#fbf7f0] text-[#0c2259]">
-    <section className="relative isolate overflow-hidden border-b border-[#eadfce] bg-[linear-gradient(145deg,#fffaf4,#f2e8dc)] sm:min-h-[620px]">
-      <Image src="/images/store/digital-guides-hero.png" alt="" width={2172} height={724} priority sizes="100vw" className="h-auto w-full sm:absolute sm:inset-0 sm:-z-20 sm:h-full sm:object-cover sm:object-[62%_center]" />
-      <div className="absolute inset-0 -z-10 hidden bg-[linear-gradient(90deg,rgba(255,250,244,0.98)_0%,rgba(255,250,244,0.94)_30%,rgba(255,250,244,0.3)_58%,rgba(255,250,244,0)_78%)] sm:block" />
-      <div className="mx-auto flex max-w-7xl items-center px-6 py-12 sm:min-h-[620px] sm:py-16 lg:px-8"><div className="max-w-2xl pt-4">
-        <p className="text-sm font-black tracking-[0.24em] text-[#313f91]">{copy.eyebrow}</p><h1 className="mt-3 text-6xl font-black leading-[0.94] tracking-[-0.055em] text-[#0b2769] sm:text-7xl lg:text-[88px]">{copy.title}</h1><p className="mt-5 break-keep text-xl font-extrabold text-[#132e75] sm:text-2xl">{copy.subtitle}</p><p className="mt-5 max-w-lg break-keep text-base font-medium leading-7 text-[#445b8d] sm:text-lg">{copy.description}</p>
-        <ul className="mt-8 grid max-w-2xl grid-cols-2 gap-x-4 gap-y-5 sm:flex sm:flex-wrap">{copy.heroFeatures.map((feature, index) => { const Icon = heroIcons[index]; return <li key={feature} className="flex break-keep items-center gap-3 text-sm font-extrabold text-[#233c74]"><span className="grid size-11 shrink-0 place-items-center rounded-full border border-[#dcd9ff] bg-white/90 text-[#704cff] shadow-sm"><Icon size={20} strokeWidth={2.4} /></span>{feature}</li>; })}</ul>
-      </div></div>
+    <section className="border-b border-[#eadfce] bg-[linear-gradient(145deg,#fffaf4,#f2e8dc)]">
+      <div className="mx-auto grid max-w-7xl overflow-hidden sm:min-h-[340px] sm:grid-cols-[1.08fr_0.92fr] lg:min-h-[320px] lg:px-8">
+        <div className="flex items-center px-6 py-10 sm:px-8 sm:py-8 lg:px-0 lg:pr-12"><div className="max-w-2xl">
+          <p className="text-xs font-black tracking-[0.24em] text-[#313f91] sm:text-sm">{copy.eyebrow}</p><h1 className="mt-2 text-5xl font-black leading-none tracking-[-0.05em] text-[#0b2769] sm:text-5xl lg:text-6xl">{copy.title}</h1><p className="mt-4 break-keep text-lg font-extrabold text-[#132e75] sm:text-xl">{copy.subtitle}</p><p className="mt-3 max-w-xl break-keep text-sm font-medium leading-6 text-[#445b8d] sm:text-base">{copy.description}</p>
+          <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3 sm:flex sm:flex-wrap">{copy.heroFeatures.map((feature, index) => { const Icon = heroIcons[index]; return <li key={feature} className="flex break-keep items-center gap-2 text-xs font-extrabold text-[#233c74] sm:text-sm"><span className="grid size-9 shrink-0 place-items-center rounded-full border border-[#dcd9ff] bg-white/90 text-[#704cff] shadow-sm"><Icon size={17} strokeWidth={2.4} /></span>{feature}</li>; })}</ul>
+        </div></div>
+        <div className="relative min-h-[230px] overflow-hidden sm:min-h-full sm:rounded-l-[44px]"><Image src="/images/works/calming-fireplace-rain-puppy-kitten/puppy-kitten-fireplace-rain-first-shot.png" alt={ko ? "따뜻한 실내에 앉아 있는 골든리트리버 강아지" : "A golden retriever puppy in a warm indoor setting"} fill priority sizes="(min-width: 640px) 46vw, 100vw" className="object-cover object-[42%_center]" /><div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(242,232,220,0.24),transparent_28%)]" /></div>
+      </div>
     </section>
 
     <section className="relative px-5 py-20 sm:px-6 lg:px-8"><div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(circle_at_top,#f2e8dc_0,transparent_68%)]" /><div className="relative mx-auto max-w-7xl">
