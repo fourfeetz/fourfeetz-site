@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import PageHero from "@/components/PageHero";
-import { characterDetails } from "@/lib/characterDetails";
+import { indexableCharacterDetails } from "@/lib/characterDetails";
 
 export default function Page() {
   return (
@@ -26,7 +26,7 @@ export default function Page() {
 
       <section className="px-6 pb-20">
         <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {characterDetails.map((character) => {
+          {indexableCharacterDetails.map((character) => {
             const portrait = character.gallery[0]?.image;
             return (
               <Link

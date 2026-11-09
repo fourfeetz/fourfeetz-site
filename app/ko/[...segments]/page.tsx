@@ -20,7 +20,7 @@ import {
   KoreanShortsPage,
 } from "@/components/korean/KoreanPages";
 import { shorts } from "@/data/shorts";
-import { characterDetails } from "@/lib/characterDetails";
+import { characterDetails, indexableCharacterDetails } from "@/lib/characterDetails";
 import { films, getFilm } from "@/lib/films";
 import { localizeInsightArticle } from "@/lib/insightLocalization";
 import { getPublishedInsightArticles } from "@/lib/insights";
@@ -71,7 +71,7 @@ export function generateStaticParams() {
     ...Object.keys(sectionMetadata).map((section) => ({ segments: [section] })),
     ...films.map((item) => ({ segments: ["films", item.slug] })),
     ...shorts.filter((item) => !item.koreanOnly).map((item) => ({ segments: ["shorts", item.slug] })),
-    ...characterDetails.map((item) => ({ segments: ["characters", item.slug] })),
+    ...indexableCharacterDetails.map((item) => ({ segments: ["characters", item.slug] })),
     ...musicTracks.map((item) => ({ segments: ["music", item.slug] })),
     { segments: ["insights", "guides"] },
     { segments: ["insights", "news"] },

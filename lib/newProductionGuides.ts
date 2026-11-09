@@ -1198,8 +1198,8 @@ const productionExampleLinks: Partial<
     ko: [{ label: "실제 제작 영상", title: "HARU — Snowy Hearth Nap", href: "/works/haru-snowy-hearth-nap" }],
   },
   "common-ai-video-generation-failures": {
-    en: [{ label: "Character Example", title: "Meet OLI", href: "/characters/oli" }],
-    ko: [{ label: "캐릭터 사례", title: "OLI 캐릭터 보기", href: "/characters/oli" }],
+    en: [{ label: "Character Library", title: "Explore FourFeetz Characters", href: "/characters" }],
+    ko: [{ label: "캐릭터 라이브러리", title: "FourFeetz 캐릭터 보기", href: "/ko/characters" }],
   },
   "create-ai-shorts-9-16-from-start": {
     en: [{ label: "Character Example", title: "Meet HARU", href: "/characters/haru" }],

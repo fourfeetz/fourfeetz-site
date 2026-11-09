@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
       { source: "/ai-studio", destination: "/about", statusCode: 301 },
       { source: "/animals", destination: "/characters", statusCode: 301 },
       { source: "/animals/haru", destination: "/characters/haru", statusCode: 301 },
+      { source: "/characters/oli", destination: "/characters/ruru", permanent: true },
+      { source: "/ko/characters/oli", destination: "/ko/characters/ruru", permanent: true },
       { source: "/blog", destination: "/insights", statusCode: 301 },
       { source: "/camping", destination: "/videos?type=long-form", statusCode: 301 },
       { source: "/films", destination: "/videos?type=long-form", statusCode: 301 },

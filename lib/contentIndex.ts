@@ -1,5 +1,5 @@
 import { shorts } from "@/data/shorts";
-import { characterDetails } from "@/lib/characterDetails";
+import { indexableCharacterDetails } from "@/lib/characterDetails";
 import { films } from "@/lib/films";
 import { insightArticles } from "@/lib/insights";
 import { musicTracks } from "@/lib/music";
@@ -47,7 +47,7 @@ const shortContent: SiteContentItem[] = shorts.filter((short) => !short.koreanOn
   detail: false,
 }));
 
-const characterContent: SiteContentItem[] = characterDetails.map((character) => ({
+const characterContent: SiteContentItem[] = indexableCharacterDetails.map((character) => ({
   title: character.name,
   description: `${character.species} — ${character.tagline}`,
   href: `/characters/${character.slug}`,

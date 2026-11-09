@@ -1,5 +1,5 @@
 import { shorts } from "@/data/shorts";
-import { characterDetails } from "@/lib/characterDetails";
+import { indexableCharacterDetails } from "@/lib/characterDetails";
 import { films } from "@/lib/films";
 import { insightArticles } from "@/lib/insights";
 import { musicTracks } from "@/lib/music";
@@ -97,7 +97,7 @@ export const homepageContent: HomepageContentItem[] = [
     featured: item.featured,
     publishStatus: item.publishStatus,
   })),
-  ...characterDetails.map((item) => ({
+  ...indexableCharacterDetails.map((item) => ({
     id: item.slug,
     title: item.name,
     description: item.tagline,

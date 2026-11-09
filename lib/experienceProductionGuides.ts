@@ -351,7 +351,7 @@ export const experienceProductionGuides: Record<
         { question: "Should every swimming shot use a fixed camera?", answer: "No, but a fixed camera is a useful baseline when anatomy and character consistency are the highest production risks." },
       ],
       related: [
-        { label: "Related Character", title: "Meet OLI", href: "/characters/oli" },
+        { label: "Character Library", title: "Explore FourFeetz Characters", href: "/characters" },
         { label: "Related Guide", title: "Common AI Video Generation Failures", href: "/insights/common-ai-video-generation-failures" },
         { label: "Related Guide", title: "Reduce Character Inconsistency", href: "/insights/reduce-character-inconsistency-ai-video" },
         { label: "All Characters", title: "Explore FourFeetz Characters", href: "/characters" },
@@ -460,7 +460,7 @@ export const experienceProductionGuides: Record<
         { question: "수영 장면은 항상 카메라를 고정해야 하나요?", answer: "항상 그렇지는 않지만 신체 구조와 정체성이 가장 큰 위험일 때 고정 카메라가 유용한 기준이 됩니다." },
       ],
       related: [
-        { label: "관련 캐릭터", title: "OLI 캐릭터 보기", href: "/ko/characters/oli" },
+        { label: "캐릭터 라이브러리", title: "FourFeetz 캐릭터 보기", href: "/ko/characters" },
         { label: "관련 가이드", title: "AI 영상 생성 실패 사례", href: "/ko/insights/common-ai-video-generation-failures" },
         { label: "관련 가이드", title: "캐릭터 일관성 문제 줄이기", href: "/ko/insights/reduce-character-inconsistency-ai-video" },
         { label: "캐릭터 전체", title: "FourFeetz 캐릭터 둘러보기", href: "/ko/characters" },

@@ -3,7 +3,7 @@ import Link from "next/link";
 import MusicPlayer from "@/app/music/MusicPlayer";
 import { shorts } from "@/data/shorts";
 import type { CharacterDetail } from "@/lib/characterDetails";
-import { characterDetails } from "@/lib/characterDetails";
+import { indexableCharacterDetails } from "@/lib/characterDetails";
 import { getProductionRecordInsights } from "@/lib/insights";
 import { musicTracks } from "@/lib/music";
 
@@ -12,7 +12,7 @@ function Heading({ eyebrow, title }: { eyebrow: string; title: string }) {
 }
 
 export default function CharacterDetailPage({ character }: { character: CharacterDetail }) {
-  const related = characterDetails.filter((item) => item.slug !== character.slug).slice(0, 3);
+  const related = indexableCharacterDetails.filter((item) => item.slug !== character.slug).slice(0, 3);
   const featuredMusic = musicTracks.filter((track) => track.character === character.name && track.featured);
   const featuredShorts = shorts.filter((short) => short.characters?.includes(character.name)).slice(0, 4);
   const productionRecords = getProductionRecordInsights().filter((article) => article.characters?.includes(character.name));

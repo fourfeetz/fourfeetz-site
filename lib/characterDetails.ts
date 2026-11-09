@@ -77,6 +77,11 @@ export const characterDetails: CharacterDetail[] = characterBase.map((character)
   ] as CharacterStudy[],
 }));
 
+// OLI is retained in the content model so historical shorts and production
+// records can keep their original subject. Its former profile URL redirects to
+// RURU and must not be advertised as a current, indexable character page.
+export const indexableCharacterDetails = characterDetails.filter((character) => character.slug !== "oli");
+
 export function getCharacter(slug: string) {
   return characterDetails.find((character) => character.slug === slug);
 }
