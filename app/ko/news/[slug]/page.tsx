@@ -59,7 +59,6 @@ export default async function NewsArticlePage({ params }: Props) {
           <p className="mt-6 text-xl leading-9 text-[#76685d]">{article.description}</p>
           <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#8a7868]">
             <time dateTime={article.publishedAt}>발행 {new Intl.DateTimeFormat("ko-KR", { dateStyle: "long" }).format(new Date(article.publishedAt))}</time>
-            <span>품질 검증 {article.quality.total}/100</span>
           </div>
         </header>
 

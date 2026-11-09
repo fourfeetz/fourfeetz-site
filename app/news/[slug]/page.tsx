@@ -37,7 +37,7 @@ export default async function EnglishNewsDetail({ params }: Props) {
           <p className="text-sm font-black uppercase tracking-widest text-[#a67c52]">{translated.category}</p>
           <h1 className="mt-4 text-4xl font-black text-[#2b2119] md:text-6xl">{translated.title}</h1>
           <p className="mt-6 text-xl leading-9 text-[#76685d]">{translated.description}</p>
-          <p className="mt-6 text-sm text-[#8a7868]">Published {new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(new Date(article.publishedAt))} · Original article quality: {article.quality.total}/100</p>
+          <p className="mt-6 text-sm text-[#8a7868]">Published {new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(new Date(article.publishedAt))}</p>
         </header>
         <div className="space-y-12 py-10">{translated.sections.map((section, i) =>
           <section key={i}><h2 className="text-3xl font-black text-[#2b2119]">{section.heading}</h2>
