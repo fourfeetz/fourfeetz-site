@@ -42,6 +42,6 @@ export default function PayPalReturn({ token, sandbox }: { token: string | null;
       : token ? <button type="button" disabled={pending} onClick={confirm} className="rounded-full bg-[#6f4e37] px-7 py-3.5 font-black text-white disabled:opacity-50">{pending ? "Verifying…" : sandbox ? "Complete test payment" : "Complete payment"}</button>
         : <p>This checkout is unavailable.</p>}
     {error && <p role="alert">The payment or download could not be verified. Retry here before starting another order.</p>}
-    <p><Link href="/store/pet-video-starter-pack" className="underline">Back to product</Link></p>
+    <p><Link href="/store" className="underline">Back to store</Link></p>
   </main>;
 }

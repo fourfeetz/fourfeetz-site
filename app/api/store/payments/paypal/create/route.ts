@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     return storeRequestErrorResponse(error);
   }
 
-  const product = body.productSlug === "pet-video-starter-pack" ? getStoreProduct(body.productSlug) : null;
+  const product = typeof body.productSlug === "string" ? getStoreProduct(body.productSlug) : null;
   if (!product || !getPaidAsset(product.id, "en")) return storeApiResponse("PRODUCT_UNAVAILABLE", 409);
   if (body.refundPolicyAccepted !== true || body.refundPolicyVersion !== STORE_REFUND_POLICY_VERSION) {
     return storeApiResponse("REFUND_POLICY_CONSENT_REQUIRED", 400);
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       refundPolicyAccepted: true,
       refundPolicyVersion: STORE_REFUND_POLICY_VERSION,
     }, new NeonOrderRepository());
-    const paypal = await createPayPalOrder(order, origin, mode);
+    const paypal = await createPayPalOrder(order, origin, mode, product.slug);
     const response = NextResponse.json({ approvalUrl: paypal.approvalUrl }, { status: 201, headers: { "Cache-Control": "no-store" } });
     response.cookies.set(paypalCheckoutCookie(paypal.id), `${order.orderNumber}.${paypalCheckoutProof(order.orderNumber, paypal.id, mode)}`, {
       path: paypalCapturePath, httpOnly: true, sameSite: "strict", secure: origin.startsWith("https:"), maxAge: 3600,

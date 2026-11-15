@@ -1,3 +1,4 @@
+import { getPaidAsset } from "@/lib/store/paid-assets";
 import { getStoreProduct } from "@/lib/store";
 import { assertSameOriginMutation, readBoundedJsonObject, storeApiResponse, storeRequestErrorResponse } from "@/lib/store/api-security";
 import { getPaymentReadiness } from "@/lib/store/readiness";
@@ -25,6 +26,9 @@ export async function POST(request: Request) {
   const locale = body.locale === "ko" ? "ko" : "en";
   const product = productSlug ? getStoreProduct(productSlug) : null;
   if (!product || body.provider !== "TOSS" || product.priceKrw <= 0) return storeApiResponse("PRODUCT_UNAVAILABLE", 409);
+  if (product.slug === "pet-creator-pack" && (!readiness.paidDownload || !getPaidAsset(product.id, locale))) {
+    return storeApiResponse("PRODUCT_UNAVAILABLE", 409);
+  }
   if (body.refundPolicyAccepted !== true || body.refundPolicyVersion !== STORE_REFUND_POLICY_VERSION) return storeApiResponse("REFUND_POLICY_CONSENT_REQUIRED", 400);
 
   try {

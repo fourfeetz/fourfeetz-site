@@ -14,7 +14,8 @@ export default function StoreProductPage({ product, language }: { product: Store
   const productionEnvironment = process.env.VERCEL_ENV === "production";
   const freeDownloadEnabled = product.priceKrw === 0 && Boolean(product.freeAsset) && product.saleStatus === "available";
   const paypalMode = !ko && getPaidAsset(product.id, "en") ? readiness.paypalMode : null;
-  const tossCheckoutEnabled = product.priceKrw > 0 && readiness.tossCheckout && ko;
+  const tossCheckoutEnabled = product.priceKrw > 0 && readiness.tossCheckout && ko
+    && (product.slug !== "pet-creator-pack" || (readiness.paidDownload && Boolean(getPaidAsset(product.id, "ko"))));
   const tossSandboxEnabled = tossCheckoutEnabled && readiness.tossSandbox;
   const tossProductionReviewSandbox = tossSandboxEnabled && readiness.tossProductionReviewSandbox;
   const tossLiveEnabled = tossCheckoutEnabled && readiness.tossLive;

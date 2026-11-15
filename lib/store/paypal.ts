@@ -64,7 +64,7 @@ async function paypalHeaders(mode: PayPalMode) {
   return { Authorization: `Bearer ${token.access_token}`, "Content-Type": "application/json", Prefer: "return=representation" };
 }
 
-export async function createPayPalOrder(order: Order, origin: string, mode: PayPalMode) {
+export async function createPayPalOrder(order: Order, origin: string, mode: PayPalMode, productSlug: string) {
   const headers = await paypalHeaders(mode);
   const result = await paypalJson<PayPalOrder>(mode, "/v2/checkout/orders", {
     method: "POST",
@@ -76,7 +76,7 @@ export async function createPayPalOrder(order: Order, origin: string, mode: PayP
         shipping_preference: "NO_SHIPPING",
         user_action: "PAY_NOW",
         return_url: new URL("/store/checkout/paypal", origin).href,
-        cancel_url: new URL("/store/pet-video-starter-pack", origin).href,
+        cancel_url: new URL(`/store/${productSlug}`, origin).href,
       } } },
     }),
   });
