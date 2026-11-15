@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Download } from "lucide-react";
 
-export default function PayPalSandboxReturn({ token }: { token: string | null }) {
+export default function PayPalReturn({ token, sandbox }: { token: string | null; sandbox: boolean }) {
   const [pending, setPending] = useState(false);
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
   const [error, setError] = useState(false);
@@ -29,7 +29,7 @@ export default function PayPalSandboxReturn({ token }: { token: string | null })
   }
 
   return <main className="mx-auto max-w-xl space-y-5 px-6 py-16">
-    <h1 className="text-3xl font-black">PayPal Sandbox checkout</h1>
+    <h1 className="text-3xl font-black">{sandbox ? "PayPal Sandbox checkout" : "PayPal checkout"}</h1>
     {downloadUrl ? (
       <a
         href={downloadUrl}
@@ -39,9 +39,9 @@ export default function PayPalSandboxReturn({ token }: { token: string | null })
         Download your PDF
       </a>
     )
-      : token ? <button type="button" disabled={pending} onClick={confirm} className="rounded-full bg-[#6f4e37] px-7 py-3.5 font-black text-white disabled:opacity-50">{pending ? "Verifying…" : "Complete test payment"}</button>
+      : token ? <button type="button" disabled={pending} onClick={confirm} className="rounded-full bg-[#6f4e37] px-7 py-3.5 font-black text-white disabled:opacity-50">{pending ? "Verifying…" : sandbox ? "Complete test payment" : "Complete payment"}</button>
         : <p>This checkout is unavailable.</p>}
-    {error && <p role="alert">The test payment or download could not be verified. Retry here before starting another order.</p>}
+    {error && <p role="alert">The payment or download could not be verified. Retry here before starting another order.</p>}
     <p><Link href="/store/pet-video-starter-pack" className="underline">Back to product</Link></p>
   </main>;
 }

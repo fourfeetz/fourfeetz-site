@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { STORE_REFUND_POLICY_VERSION } from "@/lib/store/refund-policy";
 
-export default function PayPalSandboxCheckout({ productSlug }: { productSlug: string }) {
+export default function PayPalCheckout({ productSlug, sandbox }: { productSlug: string; sandbox: boolean }) {
   const [accepted, setAccepted] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(false);
@@ -36,7 +36,7 @@ export default function PayPalSandboxCheckout({ productSlug }: { productSlug: st
       <Link href="/refund-policy" target="_blank" className="underline">Read policy</Link>
     </div>
     <button type="button" disabled={!accepted || pending} onClick={startCheckout} className="rounded-full bg-[#6f4e37] px-7 py-3.5 font-black text-white disabled:opacity-50">
-      {pending ? "Opening PayPal…" : "PayPal Sandbox checkout"}
+      {pending ? "Opening PayPal…" : sandbox ? "PayPal Sandbox checkout" : "Pay with PayPal"}
     </button>
     {error && <p role="alert">PayPal checkout could not start. Please try again.</p>}
   </div>;

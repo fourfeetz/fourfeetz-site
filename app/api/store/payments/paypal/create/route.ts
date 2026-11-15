@@ -4,12 +4,13 @@ import { assertSameOriginMutation, readBoundedJsonObject, storeApiResponse, stor
 import { NeonOrderRepository } from "@/lib/store/neon-repository";
 import { getPaidAsset } from "@/lib/store/paid-assets";
 import { createPendingOrder } from "@/lib/store/payment";
-import { createPayPalSandboxOrder, paypalCapturePath, paypalCheckoutCookie, paypalCheckoutProof } from "@/lib/store/paypal";
+import { createPayPalOrder, paypalCapturePath, paypalCheckoutCookie, paypalCheckoutProof } from "@/lib/store/paypal";
 import { getPaymentReadiness } from "@/lib/store/readiness";
 import { STORE_REFUND_POLICY_VERSION } from "@/lib/store/refund-policy";
 
 export async function POST(request: Request) {
-  if (!getPaymentReadiness().paypalSandbox) return storeApiResponse("CHECKOUT_UNAVAILABLE", 503);
+  const mode = getPaymentReadiness().paypalMode;
+  if (!mode) return storeApiResponse("CHECKOUT_UNAVAILABLE", 503);
 
   let body: Record<string, unknown>;
   try {
@@ -34,9 +35,9 @@ export async function POST(request: Request) {
       refundPolicyAccepted: true,
       refundPolicyVersion: STORE_REFUND_POLICY_VERSION,
     }, new NeonOrderRepository());
-    const paypal = await createPayPalSandboxOrder(order, origin);
+    const paypal = await createPayPalOrder(order, origin, mode);
     const response = NextResponse.json({ approvalUrl: paypal.approvalUrl }, { status: 201, headers: { "Cache-Control": "no-store" } });
-    response.cookies.set(paypalCheckoutCookie(paypal.id), `${order.orderNumber}.${paypalCheckoutProof(order.orderNumber, paypal.id)}`, {
+    response.cookies.set(paypalCheckoutCookie(paypal.id), `${order.orderNumber}.${paypalCheckoutProof(order.orderNumber, paypal.id, mode)}`, {
       path: paypalCapturePath, httpOnly: true, sameSite: "strict", secure: origin.startsWith("https:"), maxAge: 3600,
     });
     return response;

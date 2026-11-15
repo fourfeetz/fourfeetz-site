@@ -4,11 +4,12 @@ import { createDownloadAccess } from "@/lib/store/download-access";
 import { NeonOrderRepository } from "@/lib/store/neon-repository";
 import { getPaidAsset } from "@/lib/store/paid-assets";
 import { confirmPayment } from "@/lib/store/payment";
-import { capturePayPalSandboxOrder, paypalCheckoutCookie, paypalOrderIdPattern, validPayPalCheckoutProof } from "@/lib/store/paypal";
+import { capturePayPalOrder, paypalCheckoutCookie, paypalOrderIdPattern, validPayPalCheckoutProof } from "@/lib/store/paypal";
 import { getPaymentReadiness } from "@/lib/store/readiness";
 
 export async function POST(request: NextRequest) {
-  if (!getPaymentReadiness().paypalSandbox) return storeApiResponse("PAYMENT_CONFIRMATION_UNAVAILABLE", 503);
+  const mode = getPaymentReadiness().paypalMode;
+  if (!mode) return storeApiResponse("PAYMENT_CONFIRMATION_UNAVAILABLE", 503);
 
   let body: Record<string, unknown>;
   try {
@@ -24,7 +25,7 @@ export async function POST(request: NextRequest) {
   }
   const [orderNumber, proof] = request.cookies.get(paypalCheckoutCookie(paypalOrderId))?.value.split(".") ?? [];
   if (!orderNumber || !/^FF-\d{8}-[A-F0-9]{24}$/.test(orderNumber)
-      || !validPayPalCheckoutProof(proof, orderNumber, paypalOrderId)) {
+      || !validPayPalCheckoutProof(proof, orderNumber, paypalOrderId, mode)) {
     return storeApiResponse("INVALID_PAYMENT_REQUEST", 400);
   }
 
@@ -36,11 +37,11 @@ export async function POST(request: NextRequest) {
       return storeApiResponse("PAYMENT_VERIFICATION_FAILED", 409);
     }
 
-    const captureId = await capturePayPalSandboxOrder(paypalOrderId, order);
+    const captureId = await capturePayPalOrder(paypalOrderId, order, mode);
     if (!captureId) return storeApiResponse("PAYMENT_VERIFICATION_FAILED", 409);
     await confirmPayment({
-      orderNumber, amount: order.amount, currency: "USD", providerPaymentId: `paypal-sandbox:${captureId}`,
-      providerEventId: `paypal-sandbox:capture:${captureId}`, providerVerified: true,
+      orderNumber, amount: order.amount, currency: "USD", providerPaymentId: `paypal-${mode}:${captureId}`,
+      providerEventId: `paypal-${mode}:capture:${captureId}`, providerVerified: true,
     }, repository);
 
     const entitlement = await repository.findEntitlement(orderNumber, order.productId);

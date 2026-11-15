@@ -53,9 +53,8 @@ Paid archives must live in private object storage, never `/public`. The download
 - `DATABASE_URL`
 - `NEXT_PUBLIC_TOSS_CLIENT_KEY` (test key in Preview only)
 - `TOSS_SECRET_KEY` (server only)
-- `NEXT_PUBLIC_PAYPAL_CLIENT_ID` (Sandbox in Preview only)
-- `PAYPAL_CLIENT_SECRET` (server only)
-- `PAYPAL_WEBHOOK_ID` (server only)
+- `STORE_PAYPAL_SANDBOX_ENABLED`, `PAYPAL_SANDBOX_CLIENT_ID`, `PAYPAL_SANDBOX_CLIENT_SECRET` (Preview only)
+- `STORE_PAYPAL_LIVE_ENABLED`, `PAYPAL_LIVE_CLIENT_ID`, `PAYPAL_LIVE_CLIENT_SECRET` (Production only)
 - `ENABLE_FREE_PROMPT_PREVIEW=true` (optional local-development download test; Vercel Preview is enabled automatically)
 
 Live keys must use separate Production variables and must not be added until explicit launch approval.
