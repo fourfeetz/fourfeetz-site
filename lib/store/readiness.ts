@@ -59,7 +59,10 @@ export function getPaymentReadiness(env: PaymentEnvironment = process.env): Paym
     tossLive,
     tossCheckout: tossSandbox || tossLive,
     tossMode: tossLive ? "live" : tossSandbox ? "test" : null,
-    paypalSandbox: false,
+    paypalSandbox: previewEnvironment
+      && env.STORE_PAYPAL_SANDBOX_ENABLED === "true"
+      && Boolean(env.PAYPAL_SANDBOX_CLIENT_ID && env.PAYPAL_SANDBOX_CLIENT_SECRET)
+      && paidDownload,
     database,
     freePreviewDownload: env.VERCEL_ENV === "production" || env.VERCEL_ENV === "preview" || (env.NODE_ENV === "development" && env.ENABLE_FREE_PROMPT_PREVIEW === "true"),
     paidDownload,
