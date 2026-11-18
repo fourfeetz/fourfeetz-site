@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RelatedPosts from "@/components/RelatedPosts";
 import { LanguageProvider } from "@/components/LanguageProvider";
+import InfolinksConsent from "@/components/InfolinksConsent";
 import { englishLanguageAlternates } from "@/lib/localization";
 
 export const metadata: Metadata = {
@@ -39,6 +40,10 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const language = (await headers()).get("x-fourfeetz-language") === "ko" ? "ko" : "en";
+  const infolinksEnabled = process.env.NEXT_PUBLIC_INFOLINKS_ENABLED === "true";
+  const infolinksPid = Number(process.env.NEXT_PUBLIC_INFOLINKS_PID);
+  const infolinksWsid = Number(process.env.NEXT_PUBLIC_INFOLINKS_WSID);
+  const hasValidInfolinksConfig = infolinksEnabled && Number.isInteger(infolinksPid) && infolinksPid > 0 && Number.isInteger(infolinksWsid) && infolinksWsid >= 0;
 
   return (
     <html lang={language}>
@@ -51,6 +56,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         </LanguageProvider>
         <GoogleAnalytics gaId="G-T4L4K2EHN2" />
         <Analytics />
+        {hasValidInfolinksConfig ? <InfolinksConsent language={language} pid={infolinksPid} wsid={infolinksWsid} /> : null}
       </body>
     </html>
   );
