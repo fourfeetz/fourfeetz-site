@@ -8,6 +8,8 @@ import Footer from "@/components/Footer";
 import RelatedPosts from "@/components/RelatedPosts";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import InfolinksConsent from "@/components/InfolinksConsent";
+import CommentsGate from "@/components/comments/CommentsGate";
+import Script from "next/script";
 import { englishLanguageAlternates } from "@/lib/localization";
 
 export const metadata: Metadata = {
@@ -40,6 +42,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const language = (await headers()).get("x-fourfeetz-language") === "ko" ? "ko" : "en";
+  const path = (await headers()).get("x-fourfeetz-path") ?? "";
   const infolinksEnabled = process.env.NEXT_PUBLIC_INFOLINKS_ENABLED === "true";
   const infolinksPid = Number(process.env.NEXT_PUBLIC_INFOLINKS_PID);
   const infolinksWsid = Number(process.env.NEXT_PUBLIC_INFOLINKS_WSID);
@@ -51,11 +54,13 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <LanguageProvider>
           <Header />
           {children}
+          <CommentsGate path={path} />
           <RelatedPosts />
           <Footer />
         </LanguageProvider>
         <GoogleAnalytics gaId="G-T4L4K2EHN2" />
         <Analytics />
+        {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ? <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" /> : null}
         {hasValidInfolinksConfig ? <InfolinksConsent language={language} pid={infolinksPid} wsid={infolinksWsid} /> : null}
       </body>
     </html>

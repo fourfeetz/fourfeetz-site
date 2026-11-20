@@ -12,6 +12,7 @@ export function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   const language = request.nextUrl.pathname === "/ko" || request.nextUrl.pathname.startsWith("/ko/") ? "ko" : "en";
   requestHeaders.set("x-fourfeetz-language", language);
+  requestHeaders.set("x-fourfeetz-path", request.nextUrl.pathname);
 
   return NextResponse.next({
     request: {

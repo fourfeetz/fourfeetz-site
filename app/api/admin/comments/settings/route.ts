@@ -1,0 +1,2 @@
+import {assertSameOrigin,errorResponse,readJson,requireAdmin} from "@/lib/blog/security";import {setLegacyCommentsEnabled} from "@/lib/comments/repository";
+export async function POST(request:Request){try{assertSameOrigin(request);const email=await requireAdmin();const body=await readJson(request,4096);if(typeof body.articlePath!=="string"||typeof body.enabled!=="boolean")return Response.json({error:"INVALID_SETTING"},{status:400});await setLegacyCommentsEnabled(body.articlePath,body.enabled,email);return Response.json({ok:true})}catch(e){return errorResponse(e)}}

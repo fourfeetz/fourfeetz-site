@@ -56,7 +56,7 @@ export default function FilmDetailPage({ film }: { film: Film }) {
   return (
     <main>
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
-        <div>
+        <div className="order-2 md:order-1">
           <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">{film.category}</p>
           <h1 className="mt-4 text-5xl font-black leading-tight tracking-tight text-[#2b2119] md:text-7xl">{film.title}</h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d]">{film.description}</p>
@@ -66,7 +66,7 @@ export default function FilmDetailPage({ film }: { film: Film }) {
             {film.characterSlugs?.map((slug) => <Link key={slug} href={`/characters/${slug}`} className="rounded-full border border-[#6f4e37]/40 bg-white px-6 py-3 font-black text-[#6f4e37] transition hover:border-[#6f4e37]">Meet {film.character}</Link>)}
           </div>
         </div>
-        <div id="watch" className="scroll-mt-24 overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-xl shadow-[#6f4e37]/10">
+        <div id="watch" className="order-1 scroll-mt-24 overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-xl shadow-[#6f4e37]/10 md:order-2">
           <video src={film.video} poster={film.thumbnail} controls playsInline preload="metadata" className="aspect-video h-auto w-full object-cover" aria-label={`Play ${film.title}`} />
         </div>
       </section>

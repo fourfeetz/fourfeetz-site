@@ -12,9 +12,10 @@ import { getNewsArticles } from "@/lib/news";
 import { loadEnglishNewsTranslations } from "@/lib/news-english";
 import { koreanMemorialInsights } from "@/lib/koreanMemorialInsights";
 import { storeProductSlugs } from "@/lib/store";
+import { listPublicPosts } from "@/lib/blog/repository";
 const baseUrl="https://fourfeetz.com";
 const routes=["/en","/about","/characters",...indexableCharacterDetails.map(c=>`/characters/${c.slug}`),"/contact","/editorial-policy","/videos","/insights","/insights/guides","/insights/news","/news","/music","/privacy","/refund-policy","/resources","/services","/services/personal-pet-video","/services/pet-memorial-video","/store","/store/support",...storeProductSlugs.map(slug=>`/store/${slug}`),"/terms","/tools",...resourceDetails.map(r=>`/resources/${r.slug}`),...practicalResources.map(r=>`/resources/${r.slug}`)];
-export default function sitemap():MetadataRoute.Sitemap{
+export default async function sitemap():Promise<MetadataRoute.Sitemap>{
  const publishedInsights=getPublishedInsightArticles();
  const newsArticles=getNewsArticles();
  const englishNews=loadEnglishNewsTranslations(newsArticles);
@@ -32,6 +33,7 @@ export default function sitemap():MetadataRoute.Sitemap{
  const koreanOnlyServicePages=petServiceSlugs.filter(slug=>slug!=="personal-pet-video").map(slug=>({url:`${baseUrl}/ko/services/${slug}`,lastModified:"2026-08-17",changeFrequency:"monthly" as const,priority:slug==="pet-video"?0.8:0.7}));
  const catMemorialPage={url:`${baseUrl}/ko/shorts/cat-memorial-video`,lastModified:"2026-11-03",changeFrequency:"monthly" as const,priority:0.8,images:[`${baseUrl}/images/shorts/cat-memorial/cat-in-pink-flower-field.png`,`${baseUrl}/images/shorts/cat-memorial/cat-with-guardian.png`],videos:video("고양이 추모영상 | 다시 만날 그날까지","/images/shorts/cat-memorial/cat-in-pink-flower-field.png","따뜻한 햇살과 꽃길 속에서 평화롭게 다시 만나는 순간을 담은 고양이 추모영상입니다.","/videos/shorts/cat-memorial/cat-memorial-video.mp4","2026-11-03T21:35:00+09:00")};
  const koreanOnlyInsightPages=Object.values(koreanMemorialInsights).map(article=>({url:`${baseUrl}/ko/insights/${article.slug}`,lastModified:article.updated,changeFrequency:"monthly" as const,priority:0.8}));
+ const cmsInsightPages=(await listPublicPosts()).map(article=>({url:`${baseUrl}/ko/insights/${article.slug}`,lastModified:article.updatedAt,changeFrequency:"monthly" as const,priority:0.8}));
  const newsPages=[...newsArticles.flatMap(article=>{const alternates=englishNews.has(article.slug)?{alternates:{languages:al(`/news/${article.slug}`,`/ko/news/${article.slug}`)}}:{};return[{url:`${baseUrl}/ko/news/${article.slug}`,lastModified:article.updatedAt??article.publishedAt,changeFrequency:"weekly" as const,priority:0.7,...alternates},...(englishNews.has(article.slug)?[{url:`${baseUrl}/news/${article.slug}`,lastModified:article.updatedAt??article.publishedAt,changeFrequency:"weekly" as const,priority:0.7,...alternates}]:[])]})];
- return[...staticPages,...insightPages,...filmPages,...shortPages,...musicPages,...koreanPages,...koreanOnlyMusicPages,...koreanOnlyServicePages,catMemorialPage,...koreanOnlyInsightPages,...newsPages];
+ return[...staticPages,...insightPages,...filmPages,...shortPages,...musicPages,...koreanPages,...koreanOnlyMusicPages,...koreanOnlyServicePages,catMemorialPage,...koreanOnlyInsightPages,...cmsInsightPages,...newsPages];
 }
