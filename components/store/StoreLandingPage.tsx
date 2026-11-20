@@ -15,9 +15,18 @@ import {
 } from "lucide-react";
 import { formatStorePrice, storeProducts, type StoreLanguage, type StoreProduct } from "@/lib/store";
 
+import { getPaidAsset } from "@/lib/store/paid-assets";
+import { getPaymentReadiness } from "@/lib/store/readiness";
+
 const outlineButton = "inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#7656ee]/25 bg-white px-6 py-3 font-extrabold text-[#5137c8] shadow-sm transition hover:-translate-y-0.5 hover:border-[#7656ee]/50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7656ee] focus-visible:ring-offset-2";
 
 function statusLabel(product: StoreProduct, language: StoreLanguage) {
+  if (product.slug === "pet-creator-pack" && getPaidAsset(product.id, language)) {
+    const readiness = getPaymentReadiness();
+    if (language === "ko" ? readiness.tossLive : readiness.paypalMode === "live") {
+      return language === "ko" ? "판매 중" : "Available";
+    }
+  }
   if (product.saleStatus === "coming-soon") return language === "ko" ? "출시 예정" : "Coming soon";
   if (product.saleStatus === "preparing") return language === "ko" ? "파일 준비 중" : "Files in preparation";
   return language === "ko" ? "판매 중" : "Available";
@@ -33,14 +42,14 @@ export default function StoreLandingPage({ language }: { language: StoreLanguage
     heroFeatures: ["기획 아이디어", "프롬프트 예시", "영상 제작 방법", "실전 팁과 체크리스트"], guideSection: "무료 PDF 입문 가이드", guideIntro: "AI 반려동물 영상 제작의 기본 흐름을 익힐 수 있는 무료 입문 자료입니다.",
     koBadge: "한국어판", enBadge: "English Version", koGuide: "AI 반려동물 영상 제작 입문 가이드 (PDF)", enGuide: "AI Pet Video Starter Guide (PDF)", koDescription: "영상 기획, 프롬프트 작성, AI 영상 생성과 편집의 기본 흐름을 한국어로 정리한 입문 PDF입니다.", enDescription: "A beginner-friendly English guide to story planning, prompt writing, AI video generation and editing.",
     guideFeatures: ["PDF 가이드", "프롬프트 예시", "단계별 제작 과정", "체크리스트와 활용 팁"], locked: "무료 PDF 다운로드", lockedNote: "한국어 무료 입문 가이드를 바로 다운로드할 수 있습니다.", packs: "프롬프트 패키지", packsIntro: "범용 프롬프트와 제작 가이드를 담은 패키지입니다. 스타터 팩은 상품 상세 페이지에서 구매할 수 있습니다.", details: "상품 상세 보기",
-    starterKicker: "Beginner Guide", creatorKicker: "Creator Pack", starterFeatures: ["범용 프롬프트 3종", "설정 가이드", "실전 예시", "문제 해결 팁"], creatorFeatures: ["범용 프롬프트 10종", "샘플 영상과 결과물", "스타일별 가이드", "추가 팁과 리소스"],
+    starterKicker: "Beginner Guide", creatorKicker: "Creator Pack", starterFeatures: ["범용 프롬프트 3종", "설정 가이드", "실전 예시", "문제 해결 팁"], creatorFeatures: ["장면 프롬프트 20종", "수정 프롬프트 8종", "5컷 스토리보드 4개", "제작 및 검수 작업표"],
     sample: "My Pet Story 영상 샘플", sampleDesc: "HARU와 LUNA가 함께 보내는 비 오는 저녁을 담은 FourFeetz 세로형 영상입니다. 사진 속 소중한 순간이 따뜻한 9:16 이야기로 이어지는 모습을 확인해 보세요.", sampleLabel: "HARU와 LUNA의 비 오는 저녁 My Pet Story 영상 샘플", sampleLink: "My Pet Story 자세히 보기", support: "궁금한 점이 있나요?", supportDesc: "결제, 다운로드, 사용 방법과 출시 일정은 스토어 지원 페이지에서 확인할 수 있습니다.", supportLink: "스토어 고객 지원", service: "맞춤 영상 제작 의뢰",
   } : {
     eyebrow: "FOURFEETZ", title: "Digital Guides", subtitle: "Heartwarming AI pet-video guides", description: "Practical guides anyone can follow—from planning and prompts to video generation and editing.",
     heroFeatures: ["Story ideas", "Prompt examples", "Video workflow", "Tips & checklists"], guideSection: "Free PDF starter guides", guideIntro: "Free beginner resources for learning the basic AI pet-video workflow.",
     koBadge: "한국어판", enBadge: "English Version", koGuide: "AI 반려동물 영상 제작 입문 가이드 (PDF)", enGuide: "AI Pet Video Starter Guide (PDF)", koDescription: "A Korean introduction to planning, prompt writing, AI video generation and editing.", enDescription: "A beginner-friendly English guide to story planning, prompt writing, AI video generation and editing.",
     guideFeatures: ["PDF guide", "Prompt examples", "Step-by-step workflow", "Checklists & tips"], locked: "Download free PDF", lockedNote: "The free beginner guide is available for immediate download.", packs: "Prompt packages", packsIntro: "General-purpose prompts and practical production guidance. The Starter Pack is available from its product page.", details: "View product",
-    starterKicker: "Beginner Guide", creatorKicker: "Creator Pack", starterFeatures: ["3 general prompts", "Setup guide", "Practical examples", "Troubleshooting tips"], creatorFeatures: ["10 general prompts", "Video samples & results", "Style-by-style guide", "Extra tips & resources"],
+    starterKicker: "Beginner Guide", creatorKicker: "Creator Pack", starterFeatures: ["3 general prompts", "Setup guide", "Practical examples", "Troubleshooting tips"], creatorFeatures: ["20 shot prompts", "8 repair prompts", "4 five-shot storyboards", "Production worksheets"],
     sample: "See a My Pet Story film", sampleDesc: "Meet HARU and LUNA in a quiet rainy-evening story. This finished FourFeetz sample shows how a precious moment can become a warm 9:16 vertical film.", sampleLabel: "My Pet Story rainy-evening video featuring HARU and LUNA", sampleLink: "Explore My Pet Story", support: "Have a question?", supportDesc: "Visit Store Support for payment, download, usage and release guidance.", supportLink: "Store support", service: "Request a custom video",
   };
 

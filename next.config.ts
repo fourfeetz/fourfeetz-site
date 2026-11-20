@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 import { koreanInsightRedirects } from "./lib/koreanInsightAvailability";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    agentUpgrade: "security",
+  },
   async redirects() {
     return [
       { source: "/", destination: "/ko", permanent: true },

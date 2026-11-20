@@ -1,5 +1,6 @@
 export type TossCheckoutMode = "test" | "live" | null;
-export type PaymentReadiness = Readonly<{ tossSandbox: boolean; tossProductionReviewSandbox: boolean; tossLive: boolean; tossCheckout: boolean; tossMode: TossCheckoutMode; paypalSandbox: boolean; database: boolean; freePreviewDownload: boolean; paidDownload: boolean }>;
+export type PayPalMode = "sandbox" | "live";
+export type PaymentReadiness = Readonly<{ tossSandbox: boolean; tossProductionReviewSandbox: boolean; tossLive: boolean; tossCheckout: boolean; tossMode: TossCheckoutMode; paypalMode: PayPalMode | null; database: boolean; freePreviewDownload: boolean; paidDownload: boolean }>;
 
 type PaymentEnvironment = Readonly<Record<string, string | undefined>>;
 
@@ -53,13 +54,19 @@ export function getPaymentReadiness(env: PaymentEnvironment = process.env): Paym
     && credentialsAllowMode(env, "live")
     && database
     && paidDownload;
+  const paypalLive = productionEnvironment && paidDownload
+    && env.STORE_PAYPAL_LIVE_ENABLED === "true"
+    && Boolean(env.PAYPAL_LIVE_CLIENT_ID && env.PAYPAL_LIVE_CLIENT_SECRET);
+  const paypalSandbox = previewEnvironment && paidDownload
+    && env.STORE_PAYPAL_SANDBOX_ENABLED === "true"
+    && Boolean(env.PAYPAL_SANDBOX_CLIENT_ID && env.PAYPAL_SANDBOX_CLIENT_SECRET);
   return {
     tossSandbox,
     tossProductionReviewSandbox,
     tossLive,
     tossCheckout: tossSandbox || tossLive,
     tossMode: tossLive ? "live" : tossSandbox ? "test" : null,
-    paypalSandbox: false,
+    paypalMode: paypalLive ? "live" : paypalSandbox ? "sandbox" : null,
     database,
     freePreviewDownload: env.VERCEL_ENV === "production" || env.VERCEL_ENV === "preview" || (env.NODE_ENV === "development" && env.ENABLE_FREE_PROMPT_PREVIEW === "true"),
     paidDownload,
