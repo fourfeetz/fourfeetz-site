@@ -1,0 +1,2 @@
+import {assertSameOrigin,errorResponse,readJson} from "@/lib/blog/security";import {deleteOwnComment} from "@/lib/comments/repository";
+export async function DELETE(request:Request,{params}:{params:Promise<{id:string}>}){try{assertSameOrigin(request);const body=await readJson(request,4096);if(typeof body.token!=="string")return Response.json({error:"TOKEN_REQUIRED"},{status:400});return await deleteOwnComment((await params).id,body.token)?new Response(null,{status:204}):Response.json({error:"INVALID_DELETE_TOKEN"},{status:403})}catch(e){return errorResponse(e)}}

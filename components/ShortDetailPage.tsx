@@ -24,7 +24,7 @@ export default function ShortDetailPage({ short }: { short: Short }) {
     <main>
       {videoSchema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema).replace(/</g, "\\u003c") }} /> : null}
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.8fr_1.2fr] md:items-center md:py-24">
-        <div>
+        <div className="order-2 md:order-1">
           {short.badge ? (
             <span className="inline-flex rounded-full bg-[#6f4e37] px-4 py-2 text-xs font-black tracking-[0.18em] text-white shadow-lg shadow-[#6f4e37]/15">
               {short.badge}
@@ -66,7 +66,7 @@ export default function ShortDetailPage({ short }: { short: Short }) {
           </div>
         </div>
 
-        <div id="watch" className="mx-auto w-full max-w-md scroll-mt-24 overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-2xl shadow-[#6f4e37]/15">
+        <div id="watch" className="order-1 mx-auto w-full max-w-md scroll-mt-24 overflow-hidden rounded-[32px] border border-[#eadfce] bg-black shadow-2xl shadow-[#6f4e37]/15 md:order-2">
           <SyncedVideoPlayer src={short.video} poster={short.poster} audioSrc={short.soundtrack} label={`Play ${short.title}`} className="aspect-[9/16] h-auto w-full object-cover" />
         </div>
       </section>

@@ -8,14 +8,25 @@ import { isAnalysisContentType } from "@/lib/insightClassification";
 import { localizeInsightArticles } from "@/lib/insightLocalization";
 import { getKoreanInsightArticles, getPublishedInsightArticles } from "@/lib/insights";
 import { getEnglishInsightPath, isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
+import { listPublicPosts } from "@/lib/blog/repository";
+import { estimateReadTime } from "@/lib/blog/validation";
 
 const siteUrl = "https://fourfeetz.com";
 
-export default function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {
+export default async function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {
   const isKorean = language === "ko";
   const publishedArticles = getPublishedInsightArticles();
-  const visibleArticles = isKorean ? getKoreanInsightArticles() : publishedArticles;
-  const articles = localizeInsightArticles(visibleArticles, language).sort(
+  const cmsPosts = isKorean ? await listPublicPosts() : [];
+  const cmsArticles = cmsPosts.map((post) => ({
+    slug: post.slug, group: "guides" as const,
+    contentType: post.category === "도구 사용 후기" ? "studio-analysis" as const : "production-guide" as const,
+    hasPublishedWork: post.category === "제작기", category: post.category, title: post.title,
+    description: post.summary, readTime: estimateReadTime(post.published.markdown), href: `/ko/insights/${post.slug}`,
+    image: post.heroImageUrl ?? "/images/insights-hero-v2.png", imageAlt: post.heroImageAlt ? { ko: post.heroImageAlt } : undefined,
+    tags: post.tags, keywords: post.tags, publishedAt: post.publishedAt ?? undefined, updatedAt: post.updatedAt, publishStatus: "published" as const,
+  }));
+  const visibleArticles = isKorean ? [...getKoreanInsightArticles(), ...cmsArticles] : publishedArticles;
+  const articles = (isKorean ? localizeInsightArticles(getKoreanInsightArticles(), language).concat(cmsArticles) : localizeInsightArticles(visibleArticles, language)).sort(
     (a, b) => Number(b.contentType === "production-record") - Number(a.contentType === "production-record"),
   );
   const englishOnlyArticles = isKorean

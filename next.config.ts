@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   experimental: {
     agentUpgrade: "security",
   },
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "**.public.blob.vercel-storage.com" }],
+  },
   async redirects() {
     return [
       { source: "/", destination: "/ko", permanent: true },
