@@ -38,5 +38,5 @@ create table if not exists insight_comment_rate_limits (
 );
 
 -- Rollback (backs up content first):
--- pg_dump "$DATABASE_URL_UNPOOLED" --table=blog_posts --table=insight_comments --table=insight_comment_rate_limits > blog-backup.sql
+-- pg_dump "$DATABASE_URL_UNPOOLED" --table=blog_posts --table=insight_comments --table=insight_comment_rate_limits --table=insight_comment_settings > blog-backup.sql
 -- drop table if exists insight_comment_rate_limits; drop table if exists insight_comment_settings; drop table if exists insight_comments; drop table if exists blog_posts;

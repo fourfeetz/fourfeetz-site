@@ -15,7 +15,7 @@ This feature is fail-closed until authentication, a non-production Neon branch, 
 
 Before migration or rollback, export only the feature tables:
 
-`pg_dump "$DATABASE_URL_UNPOOLED" --table=blog_posts --table=insight_comments --table=insight_comment_rate_limits > blog-backup.sql`
+`pg_dump "$DATABASE_URL_UNPOOLED" --table=blog_posts --table=insight_comments --table=insight_comment_rate_limits --table=insight_comment_settings > blog-backup.sql`
 
 Restore with `psql "$DATABASE_URL_UNPOOLED" < blog-backup.sql`. Roll back only after a verified backup by dropping the three tables in the reverse dependency order shown at the end of `docs/blog-schema.sql`. Blob objects under `insights/` are not deleted by database rollback; inventory them separately before any manual cleanup.
 
