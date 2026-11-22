@@ -1,9 +1,9 @@
 import { neon } from "@neondatabase/serverless";
 import { randomUUID } from "node:crypto";
 import type { BlogPost, PublicBlogPost } from "./types";
+import { getBlogDatabaseUrl, requireBlogDatabaseUrl } from "./database";
 
-const connectionString = () => process.env.DATABASE_URL_UNPOOLED || process.env.DATABASE_URL;
-const db = () => { const url = connectionString(); if (!url) throw new Error("BLOG_DATABASE_NOT_CONFIGURED"); return neon(url); };
+const db = () => neon(requireBlogDatabaseUrl());
 
 function mapPost(row: Record<string, unknown>): BlogPost {
   return {
@@ -17,7 +17,7 @@ function mapPost(row: Record<string, unknown>): BlogPost {
   };
 }
 
-export const blogDatabaseConfigured = () => Boolean(connectionString());
+export const blogDatabaseConfigured = () => Boolean(getBlogDatabaseUrl());
 
 export async function listPublicPosts(): Promise<PublicBlogPost[]> {
   if (!blogDatabaseConfigured()) return [];
