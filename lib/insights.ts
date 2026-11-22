@@ -5,7 +5,7 @@ import { magicLightInsight } from "@/lib/magicLightInsight";
 import { newProductionGuides } from "@/lib/newProductionGuides";
 import { productionInsights, type ProductionInsight } from "@/lib/productionInsights";
 import { searchFocusedInsights } from "@/lib/searchFocusedInsights";
-import { isPublishedContent, sortByFreshness, type PublishStatus } from "@/lib/publishing";
+import { isPublishedContent, sortByPublishedAt, type PublishStatus } from "@/lib/publishing";
 import { toolNewsInsights } from "@/lib/toolNewsInsights";
 import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 import { koreanMemorialInsights } from "@/lib/koreanMemorialInsights";
@@ -145,7 +145,7 @@ export const insightArticles: InsightArticle[] = [
 ];
 
 export function getPublishedInsightArticles(now = new Date()) {
-  return sortByFreshness(insightArticles.filter((article) => article.listed !== false && isPublishedContent(article, now)));
+  return sortByPublishedAt(insightArticles.filter((article) => article.listed !== false && isPublishedContent(article, now)));
 }
 
 export function getProductionRecordInsights(now = new Date()) {
@@ -182,7 +182,7 @@ export function getKoreanInsightArticles(now = new Date()) {
     publishStatus: "published",
   }));
 
-  return sortByFreshness([
+  return sortByPublishedAt([
     ...getPublishedInsightArticles(now).filter((article) => !isKoreanInsightRedirect(article.slug)),
     ...koreanOnlyArticles,
   ]);

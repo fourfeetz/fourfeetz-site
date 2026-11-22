@@ -45,3 +45,15 @@ export function sortByFreshness<T extends PublishingFields>(items: T[]) {
     )
     .map(({ item }) => item);
 }
+
+export function sortByPublishedAt<T extends PublishingFields>(items: T[]) {
+  return items
+    .map((item, sourceIndex) => ({ item, sourceIndex }))
+    .sort(
+      (left, right) =>
+        (parseContentDate(right.item.publishedAt, true)?.getTime() ?? 0) -
+          (parseContentDate(left.item.publishedAt, true)?.getTime() ?? 0) ||
+        left.sourceIndex - right.sourceIndex,
+    )
+    .map(({ item }) => item);
+}
