@@ -9,7 +9,8 @@ import { localizeInsightArticles } from "@/lib/insightLocalization";
 import { getKoreanInsightArticles, getPublishedInsightArticles } from "@/lib/insights";
 import { getEnglishInsightPath, isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
 import { listPublicPosts } from "@/lib/blog/repository";
-import { estimateReadTime } from "@/lib/blog/validation";
+import { publicBlogPostToInsightArticle } from "@/lib/blog/insightAdapter";
+import { sortByPublishedAt } from "@/lib/publishing";
 
 const siteUrl = "https://fourfeetz.com";
 
@@ -17,17 +18,10 @@ export default async function InsightsHub({ language = "en" }: { language?: Insi
   const isKorean = language === "ko";
   const publishedArticles = getPublishedInsightArticles();
   const cmsPosts = isKorean ? await listPublicPosts() : [];
-  const cmsArticles = cmsPosts.map((post) => ({
-    slug: post.slug, group: "guides" as const,
-    contentType: post.category === "도구 사용 후기" ? "studio-analysis" as const : "production-guide" as const,
-    hasPublishedWork: post.category === "제작기", category: post.category, title: post.title,
-    description: post.summary, readTime: estimateReadTime(post.published.markdown), href: `/ko/insights/${post.slug}`,
-    image: post.heroImageUrl ?? "/images/insights-hero-v2.png", imageAlt: post.heroImageAlt ? { ko: post.heroImageAlt } : undefined,
-    tags: post.tags, keywords: post.tags, publishedAt: post.publishedAt ?? undefined, updatedAt: post.updatedAt, publishStatus: "published" as const,
-  }));
+  const cmsArticles = cmsPosts.map(publicBlogPostToInsightArticle);
   const visibleArticles = isKorean ? [...getKoreanInsightArticles(), ...cmsArticles] : publishedArticles;
-  const articles = (isKorean ? localizeInsightArticles(getKoreanInsightArticles(), language).concat(cmsArticles) : localizeInsightArticles(visibleArticles, language)).sort(
-    (a, b) => Number(b.contentType === "production-record") - Number(a.contentType === "production-record"),
+  const articles = sortByPublishedAt(
+    isKorean ? localizeInsightArticles(getKoreanInsightArticles(), language).concat(cmsArticles) : localizeInsightArticles(visibleArticles, language),
   );
   const englishOnlyArticles = isKorean
     ? publishedArticles.filter((article) => isKoreanInsightRedirect(article.slug)).slice(0, 6)
