@@ -12,6 +12,8 @@
     "db:migrate:store": "node --experimental-strip-types scripts/store/migrate.ts",
     "db:preflight:store": "node --experimental-strip-types scripts/store/preflight.ts",
     "test:news": "node --test scripts/news/*.test.mjs",
+    "test:blog": "node --test --experimental-strip-types scripts/blog/*.test.ts",
+    "db:migrate:blog": "node --experimental-strip-types scripts/blog/migrate.ts",
     "news:dry-run": "node scripts/news/run.mjs",
     "news:verify": "node scripts/news/verify-content.mjs"
   },
@@ -25,6 +27,7 @@
     "framer-motion": "^12.42.2",
     "lucide-react": "^1.24.0",
     "next": "16.4.6",
+    "next-auth": "^5.0.0-beta.32",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },

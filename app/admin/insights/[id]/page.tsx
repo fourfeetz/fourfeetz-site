@@ -1,0 +1,2 @@
+import { notFound,redirect } from "next/navigation"; import { auth,isAdminEmail } from "@/auth"; import PostEditor from "@/components/blog/PostEditor"; import {getAdminPost} from "@/lib/blog/repository";
+export const dynamic="force-dynamic"; export default async function Page({params}:{params:Promise<{id:string}>}){const s=await auth();if(!isAdminEmail(s?.user?.email))redirect("/admin/login");const p=await getAdminPost((await params).id);if(!p)notFound();return <PostEditor initial={p}/>}

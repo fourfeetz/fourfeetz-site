@@ -1,12 +1,16 @@
 import Link from "next/link";
 import InsightCard from "@/components/insights/InsightCard";
 import { insightGroups, type InsightGroup, type InsightLanguage } from "@/lib/insightGroups";
+import { isAnalysisContentType } from "@/lib/insightClassification";
 import { localizeInsightArticles } from "@/lib/insightLocalization";
 import { getKoreanInsightsByGroup, getPublishedInsightsByGroup, hasKoreanInsightGroupContent } from "@/lib/insights";
+import { listPublicPosts } from "@/lib/blog/repository";
+import { publicBlogPostToInsightArticle } from "@/lib/blog/insightAdapter";
+import { sortByPublishedAt } from "@/lib/publishing";
 
 const siteUrl = "https://fourfeetz.com";
 
-export default function InsightsCategoryPage({
+export default async function InsightsCategoryPage({
   group,
   language,
 }: {
@@ -15,10 +19,16 @@ export default function InsightsCategoryPage({
 }) {
   const content = insightGroups[group][language];
   const otherGroup: InsightGroup = group === "guides" ? "news" : "guides";
-  const articles = localizeInsightArticles(
+  const legacyArticles = localizeInsightArticles(
     language === "ko" ? getKoreanInsightsByGroup(group) : getPublishedInsightsByGroup(group),
     language,
   );
+  const cmsArticles = language === "ko"
+    ? (await listPublicPosts()).map(publicBlogPostToInsightArticle).filter((article) =>
+        group === "news" ? isAnalysisContentType(article.contentType) : article.contentType === "production-guide",
+      )
+    : [];
+  const articles = sortByPublishedAt([...legacyArticles, ...cmsArticles]);
   const path = language === "ko" ? `/ko/insights/${group}` : `/insights/${group}`;
   const hubPath = language === "ko" ? "/ko/insights" : "/insights";
   const otherPath = language === "ko" ? `/ko/insights/${otherGroup}` : `/insights/${otherGroup}`;

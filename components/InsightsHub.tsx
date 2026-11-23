@@ -8,15 +8,20 @@ import { isAnalysisContentType } from "@/lib/insightClassification";
 import { localizeInsightArticles } from "@/lib/insightLocalization";
 import { getKoreanInsightArticles, getPublishedInsightArticles } from "@/lib/insights";
 import { getEnglishInsightPath, isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
+import { listPublicPosts } from "@/lib/blog/repository";
+import { publicBlogPostToInsightArticle } from "@/lib/blog/insightAdapter";
+import { sortByPublishedAt } from "@/lib/publishing";
 
 const siteUrl = "https://fourfeetz.com";
 
-export default function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {
+export default async function InsightsHub({ language = "en" }: { language?: InsightLanguage }) {
   const isKorean = language === "ko";
   const publishedArticles = getPublishedInsightArticles();
-  const visibleArticles = isKorean ? getKoreanInsightArticles() : publishedArticles;
-  const articles = localizeInsightArticles(visibleArticles, language).sort(
-    (a, b) => Number(b.contentType === "production-record") - Number(a.contentType === "production-record"),
+  const cmsPosts = isKorean ? await listPublicPosts() : [];
+  const cmsArticles = cmsPosts.map(publicBlogPostToInsightArticle);
+  const visibleArticles = isKorean ? [...getKoreanInsightArticles(), ...cmsArticles] : publishedArticles;
+  const articles = sortByPublishedAt(
+    isKorean ? localizeInsightArticles(getKoreanInsightArticles(), language).concat(cmsArticles) : localizeInsightArticles(visibleArticles, language),
   );
   const englishOnlyArticles = isKorean
     ? publishedArticles.filter((article) => isKoreanInsightRedirect(article.slug)).slice(0, 6)
