@@ -17,7 +17,7 @@ export default function MarkdownContent({markdown}:{markdown:string}) {
     const yt=line.match(/^https:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})$/); if(yt){nodes.push(<div key={i} className="my-8 aspect-video overflow-hidden rounded-3xl"><iframe className="h-full w-full" src={`https://www.youtube-nocookie.com/embed/${yt[1]}`} title="YouTube video" allowFullScreen /></div>);continue;}
     if(line.startsWith("## ")){nodes.push(<h2 key={i} className="mt-10 text-3xl font-black">{inline(line.slice(3))}</h2>);continue;}
     if(line.startsWith("### ")){nodes.push(<h3 key={i} className="mt-8 text-2xl font-black">{inline(line.slice(4))}</h3>);continue;}
-    if(line.startsWith("- ")){const items=[]; while(i<lines.length&&lines[i].trim().startsWith("- ")){items.push(<li key={i}>{inline(lines[i].trim().slice(2))}</li>);i++;} i--;nodes.push(<ul key={`u${i}`} className="my-5 list-disc space-y-2 pl-6">{items}</ul>);continue;}
+    if(/^[-*+]\s+/.test(line)){const items=[]; while(i<lines.length&&/^[-*+]\s+/.test(lines[i].trim())){items.push(<li key={i}>{inline(lines[i].trim().replace(/^[-*+]\s+/,""))}</li>);i++;} i--;nodes.push(<ul key={`u${i}`} className="my-5 list-disc space-y-2 pl-6">{items}</ul>);continue;}
     const numbered=line.match(/^\d+\.\s+(.+)/); if(numbered){const items=[];while(i<lines.length){const m=lines[i].trim().match(/^\d+\.\s+(.+)/);if(!m)break;items.push(<li key={i}>{inline(m[1])}</li>);i++;}i--;nodes.push(<ol key={`o${i}`} className="my-5 list-decimal space-y-2 pl-6">{items}</ol>);continue;}
     nodes.push(<p key={i} className="my-5 leading-8">{inline(line)}</p>);
   }
