@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {applyMarkdownCommand,getBodyImages,getImageSlots,imageMarkdown,insertImagesAtLines,removeBodyImage,replaceBodyImage} from "../../lib/blog/editor.ts";
+import {isPublicImageHost,isPublicIp,validateRemoteImageUrl} from "../../lib/blog/imageSecurity.ts";
 
 test("toolbar commands preserve text while adding supported Markdown",()=>{
  const source="일반 문장\n두 번째 문장";
@@ -35,4 +36,12 @@ test("images sharing one selected position keep selection order",()=>{
   {line:1,markdown:imageMarkdown("https://example.com/two.png")},
  ]);
  assert.deepEqual(getBodyImages(placed).map(image=>image.url),["https://example.com/one.png","https://example.com/two.png"]);
+});
+
+test("external image policy rejects local, credentialed, and non-HTTPS targets",()=>{
+ assert.equal(isPublicImageHost("localhost"),false);assert.equal(isPublicImageHost("assets.example.com"),true);
+ for(const address of ["127.0.0.1","10.0.0.2","169.254.169.254","192.168.1.2","::1","fd00::1"])assert.equal(isPublicIp(address),false);
+ assert.equal(isPublicIp("8.8.8.8"),true);
+ for(const url of ["http://example.com/a.png","https://localhost/a.png","https://user:pass@example.com/a.png","https://example.com:8443/a.png"])assert.throws(()=>validateRemoteImageUrl(url));
+ assert.equal(validateRemoteImageUrl("https://images.example.com/a.png").hostname,"images.example.com");
 });

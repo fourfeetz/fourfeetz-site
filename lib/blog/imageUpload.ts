@@ -1,7 +1,7 @@
 import "server-only";
 import {lookup} from "node:dns/promises";
-import {isIP} from "node:net";
 import {BlogRequestError} from "./security";
+import {isPublicIp,validateRemoteImageUrl} from "./imageSecurity";
 
 const MAX_IMAGE_BYTES=8_000_000;
 const signatures=[
@@ -9,25 +9,6 @@ const signatures=[
  {type:"image/png",ext:"png",valid:(bytes:Uint8Array)=>bytes[0]===0x89&&bytes[1]===0x50&&bytes[2]===0x4e&&bytes[3]===0x47},
  {type:"image/webp",ext:"webp",valid:(bytes:Uint8Array)=>new TextDecoder().decode(bytes.slice(0,4))==="RIFF"&&new TextDecoder().decode(bytes.slice(8,12))==="WEBP"},
 ];
-
-export function isPublicImageHost(hostname:string){
- const host=hostname.toLowerCase().replace(/\.$/,"");
- if(!host||host==="localhost"||host.endsWith(".localhost")||host.endsWith(".local")||host.endsWith(".internal"))return false;
- return true;
-}
-
-export function isPublicIp(address:string):boolean{
- if(isIP(address)===4){const parts=address.split(".").map(Number);const [a,b]=parts;return !(a===0||a===10||a===127||a>=224||(a===169&&b===254)||(a===172&&b>=16&&b<=31)||(a===192&&b===168)||(a===100&&b>=64&&b<=127)||(a===198&&(b===18||b===19)))}
- if(isIP(address)===6){const normalized=address.toLowerCase();if(normalized==="::"||normalized==="::1"||normalized.startsWith("fc")||normalized.startsWith("fd")||/^fe[89ab]/.test(normalized)||normalized.startsWith("ff"))return false;const mapped=normalized.match(/::ffff:(\d+\.\d+\.\d+\.\d+)$/);return mapped?isPublicIp(mapped[1]):true}
- return false;
-}
-
-export function validateRemoteImageUrl(value:unknown){
- if(typeof value!=="string"||value.length>2000)throw new BlogRequestError("INVALID_REMOTE_IMAGE_URL",400);
- let url:URL;try{url=new URL(value)}catch{throw new BlogRequestError("INVALID_REMOTE_IMAGE_URL",400)}
- if(url.protocol!=="https:"||url.username||url.password||url.port||!isPublicImageHost(url.hostname))throw new BlogRequestError("UNSAFE_REMOTE_IMAGE_URL",400);
- return url;
-}
 
 async function assertPublicDns(url:URL){const addresses=await lookup(url.hostname,{all:true,verbatim:true});if(!addresses.length||addresses.some(({address})=>!isPublicIp(address)))throw new BlogRequestError("UNSAFE_REMOTE_IMAGE_HOST",400)}
 
