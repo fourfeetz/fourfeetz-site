@@ -5,7 +5,7 @@ export type ToolValues = Record<string, string>;
 export const toolDefaults: Record<ToolSlug, ToolValues> = {
   "aspect-ratio-calculator": { width: "1920", height: "1080", ratioWidth: "9", ratioHeight: "16", outputWidth: "1080" },
   "video-file-size-calculator": { seconds: "60", videoMbps: "8", audioKbps: "128" },
-  "ai-video-cost-calculator": { shots: "5", attempts: "3", creditsPerGeneration: "20", packCredits: "1000", packPrice: "10000", secondsPerShot: "6" },
+  "ai-video-cost-calculator": { shots: "5", attempts: "3", creditsPerGeneration: "92", packCredits: "1000", packPrice: "10", secondsPerShot: "5" },
 };
 
 export const fieldLimits: Record<string, readonly [number, number, boolean]> = {

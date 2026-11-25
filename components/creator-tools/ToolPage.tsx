@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ProtofaceBanner from "./ProtofaceBanner";
 import Calculator from "./Calculator";
 import { creatorTools, type CreatorTool, type ToolLanguage } from "@/lib/creator-tools/content";
 
@@ -44,5 +45,6 @@ export default function ToolPage({ tool, language }: { tool: CreatorTool; langua
     <section className="mx-auto max-w-6xl px-5 pb-12 sm:px-6"><h2 className="text-2xl font-black">{ko ? "자주 묻는 질문" : "Frequently asked questions"}</h2><div className="mt-5 divide-y divide-[#eadfce] rounded-2xl border border-[#eadfce] bg-white px-6">{copy.faqs.map(faq => <details key={faq.question} className="group py-5"><summary className="cursor-pointer text-base font-bold leading-7 marker:text-[#a67c52]">{faq.question}</summary><p className="mt-4 text-base leading-8 text-[#76685d]">{faq.answer}</p></details>)}</div></section>
     <section className="border-y border-[#eadfce] bg-[#f2e8dc] px-5 py-12 sm:px-6"><div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2"><div><p className="text-sm font-bold text-[#89674a]">{ko ? "다음 제작 단계" : "Your next production step"}</p><h2 className="mt-3 text-2xl font-black">{ko ? "계산한 내용을 실제 영상으로 이어가세요." : "Turn the plan into a finished video."}</h2><Link href={`${prefix}${copy.article.path}`} className="mt-5 inline-block text-base font-bold leading-7 text-[#6f4e37] underline underline-offset-4">{copy.article.title} →</Link></div><div className="flex flex-col items-start justify-center gap-4"><Link href={`${prefix}/store`} className="rounded-xl bg-[#6f4e37] px-5 py-3 text-base font-bold text-white hover:bg-[#573b29]">{ko ? "영상 제작 가이드·프롬프트 보기" : "Explore video guides and prompts"}</Link><Link href={`${prefix}/services/personal-pet-video`} className="text-base font-bold text-[#6f4e37] underline underline-offset-4">{ko ? "직접 만들기 어렵다면 제작 상담하기" : "Get help with a custom video"} →</Link></div></div></section>
     <section className="mx-auto max-w-6xl px-5 py-12 sm:px-6"><h2 className="text-2xl font-black">{ko ? "다른 무료 계산기도 사용해보세요." : "Try the other free calculators."}</h2><div className="mt-6 grid gap-4 md:grid-cols-2">{creatorTools.filter(item => item.slug !== tool.slug).map(item => <Link key={item.slug} href={`${prefix}/tools/${item.slug}`} className="rounded-2xl border border-[#dfd0be] bg-white p-6 font-bold text-[#6f4e37] transition hover:border-[#a67c52] hover:shadow-sm">{item[language].title} →</Link>)}</div></section>
+    {tool.slug === "ai-video-cost-calculator" ? <ProtofaceBanner language={language} /> : null}
   </main>;
 }

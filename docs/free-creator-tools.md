@@ -27,3 +27,13 @@ The existing Google Analytics integration receives `tool_calculate` when a visit
 ## Verification
 
 `npm run test:tools` checks independent worked examples, invalid inputs, URL input bounds and fractional-credit pack rounding. Run `npx next typegen`, `npx tsc --noEmit`, and `npm run build` for route and integration validation. Use the existing `test:blog` and `test:store` suites for adjacent regression coverage.
+
+## Protoface credit guide (2026-11-25)
+
+The AI video cost calculator now defaults to the Seedance 2.5 720p, 5-second, no-video-input preset (92 credits). Fourteen presets cover Seedance 2.5/2.0, Kling 3.0 Pro, LTX 2.5 Fast, MiniMax H3, Runway Gen-4 Turbo, Veo 3.1 Fast and Wan 3.0 Prime. Official model-page source links and conditions are stored in `lib/creator-tools/protoface.ts` and rendered in both languages below the calculator.
+
+Public pay-as-you-go pricing uses $0.01 per credit. Decimal rates are rounded up per generation to an integer cent before multiplying by shots/attempts. 1,000 credits / $10 is a reference conversion unit, not an offered purchase pack. Preset mode hides pack-purchase outputs; custom inputs retain pack calculations. Unlimited subscriptions and reference surcharges are excluded. Rates are a dated snapshot, not live quotes; check Studio before generation. Update the checked date, rates, conditions and independent expected outputs together when refreshing prices.
+
+Applying a row retains shot/attempt counts, replaces its rate and duration, and selects USD. Changing rate/duration/currency enters custom mode. Shared URLs retain a model identity only when its rate fields and USD currency match. Existing old custom links remain supported.
+
+The bottom image CTA reuses the existing multi-model workflow artwork and FourFeetz affiliate URL `https://protoface.com/studio?fpr=fourfeetz`, with sponsored rel attributes and a visible disclosure. No third-party generation request or purchase is made by this calculator.
