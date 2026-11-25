@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NEWS_PUBLIC } from "@/lib/news-visibility";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getNewsArticle, getNewsArticles } from "@/lib/news";
@@ -14,6 +15,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  if (!NEWS_PUBLIC) notFound();
   const article = getNewsArticle((await params).slug);
   if (!article) return {};
   const path = `/ko/news/${article.slug}`;
@@ -29,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function NewsArticlePage({ params }: Props) {
+  if (!NEWS_PUBLIC) notFound();
   const article = getNewsArticle((await params).slug);
   if (!article) notFound();
 

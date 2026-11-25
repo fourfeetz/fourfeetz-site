@@ -9,6 +9,7 @@ import { resourceDetails } from "@/lib/resourceDetails";
 import { practicalResources } from "@/lib/practicalResources";
 import { petServiceSlugs } from "@/lib/petBusinessServices";
 import { isKoreanInsightRedirect } from "@/lib/koreanInsightAvailability";
+import { NEWS_PUBLIC } from "@/lib/news-visibility";
 import { getNewsArticles } from "@/lib/news";
 import { loadEnglishNewsTranslations } from "@/lib/news-english";
 import { koreanMemorialInsights } from "@/lib/koreanMemorialInsights";
@@ -18,7 +19,7 @@ const baseUrl="https://fourfeetz.com";
 const routes=["/en","/about","/characters",...indexableCharacterDetails.map(c=>`/characters/${c.slug}`),"/contact","/editorial-policy","/videos","/insights","/insights/guides","/insights/news","/news","/music","/privacy","/refund-policy","/resources","/services","/services/personal-pet-video","/services/pet-memorial-video","/store","/store/support",...storeProductSlugs.map(slug=>`/store/${slug}`),"/terms","/tools",...toolSlugs.map(slug=>`/tools/${slug}`),...resourceDetails.map(r=>`/resources/${r.slug}`),...practicalResources.map(r=>`/resources/${r.slug}`)];
 export default async function sitemap():Promise<MetadataRoute.Sitemap>{
  const publishedInsights=getPublishedInsightArticles();
- const newsArticles=getNewsArticles();
+ const newsArticles=NEWS_PUBLIC?getNewsArticles():[];
  const englishNews=loadEnglishNewsTranslations(newsArticles);
  const pairedPaths=new Map<string,string>([["/en","/ko"],["/contact","/ko/contact"],["/editorial-policy","/ko/editorial-policy"],["/privacy","/ko/privacy"],["/refund-policy","/ko/refund-policy"],["/terms","/ko/terms"],["/services","/ko/services"],["/services/personal-pet-video","/ko/services/personal-pet-video"],["/services/pet-memorial-video","/ko/services/pet-memorial-video"],["/store","/ko/store"],["/store/support","/ko/store/support"],...storeProductSlugs.map(slug=>[`/store/${slug}`,`/ko/store/${slug}`] as const),["/about","/ko/about"],["/videos","/ko/videos"],["/characters","/ko/characters"],["/music","/ko/music"],["/insights","/ko/insights"],["/news","/ko/news"],["/insights/guides","/ko/insights/guides"],...(hasKoreanInsightGroupContent("news")?[["/insights/news","/ko/insights/news"]] as const:[]),["/resources","/ko/resources"],["/tools","/ko/tools"],...toolSlugs.map(slug=>[`/tools/${slug}`,`/ko/tools/${slug}`] as const),...films.map(i=>[`/works/${i.slug}`,`/ko/films/${i.slug}`] as const),...shorts.filter(i=>!i.koreanOnly).map(i=>[`/shorts/${i.slug}`,`/ko/shorts/${i.slug}`] as const),...indexableCharacterDetails.map(i=>[`/characters/${i.slug}`,`/ko/characters/${i.slug}`] as const),...musicTracks.filter(i=>!i.koreanOnly).map(i=>[`/music/${i.slug}`,`/ko/music/${i.slug}`] as const),...publishedInsights.filter(i=>!isKoreanInsightRedirect(i.slug)).map(i=>[i.href,`/ko/insights/${i.slug}`] as const),...resourceDetails.map(i=>[`/resources/${i.slug}`,`/ko/resources/${i.slug}`] as const),...practicalResources.map(i=>[`/resources/${i.slug}`,`/ko/resources/${i.slug}`] as const)]);
  const al=(en:string,ko:string)=>({en:`${baseUrl}${en}`,ko:`${baseUrl}${ko}`,"x-default":`${baseUrl}${ko}`});
@@ -36,5 +37,6 @@ export default async function sitemap():Promise<MetadataRoute.Sitemap>{
  const koreanOnlyInsightPages=Object.values(koreanMemorialInsights).map(article=>({url:`${baseUrl}/ko/insights/${article.slug}`,lastModified:article.updated,changeFrequency:"monthly" as const,priority:0.8}));
  const cmsInsightPages=(await listPublicPosts()).map(article=>({url:`${baseUrl}/ko/insights/${article.slug}`,lastModified:article.updatedAt,changeFrequency:"monthly" as const,priority:0.8}));
  const newsPages=[...newsArticles.flatMap(article=>{const alternates=englishNews.has(article.slug)?{alternates:{languages:al(`/news/${article.slug}`,`/ko/news/${article.slug}`)}}:{};return[{url:`${baseUrl}/ko/news/${article.slug}`,lastModified:article.updatedAt??article.publishedAt,changeFrequency:"weekly" as const,priority:0.7,...alternates},...(englishNews.has(article.slug)?[{url:`${baseUrl}/news/${article.slug}`,lastModified:article.updatedAt??article.publishedAt,changeFrequency:"weekly" as const,priority:0.7,...alternates}]:[])]})];
- return[...staticPages,...insightPages,...filmPages,...shortPages,...musicPages,...koreanPages,...koreanOnlyMusicPages,...koreanOnlyServicePages,catMemorialPage,...koreanOnlyInsightPages,...cmsInsightPages,...newsPages];
+ const pages=[...staticPages,...insightPages,...filmPages,...shortPages,...musicPages,...koreanPages,...koreanOnlyMusicPages,...koreanOnlyServicePages,catMemorialPage,...koreanOnlyInsightPages,...cmsInsightPages,...newsPages];
+ return NEWS_PUBLIC ? pages : pages.filter(({ url }) => url !== `${baseUrl}/news` && url !== `${baseUrl}/ko/news`);
 }

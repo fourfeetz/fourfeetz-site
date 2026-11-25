@@ -6,6 +6,7 @@ import { ChevronDown, Search as SearchIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { koreanNavItems, navItems } from "@/lib/i18n";
+import { NEWS_PUBLIC } from "@/lib/news-visibility";
 import { toEnglishPath, toKoreanPath } from "@/lib/localization";
 import { useLanguage } from "@/components/LanguageProvider";
 import SearchModal from "@/components/SearchModal";
@@ -32,7 +33,8 @@ export default function Header() {
     return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
   }
 
-  const activeNavItems = lang === "ko" ? koreanNavItems : navItems;
+  const activeNavItems = (lang === "ko" ? koreanNavItems : navItems)
+    .filter((item) => NEWS_PUBLIC || item.key !== "news");
   const homeHref = lang === "ko" ? "/ko" : "/en";
   const englishHref = toEnglishPath(pathname);
   const koreanHref = toKoreanPath(pathname);

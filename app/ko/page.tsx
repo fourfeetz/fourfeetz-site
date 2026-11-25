@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import KoreanSalesHome from "@/components/korean/KoreanSalesHome";
 import Link from "next/link";
+import { NEWS_PUBLIC } from "@/lib/news-visibility";
 import { getNewsArticles } from "@/lib/news";
 import { languageAlternates } from "@/lib/localization";
 
@@ -26,6 +27,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  if (!NEWS_PUBLIC) return <KoreanSalesHome />;
   const articles = getNewsArticles().slice(0, 3);
   const newsSection = <section className="border-y border-[#eadfce] bg-white px-6 py-20">
     <div className="mx-auto max-w-7xl">

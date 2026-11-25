@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { NEWS_PUBLIC } from "@/lib/news-visibility";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getNewsArticles } from "@/lib/news";
 import { languageAlternates } from "@/lib/localization";
@@ -14,6 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default function NewsPage() {
+  if (!NEWS_PUBLIC) notFound();
   const articles = getNewsArticles();
   const schema = {
     "@context": "https://schema.org",
