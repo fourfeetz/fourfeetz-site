@@ -6,7 +6,36 @@ export type CreatorTool = { slug: ToolSlug; number: string; ko: Copy; en: Copy }
 
 export const creatorTools: CreatorTool[] = [
   {
-    slug: "aspect-ratio-calculator", number: "01",
+    slug: "ai-video-cost-calculator", number: "01",
+    ko: {
+      title: "AI 영상 제작 비용 계산기", description: "장면 수, 재생성을 포함한 시도 횟수와 크레딧 가격으로 AI 영상 제작 비용을 계산하세요. 사용량 환산 비용과 크레딧 묶음 구매 금액을 구분합니다.",
+      intro: "Protoface 모델을 선택해 재생성까지 포함한 크레딧 예산을 계산하세요. 아래 표는 공식 공개 종량제 요금의 확인 시점 기준입니다. 다른 서비스나 조건은 직접 입력 모드에서 계산할 수 있습니다.",
+      steps: ["최종 장면 수와 장면당 총 시도 횟수를 입력합니다. 첫 생성도 1회에 포함합니다.", "1회 생성 크레딧, 구매 묶음의 크레딧 수와 가격을 입력합니다.", "사용량 기준 비용과 새 묶음을 구매할 때 필요한 금액을 구분해 확인합니다."],
+      formula: "총 크레딧 = 장면 수 × 장면당 총 시도 × 1회 생성 크레딧. 사용량 환산 비용 = 총 크레딧 ÷ 묶음 크레딧 × 묶음 가격. 직접 입력 모드의 구매 금액은 필요한 묶음 수를 올림해 계산합니다.",
+      example: "기본 선택인 Seedance 2.5의 720p·5초·입력 영상 없음 조건은 1회 92크레딧입니다. 5장면을 각 3회 생성하면 총 1,380크레딧, 공개 종량제 환산 비용은 $13.80입니다.",
+      notes: ["Protoface 요금은 표에 적힌 확인일의 공개 종량제 기준이며 자동 갱신되지 않습니다. 생성 전 Studio의 실제 견적을 확인하세요.", "기존 잔액은 없는 것으로 보고 묶음 구매 금액을 계산합니다. 세금, 환율, 구독 기본료, 편집·음악·작업 인건비는 별도입니다.", "최종 영상 길이는 장면 수 × 장면당 사용 길이입니다. 전환 겹침, 잘라낸 구간과 생성 실패는 따로 고려하세요."],
+      faqs: [
+        { question: "장면당 시도 횟수에 재생성만 넣나요?", answer: "첫 생성과 재생성을 모두 합친 횟수입니다. 처음 1회 생성 후 2회 다시 생성했다면 3을 입력하세요." },
+        { question: "사용량 비용과 구매 금액이 왜 다른가요?", answer: "크레딧은 보통 묶음으로 구매합니다. 일부만 써도 구매 시에는 묶음 전체 금액을 지불하므로 차이가 납니다. 남는 크레딧도 함께 표시합니다." },
+        { question: "견적서로 그대로 써도 되나요?", answer: "생성 크레딧 예산을 위한 참고 계산입니다. 고객 견적에는 기획, 수정, 편집, 음원, 인건비와 필요한 세금 등을 별도로 반영해야 합니다." },
+      ], article: { path: "/insights/ai-pet-video-production-cost-guide", title: "AI 반려동물 영상 제작 비용을 나누어 보는 방법" },
+    },
+    en: {
+      title: "AI Video Production Cost Calculator", description: "Estimate AI video credits, retry costs and credit-pack purchases from your own pricing. Separate usage-based costs from the amount needed to buy whole packs.",
+      intro: "Choose a Protoface model to budget for generation and retries. The table records official public pay-as-you-go rates on the stated check date. Use custom inputs for other services or settings.",
+      steps: ["Enter final shot count and total attempts per shot, including the first generation.", "Enter credits per generation, credits per pack and your pack price.", "Compare allocated usage cost with whole-pack purchases and unused credits."],
+      formula: "Total credits = shots × total attempts per shot × credits per generation. Allocated cost = total credits ÷ pack credits × pack price. In custom mode, pack purchases round up to whole packs.",
+      example: "The default Seedance 2.5 preset at 720p, 5 seconds and no video input uses 92 credits per run. Five shots with three attempts each use 1,380 credits, equivalent to $13.80 at the public pay-as-you-go rate.",
+      notes: ["Protoface presets reflect public pay-as-you-go rates on the check date and do not update automatically. Confirm the actual Studio quote before generating.", "Pack purchases assume a zero starting balance. Taxes, currency conversion, subscription base fees, editing, music and labor are excluded.", "Final runtime equals shot count × usable seconds per shot. Allow separately for transitions, trimming and failed outputs."],
+      faqs: [
+        { question: "Do attempts include the first generation?", answer: "Yes. One first generation plus two retries is three total attempts." },
+        { question: "Why do usage cost and purchase amount differ?", answer: "Credits are sold in packs. You may need to buy a whole pack even when your project uses only part of it; the unused balance is shown separately." },
+        { question: "Is this a complete client quote?", answer: "No. It estimates generation-credit spending. A quote may also need planning, editing, revisions, audio, labor and applicable taxes." },
+      ], article: { path: "/insights/ai-pet-video-production-cost-guide", title: "Understand the components of AI pet-video costs" },
+    },
+  },
+  {
+    slug: "aspect-ratio-calculator", number: "02",
     ko: {
       title: "화면비·해상도 계산기", description: "16:9 영상을 9:16 쇼츠로 바꿀 때의 해상도와 잘리는 영역을 계산하세요. 1:1·4:5 화면비와 사용자 지정 비율도 지원하는 무료 계산기입니다.",
       intro: "가로 영상을 쇼츠로 바꾸면 양옆이 얼마나 잘릴까요? 원본 크기와 목표 비율을 입력하면 출력 해상도와 가운데를 기준으로 남는 영역을 보여드립니다. 파일을 업로드하거나 편집 프로그램을 열 필요가 없습니다.",
@@ -35,7 +64,7 @@ export const creatorTools: CreatorTool[] = [
     },
   },
   {
-    slug: "video-file-size-calculator", number: "02",
+    slug: "video-file-size-calculator", number: "03",
     ko: {
       title: "영상 용량 계산기", description: "영상 길이, 비디오 비트레이트와 오디오 비트레이트로 예상 MP4 파일 용량을 MB·GB·MiB로 계산하세요. 업로드 전 확인하는 무료 영상 용량 계산기입니다.",
       intro: "내보내기 전에 예상 파일 크기를 확인하세요. 영상 길이와 영상·음성 비트레이트를 넣으면 용량을 계산합니다. 해상도가 같아도 비트레이트가 다르면 파일 크기가 달라지므로, 편집기의 출력 설정에 표시된 값을 사용하세요.",
@@ -61,35 +90,6 @@ export const creatorTools: CreatorTool[] = [
         { question: "What is the difference between MB and Mbps?", answer: "MB means megabytes of file size; Mbps means megabits per second. There are eight bits in a byte, so the size calculation divides by eight." },
         { question: "Why is my actual export a different size?", answer: "Average bitrate, VBR changes, multiple audio tracks and container overhead all matter. Leave some headroom instead of targeting an upload limit exactly." },
       ], article: { path: "/insights/animal-character-short-publishing-checklist", title: "Check your character short before publishing" },
-    },
-  },
-  {
-    slug: "ai-video-cost-calculator", number: "03",
-    ko: {
-      title: "AI 영상 제작 비용 계산기", description: "장면 수, 재생성을 포함한 시도 횟수와 크레딧 가격으로 AI 영상 제작 비용을 계산하세요. 사용량 환산 비용과 크레딧 묶음 구매 금액을 구분합니다.",
-      intro: "Protoface 모델을 선택해 재생성까지 포함한 크레딧 예산을 계산하세요. 아래 표는 공식 공개 종량제 요금의 확인 시점 기준입니다. 다른 서비스나 조건은 직접 입력 모드에서 계산할 수 있습니다.",
-      steps: ["최종 장면 수와 장면당 총 시도 횟수를 입력합니다. 첫 생성도 1회에 포함합니다.", "1회 생성 크레딧, 구매 묶음의 크레딧 수와 가격을 입력합니다.", "사용량 기준 비용과 새 묶음을 구매할 때 필요한 금액을 구분해 확인합니다."],
-      formula: "총 크레딧 = 장면 수 × 장면당 총 시도 × 1회 생성 크레딧. 사용량 환산 비용 = 총 크레딧 ÷ 묶음 크레딧 × 묶음 가격. 직접 입력 모드의 구매 금액은 필요한 묶음 수를 올림해 계산합니다.",
-      example: "기본 선택인 Seedance 2.5의 720p·5초·입력 영상 없음 조건은 1회 92크레딧입니다. 5장면을 각 3회 생성하면 총 1,380크레딧, 공개 종량제 환산 비용은 $13.80입니다.",
-      notes: ["Protoface 요금은 표에 적힌 확인일의 공개 종량제 기준이며 자동 갱신되지 않습니다. 생성 전 Studio의 실제 견적을 확인하세요.", "기존 잔액은 없는 것으로 보고 묶음 구매 금액을 계산합니다. 세금, 환율, 구독 기본료, 편집·음악·작업 인건비는 별도입니다.", "최종 영상 길이는 장면 수 × 장면당 사용 길이입니다. 전환 겹침, 잘라낸 구간과 생성 실패는 따로 고려하세요."],
-      faqs: [
-        { question: "장면당 시도 횟수에 재생성만 넣나요?", answer: "첫 생성과 재생성을 모두 합친 횟수입니다. 처음 1회 생성 후 2회 다시 생성했다면 3을 입력하세요." },
-        { question: "사용량 비용과 구매 금액이 왜 다른가요?", answer: "크레딧은 보통 묶음으로 구매합니다. 일부만 써도 구매 시에는 묶음 전체 금액을 지불하므로 차이가 납니다. 남는 크레딧도 함께 표시합니다." },
-        { question: "견적서로 그대로 써도 되나요?", answer: "생성 크레딧 예산을 위한 참고 계산입니다. 고객 견적에는 기획, 수정, 편집, 음원, 인건비와 필요한 세금 등을 별도로 반영해야 합니다." },
-      ], article: { path: "/insights/ai-pet-video-production-cost-guide", title: "AI 반려동물 영상 제작 비용을 나누어 보는 방법" },
-    },
-    en: {
-      title: "AI Video Production Cost Calculator", description: "Estimate AI video credits, retry costs and credit-pack purchases from your own pricing. Separate usage-based costs from the amount needed to buy whole packs.",
-      intro: "Choose a Protoface model to budget for generation and retries. The table records official public pay-as-you-go rates on the stated check date. Use custom inputs for other services or settings.",
-      steps: ["Enter final shot count and total attempts per shot, including the first generation.", "Enter credits per generation, credits per pack and your pack price.", "Compare allocated usage cost with whole-pack purchases and unused credits."],
-      formula: "Total credits = shots × total attempts per shot × credits per generation. Allocated cost = total credits ÷ pack credits × pack price. In custom mode, pack purchases round up to whole packs.",
-      example: "The default Seedance 2.5 preset at 720p, 5 seconds and no video input uses 92 credits per run. Five shots with three attempts each use 1,380 credits, equivalent to $13.80 at the public pay-as-you-go rate.",
-      notes: ["Protoface presets reflect public pay-as-you-go rates on the check date and do not update automatically. Confirm the actual Studio quote before generating.", "Pack purchases assume a zero starting balance. Taxes, currency conversion, subscription base fees, editing, music and labor are excluded.", "Final runtime equals shot count × usable seconds per shot. Allow separately for transitions, trimming and failed outputs."],
-      faqs: [
-        { question: "Do attempts include the first generation?", answer: "Yes. One first generation plus two retries is three total attempts." },
-        { question: "Why do usage cost and purchase amount differ?", answer: "Credits are sold in packs. You may need to buy a whole pack even when your project uses only part of it; the unused balance is shown separately." },
-        { question: "Is this a complete client quote?", answer: "No. It estimates generation-credit spending. A quote may also need planning, editing, revisions, audio, labor and applicable taxes." },
-      ], article: { path: "/insights/ai-pet-video-production-cost-guide", title: "Understand the components of AI pet-video costs" },
     },
   },
 ];
