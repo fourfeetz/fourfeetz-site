@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { sendGAEvent } from "@next/third-parties/google";
 import { calculateAspect, calculateGenerationCost, calculateVideoSize, fieldLimits, isValidField, readToolValues, toolDefaults, type ToolSlug, type ToolValues } from "@/lib/creator-tools/calculations";
+import ProtofaceCreditTable from "./ProtofaceCreditTable";
+import { defaultProtofacePreset, getMatchingProtofacePreset, protofacePresetValues, protofacePresets, type ProtofacePreset } from "@/lib/creator-tools/protoface";
 import type { ToolLanguage } from "@/lib/creator-tools/content";
 
 const labels: Record<string, readonly [string, string]> = {
@@ -20,15 +22,21 @@ export default function Calculator({ slug, language }: { slug: ToolSlug; languag
   const [values, setValues] = useState<ToolValues>({ ...toolDefaults[slug] });
   const [shareUrl, setShareUrl] = useState("");
   const [notice, setNotice] = useState("");
-  const [currency, setCurrency] = useState(ko ? "KRW" : "USD");
+  const [currency, setCurrency] = useState(slug === "ai-video-cost-calculator" ? "USD" : ko ? "KRW" : "USD");
+  const [selectedPreset, setSelectedPreset] = useState(slug === "ai-video-cost-calculator" ? defaultProtofacePreset.id : "");
   const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       const params = new URLSearchParams(window.location.search);
-      setValues(readToolValues(slug, params));
+      const restored = readToolValues(slug, params);
+      setValues(restored);
       const sharedCurrency = params.get("currency");
-      if (sharedCurrency === "KRW" || sharedCurrency === "USD") setCurrency(sharedCurrency);
+      const restoredCurrency = sharedCurrency === "KRW" || sharedCurrency === "USD" ? sharedCurrency : slug === "ai-video-cost-calculator" ? "USD" : "";
+      if (restoredCurrency) setCurrency(restoredCurrency);
+      const hasInput = Object.keys(toolDefaults[slug]).some(key => params.has(key));
+      const presetId = params.get("preset") ?? (hasInput ? null : defaultProtofacePreset.id);
+      setSelectedPreset(slug === "ai-video-cost-calculator" ? getMatchingProtofacePreset(presetId, restored, restoredCurrency)?.id ?? "" : "");
       setShareUrl(""); setNotice("");
     });
     return () => window.cancelAnimationFrame(frame);
@@ -51,7 +59,16 @@ export default function Calculator({ slug, language }: { slug: ToolSlug; languag
   const format = (value: number, digits = 2) => new Intl.NumberFormat(ko ? "ko-KR" : "en-US", { maximumFractionDigits: digits }).format(value);
   const money = (value: number) => new Intl.NumberFormat(ko ? "ko-KR" : "en-US", { style: "currency", currency, maximumFractionDigits: currency === "KRW" ? 0 : 2 }).format(value);
 
-  function update(key: string, value: string) { setValues(current => ({ ...current, [key]: value })); setShareUrl(""); setNotice(""); }
+  function update(key: string, value: string) {
+    setValues(current => ({ ...current, [key]: value })); setShareUrl(""); setNotice("");
+    if (["creditsPerGeneration", "secondsPerShot", "packCredits", "packPrice"].includes(key)) setSelectedPreset("");
+  }
+  function applyPreset(preset: ProtofacePreset, returnToCalculator = false) {
+    setValues(current => ({ ...current, ...protofacePresetValues(preset) }));
+    setSelectedPreset(preset.id); setCurrency("USD"); setShareUrl("");
+    setNotice(ko ? `${preset.model} 기준을 적용했습니다.` : `Applied ${preset.model} pricing.`);
+    if (returnToCalculator) document.getElementById("calculator")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
   function submit(event: FormEvent) {
     event.preventDefault();
     if (!valid) return;
@@ -62,7 +79,7 @@ export default function Calculator({ slug, language }: { slug: ToolSlug; languag
     if (!valid) return;
     const url = new URL(window.location.pathname, window.location.origin);
     Object.entries(values).forEach(([key, value]) => { if (key in toolDefaults[slug]) url.searchParams.set(key, value); });
-    if (cost) url.searchParams.set("currency", currency);
+    if (cost) { url.searchParams.set("currency", currency); if (selectedPreset) url.searchParams.set("preset", selectedPreset); }
     setShareUrl(url.href);
     try {
       await navigator.clipboard.writeText(url.href);
@@ -71,18 +88,19 @@ export default function Calculator({ slug, language }: { slug: ToolSlug; languag
     } catch { setNotice(ko ? "아래 링크를 선택해 직접 복사하세요." : "Select and copy the link below."); }
   }
 
-  return <section id="calculator" aria-label={ko ? "무료 계산기" : "Free calculator"} className="rounded-[28px] border border-[#dfd0be] bg-white shadow-[0_16px_60px_rgba(68,46,25,.07)]">
+  return <><section id="calculator" aria-label={ko ? "무료 계산기" : "Free calculator"} className="scroll-mt-28 rounded-[28px] border border-[#dfd0be] bg-white shadow-[0_16px_60px_rgba(68,46,25,.07)]">
     <div className="grid lg:grid-cols-[1fr_1fr]">
       <form onSubmit={submit} className="p-5 sm:p-8">
         <h2 className="text-xl font-black">{ko ? "값을 입력해보세요" : "Enter your values"}</h2>
         {slug === "aspect-ratio-calculator" ? <fieldset className="mt-5"><legend className="mb-2 text-sm font-bold text-[#6f4e37]">{ko ? "목표 화면비" : "Target aspect ratio"}</legend><div className="flex flex-wrap gap-2">{[[9, 16], [16, 9], [1, 1], [4, 5]].map(([w, h]) => <button key={`${w}:${h}`} type="button" aria-pressed={number("ratioWidth") === w && number("ratioHeight") === h} onClick={() => { setValues(current => ({ ...current, ratioWidth: String(w), ratioHeight: String(h) })); setShareUrl(""); setNotice(""); }} className={`${button} border border-[#dfd0be] px-4 aria-pressed:border-[#6f4e37] aria-pressed:bg-[#6f4e37] aria-pressed:text-white`}>{w}:{h}</button>)}</div></fieldset> : null}
+        {slug === "ai-video-cost-calculator" ? <div className="mt-5 rounded-2xl border border-[#eadfce] bg-[#fffaf1] p-4"><label htmlFor="protoface-preset" className="mb-2 block text-sm font-bold">{ko ? "Protoface 모델·크레딧 기준" : "Protoface model and credit rate"}</label><select id="protoface-preset" value={selectedPreset} onChange={event => { const preset = protofacePresets.find(item => item.id === event.target.value); if (preset) applyPreset(preset); else { setSelectedPreset(""); setNotice(""); } }} className="min-h-12 w-full min-w-0 max-w-full rounded-xl border border-[#d7c5b0] bg-white px-3 text-base"><option value="">{ko ? "직접 입력 (다른 조건·서비스)" : "Custom inputs (other settings or services)"}</option>{protofacePresets.map(preset => <option key={preset.id} value={preset.id}>{preset.model} · {preset.settings[language]} · {preset.seconds}{ko ? "초" : "s"}</option>)}</select><p className="mt-3 text-sm leading-7 text-[#76685d]">{selectedPreset ? (ko ? "공식 공개 종량제 기준: 1크레딧 = $0.01. 1000크레딧/$10은 환산 단위이며 실제 충전 묶음이 아닙니다. 아래 표에서 생성 조건과 확인일을 확인하세요." : "Official public pay-as-you-go: 1 credit = $0.01. 1,000 credits/$10 is a conversion unit, not an actual top-up pack. See conditions and check date in the table below.") : (ko ? "직접 입력 모드입니다. 현재 생성 조건의 차감량과 실제 구매·환산 단가를 입력하세요." : "Custom-input mode. Enter the credits and purchase or conversion rate for your actual settings.")}</p><a href="#protoface-credit-table" className="mt-2 inline-block text-sm font-bold text-[#6f4e37] underline underline-offset-4">{ko ? "모델별 크레딧 표 보기 ↓" : "See model credit table ↓"}</a></div> : null}
         <div className="mt-5 grid gap-5 sm:grid-cols-2">{Object.keys(toolDefaults[slug]).map(key => {
           const [min, max, integer] = fieldLimits[key];
           const invalid = !isValidField(key, values[key] ?? "");
-          return <div key={key}><label htmlFor={`tool-${key}`} className="mb-2 block text-sm font-bold leading-6 text-[#5c4634]">{labels[key][ko ? 0 : 1]}</label><input id={`tool-${key}`} name={key} type="number" inputMode={integer ? "numeric" : "decimal"} min={min} max={max} step={integer ? 1 : "any"} required value={values[key] ?? ""} onChange={event => update(key, event.target.value)} aria-invalid={invalid} aria-describedby={invalid ? `error-${key}` : undefined} className="min-h-12 w-full min-w-0 rounded-xl border border-[#d7c5b0] bg-[#fffdf8] px-4 text-base tabular-nums text-[#2b2119] outline-none focus:border-[#6f4e37] focus:ring-2 focus:ring-[#d8c3ad] aria-invalid:border-red-500" />{invalid ? <p id={`error-${key}`} className="mt-1 text-sm text-red-700">{ko ? `${format(min)}~${format(max)} 사이의 ${integer ? "정수" : "숫자"}를 입력하세요.` : `Enter ${integer ? "a whole number" : "a number"} between ${format(min)} and ${format(max)}.`}</p> : null}</div>;
+          return <div key={key}><label htmlFor={`tool-${key}`} className="mb-2 block text-sm font-bold leading-6 text-[#5c4634]">{selectedPreset && key === "packCredits" ? (ko ? "환산 단위 크레딧" : "Reference-unit credits") : selectedPreset && key === "packPrice" ? (ko ? "환산 단위 가격 (USD)" : "Reference-unit price (USD)") : labels[key][ko ? 0 : 1]}</label><input id={`tool-${key}`} name={key} type="number" inputMode={integer ? "numeric" : "decimal"} min={min} max={max} step={integer ? 1 : "any"} required value={values[key] ?? ""} onChange={event => update(key, event.target.value)} aria-invalid={invalid} aria-describedby={invalid ? `error-${key}` : undefined} className="min-h-12 w-full min-w-0 rounded-xl border border-[#d7c5b0] bg-[#fffdf8] px-4 text-base tabular-nums text-[#2b2119] outline-none focus:border-[#6f4e37] focus:ring-2 focus:ring-[#d8c3ad] aria-invalid:border-red-500" />{invalid ? <p id={`error-${key}`} className="mt-1 text-sm text-red-700">{ko ? `${format(min)}~${format(max)} 사이의 ${integer ? "정수" : "숫자"}를 입력하세요.` : `Enter ${integer ? "a whole number" : "a number"} between ${format(min)} and ${format(max)}.`}</p> : null}</div>;
         })}</div>
-        {slug === "ai-video-cost-calculator" ? <div className="mt-5"><label htmlFor="tool-currency" className="mb-2 block text-sm font-bold">{ko ? "입력 가격의 통화" : "Currency of entered price"}</label><select id="tool-currency" value={currency} onChange={event => { setCurrency(event.target.value); setShareUrl(""); setNotice(""); }} className="min-h-12 rounded-xl border border-[#d7c5b0] bg-[#fffdf8] px-4 text-base"><option value="KRW">KRW · 원</option><option value="USD">USD · $</option></select><p className="mt-2 text-sm leading-6 text-[#76685d]">{ko ? "통화 표기만 바뀌며 환율 변환은 하지 않습니다." : "Changes the currency label only; no exchange-rate conversion."}</p></div> : null}
-        <div className="mt-7 flex flex-wrap gap-3"><button type="submit" disabled={!valid} className={`${button} bg-[#6f4e37] text-white hover:bg-[#573b29] disabled:cursor-not-allowed disabled:opacity-50`}>{ko ? "계산하기" : "Calculate"}</button><button type="button" onClick={() => { setValues({ ...toolDefaults[slug] }); setCurrency(ko ? "KRW" : "USD"); setShareUrl(""); setNotice(""); window.history.replaceState(null, "", window.location.pathname); }} className={`${button} border border-[#d7c5b0] text-[#6f4e37] hover:bg-[#fbf7f0]`}>{ko ? "초기화" : "Reset"}</button></div>
+        {slug === "ai-video-cost-calculator" ? <div className="mt-5"><label htmlFor="tool-currency" className="mb-2 block text-sm font-bold">{ko ? "입력 가격의 통화" : "Currency of entered price"}</label><select id="tool-currency" value={currency} onChange={event => { setCurrency(event.target.value); setSelectedPreset(""); setShareUrl(""); setNotice(""); }} className="min-h-12 rounded-xl border border-[#d7c5b0] bg-[#fffdf8] px-4 text-base"><option value="KRW">KRW · 원</option><option value="USD">USD · $</option></select><p className="mt-2 text-sm leading-6 text-[#76685d]">{ko ? "통화 표기만 바뀌며 환율 변환은 하지 않습니다." : "Changes the currency label only; no exchange-rate conversion."}</p></div> : null}
+        <div className="mt-7 flex flex-wrap gap-3"><button type="submit" disabled={!valid} className={`${button} bg-[#6f4e37] text-white hover:bg-[#573b29] disabled:cursor-not-allowed disabled:opacity-50`}>{ko ? "계산하기" : "Calculate"}</button><button type="button" onClick={() => { setValues({ ...toolDefaults[slug] }); setCurrency(slug === "ai-video-cost-calculator" ? "USD" : ko ? "KRW" : "USD"); setSelectedPreset(slug === "ai-video-cost-calculator" ? defaultProtofacePreset.id : ""); setShareUrl(""); setNotice(""); window.history.replaceState(null, "", window.location.pathname); }} className={`${button} border border-[#d7c5b0] text-[#6f4e37] hover:bg-[#fbf7f0]`}>{ko ? "초기화" : "Reset"}</button></div>
       </form>
       <div ref={resultRef} tabIndex={-1} id="tool-result" className="min-w-0 rounded-b-[28px] border-t border-[#eadfce] bg-[#f7f0e6] p-5 outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#a67c52] sm:p-8 lg:rounded-l-none lg:rounded-r-[28px] lg:border-l lg:border-t-0">
         <p className="text-sm font-bold tracking-wide text-[#89674a]">{ko ? "계산 결과" : "Your result"}</p>
@@ -95,13 +113,13 @@ export default function Calculator({ slug, language }: { slug: ToolSlug; languag
           <dl className="mt-5 space-y-3"><Result label={ko ? "원본에서 남는 면적" : "Original area retained"} value={`${format(aspect.retainedPercent)}%`} /><Result label={ko ? "잘리는 면적" : "Area cropped"} value={`${format(100 - aspect.retainedPercent)}%`} /><Result label={ko ? "남는 원본 영역" : "Retained source region"} value={`${format(aspect.cropWidth)} × ${format(aspect.cropHeight)} px`} /></dl>
         </> : null}
         {size ? <><p className="mt-4 break-words text-4xl font-black tabular-nums">{format(size.megabytes)} <span className="text-xl">MB</span></p><dl className="mt-6 space-y-3"><Result label="GB" value={format(size.gigabytes, 4)} /><Result label="MiB" value={format(size.mebibytes)} /><Result label={ko ? "전체 평균 비트레이트" : "Combined average bitrate"} value={`${format(number("videoMbps") + number("audioKbps") / 1000, 3)} Mbps`} /></dl><p className="mt-6 rounded-xl bg-white/70 p-4 text-sm leading-7 text-[#76685d]">{ko ? "평균 비트레이트로 계산한 예상값입니다. VBR, 컨테이너 및 메타데이터에 따라 실제 파일 크기는 달라집니다." : "An estimate based on average bitrate. VBR, container overhead and metadata affect the actual file size."}</p></> : null}
-        {cost ? <><p className="mt-4 text-sm font-bold text-[#76685d]">{ko ? "사용량 환산 비용" : "Allocated usage cost"}</p><p className="mt-2 break-words text-4xl font-black tabular-nums">{money(cost.allocatedCost)}</p><dl className="mt-6 space-y-3"><Result label={ko ? "총 생성 횟수" : "Total generations"} value={format(cost.generations, 0)} /><Result label={ko ? "필요 크레딧" : "Credits required"} value={format(cost.credits)} /><Result label={ko ? "새 묶음 구매 수" : "Whole packs to buy"} value={format(cost.packs, 0)} /><Result label={ko ? "묶음 구매 금액" : "Whole-pack purchase cost"} value={money(cost.purchaseCost)} /><Result label={ko ? "구매 후 남는 크레딧" : "Credits left after project"} value={format(cost.remainingCredits)} /><Result label={ko ? "최종 길이 (전환·트리밍 전)" : "Final length before transitions / trimming"} value={`${format(cost.finalSeconds)} ${ko ? "초" : "sec"}`} /></dl><p className="mt-6 rounded-xl bg-white/70 p-4 text-sm leading-7 text-[#76685d]">{ko ? "기존 잔액 0 기준입니다. 세금·환율·기본 구독료·편집·음악·인건비는 포함하지 않습니다." : "Assumes zero starting credits. Excludes taxes, currency conversion, base subscriptions, editing, music and labor."}</p></> : null}
+        {cost ? <><p className="mt-4 text-sm font-bold text-[#76685d]">{ko ? "사용량 환산 비용" : "Allocated usage cost"}</p><p className="mt-2 break-words text-4xl font-black tabular-nums">{money(cost.allocatedCost)}</p><dl className="mt-6 space-y-3"><Result label={ko ? "총 생성 횟수" : "Total generations"} value={format(cost.generations, 0)} /><Result label={ko ? "필요 크레딧" : "Credits required"} value={format(cost.credits)} />{!selectedPreset ? <><Result label={ko ? "새 묶음 구매 수" : "Whole packs to buy"} value={format(cost.packs, 0)} /><Result label={ko ? "묶음 구매 금액" : "Whole-pack purchase cost"} value={money(cost.purchaseCost)} /><Result label={ko ? "구매 후 남는 크레딧" : "Credits left after project"} value={format(cost.remainingCredits)} /></> : null}<Result label={ko ? "최종 길이 (전환·트리밍 전)" : "Final length before transitions / trimming"} value={`${format(cost.finalSeconds)} ${ko ? "초" : "sec"}`} /></dl><p className="mt-6 rounded-xl bg-white/70 p-4 text-sm leading-7 text-[#76685d]">{selectedPreset ? (ko ? "표에 적힌 생성 조건의 크레딧 예산입니다. 실제 충전 묶음·무제한 구독·참조 추가 요금·환율·세금·편집·인건비는 포함하지 않습니다." : "Credit budget for the listed generation settings. Excludes actual top-up packs, unlimited plans, reference surcharges, exchange conversion, taxes, editing and labor.") : (ko ? "기존 잔액 0 기준입니다. 세금·환율·기본 구독료·편집·음악·인건비는 포함하지 않습니다." : "Assumes zero starting credits. Excludes taxes, currency conversion, base subscriptions, editing, music and labor.")}</p></> : null}
         {valid ? <div className="mt-7"><button type="button" onClick={share} className={`${button} w-full border border-[#c6ad91] bg-white text-[#6f4e37] hover:bg-[#fffaf1]`}>{ko ? "결과 링크 복사" : "Copy result link"}</button><p className="mt-2 text-sm leading-6 text-[#76685d]">{ko ? "공유 링크에는 입력한 수치가 포함됩니다." : "Shared links include the numbers you enter."}</p></div> : null}
         {notice ? <p role="status" className="mt-3 text-sm font-bold text-[#6f4e37]">{notice}</p> : null}
         {shareUrl ? <label className="mt-3 block text-sm font-bold">{ko ? "공유 주소" : "Share URL"}<input readOnly value={shareUrl} onFocus={event => event.target.select()} className="mt-2 min-h-12 w-full min-w-0 rounded-xl border border-[#d7c5b0] bg-white px-3 text-base font-normal" /></label> : null}
       </div>
     </div>
-  </section>;
+  </section>{slug === "ai-video-cost-calculator" ? <ProtofaceCreditTable language={language} selected={selectedPreset} onApply={preset => applyPreset(preset, true)} /> : null}</>;
 }
 
 function Result({ label, value }: { label: string; value: string }) {

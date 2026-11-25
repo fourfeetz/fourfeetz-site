@@ -67,11 +67,11 @@ export const creatorTools: CreatorTool[] = [
     slug: "ai-video-cost-calculator", number: "03",
     ko: {
       title: "AI 영상 제작 비용 계산기", description: "장면 수, 재생성을 포함한 시도 횟수와 크레딧 가격으로 AI 영상 제작 비용을 계산하세요. 사용량 환산 비용과 크레딧 묶음 구매 금액을 구분합니다.",
-      intro: "한 번에 원하는 장면이 나오지 않을 수 있으니 재생성 횟수까지 예산에 넣어보세요. 사용 중인 서비스의 크레딧 가격을 직접 입력하면 예상 소모량과 사용량 환산 비용, 묶음 단위 구매 금액을 함께 볼 수 있습니다.",
+      intro: "Protoface 모델을 선택해 재생성까지 포함한 크레딧 예산을 계산하세요. 아래 표는 공식 공개 종량제 요금의 확인 시점 기준입니다. 다른 서비스나 조건은 직접 입력 모드에서 계산할 수 있습니다.",
       steps: ["최종 장면 수와 장면당 총 시도 횟수를 입력합니다. 첫 생성도 1회에 포함합니다.", "1회 생성 크레딧, 구매 묶음의 크레딧 수와 가격을 입력합니다.", "사용량 기준 비용과 새 묶음을 구매할 때 필요한 금액을 구분해 확인합니다."],
-      formula: "총 크레딧 = 장면 수 × 장면당 총 시도 × 1회 생성 크레딧. 사용량 환산 비용 = 총 크레딧 ÷ 묶음 크레딧 × 묶음 가격. 구매 금액은 필요한 묶음 수를 올림해 계산합니다.",
-      example: "5장면을 각 3회 시도하고 생성당 20크레딧을 쓰면 총 300크레딧입니다. 1,000크레딧 묶음이 10,000원이라면 사용량 환산 비용은 3,000원이고, 잔액 없이 새로 구매할 때는 1묶음 10,000원이 필요합니다.",
-      notes: ["특정 서비스의 최신 요금을 자동 조회하지 않습니다. 실제 구독 화면과 모델·해상도·길이별 차감량을 입력하세요.", "기존 잔액은 없는 것으로 보고 묶음 구매 금액을 계산합니다. 세금, 환율, 구독 기본료, 편집·음악·작업 인건비는 별도입니다.", "최종 영상 길이는 장면 수 × 장면당 사용 길이입니다. 전환 겹침, 잘라낸 구간과 생성 실패는 따로 고려하세요."],
+      formula: "총 크레딧 = 장면 수 × 장면당 총 시도 × 1회 생성 크레딧. 사용량 환산 비용 = 총 크레딧 ÷ 묶음 크레딧 × 묶음 가격. 직접 입력 모드의 구매 금액은 필요한 묶음 수를 올림해 계산합니다.",
+      example: "기본 선택인 Seedance 2.5의 720p·5초·입력 영상 없음 조건은 1회 92크레딧입니다. 5장면을 각 3회 생성하면 총 1,380크레딧, 공개 종량제 환산 비용은 $13.80입니다.",
+      notes: ["Protoface 요금은 표에 적힌 확인일의 공개 종량제 기준이며 자동 갱신되지 않습니다. 생성 전 Studio의 실제 견적을 확인하세요.", "기존 잔액은 없는 것으로 보고 묶음 구매 금액을 계산합니다. 세금, 환율, 구독 기본료, 편집·음악·작업 인건비는 별도입니다.", "최종 영상 길이는 장면 수 × 장면당 사용 길이입니다. 전환 겹침, 잘라낸 구간과 생성 실패는 따로 고려하세요."],
       faqs: [
         { question: "장면당 시도 횟수에 재생성만 넣나요?", answer: "첫 생성과 재생성을 모두 합친 횟수입니다. 처음 1회 생성 후 2회 다시 생성했다면 3을 입력하세요." },
         { question: "사용량 비용과 구매 금액이 왜 다른가요?", answer: "크레딧은 보통 묶음으로 구매합니다. 일부만 써도 구매 시에는 묶음 전체 금액을 지불하므로 차이가 납니다. 남는 크레딧도 함께 표시합니다." },
@@ -80,11 +80,11 @@ export const creatorTools: CreatorTool[] = [
     },
     en: {
       title: "AI Video Production Cost Calculator", description: "Estimate AI video credits, retry costs and credit-pack purchases from your own pricing. Separate usage-based costs from the amount needed to buy whole packs.",
-      intro: "Budget for retries as well as the first generation. Enter your service's credit price and the number of attempts per shot to estimate usage, its allocated cost and the amount required to buy whole credit packs.",
+      intro: "Choose a Protoface model to budget for generation and retries. The table records official public pay-as-you-go rates on the stated check date. Use custom inputs for other services or settings.",
       steps: ["Enter final shot count and total attempts per shot, including the first generation.", "Enter credits per generation, credits per pack and your pack price.", "Compare allocated usage cost with whole-pack purchases and unused credits."],
-      formula: "Total credits = shots × total attempts per shot × credits per generation. Allocated cost = total credits ÷ pack credits × pack price. Pack purchases round up to whole packs.",
-      example: "Five shots with three attempts each at 20 credits use 300 credits. If a 1,000-credit pack costs 10,000 in your chosen currency, the allocated cost is 3,000. Buying from a zero balance requires one full pack at 10,000.",
-      notes: ["The tool does not fetch current provider prices. Enter the rates shown for your model, resolution and generation length.", "Pack purchases assume a zero starting balance. Taxes, currency conversion, subscription base fees, editing, music and labor are excluded.", "Final runtime equals shot count × usable seconds per shot. Allow separately for transitions, trimming and failed outputs."],
+      formula: "Total credits = shots × total attempts per shot × credits per generation. Allocated cost = total credits ÷ pack credits × pack price. In custom mode, pack purchases round up to whole packs.",
+      example: "The default Seedance 2.5 preset at 720p, 5 seconds and no video input uses 92 credits per run. Five shots with three attempts each use 1,380 credits, equivalent to $13.80 at the public pay-as-you-go rate.",
+      notes: ["Protoface presets reflect public pay-as-you-go rates on the check date and do not update automatically. Confirm the actual Studio quote before generating.", "Pack purchases assume a zero starting balance. Taxes, currency conversion, subscription base fees, editing, music and labor are excluded.", "Final runtime equals shot count × usable seconds per shot. Allow separately for transitions, trimming and failed outputs."],
       faqs: [
         { question: "Do attempts include the first generation?", answer: "Yes. One first generation plus two retries is three total attempts." },
         { question: "Why do usage cost and purchase amount differ?", answer: "Credits are sold in packs. You may need to buy a whole pack even when your project uses only part of it; the unused balance is shown separately." },
