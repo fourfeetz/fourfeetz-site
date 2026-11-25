@@ -29,7 +29,7 @@ export default function KoreanSalesHome({ newsSection }: { newsSection?: React.R
   const cases = [
     work && { title: work.koreanTitle ?? work.title, image: work.thumbnail, href: `/ko/films/${work.slug}`, label: "공개 필름 · 16:9" },
     short && { title: short.title, image: short.poster, href: `/ko/shorts/${short.slug}`, label: "공개 쇼츠 · 세로형" },
-    { title: "애견미용실·호텔 홍보영상", image: "/images/services/pet-grooming-hotel-cover.webp", href: "/ko/services/grooming-hotel", label: "업체용 공개 포트폴리오 · 9:16" },
+    { title: "애견미용실·호텔 홍보영상", image: "/images/services/pet-grooming-hotel-cover.webp", href: "/ko/services/pet-video#grooming-hotel", label: "업체용 공개 포트폴리오 · 9:16" },
   ].filter(Boolean) as { title: string; image?: string; href: string; label: string }[];
 
   return <main className={koreanPageTypographyClass}>

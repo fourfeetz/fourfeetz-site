@@ -81,7 +81,7 @@ export const searchFocusedInsights: Record<SearchFocusedInsightSlug, Record<Lang
         { id: "takeaway", title: "Practical Takeaway", paragraphs: ["The video should answer one question: why would a pet owner feel comfortable contacting this salon? A clear customer journey, restrained copy and believable care moments usually do more work than a long service list."] },
       ],
       faqs: [{ question: "How long should a grooming salon promo be?", answer: "For Shorts or Reels, 20 to 30 seconds is enough for a focused first version. Longer videos can be used when the business needs staff introductions, facility details or testimonials." }, { question: "Should every service be shown?", answer: "No. A first promo is usually clearer when it highlights a few strong, verifiable benefits and points viewers to the booking page for the full menu." }],
-      related: [{ label: "Service", title: "Pet Grooming & Hotel Video", href: "/ko/services/grooming-hotel" }, { label: "Production Notes", title: "What We Learned Making a Pet Hotel Promo", href: "/insights/pet-hotel-promo-video-production-notes" }],
+      related: [{ label: "Service", title: "Pet Grooming & Hotel Video", href: "/ko/services/pet-video#grooming-hotel" }, { label: "Production Notes", title: "What We Learned Making a Pet Hotel Promo", href: "/insights/pet-hotel-promo-video-production-notes" }],
     },
     ko: {
       ...dates, slug: "pet-grooming-salon-promo-video-guide", eyebrow: "FourFeetz 업체 가이드", title: "애견미용실 홍보영상 만드는 방법", shortTitle: "애견미용실 홍보영상 제작 가이드", description: "첫인상, 돌봄, 전후 변화, 신뢰와 하나의 문의 행동으로 구성하는 짧은 애견미용실 홍보영상 실전 가이드입니다.", hero: "/images/studio-hero-v2.png", heroAlt: "반려동물 업체 홍보영상 기획에 사용하는 FourFeetz 스튜디오 이미지", readTime: "약 7분", verdict: "짧은 애견미용실 홍보영상은 모든 서비스를 한꺼번에 보여주는 것보다 고객이 느끼는 도착, 돌봄, 변화와 신뢰의 흐름을 보여줄 때 더 명확합니다.", category: "업체 가이드", tags: ["애견미용실", "홍보영상", "쇼츠", "마케팅"], keywords: ["애견미용실 홍보영상", "애견미용실 릴스", "반려동물 업체 영상", "애견미용 마케팅"], tools: ["AI 영상", "CapCut"], characters: ["반려동물 고객"],
@@ -92,7 +92,7 @@ export const searchFocusedInsights: Record<SearchFocusedInsightSlug, Record<Lang
         { id: "takeaway", title: "실전 핵심 정리", paragraphs: ["영상은 한 가지 질문에 답해야 합니다. 고객이 왜 이 미용실에 문의해도 괜찮다고 느낄까요? 분명한 고객 여정, 짧은 문구와 믿을 수 있는 돌봄 장면이 긴 서비스 목록보다 더 효과적일 수 있습니다."] },
       ],
       faqs: [{ question: "애견미용실 홍보영상은 몇 초가 좋은가요?", answer: "쇼츠나 릴스용 첫 버전은 20~30초면 충분합니다. 직원 소개, 시설과 후기까지 보여줘야 한다면 더 긴 영상을 별도로 만들 수 있습니다." }, { question: "모든 서비스를 영상에 넣어야 하나요?", answer: "아닙니다. 첫 홍보영상은 확인 가능한 강점 몇 가지에 집중하고 전체 서비스는 예약 페이지나 상세 안내로 연결하는 편이 더 명확합니다." }],
-      related: [{ label: "제작 서비스", title: "애견미용실·호텔 영상", href: "/ko/services/grooming-hotel" }, { label: "제작 기록", title: "펫호텔 홍보영상 제작 경험", href: "/ko/insights/pet-hotel-promo-video-production-notes" }],
+      related: [{ label: "제작 서비스", title: "애견미용실·호텔 영상", href: "/ko/services/pet-video#grooming-hotel" }, { label: "제작 기록", title: "펫호텔 홍보영상 제작 경험", href: "/ko/insights/pet-hotel-promo-video-production-notes" }],
     },
   },
   "ai-pet-video-production-cost-guide": {

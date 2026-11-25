@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Search as SearchIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { koreanNavItems, navItems } from "@/lib/i18n";
 import { NEWS_PUBLIC } from "@/lib/news-visibility";
 import { toEnglishPath, toKoreanPath } from "@/lib/localization";
@@ -16,12 +16,17 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobilePersonalOpen, setMobilePersonalOpen] = useState(false);
+  const [mobileVideoOpen, setMobileVideoOpen] = useState(false);
+  const [desktopVideoMode, setDesktopVideoMode] = useState<"hover" | "click" | null>(null);
+  const desktopVideoButton = useRef<HTMLButtonElement>(null);
   const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const closeMenus = window.setTimeout(() => {
       setMobileOpen(false);
       setMobilePersonalOpen(false);
+      setMobileVideoOpen(false);
+      setDesktopVideoMode(null);
       setSearchOpen(false);
     }, 0);
     return () => window.clearTimeout(closeMenus);
@@ -30,11 +35,20 @@ export default function Header() {
   const closeSearch = useCallback(() => setSearchOpen(false), []);
 
   function isActive(href: string) {
-    return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+    return pathname === href || (!["/", "/ko", "/en"].includes(href) && pathname.startsWith(`${href}/`));
   }
 
-  const activeNavItems = (lang === "ko" ? koreanNavItems : navItems)
-    .filter((item) => NEWS_PUBLIC || item.key !== "news");
+  const localizedNav = lang === "ko" ? koreanNavItems : navItems;
+  const videoLabels = lang === "ko"
+    ? { videos: "영상 전체", business: "업체용", music: "음악", characters: "캐릭터" }
+    : { videos: "All Videos", business: "For Businesses", music: "Music", characters: "Characters" };
+  const videoItems = (["videos", "business", "music", "characters"] as const).flatMap((key) =>
+    localizedNav.filter((item) => item.key === key).map(({ href }) => ({ href, key, label: videoLabels[key] })),
+  );
+  const activeNavItems = localizedNav.filter((item) =>
+    (NEWS_PUBLIC || item.key !== "news") &&
+    (item.key === "videos" || !videoItems.some(({ key }) => key === item.key)),
+  );
   const homeHref = lang === "ko" ? "/ko" : "/en";
   const englishHref = toEnglishPath(pathname);
   const koreanHref = toKoreanPath(pathname);
@@ -42,6 +56,15 @@ export default function Header() {
   const memorialHref = lang === "ko" ? "/ko/services/pet-memorial-video" : "/services/pet-memorial-video";
   const memorialLabel = lang === "ko" ? "추모영상" : "Memorial Video";
   const personalIsActive = isActive(personalHref) || isActive(memorialHref);
+  const videoLabel = lang === "ko" ? "영상 콘텐츠" : "Video Content";
+  const videoIsActive = !personalIsActive && videoItems.some(({ href }) => isActive(href));
+  const desktopVideoOpen = desktopVideoMode !== null;
+
+  function closeMobileMenu() {
+    setMobileOpen(false);
+    setMobilePersonalOpen(false);
+    setMobileVideoOpen(false);
+  }
 
   return (
     <header className="sticky top-0 z-50 border-b border-[#e6d8c8] bg-[#fbf7f0]/90 backdrop-blur-xl print:hidden">
@@ -76,6 +99,49 @@ export default function Header() {
                 </div>
               </div>
             </div>
+          ) : item.key === "videos" ? (
+            <div
+              key={item.href}
+              className="relative py-2"
+              onPointerEnter={(event) => {
+                if (event.pointerType === "mouse") setDesktopVideoMode((mode) => mode ?? "hover");
+              }}
+              onPointerLeave={(event) => {
+                if (event.pointerType === "mouse" && !event.currentTarget.contains(document.activeElement)) {
+                  setDesktopVideoMode(null);
+                }
+              }}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) setDesktopVideoMode(null);
+              }}
+              onKeyDown={(event) => {
+                if (event.key !== "Escape" || !desktopVideoOpen) return;
+                event.preventDefault();
+                setDesktopVideoMode(null);
+                desktopVideoButton.current?.focus();
+              }}
+            >
+              <button
+                ref={desktopVideoButton}
+                type="button"
+                aria-expanded={desktopVideoOpen}
+                aria-controls="desktop-video-submenu"
+                onClick={() => setDesktopVideoMode((mode) => mode === "click" ? null : "click")}
+                className={`relative inline-flex items-center gap-1 whitespace-nowrap text-sm font-semibold transition after:absolute after:inset-x-0 after:-bottom-2.5 after:h-0.5 after:bg-[#6f4e37] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a67c52] ${videoIsActive ? "text-[#2b2119] after:scale-x-100" : "text-[#6f4e37] after:scale-x-0 hover:after:scale-x-100"}`}
+              >
+                {videoLabel}
+                <ChevronDown className={`size-3.5 transition ${desktopVideoOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+              </button>
+              <div id="desktop-video-submenu" hidden={!desktopVideoOpen} className="absolute left-1/2 top-full z-20 w-48 -translate-x-1/2 pt-3">
+                <div className="rounded-2xl border border-[#e6d8c8] bg-[#fbf7f0] p-2 shadow-xl shadow-[#6f4e37]/10">
+                  {videoItems.map(({ href, label }) => (
+                    <Link key={href} href={href} onClick={() => setDesktopVideoMode(null)} aria-current={pathname === href ? "page" : undefined} className={`block rounded-xl px-4 py-3 text-sm font-bold hover:bg-white focus-visible:bg-white focus-visible:outline-2 focus-visible:outline-[#a67c52] ${videoIsActive && isActive(href) ? "bg-white text-[#2b2119]" : "text-[#6f4e37]"}`}>
+                      {label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
           ) : (
             <Link
               key={item.href}
@@ -104,7 +170,7 @@ export default function Header() {
           </button>
         </div>
       </div>
-      <div id="mobile-navigation" className={`overflow-hidden border-t border-[#e6d8c8] bg-[#fbf7f0] transition-[max-height,opacity] duration-300 xl:hidden ${mobileOpen ? "max-h-[640px] opacity-100" : "max-h-0 border-t-transparent opacity-0"}`}>
+      <div id="mobile-navigation" inert={!mobileOpen} className={`border-t border-[#e6d8c8] bg-[#fbf7f0] transition-[max-height,opacity] duration-300 xl:hidden ${mobileOpen ? "max-h-[calc(100dvh-5rem)] overflow-y-auto opacity-100" : "max-h-0 overflow-hidden border-t-transparent opacity-0"}`}>
         <nav aria-label="Mobile navigation" className="mx-auto grid max-w-7xl gap-1 px-6 py-4">
           <div className="mb-2 flex items-center gap-2 rounded-xl border border-[#e6d8c8] bg-white p-2 text-xs font-black">
             <Link href={englishHref} hrefLang="en" lang="en" tabIndex={mobileOpen ? 0 : -1} className={`flex-1 rounded-lg px-4 py-2 text-center ${lang === "en" ? "bg-[#6f4e37] text-white" : "text-[#6f4e37]"}`}>EN</Link>
@@ -128,8 +194,22 @@ export default function Header() {
                 </div>
               </div>
             </div>
+          ) : item.key === "videos" ? (
+            <div key={item.href}>
+              <button type="button" aria-expanded={mobileVideoOpen} aria-controls="mobile-video-submenu" onClick={() => setMobileVideoOpen((open) => !open)} className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-bold focus-visible:outline-2 focus-visible:outline-[#a67c52] ${videoIsActive ? "bg-white text-[#2b2119] shadow-sm" : "text-[#6f4e37] hover:bg-white/70"}`}>
+                {videoLabel}
+                <ChevronDown className={`size-4 transition ${mobileVideoOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+              </button>
+              <div id="mobile-video-submenu" hidden={!mobileVideoOpen}>
+                {videoItems.map(({ href, label }) => (
+                  <Link key={href} href={href} onClick={closeMobileMenu} aria-current={pathname === href ? "page" : undefined} className={`ml-4 mt-1 block rounded-xl border-l-2 border-[#d8c3ad] px-5 py-3 text-sm font-bold focus-visible:outline-2 focus-visible:outline-[#a67c52] ${videoIsActive && isActive(href) ? "bg-white text-[#2b2119]" : "text-[#76685d] hover:bg-white/70"}`}>
+                    {label}
+                  </Link>
+                ))}
+              </div>
+            </div>
           ) : (
-            <Link key={item.href} href={item.href} aria-current={isActive(item.href) ? "page" : undefined} tabIndex={mobileOpen ? 0 : -1} className={`rounded-xl px-4 py-3 text-sm font-bold transition ${isActive(item.href) ? "bg-white text-[#2b2119] shadow-sm" : "text-[#6f4e37] hover:bg-white/70 hover:text-[#2b2119]"}`}>
+            <Link key={item.href} href={item.href} onClick={closeMobileMenu} aria-current={isActive(item.href) ? "page" : undefined} tabIndex={mobileOpen ? 0 : -1} className={`rounded-xl px-4 py-3 text-sm font-bold transition ${isActive(item.href) ? "bg-white text-[#2b2119] shadow-sm" : "text-[#6f4e37] hover:bg-white/70 hover:text-[#2b2119]"}`}>
               {t.nav[item.key]}
             </Link>
           ))}

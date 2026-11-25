@@ -1,14 +1,13 @@
 export const petServiceSlugs = [
   "personal-pet-video",
   "pet-video",
-  "grooming-hotel",
   "pet-products",
   "veterinary",
   "pet-funeral",
 ] as const;
 
 export type PetServiceSlug = (typeof petServiceSlugs)[number];
-export type PetIndustrySlug = Exclude<PetServiceSlug, "pet-video" | "personal-pet-video">;
+export type PetIndustrySlug = Exclude<PetServiceSlug, "pet-video" | "personal-pet-video"> | "grooming-hotel";
 
 export const videoPricingPackages = [
   {
@@ -278,8 +277,8 @@ export function getPetIndustryService(slug: string) {
 }
 
 export const petVideoLandingMetadata = {
-  title: "반려동물 업체 AI 홍보영상 제작 | FourFeetz",
-  description: "애견미용실·호텔, 애견용품 브랜드·쇼핑몰, 동물병원과 반려동물 장례식장을 위한 FourFeetz AI 홍보영상 제작 서비스를 안내합니다.",
+  title: "반려동물 업체 홍보영상 제작 · 미용실·펫호텔 | FourFeetz",
+  description: "애견미용실·펫호텔의 예약 홍보부터 반려동물 브랜드·병원·장례식장 안내까지. 영상 사례, 미용실·호텔 제작 가격과 업체별 견적을 확인하세요.",
   path: "/ko/services/pet-video",
-  image: "/images/services/pet-grooming-hotel-cover.webp",
+  image: "/images/services/pet-hotel-promo-0907-poster.webp",
 };
