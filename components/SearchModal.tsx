@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/components/LanguageProvider";
+import { localizedHref } from "@/lib/localization";
 import Link from "next/link";
 import { ArrowUpRight, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -14,6 +16,7 @@ function normalize(value: string) {
 }
 
 export default function SearchModal({ onClose }: SearchModalProps) {
+  const { lang } = useLanguage();
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -100,7 +103,7 @@ export default function SearchModal({ onClose }: SearchModalProps) {
           {results.length ? (
             <div className="grid gap-3 sm:grid-cols-2">
               {results.map((item) => (
-                <Link key={`${item.type}-${item.href}-${item.title}`} href={item.href} onClick={onClose} aria-label={`Open ${item.title}`} className="group rounded-2xl border border-[#eadfce] bg-white p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[#d4b99d] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37]">
+                <Link key={`${item.type}-${item.href}-${item.title}`} href={item.href.startsWith("/tools/") ? localizedHref(item.href, lang) : item.href} onClick={onClose} aria-label={`Open ${item.title}`} className="group rounded-2xl border border-[#eadfce] bg-white p-4 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[#d4b99d] hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6f4e37]">
                   <div className="flex items-start justify-between gap-3">
                     <span className="rounded-full bg-[#f2e8dc] px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.16em] text-[#6f4e37]">{item.type}</span>
                     <ArrowUpRight size={17} className="text-[#a67c52] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />

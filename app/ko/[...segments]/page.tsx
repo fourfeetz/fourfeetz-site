@@ -61,7 +61,7 @@ const sectionMetadata: Record<string, { title: string; description: string; engl
   insights: { title: "실제 AI 영상 제작 기록과 가이드 | FourFeetz", description: "공개된 FourFeetz 동물 캐릭터 프로젝트의 실제 제작 기록과 제작 가이드, 구분된 AI 영상 도구 분석을 제공합니다.", englishPath: "/insights", image: "/images/insights-hero-v2.png" },
   resources: { title: "AI 영상 제작 리소스 | FourFeetz", description: "FourFeetz 실제 제작 경험에서 정리한 공개 가이드, 템플릿과 체크리스트입니다. 내부 캐릭터 자산과 핵심 설정은 포함하지 않습니다.", englishPath: "/resources", image: "/images/resources-hero-v2.png" },
   services: { title: "AI 영상 제작 서비스 | FourFeetz", description: "FourFeetz는 AI 쇼츠, 브랜드 광고, 캐릭터 애니메이션, 반려동물 콘텐츠와 감성 영상을 제작합니다.", englishPath: "/services", image: "/images/studio-hero-v2.png" },
-  tools: { title: "실제 제작에 사용한 AI 도구 | FourFeetz", description: "FourFeetz 완성 영상 제작에 사용한 AI 영상, 음악, 기획과 편집 도구의 실제 역할과 한계를 설명합니다.", englishPath: "/tools", image: "/images/tools-hero-v2.png" },
+  tools: { title: "무료 영상 계산기·AI 제작 도구 | FourFeetz", description: "화면비·해상도, 영상 용량, AI 영상 제작 비용을 무료로 계산하세요. 로그인 없이 사용하는 영상 제작 도구와 실제 제작 가이드를 제공합니다.", englishPath: "/tools", image: "/images/tools-hero-v2.png" },
 };
 
 export const dynamicParams = false;

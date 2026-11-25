@@ -35,7 +35,7 @@ export default function Footer() {
     Resources: "리소스",
     Store: "스토어",
     Services: "제작 의뢰",
-    "Production Tools": "제작 도구",
+    "Production Tools": "무료 제작 도구",
     About: "소개",
     "Editorial Policy": "편집 및 AI 원칙",
     Privacy: "개인정보 처리방침",
