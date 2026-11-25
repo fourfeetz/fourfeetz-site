@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { NEWS_PUBLIC } from "@/lib/news-visibility";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getNewsArticle, getNewsArticles } from "@/lib/news";
@@ -9,6 +10,7 @@ type Props = { params: Promise<{ slug: string }> };
 export const dynamicParams = false;
 export function generateStaticParams() { return getNewsArticles().map(({ slug }) => ({ slug })); }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  if (!NEWS_PUBLIC) notFound();
   const article = getNewsArticle((await params).slug);
   if (!article) return {};
   const translated = loadEnglishNewsTranslations([article]).get(article.slug);
@@ -26,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 export default async function EnglishNewsDetail({ params }: Props) {
+  if (!NEWS_PUBLIC) notFound();
   const article = getNewsArticle((await params).slug);
   if (!article) notFound();
   const translated = loadEnglishNewsTranslations([article]).get(article.slug);

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import EnglishHome from "@/app/page";
 import Link from "next/link";
+import { NEWS_PUBLIC } from "@/lib/news-visibility";
 import { getNewsArticles } from "@/lib/news";
 import { loadEnglishNewsTranslations } from "@/lib/news-english";
 import { englishLanguageAlternates } from "@/lib/localization";
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  if (!NEWS_PUBLIC) return <EnglishHome />;
   const articles = getNewsArticles().slice(0, 3);
   const translations = loadEnglishNewsTranslations(articles);
   const newsSection = <section className="border-y border-[#eadfce] bg-white px-6 py-20 md:py-24">

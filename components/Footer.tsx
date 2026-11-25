@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useLanguage } from "@/components/LanguageProvider";
 import { localizedHref } from "@/lib/localization";
 
+import { NEWS_PUBLIC } from "@/lib/news-visibility";
+
 const footerLinks = [
   { href: "/services/personal-pet-video", koreanHref: "/ko/services/personal-pet-video", label: "My Pet Story" },
   { href: "/services/pet-memorial-video", koreanHref: "/ko/services/pet-memorial-video", label: "Memorial Video" },
@@ -12,7 +14,7 @@ const footerLinks = [
   { href: "/videos", label: "Videos" },
   { href: "/characters", label: "Characters" },
   { href: "/insights", label: "Insights" },
-  { href: "/news", koreanHref: "/ko/news", label: "News", koreanOnly: true },
+  ...(NEWS_PUBLIC ? [{ href: "/news", koreanHref: "/ko/news", label: "News", koreanOnly: true }] : []),
   { href: "/resources", label: "Resources" },
   { href: "/store", label: "Store" },
   { href: "/services", label: "Services" },
