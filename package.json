@@ -11,6 +11,7 @@
     "test:store": "node --test --experimental-strip-types scripts/store/*.test.ts",
     "db:migrate:store": "node --experimental-strip-types scripts/store/migrate.ts",
     "db:preflight:store": "node --experimental-strip-types scripts/store/preflight.ts",
+    "test:tools": "node --test --experimental-strip-types scripts/tools/*.test.ts",
     "test:news": "node --test scripts/news/*.test.mjs",
     "test:blog": "node --test --experimental-strip-types scripts/blog/*.test.ts",
     "db:migrate:blog": "node --experimental-strip-types scripts/blog/migrate.ts",

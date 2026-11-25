@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import ToolCards from "@/components/creator-tools/ToolCards";
 import Image from "next/image";
 import Link from "next/link";
 import CinematicHero from "@/components/CinematicHero";
@@ -99,6 +100,7 @@ export default function Home({ newsSection }: { newsSection?: React.ReactNode })
         </div>
       </section>
 
+      <ToolCards language="en" compact />
       {newsSection}
 
       <section className="px-6 py-20 md:py-24">

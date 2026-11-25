@@ -1,3 +1,4 @@
+import { creatorTools } from "@/lib/creator-tools/content";
 import { shorts } from "@/data/shorts";
 import { indexableCharacterDetails } from "@/lib/characterDetails";
 import { films } from "@/lib/films";
@@ -114,7 +115,13 @@ const musicContent: SiteContentItem[] = musicTracks.filter((track) => !track.kor
   detail: true,
 }));
 
+const creatorToolContent: SiteContentItem[] = creatorTools.map(tool => ({
+  title: tool.en.title, description: tool.en.description, href: `/tools/${tool.slug}`, type: "Resources",
+  category: "Free Creator Tools", keywords: [tool.ko.title, tool.ko.description, "calculator", "계산기", "무료"], searchable: true, detail: false,
+}));
+
 export const siteContent: SiteContentItem[] = [
+  ...creatorToolContent,
   ...filmContent,
   ...shortContent,
   ...characterContent,

@@ -1,3 +1,4 @@
+import ToolCards from "@/components/creator-tools/ToolCards";
 import Image from "next/image";
 import Link from "next/link";
 import { BadgeCheck, Building2, Heart, PawPrint } from "lucide-react";
@@ -75,7 +76,8 @@ export default function KoreanSalesHome({ newsSection }: { newsSection?: React.R
       </div>
     </section>
 
-    {newsSection}
+    <ToolCards language="ko" compact />
+      {newsSection}
 
     <section className="px-6 py-20"><div className="mx-auto max-w-7xl"><h2 className="text-4xl font-black text-[#2b2119] md:text-5xl">제작은 이렇게 진행됩니다</h2><ol className="mt-8 grid gap-5 md:grid-cols-4">{[["자료 확인","사진, 이름, 특징, 분위기와 사용 목적을 확인합니다."],["구성 안내","공개 가능한 범위와 원하는 결과물을 바탕으로 구성을 안내합니다."],["제작·검토","AI를 활용해 제작하고 합의된 기준에 따라 결과를 검토합니다."],["수정·전달","확정된 수정 범위를 반영해 최종 파일을 전달합니다."]].map(([t,d],i)=><li key={t} className={card}><span className="font-black text-[#a67c52]">0{i+1}</span><h3 className="mt-4 text-xl font-black">{t}</h3><p className="mt-3 leading-7 text-[#76685d]">{d}</p></li>)}</ol></div></section>
 

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import ToolCards from "@/components/creator-tools/ToolCards";
 import HeroIllustrationCard from "@/components/HeroIllustrationCard";
 import ReferralCode from "@/components/ReferralCode";
 import { englishLanguageAlternates } from "@/lib/localization";
 
-const title = "Tools in FourFeetz Production | FourFeetz";
-const description = "See the documented role, practical limit, and related FourFeetz production record for each AI video, music, planning, and editing tool used by the studio.";
+const title = "Free Video Calculators & Production Tools | FourFeetz";
+const description = "Free aspect ratio, video file size and AI production cost calculators. Plan your next video without signup, then explore tools and production guides from FourFeetz.";
 
 export const metadata: Metadata = {
   title: { absolute: title },
@@ -117,10 +118,11 @@ const standardTools = tools.slice(1);
 export default function ToolsPage() {
   return (
     <main>
+      <ToolCards language="en" />
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
         <div className="max-w-[900px]">
           <p className="text-sm font-black uppercase tracking-[0.35em] text-[#a67c52]">FourFeetz Production</p>
-          <h1 className="mt-4 max-w-4xl text-5xl font-black tracking-tight text-[#2b2119] md:text-7xl">Tools in FourFeetz Production</h1>
+          <h1 className="mt-4 max-w-4xl text-5xl font-black tracking-tight text-[#2b2119] md:text-7xl">Free Video Calculators &amp; Production Tools</h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-[#76685d] md:text-xl md:leading-9">
             These tools appear in actual FourFeetz production records. Each has a defined role and a limit; the finished film and review decision matter more than a feature list.
           </p>
