@@ -90,11 +90,7 @@ export default function Calculator({ slug, language }: { slug: ToolSlug; languag
         {aspect ? <>
           <p className="mt-4 break-words text-3xl font-black tabular-nums sm:text-4xl">{format(aspect.outputWidth, 0)} × {format(aspect.outputHeight, 0)} <span className="text-base font-medium">px</span></p>
           <p className="mt-3 leading-7">{ko ? "원본 화면비" : "Source ratio"} <strong>{aspect.sourceRatio}</strong> → <strong>{values.ratioWidth}:{values.ratioHeight}</strong></p>
-          <div role="img" aria-label={ko ? `가운데 자르기로 원본 면적의 ${format(aspect.retainedPercent)}%가 남습니다.` : `A centered crop retains ${format(aspect.retainedPercent)}% of the original area.`} className="mt-6 flex min-h-40 items-center justify-center rounded-2xl border border-[#dfd0be] bg-[#e9ddcd] p-6">
-            <div className="relative flex items-center justify-center border-2 border-dashed border-[#98775d] bg-[#d9c7af]" style={{ width: `${Math.min(100, number("width") / number("height") * 100)}%`, aspectRatio: `${values.width}/${values.height}`, maxHeight: 240 }}>
-              <div className="absolute border-2 border-[#6f4e37] bg-[#fffdf8]/90" style={{ width: `${aspect.cropWidth / number("width") * 100}%`, height: `${aspect.cropHeight / number("height") * 100}%` }} />
-            </div>
-          </div>
+          <CropPreview width={number("width")} height={number("height")} cropWidth={aspect.cropWidth} cropHeight={aspect.cropHeight} label={ko ? `가운데 자르기로 원본 면적의 ${format(aspect.retainedPercent)}%가 남습니다.` : `A centered crop retains ${format(aspect.retainedPercent)}% of the original area.`} />
           <p className="mt-3 text-sm leading-6 text-[#76685d]">{ko ? "점선: 원본 · 밝은 영역: 가운데 자르기로 남는 부분" : "Dashed outline: source · light area: retained centered crop"}</p>
           <dl className="mt-5 space-y-3"><Result label={ko ? "원본에서 남는 면적" : "Original area retained"} value={`${format(aspect.retainedPercent)}%`} /><Result label={ko ? "잘리는 면적" : "Area cropped"} value={`${format(100 - aspect.retainedPercent)}%`} /><Result label={ko ? "남는 원본 영역" : "Retained source region"} value={`${format(aspect.cropWidth)} × ${format(aspect.cropHeight)} px`} /></dl>
         </> : null}
@@ -110,4 +106,14 @@ export default function Calculator({ slug, language }: { slug: ToolSlug; languag
 
 function Result({ label, value }: { label: string; value: string }) {
   return <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-[#e0d1be] pb-3"><dt className="text-sm leading-6 text-[#76685d]">{label}</dt><dd className="break-all text-lg font-bold tabular-nums">{value}</dd></div>;
+}
+
+function CropPreview({ width, height, cropWidth, cropHeight, label }: { width: number; height: number; cropWidth: number; cropHeight: number; label: string }) {
+  const scale = Math.min(288 / width, 208 / height);
+  const w = width * scale, h = height * scale;
+  const cw = cropWidth * scale, ch = cropHeight * scale;
+  return <svg viewBox="0 0 320 240" role="img" aria-label={label} className="mt-6 h-60 w-full rounded-2xl border border-[#dfd0be] bg-[#e9ddcd]">
+    <rect x={(320 - w) / 2} y={(240 - h) / 2} width={w} height={h} fill="#d9c7af" stroke="#98775d" strokeWidth="2" strokeDasharray="6 4" />
+    <rect x={(320 - cw) / 2} y={(240 - ch) / 2} width={cw} height={ch} fill="#fffdf8" fillOpacity="0.9" stroke="#6f4e37" strokeWidth="2" />
+  </svg>;
 }
