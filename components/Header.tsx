@@ -57,6 +57,7 @@ export default function Header() {
   const memorialLabel = lang === "ko" ? "추모영상" : "Memorial Video";
   const personalIsActive = isActive(personalHref) || isActive(memorialHref);
   const videoLabel = lang === "ko" ? "영상 콘텐츠" : "Video Content";
+  const videoToggleLabel = lang === "ko" ? "영상 콘텐츠 하위 메뉴" : "Video Content submenu";
   const videoIsActive = !personalIsActive && videoItems.some(({ href }) => isActive(href));
   const desktopVideoOpen = desktopVideoMode !== null;
 
@@ -121,17 +122,22 @@ export default function Header() {
                 desktopVideoButton.current?.focus();
               }}
             >
+              <div className={`group relative inline-flex items-center whitespace-nowrap text-sm font-semibold transition after:pointer-events-none after:absolute after:inset-x-0 after:-bottom-2.5 after:h-0.5 after:bg-[#6f4e37] ${videoIsActive ? "text-[#2b2119] after:scale-x-100" : "text-[#6f4e37] after:scale-x-0 hover:after:scale-x-100"}`}>
+                <Link href={item.href} aria-current={pathname === item.href ? "page" : undefined} onClick={() => setDesktopVideoMode(null)} className="rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a67c52]">
+                  {videoLabel}
+                </Link>
               <button
                 ref={desktopVideoButton}
                 type="button"
+                aria-label={videoToggleLabel}
                 aria-expanded={desktopVideoOpen}
                 aria-controls="desktop-video-submenu"
                 onClick={() => setDesktopVideoMode((mode) => mode === "click" ? null : "click")}
-                className={`relative inline-flex items-center gap-1 whitespace-nowrap text-sm font-semibold transition after:absolute after:inset-x-0 after:-bottom-2.5 after:h-0.5 after:bg-[#6f4e37] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#a67c52] ${videoIsActive ? "text-[#2b2119] after:scale-x-100" : "text-[#6f4e37] after:scale-x-0 hover:after:scale-x-100"}`}
+                className="grid min-h-6 min-w-7 place-items-center rounded focus-visible:outline-2 focus-visible:outline-[#a67c52]"
               >
-                {videoLabel}
                 <ChevronDown className={`size-3.5 transition ${desktopVideoOpen ? "rotate-180" : ""}`} aria-hidden="true" />
               </button>
+              </div>
               <div id="desktop-video-submenu" hidden={!desktopVideoOpen} className="absolute left-1/2 top-full z-20 w-48 -translate-x-1/2 pt-3">
                 <div className="rounded-2xl border border-[#e6d8c8] bg-[#fbf7f0] p-2 shadow-xl shadow-[#6f4e37]/10">
                   {videoItems.map(({ href, label }) => (
@@ -196,10 +202,14 @@ export default function Header() {
             </div>
           ) : item.key === "videos" ? (
             <div key={item.href}>
-              <button type="button" aria-expanded={mobileVideoOpen} aria-controls="mobile-video-submenu" onClick={() => setMobileVideoOpen((open) => !open)} className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-sm font-bold focus-visible:outline-2 focus-visible:outline-[#a67c52] ${videoIsActive ? "bg-white text-[#2b2119] shadow-sm" : "text-[#6f4e37] hover:bg-white/70"}`}>
-                {videoLabel}
-                <ChevronDown className={`size-4 transition ${mobileVideoOpen ? "rotate-180" : ""}`} aria-hidden="true" />
-              </button>
+              <div className={`flex items-stretch rounded-xl transition ${videoIsActive ? "bg-white text-[#2b2119] shadow-sm" : "text-[#6f4e37] hover:bg-white/70"}`}>
+                <Link href={item.href} aria-current={pathname === item.href ? "page" : undefined} onClick={closeMobileMenu} className="flex flex-1 items-center rounded-l-xl px-4 py-3 text-sm font-bold focus-visible:outline-2 focus-visible:outline-[#a67c52]">
+                  {videoLabel}
+                </Link>
+                <button type="button" aria-label={videoToggleLabel} aria-expanded={mobileVideoOpen} aria-controls="mobile-video-submenu" onClick={() => setMobileVideoOpen((open) => !open)} className="grid w-12 shrink-0 place-items-center rounded-r-xl border-l border-[#e6d8c8] focus-visible:outline-2 focus-visible:outline-[#a67c52]">
+                  <ChevronDown className={`size-4 transition ${mobileVideoOpen ? "rotate-180" : ""}`} aria-hidden="true" />
+                </button>
+              </div>
               <div id="mobile-video-submenu" hidden={!mobileVideoOpen}>
                 {videoItems.map(({ href, label }) => (
                   <Link key={href} href={href} onClick={closeMobileMenu} aria-current={pathname === href ? "page" : undefined} className={`ml-4 mt-1 block rounded-xl border-l-2 border-[#d8c3ad] px-5 py-3 text-sm font-bold focus-visible:outline-2 focus-visible:outline-[#a67c52] ${videoIsActive && isActive(href) ? "bg-white text-[#2b2119]" : "text-[#76685d] hover:bg-white/70"}`}>
