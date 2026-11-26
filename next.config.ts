@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/", destination: "/ko", permanent: true },
+      { source: "/ko/services/grooming-hotel", destination: "/ko/services/pet-video", permanent: true },
       ...koreanInsightRedirects,
       { source: "/ai-studio", destination: "/about", statusCode: 301 },
       { source: "/animals", destination: "/characters", statusCode: 301 },

@@ -41,14 +41,17 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
   );
 }
 
-export function PetIndustryCards({ compact = false }: { compact?: boolean }) {
+export function PetIndustryCards({ compact = false, onBusinessPage = false }: { compact?: boolean; onBusinessPage?: boolean }) {
   return (
     <div className={`grid gap-6 md:grid-cols-2 ${compact ? "" : "xl:grid-cols-4"}`}>
       {petIndustryServices.map((service) => {
         const Icon = industryIcons[service.slug];
+        const href = service.slug === "grooming-hotel"
+          ? onBusinessPage ? "#grooming-hotel" : "/ko/services/pet-video#grooming-hotel"
+          : `/ko/services/${service.slug}`;
         return (
           <article key={service.slug} className={`${cardClass} group flex h-full min-w-0 flex-col overflow-hidden`}>
-            <Link href={`/ko/services/${service.slug}`} className="relative block aspect-[4/3] overflow-hidden bg-[#f2e8dc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#6f4e37]">
+            <Link href={href} className="relative block aspect-[4/3] overflow-hidden bg-[#f2e8dc] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#6f4e37]">
               <Image
                 src={service.image}
                 alt={service.imageAlt}
@@ -64,7 +67,7 @@ export function PetIndustryCards({ compact = false }: { compact?: boolean }) {
               <span className="grid size-11 place-items-center rounded-2xl bg-[#f2e8dc] text-[#6f4e37]"><Icon size={22} aria-hidden="true" /></span>
               <h3 className="mt-5 text-2xl font-black leading-tight text-[#2b2119]">{service.cardTitle}</h3>
               <p className="mt-3 flex-1 leading-7 text-[#76685d]">{service.cardDescription}</p>
-              <Link href={`/ko/services/${service.slug}`} className="mt-6 w-fit rounded-lg font-black text-[#6f4e37] underline decoration-[#d8c3ad] underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+              <Link href={href} className="mt-6 w-fit rounded-lg font-black text-[#6f4e37] underline decoration-[#d8c3ad] underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
                 상세 안내 보기 →
               </Link>
             </div>
@@ -76,13 +79,15 @@ export function PetIndustryCards({ compact = false }: { compact?: boolean }) {
 }
 
 export function PetVideoLandingPage() {
+  const grooming = petIndustryServices.find(({ slug }) => slug === "grooming-hotel");
+  const groomingExample = grooming?.video;
   return (
     <main className={koreanPageTypographyClass}>
       <section className="mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-[0.92fr_0.88fr] md:items-center md:py-20">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.28em] text-[#a67c52]">Pet Business Video</p>
           <h1 className="mt-4 text-4xl font-black leading-tight tracking-tight text-[#2b2119] sm:text-5xl md:text-7xl">반려동물 업체를 위한 AI 홍보영상</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d] md:text-xl">매장, 제품과 서비스의 강점을 릴스·쇼츠·네이버 클립에 어울리는 짧은 영상으로 전합니다. 업종마다 고객이 확인하는 정보와 정서가 다른 만큼 같은 틀을 반복하지 않고 목적에 맞는 흐름을 설계합니다.</p>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#76685d] md:text-xl">애견미용실의 케어와 펫호텔의 돌봄부터 용품 브랜드, 동물병원, 장례식장 안내까지. 릴스·쇼츠·네이버 클립에 맞춰 고객이 알아야 할 정보를 전하고 예약·문의·구매로 이어지는 영상을 만듭니다.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href="#industries" className={primaryButton}>업종별 서비스 보기</a>
             <Link href="/ko/services#contact" className={secondaryButton}>무료 상담받기</Link>
@@ -109,10 +114,9 @@ export function PetVideoLandingPage() {
       </section>
 
       <section className="px-6 py-20">
-        <SectionHeading eyebrow="What We Create" title="목적에 맞는 반려동물 숏폼 영상" description="크몽 서비스에서 안내하는 제작 범위를 홈페이지에서도 한눈에 비교할 수 있도록 정리했습니다. 개인의 추억부터 매장과 제품 홍보까지 사용 목적에 따라 구성과 필요한 자료가 달라집니다." />
+        <SectionHeading eyebrow="What We Create" title="목적에 맞는 반려동물 숏폼 영상" description="매장 소개, 예약 안내, 제품 홍보에 필요한 영상과 준비 자료를 사용 목적에 맞춰 안내합니다." />
         <div className="mx-auto mt-10 grid max-w-7xl gap-6 lg:grid-cols-2">
           {[
-            { title: "반려동물 감성·기념 영상", description: "사진 속 반려동물을 주인공으로 생일, 입양 기념과 소중한 일상을 따뜻한 이야기로 구성합니다.", image: "/images/works/haru-first-journey/gallery/window-scene.png", alt: "따뜻한 창가에서 이야기를 시작하는 HARU" },
             { title: "SNS 세로형 영상", description: "유튜브 쇼츠, 인스타그램 릴스, 틱톡과 네이버 클립에 맞는 9:16 화면으로 제작합니다.", image: "/images/services/sns-vertical-video-card.svg", alt: "따뜻한 햇살 속에서 반려견과 교감하는 세로형 영상 장면" },
             { title: "동물 캐릭터 영상", description: "브랜드의 분위기와 메시지에 맞는 동물 캐릭터 장면을 기획하고 짧은 스토리로 연결합니다.", image: "/images/characters-hero-v2.png", alt: "FourFeetz 동물 캐릭터들이 함께 있는 장면" },
             { title: "반려동물 제품·매장 홍보", description: "제품의 쓰임과 매장의 강점을 고객이 빠르게 이해하도록 자막, 음악과 행동 유도를 구성합니다.", image: "/images/services/pet-grooming-hotel-cover.webp", alt: "반려동물 미용실과 호텔 홍보영상 예시 장면" },
@@ -135,10 +139,10 @@ export function PetVideoLandingPage() {
         <ol className="mx-auto mt-10 grid max-w-7xl gap-5 md:grid-cols-2 xl:grid-cols-5">
           {[
             ["자료와 목적 확인", "사진, 로고, 용도, 분위기와 희망 일정을 확인합니다."],
-            ["콘셉트·장면 구성", "핵심 메시지와 배경, 행동 방향을 설계합니다."],
+            ["구성·견적 합의", "핵심 메시지, 장면 수, 게시 채널과 수정 범위를 정합니다. 미용실·호텔은 견적·계약과 계약금 확인 후 제작합니다."],
             ["AI 이미지·영상 제작", "브랜드와 반려동물의 특징을 살린 결과를 선별합니다."],
             ["음악·색감·자막 편집", "게시 채널에 맞춰 완성도 있게 마무리합니다."],
-            ["검수 후 최종 전달", "협의한 수정 범위를 반영하고 최종 파일을 전달합니다."],
+            ["시안 확인·납품", "협의한 범위에서 시안을 수정합니다. 미용실·호텔은 최종 확인과 잔금 결제 후 게시 파일을 전달합니다."],
           ].map(([title, description], index) => (
             <li key={title} className={`${cardClass} p-6`}>
               <span className="text-sm font-black uppercase tracking-[0.18em] text-[#a67c52]">Step {index + 1}</span>
@@ -163,9 +167,38 @@ export function PetVideoLandingPage() {
       </section>
 
       <section id="industries" className="scroll-mt-24 px-6 py-20">
-        <SectionHeading eyebrow="Industry Services" title="업종별 홍보영상 제작 안내" description="애견미용실·호텔 페이지에서는 실제 제작한 세로형 포트폴리오 영상을 확인할 수 있습니다. 나머지 업종은 기존 FourFeetz 자산을 활용한 서비스 예시 이미지와 함께 구체적인 구성, 신뢰 요소와 제작 절차를 안내합니다." />
-        <div className="mx-auto mt-10 max-w-7xl"><PetIndustryCards /></div>
+        <SectionHeading eyebrow="Industry Services" title="업종별 홍보영상 제작 안내" description="미용실·호텔의 제작 사례와 가격은 이 페이지에서 확인할 수 있습니다. 다른 업종은 각 상세 안내에서 활용 예시를 살펴보세요." />
+        <div className="mx-auto mt-10 max-w-7xl"><PetIndustryCards onBusinessPage /></div>
       </section>
+
+      {grooming && groomingExample ? (
+        <section id="grooming-hotel" className="scroll-mt-24 border-y border-[#eadfce] bg-white px-6 py-20">
+          <SectionHeading eyebrow="Pet Grooming & Hotel" title="애견미용실·펫호텔 예약 홍보" description="미용실은 스타일과 세심한 케어를, 호텔은 청결한 공간과 돌봄 방식을 보여 주세요. 사용 권한이 있는 실제 매장 자료를 우선 사용하고, AI 연출이 실제 시설로 오해되지 않도록 구성합니다." />
+          <div className="mx-auto mt-10 grid max-w-7xl gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)]">
+            <figure className={`${cardClass} p-5`}>
+              <video controls playsInline preload="metadata" poster={groomingExample.poster} src={groomingExample.src} aria-label={groomingExample.label} className="mx-auto aspect-[9/16] w-full max-w-[240px] rounded-2xl bg-black object-contain">
+                브라우저가 MP4 영상을 지원하지 않습니다.
+              </video>
+              <figcaption className="mt-4 text-center text-[#76685d]">{groomingExample.label} · {groomingExample.durationLabel}<br />{groomingExample.note}</figcaption>
+            </figure>
+            <div>
+              <h3 className="text-2xl font-black">추천 영상 구성</h3>
+              <ol className="mt-4 grid gap-4 sm:grid-cols-2">
+                {grooming.recommended.map(({ title, description }) => <li key={title} className={`${cardClass} p-5`}><h4 className="font-black">{title}</h4><p className="mt-2 leading-7 text-[#76685d]">{description}</p></li>)}
+              </ol>
+              <p className="mt-5 leading-7 text-[#76685d]">활용 채널 · {grooming.channels.join(" · ")}</p>
+              <h3 className="mt-8 text-2xl font-black">자주 묻는 질문</h3>
+              <div className="mt-3 divide-y divide-[#eadfce]">
+                {grooming.faqs.map(({ question, answer }) => <details key={question} className="py-3"><summary className="cursor-pointer font-bold">{question}</summary><p className="mt-2 leading-7 text-[#76685d]">{answer}</p></details>)}
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      <VideoPricingSection
+        description="애견미용실·호텔의 기존 영상 패키지 가격입니다. 각 패키지는 세로형 또는 가로형 중 한 가지를 제공하며, 추가 규격과 맞춤 제작은 별도로 협의합니다."
+      />
 
       <section className="border-y border-[#eadfce] bg-white px-6 py-20">
         <SectionHeading eyebrow="Production Standard" title="자료가 부족해도, 사실과 다른 장면은 만들지 않습니다" />

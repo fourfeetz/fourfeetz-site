@@ -21,6 +21,7 @@ export type HeroVideoConfig = {
   title: string;
   description: string;
   ratio?: "landscape" | "portrait";
+  nativePortraitFrame?: boolean;
   objectFit?: "contain" | "cover";
   preload?: "auto" | "metadata";
 };
@@ -127,8 +128,8 @@ function HeroVideoCard({ locale, video }: { locale: HeroVideoLocale; video: Hero
   }
 
   return (
-    <div className={`relative overflow-hidden rounded-[34px] ${video.ratio === "portrait" ? "aspect-[4/3] bg-[#3d3028]" : "aspect-video bg-black"}`}>
-      {video.ratio === "portrait" ? (
+    <div className={`relative overflow-hidden rounded-[34px] ${video.nativePortraitFrame ? "mx-auto aspect-[9/16] w-full max-w-[320px] bg-black" : video.ratio === "portrait" ? "aspect-[4/3] bg-[#3d3028]" : "aspect-video bg-black"}`}>
+      {video.ratio === "portrait" && !video.nativePortraitFrame ? (
         <>
           <Image src={video.poster} alt="" aria-hidden="true" fill priority sizes="(min-width: 768px) 50vw, 100vw" className="scale-110 object-cover blur-xl" />
           <span aria-hidden="true" className="absolute inset-0 bg-[#2b2119]/45" />
