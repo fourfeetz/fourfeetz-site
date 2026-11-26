@@ -55,7 +55,9 @@ export default function Header() {
   const personalHref = lang === "ko" ? "/ko/services/personal-pet-video" : "/services/personal-pet-video";
   const memorialHref = lang === "ko" ? "/ko/services/pet-memorial-video" : "/services/pet-memorial-video";
   const memorialLabel = lang === "ko" ? "추모영상" : "Memorial Video";
-  const personalIsActive = isActive(personalHref) || isActive(memorialHref);
+  const celebrationHref = lang === "ko" ? "/ko/services/pet-celebration-video" : "/services/pet-celebration-video";
+  const celebrationLabel = lang === "ko" ? "축하영상" : "Celebration Video";
+  const personalIsActive = isActive(personalHref) || isActive(memorialHref) || isActive(celebrationHref);
   const videoLabel = lang === "ko" ? "영상 콘텐츠" : "Video Content";
   const videoToggleLabel = lang === "ko" ? "영상 콘텐츠 하위 메뉴" : "Video Content submenu";
   const videoIsActive = !personalIsActive && videoItems.some(({ href }) => isActive(href));
@@ -94,6 +96,9 @@ export default function Header() {
               </Link>
               <div className="invisible absolute left-1/2 top-full z-20 w-48 -translate-x-1/2 pt-3 opacity-0 transition duration-150 group-hover/menu:visible group-hover/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:opacity-100">
                 <div className="rounded-2xl border border-[#e6d8c8] bg-[#fbf7f0] p-2 shadow-xl shadow-[#6f4e37]/10">
+                  <Link href={celebrationHref} aria-current={pathname === celebrationHref ? "page" : undefined} className="block rounded-xl px-4 py-3 text-sm font-bold text-[#6f4e37] transition hover:bg-white hover:text-[#2b2119] focus-visible:bg-white focus-visible:text-[#2b2119] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
+                    {celebrationLabel}
+                  </Link>
                   <Link href={memorialHref} aria-current={pathname === memorialHref ? "page" : undefined} className="block rounded-xl px-4 py-3 text-sm font-bold text-[#6f4e37] transition hover:bg-white hover:text-[#2b2119] focus-visible:bg-white focus-visible:text-[#2b2119] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a67c52]">
                     {memorialLabel}
                   </Link>
@@ -194,6 +199,9 @@ export default function Header() {
               </div>
               <div id="mobile-personal-submenu" className={`grid overflow-hidden transition-[grid-template-rows,opacity] duration-200 ${mobilePersonalOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="min-h-0">
+                  <Link href={celebrationHref} onClick={closeMobileMenu} aria-current={pathname === celebrationHref ? "page" : undefined} tabIndex={mobileOpen && mobilePersonalOpen ? 0 : -1} className={`ml-4 mt-1 block rounded-xl border-l-2 border-[#d8c3ad] px-5 py-3 text-sm font-bold transition ${pathname === celebrationHref ? "bg-white text-[#2b2119]" : "text-[#76685d] hover:bg-white/70 hover:text-[#2b2119]"}`}>
+                    {celebrationLabel}
+                  </Link>
                   <Link href={memorialHref} aria-current={pathname === memorialHref ? "page" : undefined} tabIndex={mobileOpen && mobilePersonalOpen ? 0 : -1} className={`ml-4 mt-1 block rounded-xl border-l-2 border-[#d8c3ad] px-5 py-3 text-sm font-bold transition ${pathname === memorialHref ? "bg-white text-[#2b2119]" : "text-[#76685d] hover:bg-white/70 hover:text-[#2b2119]"}`}>
                     {memorialLabel}
                   </Link>
