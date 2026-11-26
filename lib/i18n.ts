@@ -289,13 +289,13 @@ export const navItems = [
   { href: "/services/personal-pet-video", key: "personal" },
   { href: "/services", key: "business" },
   { href: "/videos", key: "videos" },
-  { href: "/characters", key: "characters" },
-  { href: "/music", key: "music" },
-  { href: "/insights", key: "insights" },
-  { href: "/news", key: "news" },
   { href: "/tools", key: "tools" },
   { href: "/store", key: "store" },
+  { href: "/insights", key: "insights" },
   { href: "/services#contact", key: "contact" },
+  { href: "/characters", key: "characters" },
+  { href: "/music", key: "music" },
+  { href: "/news", key: "news" },
 ] as const satisfies readonly NavItem[];
 
 export const koreanNavItems = [
@@ -303,13 +303,13 @@ export const koreanNavItems = [
   { href: "/ko/services/personal-pet-video", key: "personal" },
   { href: "/ko/services/pet-video", key: "business" },
   { href: "/ko/videos", key: "videos" },
-  { href: "/ko/characters", key: "characters" },
-  { href: "/ko/music", key: "music" },
-  { href: "/ko/insights", key: "insights" },
-  { href: "/ko/news", key: "news" },
   { href: "/ko/tools", key: "tools" },
   { href: "/ko/store", key: "store" },
+  { href: "/ko/insights", key: "insights" },
   { href: "/ko/services#contact", key: "contact" },
+  { href: "/ko/characters", key: "characters" },
+  { href: "/ko/music", key: "music" },
+  { href: "/ko/news", key: "news" },
 ] as const satisfies readonly NavItem[];
 
 export const todaysUpdates = [
